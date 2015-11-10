@@ -19,7 +19,22 @@
 		<?php if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); ?>
 		<?php wp_head(); ?>
 	</head>
-
+	<body>
+		<div id="header">
+			<div id="branding">
+				<img id="logo" src="<?php bloginfo('template_directory'); ?>/img/brand_logo.png" srcset="<?php bloginfo('template_directory'); ?>/img/brand_logo@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/brand_logo@3x.png 3x" />
+				<div id="title"><span id="title-political">Political</span><span id="title-ad">Ad</span> <span id="title-library">Library</span></div>
+			</div>
+			<div id="navigation">
+				<ul>
+					<li>about</li>
+					<li>blog</li>
+					<li>data download</li>
+					<li>resources</li>
+					<li>search</li>
+				</ul>
+			</div>
+		</div>
 <?php
 // The Theme's main navigation should support a custom menu with wp_nav_menu().
 // Menus should support long link titles and a large amount of list items. These items should not break the design or layout.

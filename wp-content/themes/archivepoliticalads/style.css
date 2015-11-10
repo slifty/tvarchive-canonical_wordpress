@@ -11,3 +11,114 @@
  Text Domain:  archivepoliticalads
 */
 
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	font-family: HelveticaNeue-Bold;
+}
+
+#header {
+	background: #f7f7f5;
+	height: 73px;
+}
+
+#branding {
+}
+#logo {
+	height: 59px;
+	float: left;
+	width: 81px;
+	margin-left: 24px;
+	margin-top: 6px;
+}
+#title {
+	float: left;
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 10px;
+	margin-top: 22px;
+}
+#title-political {
+	color: #6cb1d0;
+}
+#title-ad {
+}
+#title-library {
+}
+
+#navigation {
+	float: right;
+	font-size: 18px;
+	font-weight: bold;
+	margin-top: 25px;
+}
+
+#navigation ul {
+	list-style: none;
+}
+#navigation ul li {
+	float: left;
+	margin-right: 24px;
+}
+
+
+#footer {
+	background-color: #3a3e4b;
+	height: 260px;
+	padding: 50px 115px;
+}
+
+#footer a {
+	color: #0a91ab;
+	text-decoration: none;
+}
+#footer a:hover {
+	text-decoration: underline;
+}
+
+#footer .footer-section {
+	float: left;
+	width: 33%;
+	margin-top: 50px;
+	height: 260px;
+}
+
+#footer .footer-title {
+	color: #bbb2a0;
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+#footer .footer-subtitle {
+	color: #9b9b9b;
+	font-size: 15px;
+	margin-bottom: 18px;
+}
+#footer .footer-copy {
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: normal;
+	margin-bottom: 24px;
+}
+#footer .footer-link {
+	font-size: 14px;
+}
+
+#footer-social-links {}
+#footer-social-links ul {
+	margin-top: 160px;
+	list-style: none;
+	float: right;
+}
+#footer-social-links ul li {
+	float: left;
+	margin-left: 16px;
+}
+#footer-social-links ul li img {
+	height: 50px;
+	width: 50px;
+}
+

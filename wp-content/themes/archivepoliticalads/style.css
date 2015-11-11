@@ -152,6 +152,7 @@ a:hover {
 		padding: 24px 115px;
 	}
 	.about-ad-row {
+		padding-left: 115px;
 		border-bottom: 1px solid #3a3e4b;
 	}
 	.about-ad-row.last {
@@ -165,9 +166,10 @@ a:hover {
 		padding-right: 27px;
 		padding-bottom: 7px;
 		padding-left: 25px;
+		min-height: 71px;
 	}
 	.about-ad-cell.first {
-		padding-left: 115px;
+		padding-left: 0px;
 	}
 	.about-ad-cell.last {
 		border-right: none;

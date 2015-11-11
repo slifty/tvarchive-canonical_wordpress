@@ -151,6 +151,15 @@
     echo '<input type="text" id="archive_ad_sponsor" name="archive_ad_sponsor" value="' . esc_attr( $value ) . '" size="50" />';
     echo('</li>');
 
+    // Insert the Ad candidate form
+    $value = get_post_meta( $post->ID, '_archive_ad_candidate', true );
+    echo('<li>');
+    echo '<label for="archive_ad_candidate">';
+    _e( 'Candidate', 'archive_ad_textdomain' );
+    echo '</label> ';
+    echo '<input type="text" id="archive_ad_candidate" name="archive_ad_candidate" value="' . esc_attr( $value ) . '" size="50" />';
+    echo('</li>');
+
     // Insert the Ad type form
     $value = get_post_meta( $post->ID, '_archive_ad_type', true );
     echo('<li>');
@@ -298,6 +307,14 @@
 
       // Update the meta field in the database.
       update_post_meta( $post_id, '_archive_ad_sponsor', $my_data );
+    }
+
+    if(isset($_POST['archive_ad_candidate'])) {
+      // Sanitize user input.
+      $my_data = sanitize_text_field( $_POST['archive_ad_candidate'] );
+
+      // Update the meta field in the database.
+      update_post_meta( $post_id, '_archive_ad_candidate', $my_data );
     }
 
     if(isset($_POST['archive_ad_type'])) {

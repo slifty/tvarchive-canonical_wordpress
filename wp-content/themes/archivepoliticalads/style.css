@@ -20,105 +20,174 @@ body {
 	font-family: HelveticaNeue-Bold;
 }
 
-#header {
-	background: #f7f7f5;
-	height: 73px;
-}
-
-#branding {
-}
-#logo {
-	height: 59px;
-	float: left;
-	width: 81px;
-	margin-left: 24px;
-	margin-top: 6px;
-}
-#title {
-	float: left;
-	font-size: 24px;
-	font-weight: bold;
-	margin-left: 10px;
-	margin-top: 22px;
-}
-#title-political {
-	color: #6cb1d0;
-}
-#title-ad {
-}
-#title-library {
-}
-
-#navigation {
-	float: right;
-	font-size: 18px;
-	font-weight: bold;
-	margin-top: 25px;
-}
-
-#navigation ul {
-	list-style: none;
-}
-#navigation ul li {
-	float: left;
-	margin-right: 24px;
-}
-
-
-#footer {
-	background-color: #3a3e4b;
-	height: 260px;
-	padding: 50px 115px;
-}
-
-#footer a {
-	color: #0a91ab;
+a {
+	color: #4a90e2;
 	text-decoration: none;
 }
-#footer a:hover {
+a:hover {
 	text-decoration: underline;
 }
 
-#footer .footer-section {
-	float: left;
-	width: 33%;
-	margin-top: 50px;
-	height: 260px;
-}
 
-#footer .footer-title {
-	color: #bbb2a0;
-	font-size: 24px;
-	font-weight: bold;
-	margin-bottom: 5px;
-}
-#footer .footer-subtitle {
-	color: #9b9b9b;
-	font-size: 15px;
-	margin-bottom: 18px;
-}
-#footer .footer-copy {
-	color: #ffffff;
-	font-size: 14px;
-	font-weight: normal;
-	margin-bottom: 24px;
-}
-#footer .footer-link {
-	font-size: 14px;
-}
+/* Header */
+	#header {
+		background: #f7f7f5;
+		height: 73px;
+	}
 
-#footer-social-links {}
-#footer-social-links ul {
-	margin-top: 160px;
-	list-style: none;
-	float: right;
-}
-#footer-social-links ul li {
-	float: left;
-	margin-left: 16px;
-}
-#footer-social-links ul li img {
-	height: 50px;
-	width: 50px;
-}
+	#branding {
+		height: 60px;
+	}
+	#logo {
+		height: 59px;
+		float: left;
+		width: 81px;
+		margin-left: 24px;
+		margin-top: 6px;
+	}
+	#title {
+		float: left;
+		font-size: 24px;
+		font-weight: bold;
+		margin-left: 10px;
+		margin-top: 22px;
+	}
+	#title-political {
+		color: #6cb1d0;
+	}
+	#title-ad {
+		color: #165E83;
+	}
+	#title-library {
+		color: #E85646;
+	}
 
+	#navigation {
+		font-size: 18px;
+		font-weight: bold;
+		margin-top: 25px;
+		height: 60px;
+	}
+
+	#navigation ul {
+		float: right;
+		list-style: none;
+	}
+	#navigation ul li {
+		float: left;
+		margin-right: 24px;
+	}
+
+
+/* Footer */
+	#footer {
+		background-color: #3a3e4b;
+		height: 360px;
+	}
+
+	#footer a {
+		color: #0a91ab;
+		text-decoration: none;
+	}
+	#footer a:hover {
+		text-decoration: underline;
+	}
+
+	#footer .footer-section {
+		margin-top: 50px;
+		height: 260px;
+	}
+
+	#footer .footer-title {
+		color: #bbb2a0;
+		font-size: 24px;
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
+	#footer .footer-subtitle {
+		color: #9b9b9b;
+		font-size: 15px;
+		margin-bottom: 18px;
+	}
+	#footer .footer-copy {
+		color: #ffffff;
+		font-size: 14px;
+		font-weight: normal;
+		margin-bottom: 24px;
+	}
+	#footer .footer-link {
+		font-size: 14px;
+	}
+
+	#footer-social-links {}
+	#footer-social-links ul {
+		margin-top: 160px;
+		list-style: none;
+		float: right;
+	}
+	#footer-social-links ul li {
+		float: left;
+		margin-left: 16px;
+	}
+	#footer-social-links ul li img {
+		height: 50px;
+		width: 50px;
+	}
+
+
+/* Canonical Ad Page */
+
+	#ad-embed {
+		background-color: #000;
+		padding: 80px 0px;
+	}
+	#ad-embed-iframe {
+		height: 390px;
+	}
+	#about-ad-header {
+		background-color: #f55949;
+		color: #fff;
+		font-size: 24px;
+		text-transform: uppercase;
+		padding: 24px 115px;
+	}
+	.about-ad-row {
+		border-bottom: 1px solid #3a3e4b;
+	}
+	.about-ad-row.last {
+		border-bottom: none;
+		padding-bottom: 45px;
+	}
+	.about-ad-cell {
+		float: left;
+		margin-top: 35px;
+		border-right: 1px solid #3a3e4b;
+		padding-right: 27px;
+		padding-bottom: 7px;
+		padding-left: 25px;
+	}
+	.about-ad-cell.first {
+		padding-left: 115px;
+	}
+	.about-ad-cell.last {
+		border-right: none;
+	}
+	.about-ad-label {
+		color: #f55949;
+		margin-top: -5px;
+		margin-bottom: 15px;
+		font-size: 14px;
+		text-transform: uppercase;
+	}
+	.about-ad-value {
+		color: #4a4a4a;
+		font-size: 24px;
+	}
+
+	#ad-note .about-ad-value{
+		line-height: 29px;
+		font-size: 20px;
+	}
+	#ad-note {
+		padding-bottom: 30px;
+	}

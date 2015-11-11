@@ -13,6 +13,8 @@
 <html <?php language_attributes(); ?>>
 	<head>
 		<meta charset="<?php bloginfo( 'charset' ); ?>" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
 		<title><?php wp_title(); ?></title>
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
 		<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
@@ -20,21 +22,22 @@
 		<?php wp_head(); ?>
 	</head>
 	<body>
-		<div id="header">
-			<div id="branding">
-				<img id="logo" src="<?php bloginfo('template_directory'); ?>/img/brand_logo.png" srcset="<?php bloginfo('template_directory'); ?>/img/brand_logo@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/brand_logo@3x.png 3x" />
-				<div id="title"><span id="title-political">Political</span><span id="title-ad">Ad</span> <span id="title-library">Library</span></div>
+		<div class="container-fluid">
+			<div id="header" class="row">
+				<div id="branding" class="col-lg-6">
+					<img id="logo" src="<?php bloginfo('template_directory'); ?>/img/brand_logo.png" srcset="<?php bloginfo('template_directory'); ?>/img/brand_logo@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/brand_logo@3x.png 3x" />
+					<div id="title"><span id="title-political">Political</span><span id="title-ad">Ad</span> <span id="title-library">Library</span></div>
+				</div>
+				<div id="navigation" class="col-lg-6">
+					<ul>
+						<li>about</li>
+						<li>blog</li>
+						<li>data download</li>
+						<li>resources</li>
+						<li>search</li>
+					</ul>
+				</div>
 			</div>
-			<div id="navigation">
-				<ul>
-					<li>about</li>
-					<li>blog</li>
-					<li>data download</li>
-					<li>resources</li>
-					<li>search</li>
-				</ul>
-			</div>
-		</div>
 <?php
 // The Theme's main navigation should support a custom menu with wp_nav_menu().
 // Menus should support long link titles and a large amount of list items. These items should not break the design or layout.

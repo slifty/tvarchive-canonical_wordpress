@@ -4,8 +4,17 @@
   // Add styles and scripts
   add_action( 'wp_enqueue_scripts', 'archivepoliticalads_scripts' );
   function archivepoliticalads_scripts() {
+
+    // Load the main styles
     wp_enqueue_style( 'style.css', get_stylesheet_uri() );
-    //wp_enqueue_script( 'script-name', get_template_directory_uri() . '/js/example.js', array(), '1.0.0', true );
+    
+    // Load in jQuery
+    wp_enqueue_script( 'jquery', get_template_directory_uri() . '/js/jquery.min.js', array(), '2.1.4', true );
+
+    // Load in bootstrap
+    wp_enqueue_style( 'bootstrap.css', get_template_directory_uri() . '/css/bootstrap.css' );
+    wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '3.3.5', true );
+
   }
 
 

@@ -28,6 +28,16 @@ a:hover {
 	text-decoration: underline;
 }
 
+div.button {
+	background-color: #4a90e2;
+	border-radius: 3px;
+	color: #fff;
+	font-size: 24px;
+	padding: 22px 10px;
+	text-align: center;
+	cursor: pointer;
+}
+
 
 /* Header */
 	#header {
@@ -136,7 +146,63 @@ a:hover {
 
 
 /* Canonical Ad Page */
+	.header-row {
+		padding: 24px 100px;
+	}
+	.header-row h1 {
+		color: #fff;
+		font-size: 24px;
+		font-weight: normal;
+		text-transform: uppercase;
+		margin: 0px;
+	}
 
+
+	.subheader-row {
+		padding: 13px 100px;
+	}
+
+	.subheader-row h2 {
+		color: #fff;
+		font-size: 20px;
+		font-weight: normal;
+		text-transform: uppercase;
+		margin: 0px;
+	}
+
+	.cell {
+		float: left;
+		margin-top: 35px;
+		border-right: 1px solid #3a3e4b;
+		padding-right: 27px;
+		padding-bottom: 7px;
+		padding-left: 25px;
+		min-height: 71px;
+	}
+	.cell.first {
+		padding-left: 0px;
+	}
+	.cell.last {
+		border-right: none;
+	}
+
+	.cell-label {
+		margin-top: -5px;
+		margin-bottom: 15px;
+		font-size: 14px;
+		text-transform: uppercase;
+	}
+	.cell-value {
+		color: #4a4a4a;
+		font-size: 24px;
+	}
+	.cell-multiline-value {
+		color: #4a4a4a;
+		line-height: 29px;
+		font-size: 20px;
+	}
+
+	/* Ad Embed */
 	#ad-embed {
 		background-color: #000;
 		padding: 80px 0px;
@@ -144,12 +210,10 @@ a:hover {
 	#ad-embed-iframe {
 		height: 390px;
 	}
+
+	/* About this Ad */
 	#about-ad-header {
 		background-color: #f55949;
-		color: #fff;
-		font-size: 24px;
-		text-transform: uppercase;
-		padding: 24px 115px;
 	}
 	.about-ad-row {
 		padding-left: 115px;
@@ -159,37 +223,38 @@ a:hover {
 		border-bottom: none;
 		padding-bottom: 45px;
 	}
-	.about-ad-cell {
-		float: left;
-		margin-top: 35px;
-		border-right: 1px solid #3a3e4b;
-		padding-right: 27px;
-		padding-bottom: 7px;
-		padding-left: 25px;
-		min-height: 71px;
-	}
-	.about-ad-cell.first {
-		padding-left: 0px;
-	}
-	.about-ad-cell.last {
-		border-right: none;
-	}
-	.about-ad-label {
+	.about-ad-row .cell-label {
 		color: #f55949;
-		margin-top: -5px;
-		margin-bottom: 15px;
-		font-size: 14px;
-		text-transform: uppercase;
-	}
-	.about-ad-value {
-		color: #4a4a4a;
-		font-size: 24px;
-	}
-
-	#ad-note .about-ad-value{
-		line-height: 29px;
-		font-size: 20px;
 	}
 	#ad-note {
 		padding-bottom: 30px;
 	}
+
+	/* Data Download */
+	#download-header {
+		background-color: #8ab858;
+	}
+	.download-row {
+		padding-left: 115px;
+	}
+	.download-row .cell-label {
+		color: #8ab758;
+	}
+	.download-row.last {
+		padding-bottom: 50px;
+	}
+
+	#download-about {
+		padding-bottom: 50px;
+	}
+
+	#download-subheader {
+		background-color: #8ab858;
+	}
+
+	#download-data-button {
+		height: 73px;
+		width: 228px;
+		margin-top: 20px;
+	}
+

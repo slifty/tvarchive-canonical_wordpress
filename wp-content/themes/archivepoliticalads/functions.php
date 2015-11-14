@@ -1,5 +1,237 @@
 <?php
 
+  // TODO: Some of the stuff in this file should be converted into individual plugins with proper plugin classes / etc.
+
+  // Load the theme config file
+  include('theme-config.php');
+
+  /////////////////
+  // Set up the database on theme activation
+  // For more info check out http://codex.wordpress.org/Creating_Tables_with_Plugins
+  add_action( 'init', 'create_ad_db' );
+  function create_ad_db() {
+    global $wpdb;
+    global $ad_db_version;
+
+    // Create the ad instances data table
+    $table_name = $wpdb->prefix . 'ad_instances';
+    
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql = "CREATE TABLE $table_name (
+      id mediumint(9) NOT NULL AUTO_INCREMENT,
+      wp_identifier mediumint(9) NOT NULL,
+      ad_identifier varchar(50) NOT NULL,
+      archive_identifier varchar(100) NOT NULL,
+      channel varchar(20),
+      air_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+      UNIQUE KEY id (id),
+      UNIQUE KEY archive_identifier (archive_identifier),
+      KEY wp_identifier (wp_identifier),
+      KEY ad_identifier (ad_identifier),
+      KEY channel (channel)
+    ) $charset_collate;";
+
+    // Wordpress doesn't load upgrade.php by default
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+    dbDelta( $sql );
+  }
+
+
+  /////////////////
+  // Schedule a regular sync with the archive
+  register_activation_hook(__FILE__, 'activate_archive_sync');
+  add_action('archive_sync', 'run_archive_sync');
+
+  add_action( 'init', 'run_archive_sync' );
+  function activate_archive_sync() {
+    // wp_schedule_event(// (), 'hourly', 'archive_sync');
+  }
+
+  function run_archive_sync() {
+
+    ///////
+    // STEP 1: Load all newly discovered political ads, creating entries for each new ad
+
+
+    // STEP 1.1: Get a list of new ads
+    // TODO: wire this up to use the http://www-tracey.archive.org
+    $new_ads = get_new_ads();
+
+    // STEP 1.2: Go through the list and make sure there is a "post" for each ad
+    foreach($new_ads as $new_ad) {
+      $new_ad_identifier = $new_ad->ad_id;
+      
+      // Does the ad already exist?
+      $existing_ad = get_page_by_title( $new_ad_identifier, OBJECT, 'archive_political_ad');
+      if($existing_ad)
+        continue;
+
+      // Create a new post for the ad
+      $post = array(
+        'post_name'      => $new_ad_identifier,
+        'post_title'     => $new_ad_identifier,
+        'post_status'    => 'draft', // Eventually we may want this to be 'publish'
+        'post_type'      => 'archive_political_ad'
+      );
+      wp_insert_post( $post );
+    }
+
+
+    // STEP 2 + 3: Load the list of existing ads update the metadata
+    global $wpdb;
+    $existing_ads = get_posts(array(
+      'post_type' => 'archive_political_ad',
+      'post_status' => 'any'
+    ));
+
+    foreach($existing_ads as $existing_ad) {
+
+      $wp_identifier = $existing_ad->ID;
+      $ad_identifier = $existing_ad->post_title;
+
+      // STEP 2: Get every instance, and create a record for each instance
+      // NOTE: it won't double insert when run more than once due to the unique key
+      // TODO: maybe we should explicitly check for dupes before entering?
+      $instances = get_ad_instances($ad_identifier);
+      $total = $instances->numFound;
+      $count = 0;
+      while($count < $total) {
+        $docs = $instances->docs;
+        foreach($docs as $doc) {
+          $count += 1;
+          $archive_identifier = $doc->identifier;
+          $channel = $doc->channel;
+          $air_time = $doc->start;
+          
+          $table_name = $wpdb->prefix . 'ad_instances';
+          
+          $wpdb->insert( 
+            $table_name,
+            array( 
+              'wp_identifier' => $wp_identifier, 
+              'ad_identifier' => $ad_identifier, 
+              'archive_identifier' => $archive_identifier,
+              'channel' => $channel,
+              'air_time' => $air_time,
+            ) 
+          );
+        }
+        $instances = get_ad_instances($ad_identifier, $count);
+        if(sizeof($docs) == 0)
+          $count = $total;
+      }
+
+      // STEP 3: Update metadata based on the instance list
+      $metadata = get_ad_metadata($ad_identifier);
+
+      // Now that we have the data, lets update the metadata for the canonical ad itself
+      $table_name = $wpdb->prefix . 'ad_instances';
+
+      $query = "SELECT count(*) as air_count,
+                       count(DISTINCT channel) as network_count,
+                       MIN(air_time) as first_seen,
+                       MAX(air_time) as last_seen
+                  FROM ".$table_name."
+                 WHERE ad_identifier = '".mysql_real_escape_string($ad_identifier)."'
+              GROUP BY ad_identifier";
+
+      $results = $wpdb->get_results($query);
+      $results = $results[0];
+
+      $ad_embed_url = 'http://'.ARCHIVE_API_HOST.'/embed/'.$ad_identifier;
+      $ad_id = $ad_identifier;
+      $ad_sponsor = $metadata->metadata->sponsor;
+      $ad_candidate = $metadata->metadata->contributor;
+      $ad_type = "Political Ad";
+      //$ad_race = "";
+      //$ad_message = "";
+      $ad_air_count = $results->air_count;
+      $ad_market_count = 0;
+      $ad_network_count = $results->network_count;
+      $ad_first_seen = $results->first_seen;
+      $ad_last_seen = $results->last_seen;
+
+      update_post_meta( $wp_identifier, '_archive_ad_embed_url', $ad_embed_url );
+      // update_post_meta( $wp_identifier, '_archive_ad_notes', $my_data );
+      update_post_meta( $wp_identifier, '_archive_ad_id', $ad_id );
+      update_post_meta( $wp_identifier, '_archive_ad_sponsor', $ad_sponsor );
+      update_post_meta( $wp_identifier, '_archive_ad_candidate', $ad_candidate );
+      update_post_meta( $wp_identifier, '_archive_ad_type', $ad_type );
+      //update_post_meta( $wp_identifier, '_archive_ad_race', $ad_race );
+      //update_post_meta( $wp_identifier, '_archive_ad_message', $ad_message );
+      update_post_meta( $wp_identifier, '_archive_ad_air_count', $ad_air_count );
+      update_post_meta( $wp_identifier, '_archive_ad_market_count', $ad_market_count );
+      update_post_meta( $wp_identifier, '_archive_ad_network_count', $ad_network_count );
+      update_post_meta( $wp_identifier, '_archive_ad_first_seen', $ad_first_seen );
+      update_post_meta( $wp_identifier, '_archive_ad_last_seen', $ad_last_seen );
+    }
+  }
+  function get_new_ads() {
+
+      // Get a list of ad instances from the archive
+      $url = ARCHIVE_API_HOST.'/details/tv?weekads=1&output=json';
+
+      // Create the GET
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $url);
+
+      // Take in the server's response
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+      // Run the CURL
+      $curl_result = curl_exec($ch);
+      curl_close ($ch);
+
+      // Parse the result
+      $result = json_decode($curl_result);
+
+      return $result;
+  }
+
+  function get_ad_instances($ad_identifier, $offset=0) {
+      // Get a list of ad instances from the archive
+      $url = ARCHIVE_SEARCH_HOST.'/solr/select?indent=yes&omitHeader=true&wt=json&start='.$offset.'&q=ad_id:'.$ad_identifier;
+
+      // Create the GET
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $url);
+
+      // Take in the server's response
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+      // Run the CURL
+      $curl_result = curl_exec($ch);
+      curl_close ($ch);
+
+      // Parse the result
+      $result = json_decode($curl_result);
+
+      return $result->response;
+  }
+
+  function get_ad_metadata($ad_identifier) {
+
+      // Get a list of ad instances from the archive
+      $url = ARCHIVE_API_HOST.'/metadata/'.$ad_identifier;
+
+      // Create the GET
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $url);
+
+      // Take in the server's response
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+      // Run the CURL
+      $curl_result = curl_exec($ch);
+      curl_close ($ch);
+
+      // Parse the result
+      $result = json_decode($curl_result);
+
+      return $result;
+  }
+
   /////////////////
   // Add styles and scripts
   add_action( 'wp_enqueue_scripts', 'archivepoliticalads_scripts' );

@@ -17,7 +17,8 @@
 }
 
 body {
-	font-family: HelveticaNeue-Bold;
+	color: #4a4a4a;
+
 }
 
 a {
@@ -36,6 +37,10 @@ div.button {
 	padding: 22px 10px;
 	text-align: center;
 	cursor: pointer;
+}
+
+.checkbox {
+	font-size: 16px;
 }
 
 

@@ -1,0 +1,4 @@
+<?php
+	define('ARCHIVE_SEARCH_HOST', 'localhost:9999');
+	define('ARCHIVE_API_HOST', 'archive.org');
+?>

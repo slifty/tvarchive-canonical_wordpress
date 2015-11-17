@@ -5,19 +5,20 @@
 // Start the loop.
 while ( have_posts() ) : the_post();
 	$post_id = get_the_ID();
-	$ad_embed_url = get_post_meta( $post_id, '_archive_ad_embed_url', true );
-	$ad_notes = get_post_meta( $post_id, '_archive_ad_notes', true );
-	$ad_id = get_post_meta( $post_id, '_archive_ad_id', true );
-	$ad_sponsor = get_post_meta( $post_id, '_archive_ad_sponsor', true );
-	$ad_candidate = get_post_meta( $post_id, '_archive_ad_candidate', true );
-	$ad_type = get_post_meta( $post_id, '_archive_ad_type', true );
-	$ad_race = get_post_meta( $post_id, '_archive_ad_race', true );
-	$ad_message = get_post_meta( $post_id, '_archive_ad_message', true );
-	$ad_air_count = get_post_meta( $post_id, '_archive_ad_air_count', true );
-	$ad_market_count = get_post_meta( $post_id, '_archive_ad_market_count', true );
-	$ad_network_count = get_post_meta( $post_id, '_archive_ad_network_count', true );
-	$ad_first_seen = get_post_meta( $post_id, '_archive_ad_first_seen', true );
-	$ad_last_seen = get_post_meta( $post_id, '_archive_ad_last_seen', true );
+	$post_metadata = get_post_meta($post_id);
+	$ad_embed_url = $post_metadata['_archive_ad_embed_url'][0];
+	$ad_notes = $post_metadata['_archive_ad_notes'][0];
+	$ad_id = $post_metadata['_archive_ad_id'][0];
+	$ad_sponsor = $post_metadata['_archive_ad_sponsor'][0];
+	$ad_candidate = $post_metadata['_archive_ad_candidate'][0];
+	$ad_type = $post_metadata['_archive_ad_type'][0];
+	$ad_race = $post_metadata['_archive_ad_race'][0];
+	$ad_message = $post_metadata['_archive_ad_message'][0];
+	$ad_air_count = $post_metadata['_archive_ad_air_count'][0];
+	$ad_market_count = $post_metadata['_archive_ad_market_count'][0];
+	$ad_network_count = $post_metadata['_archive_ad_network_count'][0];
+	$ad_first_seen = $post_metadata['_archive_ad_first_seen'][0];
+	$ad_last_seen = $post_metadata['_archive_ad_last_seen'][0];
 
 	?>
 
@@ -116,26 +117,26 @@ while ( have_posts() ) : the_post();
 			<div class="cell-multiline-value">Choose the fields you would like included below:</div>
 		</div>
 	</div>
-	<form>
+	<form method="get" action="<?php bloginfo('url'); ?>/export" target="_blank">
 		<div class="row download-row">
 			<div class="col-lg-4">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox"> Location Data
+						<input type="checkbox" name="data_include[]" value="location" checked="checked"> Location Data
 					</label>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox"> Date Data
+						<input type="checkbox" name="data_include[]" value="date" checked="checked"> Date Data
 					</label>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox"> Notes
+						<input type="checkbox" name="data_include[]" value="notes" checked="checked"> Notes
 					</label>
 				</div>
 			</div>
@@ -144,30 +145,30 @@ while ( have_posts() ) : the_post();
 			<div class="col-lg-4">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox"> Station Information
+						<input type="checkbox" name="data_include[]" value="station" checked="checked"> Station Information
 					</label>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox"> Time Data
+						<input type="checkbox" name="data_include[]" value="time" checked="checked"> Time Data
 					</label>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox"> Item Metadata
+						<input type="checkbox" name="data_include[]" value="metadata" checked="checked"> Item Metadata
 					</label>
 				</div>
 			</div>
 		</div>
 		<div class="row download-row last">
 			<div class="col-xs-offset-9 col-xs-3">
-				<div id="download-data-button" class="button">
-					Download CSV
-				</div>
+
+				<input type="hidden" name="ad_identifier" value="<?php echo($ad_id); ?>" />
+				<input type="submit" id="download-data-button" class="button" value="Download CSV" />
 			</div>
 		</div>
 	</form>

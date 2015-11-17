@@ -2,46 +2,35 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
-
-		<?php if ( have_posts() ) : ?>
-
-			<?php if ( is_home() && ! is_front_page() ) : ?>
-				<header>
-					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-				</header>
-			<?php endif; ?>
-
-			<?php
-			// Start the loop.
-			while ( have_posts() ) : the_post();
-
-				/*
-				 * Include the Post-Format-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-				 */
-				get_template_part( 'content', get_post_format() );
-
-			// End the loop.
-			endwhile;
-
-			// Previous/next page navigation.
-			the_posts_pagination( array(
-				'prev_text'          => __( 'Previous page', 'twentyfifteen' ),
-				'next_text'          => __( 'Next page', 'twentyfifteen' ),
-				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyfifteen' ) . ' </span>',
-			) );
-
-		// If no content, include the "No posts found" template.
-		else :
-			get_template_part( 'content', 'none' );
-
-		endif;
-		?>
-
-		</main><!-- .site-main -->
-	</div><!-- .content-area -->
+<div id="home-header">
+	<div id="home-header-content">
+		<div id="home-header-introduction">
+			<div class="row">
+				<div id="home-header-title" class="col-lg-5">
+					Call to action it’s action packed
+				</div>
+			</div>
+			<div class="row">
+				<div id="home-header-explanation" class="col-lg-6">
+					Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.
+				</div>
+			</div>
+		</div>
+		<div id="home-header-search">
+			<div class="col-sm-8 col-sm-offset-2"><?php get_search_form('YOLO'); ?></div>
+		</div>
+	</div>
+</div>
+<div id="home-blog-section" class="row">
+	<div class="col-sm-12">
+		Blog posts will go here
+	</div>
+</div>
+<div id="home-explore-header" class="row header-row">
+	<h1>Explore the Collection</h1>
+</div>
+<div id="home-explore-section">
+	<?php get_template_part('explore'); ?>
+</div>
 
 <?php get_footer(); ?>

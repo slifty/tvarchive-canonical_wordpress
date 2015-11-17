@@ -232,6 +232,177 @@
       return $result;
   }
 
+  
+  /////////////////
+  // Export API
+  // Check out http://coderrr.com/create-an-api-endpoint-in-wordpress/ for approach info
+
+  add_filter('query_vars', 'export_add_query_vars');
+  add_action('parse_request', 'export_sniff_requests');
+  add_action('init', 'export_add_endpoint');
+ 
+  /** Add public query vars
+   * @param array $vars List of current public query vars
+   * @return array $vars 
+   */
+  function export_add_query_vars($vars){
+    $vars[] = '__export';
+    $vars[] = 'export_options';
+    return $vars;
+  } 
+
+  /** Add API Endpoint
+   * This is where the magic happens - brush up on your regex skillz
+   * @return void
+   */
+  function export_add_endpoint(){
+    add_rewrite_rule('^export/?(.*)?/?','index.php?__export=1&export_options=$matches[1]','top');
+  }
+
+  /** Sniff Requests
+   * This is where we hijack all API requests
+   *   If $_GET['__api'] is set, we kill WP and serve up pug bomb awesomeness
+   * @return die if API request
+   */
+  function export_sniff_requests(){
+    global $wp;
+    if(isset($wp->query_vars['__export'])){
+      export_handle_request();
+      exit;
+    }
+  }
+
+  /** Handle Requests
+   * This is where we send off for an intense pug bomb package
+   * @return void 
+   */
+  function export_handle_request(){
+    global $wp;
+    global $wpdb;
+
+    // Collect the data associated with this ad
+    $table_name = $wpdb->prefix . 'ad_instances';
+
+    $query = "SELECT id as id,
+                     channel as channel,
+                     air_time as air_time,
+                     ad_identifier as ad_identifier,
+                     archive_identifier as archive_identifier,
+                     wp_identifier as wp_identifier
+            FROM ".$table_name." ";
+
+    if(array_key_exists('ad_identifier', $_GET)) {
+      $ad_identifier = $_GET['ad_identifier'];
+      $query .= "WHERE ad_identifier = '".mysql_real_escape_string($ad_identifier)."'";
+    }
+           
+
+    $results = $wpdb->get_results($query);
+    $post_id = $results[0]->wp_identifier;
+
+    $ad_embed_url = get_post_meta( $post_id, '_archive_ad_embed_url', true );
+    $ad_notes = get_post_meta( $post_id, '_archive_ad_notes', true );
+    $ad_id = get_post_meta( $post_id, '_archive_ad_id', true );
+    $ad_sponsor = get_post_meta( $post_id, '_archive_ad_sponsor', true );
+    $ad_candidate = get_post_meta( $post_id, '_archive_ad_candidate', true );
+    $ad_type = get_post_meta( $post_id, '_archive_ad_type', true );
+    $ad_race = get_post_meta( $post_id, '_archive_ad_race', true );
+    $ad_message = get_post_meta( $post_id, '_archive_ad_message', true );
+    $ad_air_count = get_post_meta( $post_id, '_archive_ad_air_count', true );
+    $ad_market_count = get_post_meta( $post_id, '_archive_ad_market_count', true );
+    $ad_network_count = get_post_meta( $post_id, '_archive_ad_network_count', true );
+    $ad_first_seen = get_post_meta( $post_id, '_archive_ad_first_seen', true );
+    $ad_last_seen = get_post_meta( $post_id, '_archive_ad_last_seen', true );
+
+    $rows = array();
+    $metadata_cache = array();
+    foreach($results as $result) {
+      $ad_identifier = $result->ad_identifier;
+      $channel = $result->channel;
+      $air_time = $result->air_time;
+      $archive_identifier = $result->archive_identifier;
+
+      // Cache the metadata for this identifier
+      if(!array_key_exists($ad_identifier, $metadata_cache)) {
+        $wp_meta = get_post_meta($post_id);
+        $metadata['ad_embed_url'] = $wp_meta['_archive_ad_embed_url'][0];
+        $metadata['ad_notes'] = $wp_meta['_archive_ad_notes'][0];
+        $metadata['ad_id'] = $wp_meta['_archive_ad_id'][0];
+        $metadata['ad_sponsor'] = $wp_meta['_archive_ad_sponsor'][0];
+        $metadata['ad_candidate'] = $wp_meta['_archive_ad_candidate'][0];
+        $metadata['ad_type'] = $wp_meta['_archive_ad_type'][0];
+        $metadata['ad_race'] = $wp_meta['_archive_ad_race'][0];
+        $metadata['ad_message'] = $wp_meta['_archive_ad_message'][0];
+        $metadata['ad_air_count'] = $wp_meta['_archive_ad_air_count'][0];
+        $metadata['ad_market_count'] = $wp_meta['_archive_ad_market_count'][0];
+        $metadata['ad_network_count'] = $wp_meta['_archive_ad_network_count'][0];
+        $metadata['ad_first_seen'] = $wp_meta['_archive_ad_first_seen'][0];
+        $metadata['ad_last_seen'] = $wp_meta['_archive_ad_last_seen'][0];
+        $metadata_cache[$ad_identifier] = $metadata;
+      }
+
+      // Load the metadata from the cache
+      $ad_embed_url = $metadata_cache[$ad_identifier]['ad_embed_url'];
+      $ad_notes = $metadata_cache[$ad_identifier]['ad_notes'];
+      $ad_id = $metadata_cache[$ad_identifier]['ad_id'];
+      $ad_sponsor = $metadata_cache[$ad_identifier]['ad_sponsor'];
+      $ad_candidate = $metadata_cache[$ad_identifier]['ad_candidate'];
+      $ad_type = $metadata_cache[$ad_identifier]['ad_type'];
+      $ad_race = $metadata_cache[$ad_identifier]['ad_race'];
+      $ad_message = $metadata_cache[$ad_identifier]['ad_message'];
+      $ad_air_count = $metadata_cache[$ad_identifier]['ad_air_count'];
+      $ad_market_count = $metadata_cache[$ad_identifier]['ad_market_count'];
+      $ad_network_count = $metadata_cache[$ad_identifier]['ad_network_count'];
+      $ad_first_seen = $metadata_cache[$ad_identifier]['ad_first_seen'];
+      $ad_last_seen = $metadata_cache[$ad_identifier]['ad_last_seen'];
+
+      // Create the row
+      $row = [
+        "ad_identifier" => $ad_identifier,
+        "channel" => $channel,
+        "air_time" => $air_time,
+        "archive_identifier" => $archive_identifier,
+        "embed_url" => $ad_embed_url,
+        "sponsor" => $ad_sponsor,
+        "candidate" => $ad_candidate,
+        "type" => $ad_type,
+        "race" => $ad_race,
+        "message" => $ad_message,
+        "notes" => $notes
+      ];
+      array_push($rows, $row);
+    }
+
+    export_send_response($rows);
+  }
+
+  /** Response Handler
+   * This sends a JSON response to the browser
+   */
+  function export_send_response($rows){
+    // output headers so that the file is downloaded rather than displayed
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename=data.csv');
+    if(sizeof($rows) == 0)
+      exit;
+
+    // Create the header data
+    $header = array_keys($rows[0]);
+
+    // create a file pointer connected to the output stream
+    $output = fopen('php://output', 'w');
+
+    // output the column headings
+    fputcsv($output, $header);
+
+    // loop over the rows, outputting them
+    foreach($rows as $row) {
+      fputcsv($output, $row);
+    }
+
+    exit;
+  }
+
   /////////////////
   // Add styles and scripts
   add_action( 'wp_enqueue_scripts', 'archivepoliticalads_scripts' );

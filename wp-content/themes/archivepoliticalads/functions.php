@@ -71,17 +71,36 @@
     global $wpdb;    
     $table_name = $wpdb->prefix . 'ad_metadata';
     $query = "SELECT count(*) as ad_count,
-                     sponsor as sponsor
+                     ad_candidate as ad_candidate
                 FROM ".$table_name."
-            GROUP BY sponsor
+            GROUP BY ad_sponsor
             ORDER BY ad_count desc";
 
     $results = $wpdb->get_results($query);
-    print_r($results);
-    echo($query);
+
+    $candidates = array();
+    foreach($results as $result) {
+      array_push($candidates, $result->ad_candidate);
+    }
+    return $candidates;
   }
 
   function get_sponsors() {
+    global $wpdb;    
+    $table_name = $wpdb->prefix . 'ad_metadata';
+    $query = "SELECT count(*) as ad_count,
+                     ad_sponsor as ad_sponsor
+                FROM ".$table_name."
+            GROUP BY ad_sponsor
+            ORDER BY ad_count desc";
+
+    $results = $wpdb->get_results($query);
+
+    $sponsors = array();
+    foreach($results as $result) {
+      array_push($sponsors, $result->ad_sponsor);
+    }
+    return $sponsors;
 
   }
 

@@ -5,20 +5,21 @@
 // Start the loop.
 while ( have_posts() ) : the_post();
 	$post_id = get_the_ID();
-	$post_metadata = get_post_meta($post_id);
-	$ad_embed_url = $post_metadata['_archive_ad_embed_url'][0];
-	$ad_notes = $post_metadata['_archive_ad_notes'][0];
-	$ad_id = $post_metadata['_archive_ad_id'][0];
-	$ad_sponsor = $post_metadata['_archive_ad_sponsor'][0];
-	$ad_candidate = $post_metadata['_archive_ad_candidate'][0];
-	$ad_type = $post_metadata['_archive_ad_type'][0];
-	$ad_race = $post_metadata['_archive_ad_race'][0];
-	$ad_message = $post_metadata['_archive_ad_message'][0];
-	$ad_air_count = $post_metadata['_archive_ad_air_count'][0];
-	$ad_market_count = $post_metadata['_archive_ad_market_count'][0];
-	$ad_network_count = $post_metadata['_archive_ad_network_count'][0];
-	$ad_first_seen = $post_metadata['_archive_ad_first_seen'][0];
-	$ad_last_seen = $post_metadata['_archive_ad_last_seen'][0];
+	$post_metadata = get_ad_metadata($post_id);
+
+	$ad_embed_url = $post_metadata['embed_url'];
+	$ad_notes = $post_metadata['notes'];
+	$ad_id = $post_metadata['ad_id'];
+	$ad_sponsor = $post_metadata['ad_sponsor'];
+	$ad_candidate = $post_metadata['ad_candidate'];
+	$ad_type = $post_metadata['ad_type'];
+	$ad_race = $post_metadata['ad_race'];
+	$ad_message = $post_metadata['ad_message'];
+	$ad_air_count = $post_metadata['ad_air_count'];
+	$ad_market_count = $post_metadata['ad_market_count'];
+	$ad_network_count = $post_metadata['ad_network_count'];
+	$ad_first_seen = $post_metadata['ad_first_seen'];
+	$ad_last_seen = $post_metadata['ad_last_seen'];
 
 	?>
 

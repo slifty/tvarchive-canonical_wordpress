@@ -13,6 +13,9 @@
     global $wpdb;
     global $ad_db_version;
 
+    // Wordpress doesn't load upgrade.php by default
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+    
     // Create the ad instances data table
     $table_name = $wpdb->prefix . 'ad_instances';
     
@@ -32,9 +35,54 @@
       KEY channel (channel)
     ) $charset_collate;";
 
-    // Wordpress doesn't load upgrade.php by default
-    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql );
+
+
+    // Create the ad_metadata data table
+    $table_name = $wpdb->prefix . 'ad_metadata';
+    
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql = "CREATE TABLE $table_name (
+      id mediumint(9) NOT NULL AUTO_INCREMENT,
+      wp_identifier mediumint(9) NOT NULL,
+      ad_sponsor varchar(200),
+      ad_sponsor_type varchar(100),
+      ad_candidate varchar(200),
+      ad_message varchar(100),
+      ad_type varchar(100),
+      ad_race varchar(100),
+      UNIQUE KEY id (id),
+      KEY wp_identifier (wp_identifier),
+      KEY ad_sponsor (ad_sponsor),
+      KEY ad_candidate (ad_candidate),
+      KEY ad_message (ad_message),
+      KEY ad_type (ad_type),
+      KEY ad_race (ad_race)
+    ) $charset_collate;";
+
+    dbDelta( $sql );
+  }
+
+  /////////////////
+  // Utility methods for use in themes
+  // TODO: post meta should be stored in a separate table, rather than as meta fields.
+  function get_candidates() {
+    global $wpdb;    
+    $table_name = $wpdb->prefix . 'ad_metadata';
+    $query = "SELECT count(*) as ad_count,
+                     sponsor as sponsor
+                FROM ".$table_name."
+            GROUP BY sponsor
+            ORDER BY ad_count desc";
+
+    $results = $wpdb->get_results($query);
+    print_r($results);
+    echo($query);
+  }
+
+  function get_sponsors() {
+
   }
 
 
@@ -93,7 +141,7 @@
       // STEP 2: Get every instance, and create a record for each instance
       // NOTE: it won't double insert when run more than once due to the unique key
       // TODO: maybe we should explicitly check for dupes before entering?
-      $instances = get_ad_instances($ad_identifier);
+      $instances = get_ad_archive_instances($ad_identifier);
       $total = $instances->numFound;
       $count = 0;
       while($count < $total) {
@@ -117,13 +165,13 @@
             ) 
           );
         }
-        $instances = get_ad_instances($ad_identifier, $count);
+        $instances = get_ad_archive_instances($ad_identifier, $count);
         if(sizeof($docs) == 0)
           $count = $total;
       }
 
       // STEP 3: Update metadata based on the instance list
-      $metadata = get_ad_metadata($ad_identifier);
+      $metadata = get_ad_archive_metadata($ad_identifier);
 
       // Now that we have the data, lets update the metadata for the canonical ad itself
       $table_name = $wpdb->prefix . 'ad_instances';
@@ -152,21 +200,157 @@
       $ad_first_seen = $results->first_seen;
       $ad_last_seen = $results->last_seen;
 
-      update_post_meta( $wp_identifier, '_archive_ad_embed_url', $ad_embed_url );
-      // update_post_meta( $wp_identifier, '_archive_ad_notes', $my_data );
-      update_post_meta( $wp_identifier, '_archive_ad_id', $ad_id );
-      update_post_meta( $wp_identifier, '_archive_ad_sponsor', $ad_sponsor );
-      update_post_meta( $wp_identifier, '_archive_ad_candidate', $ad_candidate );
-      update_post_meta( $wp_identifier, '_archive_ad_type', $ad_type );
-      //update_post_meta( $wp_identifier, '_archive_ad_race', $ad_race );
-      //update_post_meta( $wp_identifier, '_archive_ad_message', $ad_message );
-      update_post_meta( $wp_identifier, '_archive_ad_air_count', $ad_air_count );
-      update_post_meta( $wp_identifier, '_archive_ad_market_count', $ad_market_count );
-      update_post_meta( $wp_identifier, '_archive_ad_network_count', $ad_network_count );
-      update_post_meta( $wp_identifier, '_archive_ad_first_seen', $ad_first_seen );
-      update_post_meta( $wp_identifier, '_archive_ad_last_seen', $ad_last_seen );
+      $metadata = [
+        'embed_url' => $ad_embed_url,
+        'ad_id' => $ad_id,
+        'ad_sponsor' => $ad_sponsor,
+        'ad_candidate' => $ad_candidate,
+        'ad_type' => $ad_type,
+        'ad_air_count' => $ad_air_count,
+        'ad_market_count' => $ad_market_count,
+        'ad_network_count' => $ad_network_count,
+        'ad_first_seen' => $ad_first_seen,
+        'ad_last_seen' => $ad_last_seen
+      ];
+      save_ad_metadata($wp_identifier, $metadata);
     }
   }
+
+
+  /**
+   * Saves metadata in the appropriate buckets (custom fields or custom table)
+   */
+  function save_ad_metadata($wp_identifier, $metadata) {
+    global $wpdb;
+
+    // Update or save the meta stored in a metadata table
+    $update_array = array();
+    $update_array['wp_identifier'] = $wp_identifier;
+    if(array_key_exists('ad_sponsor', $metadata)) {
+      $update_array['ad_sponsor'] = $metadata['ad_sponsor'];
+    }
+    if(array_key_exists('ad_candidate', $metadata)) {
+      $update_array['ad_candidate'] = $metadata['ad_candidate'];
+    }
+    if(array_key_exists('ad_type', $metadata)) {
+      $update_array['ad_type'] = $metadata['ad_type'];
+    }
+    if(array_key_exists('ad_sponsor_type', $metadata)) {
+      $update_array['ad_sponsor_type'] = $metadata['ad_sponsor_type'];
+    }
+    if(array_key_exists('ad_race', $metadata)) {
+      $update_array['ad_race'] = $metadata['ad_race'];
+    }
+    if(array_key_exists('ad_message', $metadata)) {
+      $update_array['ad_message'] = $metadata['ad_message'];
+    }
+    if(sizeof($update_array) > 0) {
+
+      $table_name = $wpdb->prefix . 'ad_metadata';
+
+      // Check if a row already exists for this
+      $query = "SELECT id as id
+              FROM ".$table_name."
+             WHERE wp_identifier = '".mysql_real_escape_string($wp_identifier)."'";
+      
+      $results = $wpdb->get_results($query);
+      if(sizeof($results) > 0) {
+        $wpdb->update(
+          $table_name,
+          $update_array,
+          array('wp_identifier' => $wp_identifier));
+      } else {
+        $wpdb->insert(
+          $table_name,
+          $update_array
+        );
+      }
+    }
+
+    // Update the meta stored in custom fields
+    if(array_key_exists('embed_url', $metadata)) {
+      update_post_meta( $wp_identifier, '_archive_ad_embed_url', $metadata['embed_url'] );
+    }
+    if(array_key_exists('notes', $metadata)) {
+      update_post_meta( $wp_identifier, '_archive_ad_notes', $metadata['notes'] );
+    }
+    if(array_key_exists('ad_id', $metadata)) {
+      update_post_meta( $wp_identifier, '_archive_ad_id', $metadata['ad_id'] );
+    }
+    if(array_key_exists('ad_air_count', $metadata)) {
+      update_post_meta( $wp_identifier, '_archive_ad_air_count', $metadata['ad_air_count'] );
+    }
+    if(array_key_exists('ad_market_count', $metadata)) {
+      update_post_meta( $wp_identifier, '_archive_ad_market_count', $metadata['ad_market_count'] );
+    }
+    if(array_key_exists('ad_network_count', $metadata)) {
+      update_post_meta( $wp_identifier, '_archive_ad_network_count', $metadata['ad_network_count'] );
+    }
+    if(array_key_exists('ad_first_seen', $metadata)) {
+      update_post_meta( $wp_identifier, '_archive_ad_first_seen', $metadata['ad_first_seen'] );
+    }
+    if(array_key_exists('ad_last_seen', $metadata)) {
+      update_post_meta( $wp_identifier, '_archive_ad_last_seen', $metadata['ad_last_seen'] );
+    }
+  }
+
+  /**
+   * Get the metadata for an ad (from table + custom fields)
+   */
+  function get_ad_metadata($wp_identifier) {
+    global $wpdb;
+
+    $ad_metadata = array(
+      'embed_url' => "",
+      'notes' => "",
+      'ad_id' => "",
+      'ad_sponsor' => "",
+      'ad_candidate' => "",
+      'ad_message' => "",
+      'ad_race' => "",
+      'ad_type' => "",
+      'ad_air_count' => "",
+      'ad_market_count' => "",
+      'ad_network_count' => "",
+      'ad_first_seen' => "",
+      'ad_last_seen' => ""
+    );
+
+    $table_name = $wpdb->prefix . 'ad_metadata';
+    $query = "SELECT ad_sponsor as ad_sponsor,
+                     ad_sponsor_type as ad_sponsor_type,
+                     ad_candidate as ad_candidate,
+                     ad_message as ad_message,
+                     ad_type as ad_type,
+                     ad_race as ad_race
+            FROM ".$table_name."
+           WHERE wp_identifier = '".mysql_real_escape_string($wp_identifier)."'";
+
+    $results = $wpdb->get_results($query);
+
+    if(sizeof($results) > 0) {
+      $results = $results[0];
+      $ad_metadata['ad_sponsor'] = $results->ad_sponsor;
+      $ad_metadata['ad_candidate'] = $results->ad_sponsor_type;
+      $ad_metadata['ad_type'] = $results->ad_type;
+      $ad_metadata['ad_race'] = $results->ad_race;
+      $ad_metadata['ad_message'] = $results->ad_message;
+    }
+
+    $post_metadata = get_post_meta($wp_identifier);
+    $ad_metadata['embed_url'] = $post_metadata['_archive_ad_embed_url'][0];
+    $ad_metadata['notes'] = $post_metadata['_archive_ad_notes'][0];
+    $ad_metadata['ad_id'] = $post_metadata['_archive_ad_id'][0];
+    $ad_metadata['ad_air_count'] = $post_metadata['_archive_ad_air_count'][0];
+    $ad_metadata['ad_market_count'] = $post_metadata['_archive_ad_market_count'][0];
+    $ad_metadata['ad_network_count'] = $post_metadata['_archive_ad_network_count'][0];
+    $ad_metadata['ad_first_seen'] = $post_metadata['_archive_ad_first_seen'][0];
+    $ad_metadata['ad_last_seen'] = $post_metadata['_archive_ad_last_seen'][0];
+
+    return $ad_metadata;
+  }
+
+
   function get_new_ads() {
 
       // Get a list of ad instances from the archive
@@ -189,7 +373,7 @@
       return $result;
   }
 
-  function get_ad_instances($ad_identifier, $offset=0) {
+  function get_ad_archive_instances($ad_identifier, $offset=0) {
       // Get a list of ad instances from the archive
       $url = ARCHIVE_SEARCH_HOST.'/solr/select?indent=yes&omitHeader=true&wt=json&start='.$offset.'&q=ad_id:'.$ad_identifier;
 
@@ -210,7 +394,7 @@
       return $result->response;
   }
 
-  function get_ad_metadata($ad_identifier) {
+  function get_ad_archive_metadata($ad_identifier) {
 
       // Get a list of ad instances from the archive
       $url = ARCHIVE_API_HOST.'/metadata/'.$ad_identifier;
@@ -516,6 +700,8 @@
     // Add a nonce field so we can check for it later.
     wp_nonce_field( 'archive_ad_save_meta_box_data', 'archive_ad_meta_box_nonce' );
 
+    $ad_metadata = get_ad_metadata( $post->ID );
+
     echo('<ul>');
 
     // Insert the Ad Embed URL form
@@ -524,7 +710,7 @@
     echo '<label for="archive_ad_embed_url">';
     _e( 'Embed URL', 'archive_ad_textdomain' );
     echo '</label> ';
-    echo '<input type="text" id="archive_ad_embed_url" name="archive_ad_embed_url" value="' . esc_attr( $value ) . '" size="100" />';
+    echo '<input type="text" id="archive_ad_embed_url" name="archive_ad_embed_url" value="' . esc_attr( $ad_metadata['embed_url'] ) . '" size="100" />';
     echo('</li>');
 
     // Insert the Ad Notes form
@@ -533,7 +719,7 @@
     echo '<label for="archive_ad_notes">';
     _e( 'Notes', 'archive_ad_textdomain' );
     echo '</label> ';
-    echo '<textarea id="archive_ad_notes" name="archive_ad_notes" rows="5" cols="50">'. esc_attr( $value ) . '</textarea>';
+    echo '<textarea id="archive_ad_notes" name="archive_ad_notes" rows="5" cols="50">'. esc_attr( $ad_metadata['notes'] ) . '</textarea>';
     echo('</li>');
 
     // Insert the Ad ID form
@@ -542,7 +728,7 @@
     echo '<label for="archive_ad_id">';
     _e( 'Archive ID', 'archive_ad_textdomain' );
     echo '</label> ';
-    echo '<input type="text" id="archive_ad_id" name="archive_ad_id" value="' . esc_attr( $value ) . '" size="50" />';
+    echo '<input type="text" id="archive_ad_id" name="archive_ad_id" value="' . esc_attr( $ad_metadata['ad_id'] ) . '" size="50" />';
     echo('</li>');
 
     // Insert the Ad sponsor form
@@ -551,7 +737,7 @@
     echo '<label for="archive_ad_sponsor">';
     _e( 'Sponsor', 'archive_ad_textdomain' );
     echo '</label> ';
-    echo '<input type="text" id="archive_ad_sponsor" name="archive_ad_sponsor" value="' . esc_attr( $value ) . '" size="50" />';
+    echo '<input type="text" id="archive_ad_sponsor" name="archive_ad_sponsor" value="' . esc_attr( $ad_metadata['ad_sponsor'] ) . '" size="50" />';
     echo('</li>');
 
     // Insert the Ad candidate form
@@ -560,7 +746,7 @@
     echo '<label for="archive_ad_candidate">';
     _e( 'Candidate', 'archive_ad_textdomain' );
     echo '</label> ';
-    echo '<input type="text" id="archive_ad_candidate" name="archive_ad_candidate" value="' . esc_attr( $value ) . '" size="50" />';
+    echo '<input type="text" id="archive_ad_candidate" name="archive_ad_candidate" value="' . esc_attr( $ad_metadata['ad_candidate'] ) . '" size="50" />';
     echo('</li>');
 
     // Insert the Ad type form
@@ -569,7 +755,7 @@
     echo '<label for="archive_ad_type">';
     _e( 'Type', 'archive_ad_textdomain' );
     echo '</label> ';
-    echo '<input type="text" id="archive_ad_type" name="archive_ad_type" value="' . esc_attr( $value ) . '" size="50" />';
+    echo '<input type="text" id="archive_ad_type" name="archive_ad_type" value="' . esc_attr( $ad_metadata['ad_type'] ) . '" size="50" />';
     echo('</li>');
 
     // Insert the Ad race form
@@ -578,7 +764,7 @@
     echo '<label for="archive_ad_race">';
     _e( 'Race', 'archive_ad_textdomain' );
     echo '</label> ';
-    echo '<input type="text" id="archive_ad_race" name="archive_ad_race" value="' . esc_attr( $value ) . '" size="50" />';
+    echo '<input type="text" id="archive_ad_race" name="archive_ad_race" value="' . esc_attr( $ad_metadata['ad_race'] ) . '" size="50" />';
     echo('</li>');
 
     // Insert the Ad message form
@@ -587,7 +773,7 @@
     echo '<label for="archive_ad_message">';
     _e( 'Message', 'archive_ad_textdomain' );
     echo '</label> ';
-    echo '<input type="text" id="archive_ad_message" name="archive_ad_message" value="' . esc_attr( $value ) . '" size="50" />';
+    echo '<input type="text" id="archive_ad_message" name="archive_ad_message" value="' . esc_attr( $ad_metadata['ad_message'] ) . '" size="50" />';
     echo('</li>');
 
     // Insert the Ad air count form
@@ -596,7 +782,7 @@
     echo '<label for="archive_ad_air_count">';
     _e( 'Air Count', 'archive_ad_textdomain' );
     echo '</label> ';
-    echo '<input type="text" id="archive_ad_air_count" name="archive_ad_air_count" value="' . esc_attr( $value ) . '" size="5" />';
+    echo '<input type="text" id="archive_ad_air_count" name="archive_ad_air_count" value="' . esc_attr( $ad_metadata['ad_air_count'] ) . '" size="5" />';
     echo('</li>');
 
     // Insert the Ad market count form
@@ -605,7 +791,7 @@
     echo '<label for="archive_ad_market_count">';
     _e( 'Market Count', 'archive_ad_textdomain' );
     echo '</label> ';
-    echo '<input type="text" id="archive_ad_market_count" name="archive_ad_market_count" value="' . esc_attr( $value ) . '" size="5" />';
+    echo '<input type="text" id="archive_ad_market_count" name="archive_ad_market_count" value="' . esc_attr( $ad_metadata['ad_market_count'] ) . '" size="5" />';
     echo('</li>');
 
     // Insert the Ad network count form
@@ -614,7 +800,7 @@
     echo '<label for="archive_ad_network_count">';
     _e( 'Network Count', 'archive_ad_textdomain' );
     echo '</label> ';
-    echo '<input type="text" id="archive_ad_network_count" name="archive_ad_network_count" value="' . esc_attr( $value ) . '" size="5" />';
+    echo '<input type="text" id="archive_ad_network_count" name="archive_ad_network_count" value="' . esc_attr( $ad_metadata['ad_network_count'] ) . '" size="5" />';
     echo('</li>');
 
     // Insert the Ad first seen form
@@ -623,7 +809,7 @@
     echo '<label for="archive_ad_first_seen">';
     _e( 'First Seen', 'archive_ad_textdomain' );
     echo '</label> ';
-    echo '<input type="text" id="archive_ad_first_seen" name="archive_ad_first_seen" value="' . esc_attr( $value ) . '" size="5" />';
+    echo '<input type="text" id="archive_ad_first_seen" name="archive_ad_first_seen" value="' . esc_attr( $ad_metadata['ad_first_seen'] ) . '" size="5" />';
     echo('</li>');
 
     // Insert the Ad first seen form
@@ -632,7 +818,7 @@
     echo '<label for="archive_ad_last_seen">';
     _e( 'Last Seen', 'archive_ad_textdomain' );
     echo '</label> ';
-    echo '<input type="text" id="archive_ad_last_seen" name="archive_ad_last_seen" value="' . esc_attr( $value ) . '" size="5" />';
+    echo '<input type="text" id="archive_ad_last_seen" name="archive_ad_last_seen" value="' . esc_attr( $ad_metadata['ad_last_seen'] ) . '" size="5" />';
     echo('</li>');
 
     echo('</ul>');
@@ -679,110 +865,62 @@
 
     //////////
     // OK, it's safe for us to save the data now.
+
+    $metadata = array();
     
     if(isset($_POST['archive_ad_embed_url'])) {
-      // Sanitize user input.
-      $my_data = sanitize_text_field( $_POST['archive_ad_embed_url'] );
-
-      // Update the meta field in the database.
-      update_post_meta( $post_id, '_archive_ad_embed_url', $my_data );
+      $metadata['embed_url'] = sanitize_text_field( $_POST['archive_ad_embed_url'] );
     }
 
     if(isset($_POST['archive_ad_notes'])) {
-      // Sanitize user input.
-      $my_data = sanitize_text_field( $_POST['archive_ad_notes'] );
-
-      // Update the meta field in the database.
-      update_post_meta( $post_id, '_archive_ad_notes', $my_data );
+      $metadata['notes'] = sanitize_text_field( $_POST['archive_ad_notes'] );
     }
 
     if(isset($_POST['archive_ad_id'])) {
-      // Sanitize user input.
-      $my_data = sanitize_text_field( $_POST['archive_ad_id'] );
-
-      // Update the meta field in the database.
-      update_post_meta( $post_id, '_archive_ad_id', $my_data );
+      $metadata['ad_id'] = sanitize_text_field( $_POST['archive_ad_id'] );
     }
 
     if(isset($_POST['archive_ad_sponsor'])) {
-      // Sanitize user input.
-      $my_data = sanitize_text_field( $_POST['archive_ad_sponsor'] );
-
-      // Update the meta field in the database.
-      update_post_meta( $post_id, '_archive_ad_sponsor', $my_data );
+      $metadata['ad_sponsor'] = sanitize_text_field( $_POST['archive_ad_sponsor'] );
     }
 
     if(isset($_POST['archive_ad_candidate'])) {
-      // Sanitize user input.
-      $my_data = sanitize_text_field( $_POST['archive_ad_candidate'] );
-
-      // Update the meta field in the database.
-      update_post_meta( $post_id, '_archive_ad_candidate', $my_data );
+      $metadata['ad_candidate'] = sanitize_text_field( $_POST['archive_ad_candidate'] );
     }
 
     if(isset($_POST['archive_ad_type'])) {
-      // Sanitize user input.
-      $my_data = sanitize_text_field( $_POST['archive_ad_type'] );
-
-      // Update the meta field in the database.
-      update_post_meta( $post_id, '_archive_ad_type', $my_data );
+      $metadata['ad_type'] = sanitize_text_field( $_POST['archive_ad_type'] );
     }
 
     if(isset($_POST['archive_ad_race'])) {
-      // Sanitize user input.
-      $my_data = sanitize_text_field( $_POST['archive_ad_race'] );
-
-      // Update the meta field in the database.
-      update_post_meta( $post_id, '_archive_ad_race', $my_data );
+      $metadata['ad_race'] = sanitize_text_field( $_POST['archive_ad_race'] );
     }
 
     if(isset($_POST['archive_ad_message'])) {
-      // Sanitize user input.
-      $my_data = sanitize_text_field( $_POST['archive_ad_message'] );
-
-      // Update the meta field in the database.
-      update_post_meta( $post_id, '_archive_ad_message', $my_data );
+      $metadata['ad_message'] = sanitize_text_field( $_POST['archive_ad_message'] );
     }
 
     if(isset($_POST['archive_ad_air_count'])) {
-      // Sanitize user input.
-      $my_data = sanitize_text_field( $_POST['archive_ad_air_count'] );
-
-      // Update the meta field in the database.
-      update_post_meta( $post_id, '_archive_ad_air_count', $my_data );
+      $metadata['ad_air_count'] = sanitize_text_field( $_POST['archive_ad_air_count'] );
     }
 
     if(isset($_POST['archive_ad_market_count'])) {
-      // Sanitize user input.
-      $my_data = sanitize_text_field( $_POST['archive_ad_market_count'] );
-
-      // Update the meta field in the database.
-      update_post_meta( $post_id, '_archive_ad_market_count', $my_data );
+      $metadata['ad_market_count'] = sanitize_text_field( $_POST['archive_ad_market_count'] );
     }
 
     if(isset($_POST['archive_ad_network_count'])) {
-      // Sanitize user input.
-      $my_data = sanitize_text_field( $_POST['archive_ad_network_count'] );
-
-      // Update the meta field in the database.
-      update_post_meta( $post_id, '_archive_ad_network_count', $my_data );
+      $metadata['ad_network_count'] = sanitize_text_field( $_POST['archive_ad_network_count'] );
     }
 
     if(isset($_POST['archive_ad_first_seen'])) {
-      // Sanitize user input.
-      $my_data = sanitize_text_field( $_POST['archive_ad_first_seen'] );
-
-      // Update the meta field in the database.
-      update_post_meta( $post_id, '_archive_ad_first_seen', $my_data );
+      $metadata['ad_first_seen'] = sanitize_text_field( $_POST['archive_ad_first_seen'] );
     }
 
     if(isset($_POST['archive_ad_last_seen'])) {
-      // Sanitize user input.
-      $my_data = sanitize_text_field( $_POST['archive_ad_last_seen'] );
-
-      // Update the meta field in the database.
-      update_post_meta( $post_id, '_archive_ad_last_seen', $my_data );
+      $metadata['ad_last_seen'] = sanitize_text_field( $_POST['archive_ad_last_seen'] );
     }
+
+    save_ad_metadata($post_id, $metadata);
 
   }
 

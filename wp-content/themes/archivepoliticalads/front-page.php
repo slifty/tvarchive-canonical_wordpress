@@ -22,12 +22,14 @@ get_header(); ?>
 	</div>
 </div>
 <div id="home-blog-section" class="row">
-	<div class="col-sm-12">
+	<div class="col-lg-12">
 		Blog posts will go here
 	</div>
 </div>
 <div id="home-explore-header" class="row header-row">
-	<h1>Explore the Collection</h1>
+	<div class="col-lg-12">
+		<h1>Explore the Collection</h1>
+	</div>
 </div>
 <div id="home-explore-section">
 	<?php get_template_part('explore'); ?>

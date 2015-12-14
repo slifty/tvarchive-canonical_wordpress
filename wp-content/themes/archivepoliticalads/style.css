@@ -194,6 +194,7 @@ div.button {
 	#home-header-introduction {
 		background-color: rgba(36, 94, 131, 0.82);
 		height: 100%;
+		padding-right: 50%;
 	}
 
 	#home-header-title {
@@ -339,14 +340,14 @@ div.button {
 		line-height: 14px;
 	}
 
-	ul.explore-list {
+	.explore-list {
 		list-style: none;
 		padding-left: 100px;
 		margin-bottom: 60px;
 		height: 200px;
 	}
 	
-	ul.explore-list li {
+	.explore-list .explore-item {
 		float: left;
 		width: 225px;
 		height: 200px;

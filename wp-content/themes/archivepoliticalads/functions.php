@@ -350,7 +350,8 @@
     if(sizeof($results) > 0) {
       $results = $results[0];
       $ad_metadata['ad_sponsor'] = $results->ad_sponsor;
-      $ad_metadata['ad_candidate'] = $results->ad_sponsor_type;
+      $ad_metadata['ad_sponsor_type'] = $results->ad_sponsor_type;
+      $ad_metadata['ad_candidate'] = $results->ad_candidate;
       $ad_metadata['ad_type'] = $results->ad_type;
       $ad_metadata['ad_race'] = $results->ad_race;
       $ad_metadata['ad_message'] = $results->ad_message;
@@ -615,11 +616,17 @@
     wp_enqueue_style( 'style.css', get_stylesheet_uri() );
     
     // Load in jQuery
-    wp_enqueue_script( 'jquery', get_template_directory_uri() . '/js/jquery.min.js', array(), '2.1.4', true );
+    wp_deregister_script('jquery');
+    wp_register_script( 'jquery', get_template_directory_uri() . '/js/jquery.min.js', array(), '2.1.4' );
+    wp_enqueue_script('jquery');
 
     // Load in bootstrap
     wp_enqueue_style( 'bootstrap.css', get_template_directory_uri() . '/css/bootstrap.css' );
-    wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '3.3.5', true );
+    wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '3.3.5' );
+
+    // Load in our carousel for the front page
+    wp_enqueue_style( 'owl.carousel.css', get_template_directory_uri() . '/css/owl.carousel.css' );
+    wp_enqueue_script( 'owl.carousel', get_template_directory_uri() . '/js/owl.carousel.min.js', array(), '2.0.50' );
 
   }
 
@@ -724,7 +731,6 @@
     echo('<ul>');
 
     // Insert the Ad Embed URL form
-    $value = get_post_meta( $post->ID, '_archive_ad_embed_url', true );
     echo('<li>');
     echo '<label for="archive_ad_embed_url">';
     _e( 'Embed URL', 'archive_ad_textdomain' );
@@ -733,7 +739,6 @@
     echo('</li>');
 
     // Insert the Ad Notes form
-    $value = get_post_meta( $post->ID, '_archive_ad_notes', true );
     echo('<li>');
     echo '<label for="archive_ad_notes">';
     _e( 'Notes', 'archive_ad_textdomain' );
@@ -742,7 +747,6 @@
     echo('</li>');
 
     // Insert the Ad ID form
-    $value = get_post_meta( $post->ID, '_archive_ad_id', true );
     echo('<li>');
     echo '<label for="archive_ad_id">';
     _e( 'Archive ID', 'archive_ad_textdomain' );
@@ -751,7 +755,6 @@
     echo('</li>');
 
     // Insert the Ad sponsor form
-    $value = get_post_meta( $post->ID, '_archive_ad_sponsor', true );
     echo('<li>');
     echo '<label for="archive_ad_sponsor">';
     _e( 'Sponsor', 'archive_ad_textdomain' );
@@ -760,7 +763,6 @@
     echo('</li>');
 
     // Insert the Ad candidate form
-    $value = get_post_meta( $post->ID, '_archive_ad_candidate', true );
     echo('<li>');
     echo '<label for="archive_ad_candidate">';
     _e( 'Candidate', 'archive_ad_textdomain' );
@@ -769,7 +771,6 @@
     echo('</li>');
 
     // Insert the Ad type form
-    $value = get_post_meta( $post->ID, '_archive_ad_type', true );
     echo('<li>');
     echo '<label for="archive_ad_type">';
     _e( 'Type', 'archive_ad_textdomain' );
@@ -778,7 +779,6 @@
     echo('</li>');
 
     // Insert the Ad race form
-    $value = get_post_meta( $post->ID, '_archive_ad_race', true );
     echo('<li>');
     echo '<label for="archive_ad_race">';
     _e( 'Race', 'archive_ad_textdomain' );
@@ -787,7 +787,6 @@
     echo('</li>');
 
     // Insert the Ad message form
-    $value = get_post_meta( $post->ID, '_archive_ad_message', true );
     echo('<li>');
     echo '<label for="archive_ad_message">';
     _e( 'Message', 'archive_ad_textdomain' );
@@ -796,7 +795,6 @@
     echo('</li>');
 
     // Insert the Ad air count form
-    $value = get_post_meta( $post->ID, '_archive_ad_air_count', true );
     echo('<li>');
     echo '<label for="archive_ad_air_count">';
     _e( 'Air Count', 'archive_ad_textdomain' );
@@ -805,7 +803,6 @@
     echo('</li>');
 
     // Insert the Ad market count form
-    $value = get_post_meta( $post->ID, '_archive_ad_market_count', true );
     echo('<li>');
     echo '<label for="archive_ad_market_count">';
     _e( 'Market Count', 'archive_ad_textdomain' );
@@ -814,7 +811,6 @@
     echo('</li>');
 
     // Insert the Ad network count form
-    $value = get_post_meta( $post->ID, '_archive_ad_network_count', true );
     echo('<li>');
     echo '<label for="archive_ad_network_count">';
     _e( 'Network Count', 'archive_ad_textdomain' );
@@ -823,7 +819,6 @@
     echo('</li>');
 
     // Insert the Ad first seen form
-    $value = get_post_meta( $post->ID, '_archive_ad_first_seen', true );
     echo('<li>');
     echo '<label for="archive_ad_first_seen">';
     _e( 'First Seen', 'archive_ad_textdomain' );
@@ -832,7 +827,6 @@
     echo('</li>');
 
     // Insert the Ad first seen form
-    $value = get_post_meta( $post->ID, '_archive_ad_last_seen', true );
     echo('<li>');
     echo '<label for="archive_ad_last_seen">';
     _e( 'Last Seen', 'archive_ad_textdomain' );

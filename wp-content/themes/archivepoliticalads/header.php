@@ -29,11 +29,11 @@
 				</div>
 				<div id="navigation" class="col-lg-6">
 					<ul>
-						<li>about</li>
-						<li>blog</li>
-						<li>data download</li>
-						<li>resources</li>
-						<li>search</li>
+						<li><a href="<?php bloginfo('url'); ?>/about">about</a></li>
+						<li><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
+						<li><a href="<?php bloginfo('url'); ?>/data">data download</a></li>
+						<li><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
+						<li><a href="<?php bloginfo('url'); ?>/search">search</a></li>
 					</ul>
 				</div>
 			</div>

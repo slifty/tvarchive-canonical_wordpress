@@ -4,6 +4,7 @@
 
   // Load the theme config file
   include('theme-config.php');
+  include_once('functions-fields.php');
 
   /////////////////
   // Set up the database on theme activation
@@ -108,9 +109,9 @@
   /////////////////
   // Schedule a regular sync with the archive
   register_activation_hook(__FILE__, 'activate_archive_sync');
-  add_action('archive_sync', 'run_archive_sync');
+  //add_action('archive_sync', 'run_archive_sync');
 
-  add_action( 'init', 'run_archive_sync' );
+  //add_action( 'init', 'run_archive_sync' );
   function activate_archive_sync() {
     // wp_schedule_event(// (), 'hourly', 'archive_sync');
   }

@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<div id="home-header-search">
-			<div class="col-sm-8 col-sm-offset-2"><?php get_search_form('YOLO'); ?></div>
+			<div class="col-sm-8 col-sm-offset-2"><?php get_search_form(); ?></div>
 		</div>
 	</div>
 </div>

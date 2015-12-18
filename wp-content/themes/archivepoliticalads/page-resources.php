@@ -1,16 +1,14 @@
 <?php get_header(); ?>
 
-<div id="resources-header">
-	<div class="row">
-		<h1 id="resources-header-title" class="col-lg-12">Resources</h1>
-	</div>
-	<div class="row">
-		<p id="resources-header-description" class="col-lg-12">Our partners and additional scholarly resources</p>
+<div id="resources-header" class="row page-header-row">
+	<div class="col-lg-6">
+		<h1 id="resources-header-title">Resources</h1>
+		<p id="resources-header-description">Our partners and additional scholarly resources</p>
 	</div>
 </div>
 
-<div id="partners-content">
-	<div id="partners-logos" class="row">
+<div id="partners-content" class="page-content">
+	<div id="partner-logos" class="row page-content-row">
 		<div class="col-lg-12">
 			<ul>
 				<?php 
@@ -24,59 +22,81 @@
 						foreach($partners as $partner)
 						{
 							?>
-							<li><img src='<?php echo($partner['partner_logo']['url']);?>' /></li>
+							<li><img src='<?php echo($partner['partner_logo']['url']);?>' class="logo" /></li>
 							<?php
 						}
 					}
 				?>
 			</ul>
+		</div>
+	</div>
+	<div id="partner-description" class="row page-content-row">
+		<div class="col-lg-12">
 			<h2>Our Partners</h2>
-			<p><?php echo(get_field('partners_description')); ?></p>
+			<div><?php echo(get_field('partners_description')); ?></div>
 		</div>
 	</div>
 </div>
-<div id="resources-content">
-	<?php 
-		$resources = get_field('resources');
-		if(sizeof($resources) > 0)
-		{
-			$resource = array_shift($resources);
-			?>
-			<div class="row" id="featured-resource">
-				<div class="col-lg-12">
-					<h2 class="resource-name"><?php echo($resource['resource_name']); ?></h2>
-					<p class="resource-description"><?php echo($resource['resource_description']); ?></p>
-					<img src='<?php echo($resource['resource_image']['url']);?>' class="resource-image"/>
-					<div class="resource-link"><a href="<?php echo($resource['resource_link']); ?>" target="_blank">Link</a></div>
-				</div>
-			</div>
-			<?php
-		}
 
-		while(sizeof($resources) > 0)
-		{
-			?>
-			<div class="row">
-			<?php
-				for($x = 0; $x < 3; $x++)
-				{
-					if(sizeof($resources) == 0)
-						continue;
-					$resource = array_shift($resources);
-					?>
-					<div class="col-lg-4">
-						<h2 class="resource-name"><?php echo($resource['resource_name']); ?></h2>
-						<p class="resource-description"><?php echo($resource['resource_description']); ?></p>
-						<img src='<?php echo($resource['resource_image']['url']);?>' class="resource-image"/>
-						<div class="resource-link"><a href="<?php echo($resource['resource_link']); ?>" target="_blank">Link</a></div>
+<div id="resources-subheader" class="row page-subheader-row">
+	<div class="col-lg-6">
+		<h2>Resources</h2>
+	</div>
+</div>
+<div id="resources-content" class="page-content row">
+	<div coass="col-lg-12">
+		<?php 
+			$resources = get_field('resources');
+			if(sizeof($resources) > 0)
+			{
+				$resource = array_shift($resources);
+				?>
+				<div id="featured-resource" class="row resource-row page-content-row">
+					<div class="col-lg-12">
+						<div class="resource">
+							<div class="row">
+								<div class="col-sm-8">
+									<h3 class="resource-name"><?php echo($resource['resource_name']); ?></h3>
+									<div class="resource-description"><?php echo($resource['resource_description']); ?></div>
+									<div class="resource-link"><a href="<?php echo($resource['resource_link']); ?>" target="_blank">Visit</a></div>
+								</div>
+								<div class="col-sm-4">
+									<img src='<?php echo($resource['resource_image']['url']);?>' class="resource-image"/>
+								</div>
+							</div>
+						</div>
 					</div>
-					<?php
-				}
-			?>
-			</div>
-			<?php
-		}
-	?>
+				</div>
+				<?php
+			}
+
+			while(sizeof($resources) > 0)
+			{
+				?>
+				<div class="row resource-row page-content-row">
+				<?php
+					for($x = 0; $x < 3; $x++)
+					{
+						if(sizeof($resources) == 0)
+							continue;
+						$resource = array_shift($resources);
+						?>
+						<div class="col-lg-4">
+							<div class="resource">
+								<h3 class="resource-name"><?php echo($resource['resource_name']); ?></h3>
+								<img src='<?php echo($resource['resource_image']['url']);?>' class="resource-image"/>
+								<div class="resource-description"><?php echo($resource['resource_description']); ?></div>
+								<div class="resource-link"><a href="<?php echo($resource['resource_link']); ?>" target="_blank">Visit</a></div>
+							</div>
+						</div>
+						<?php
+					}
+				?>
+				</div>
+				<?php
+			}
+		?>
+	</div>
 </div>
 
 <?php get_footer(); ?>

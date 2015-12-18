@@ -5,21 +5,21 @@
 // Start the loop.
 while ( have_posts() ) : the_post();
 	$post_id = get_the_ID();
-	$post_metadata = get_ad_metadata($post_id);
-
+	$post_metadata = get_fields();
+	
 	$ad_embed_url = $post_metadata['embed_url'];
 	$ad_notes = $post_metadata['notes'];
-	$ad_id = $post_metadata['ad_id'];
-	$ad_sponsor = $post_metadata['ad_sponsor'];
-	$ad_candidate = $post_metadata['ad_candidate'];
+	$ad_id = $post_metadata['archive_id'];
+	$ad_sponsors = $post_metadata['ad_sponsors'];
+	$ad_candidates = $post_metadata['ad_candidates'];
 	$ad_type = $post_metadata['ad_type'];
-	$ad_race = $post_metadata['ad_race'];
 	$ad_message = $post_metadata['ad_message'];
-	$ad_air_count = $post_metadata['ad_air_count'];
-	$ad_market_count = $post_metadata['ad_market_count'];
-	$ad_network_count = $post_metadata['ad_network_count'];
-	$ad_first_seen = $post_metadata['ad_first_seen'];
-	$ad_last_seen = $post_metadata['ad_last_seen'];
+	$ad_air_count = $post_metadata['air_count'];
+	$ad_market_count = $post_metadata['market_count'];
+	$ad_network_count = $post_metadata['network_count'];
+	$ad_first_seen = $post_metadata['first_seen'];
+	$ad_last_seen = $post_metadata['last_seen'];
+
 
 	?>
 
@@ -35,20 +35,16 @@ while ( have_posts() ) : the_post();
 
 	<div class="row about-ad-row">
 		<div id="ad-sponsor" class="first cell">
-			<div class="cell-label">Sponsor</div>
-			<div class="cell-value"><?php echo($ad_sponsor);?></div>
+			<div class="cell-label">Sponsor<?php echo(sizeof($ad_sponsors)==1?'':'s'); ?></div>
+			<div class="cell-value"><?php echo(generate_sponsors_string($ad_sponsors));?></div>
 		</div>
 		<div id="ad-candidate" class="cell">
-			<div class="cell-label">Candidate</div>
-			<div class="cell-value"><?php echo($ad_candidate);?></div>
+			<div class="cell-label">Candidate<?php echo(sizeof($ad_candidates)==1?'':'s'); ?></div>
+			<div class="cell-value"><?php echo(generate_candidates_string($ad_candidates)); ?></div>
 		</div>
 		<div id="ad-type" class="cell">
 			<div class="cell-label">Ad Type</div>
 			<div class="cell-value"><?php echo($ad_type);?></div>
-		</div>
-		<div id="ad-race" class="cell">
-			<div class="cell-label">Race</div>
-			<div class="cell-value"><?php echo($ad_race);?></div>
 		</div>
 		<div id="ad-message" class="last cell">
 			<div class="cell-label">Message</div>
@@ -56,12 +52,14 @@ while ( have_posts() ) : the_post();
 		</div>
 	</div>
 
-	<div class="row about-ad-row">
-		<div id="ad-note" class="first last cell">
-			<div class="cell-label">Note</div>
-			<div class="cell-multiline-value"><?php echo($ad_notes);?></div>
+	<?php if($ad_notes) { ?>
+		<div class="row about-ad-row">
+			<div id="ad-note" class="first last cell">
+				<div class="cell-label">Note</div>
+				<div class="cell-multiline-value"><?php echo($ad_notes);?></div>
+			</div>
 		</div>
-	</div>
+	<?php } ?>
 
 	<div class="row about-ad-row">
 		<div id="ad-air-count" class="first cell">

@@ -1,22 +1,20 @@
 <?php get_header(); ?>
 
-<div id="about-header">
-	<div class="row">
-		<h1 id="about-header-title" class="col-lg-12">About</h1>
-	</div>
-	<div class="row">
-		<p id="about-header-description" class="col-lg-12">About the Political Ad Library and T.V. News</p>
+<div id="about-header" class="row page-header-row">
+	<div class="col-lg-6">
+		<h1 id="about-header-title" class="section-header">About</h1>
+		<p id="about-header-description">About the Political Ad Library and T.V. News</p>
 	</div>
 </div>
 
-<div id="about-content">
-	<div class="row">
+<div id="about-content" class="page-content">
+	<div class="row page-content-row">
 		<div class="col-lg-12">
 			<h2><?php echo(get_field('about_header')); ?></h2>
 			<p><?php echo(get_field('about_header_content')); ?></p>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row page-content-row">
 		<div class="col-lg-4">
 			<h2><?php echo(get_field('about_subheader_1')); ?></h2>
 			<p><?php echo(get_field('about_subheader_1_content')); ?></p>

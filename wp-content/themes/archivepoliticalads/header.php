@@ -21,19 +21,22 @@
 		<?php wp_head(); ?>
 	</head>
 	<body>
+		<div id="temporary-blocker">Sorry, the site isn't ready for you to view it like this.  Make your window wider!</div>
 		<div class="container-fluid">
 			<div id="header" class="row">
-				<div id="branding" class="col-lg-6">
-					<img id="logo" src="<?php bloginfo('template_directory'); ?>/img/brand_logo.png" srcset="<?php bloginfo('template_directory'); ?>/img/brand_logo@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/brand_logo@3x.png 3x" />
-					<div id="title"><span id="title-political">Political</span><span id="title-ad">Ad</span> <span id="title-library">Library</span></div>
-				</div>
+				<a href="<?php bloginfo('url'); ?>/">
+					<div id="branding" class="col-lg-6">
+						<img id="logo" src="<?php bloginfo('template_directory'); ?>/img/brand_logo.png" srcset="<?php bloginfo('template_directory'); ?>/img/brand_logo@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/brand_logo@3x.png 3x" />
+						<div id="title"><span id="title-political">Political</span><span id="title-ad">Ad</span> <span id="title-library">Library</span></div>
+					</div>
+				</a>
 				<div id="navigation" class="col-lg-6">
 					<ul>
 						<li><a href="<?php bloginfo('url'); ?>/about">about</a></li>
 						<li><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
 						<li><a href="<?php bloginfo('url'); ?>/data">data download</a></li>
 						<li><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
-						<li><a href="<?php bloginfo('url'); ?>/search">search</a></li>
+						<li><a href="<?php bloginfo('url'); ?>/browse">search</a></li>
 					</ul>
 				</div>
 			</div>

@@ -147,6 +147,7 @@
         $market = array_key_exists($network, $network_lookup)?$network_lookup[$network]['market']:'';
         $location = array_key_exists($network, $network_lookup)?$network_lookup[$network]['location']:'';
         $air_time = $instance->start;
+        //$end_time = $instance->end;
 
         $table_name = $wpdb->prefix . 'ad_instances';  
         $wpdb->insert( 
@@ -157,7 +158,7 @@
             'network' => $network,
             'market' => $market,
             'location' => $location,
-            'air_time' => $air_time,
+            'air_time' => $air_time
           ) 
         );
       }
@@ -175,7 +176,7 @@
                        MIN(air_time) as first_seen,
                        MAX(air_time) as last_seen
                   FROM ".$table_name."
-                 WHERE archive_identifier = '".mysql_real_escape_string($ad_identifier)."'
+                 WHERE archive_identifier = '".esc_sql($ad_identifier)."'
               GROUP BY archive_identifier";
 
       $results = $wpdb->get_results($query);
@@ -606,7 +607,7 @@
 
     if(array_key_exists('ad_identifier', $_GET)) {
       $ad_identifier = $_GET['ad_identifier'];
-      $query .= "WHERE archive_identifier = '".mysql_real_escape_string($ad_identifier)."'";
+      $query .= "WHERE archive_identifier = '".esc_sql($ad_identifier)."'";
     }
 
     $results = $wpdb->get_results($query);

@@ -4,8 +4,7 @@
 
   // Load the theme config file
   include('theme-config.php');
-  include_once('functions-fields.php');
-
+  
   /////////////////
   // Set up the database on theme activation
   // For more info check out http://codex.wordpress.org/Creating_Tables_with_Plugins
@@ -698,14 +697,59 @@
 
     exit;
   }
+  /////////////////
+  // Add features image for Blog view
+  add_theme_support( 'post-thumbnails' );
+    // set blog listing image size
+    set_post_thumbnail_size( 776, 253, true);
+
+    // Adjust excerpt length to better match design for Blog view
+    function tta_excerpt_length( $length ){
+        return 60;
+    }
+    add_filter( 'excerpt_length', 'tta_excerpt_length', 999 );
+
+    // Add Sidebar Widgets
+function tia_widgets_init() {
+
+	register_sidebar( array(
+		'name' => __( 'Blog Sidebar', 'tia' ),
+		'id' => 'sidebar-1',
+		'description' => __( 'This sidebar appears on the blog listing and single blog pages', 'tia' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h3 class="blog-sidebar-title">',
+		'after_title' => '</h3>',
+	) );
+
+	register_sidebar( array(
+		'name' =>__( 'Search page sidebar', 'tia'),
+		'id' => 'sidebar-2',
+		'description' => __( 'Appears on the left side of the Search page template', 'tia' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+    
+    	register_sidebar( array(
+		'name' =>__( 'Footer Widget Area', 'tia'),
+		'id' => 'sidebar-3',
+		'description' => __( 'Appears in the footer of all pages', 'tia' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	}
+
+add_action( 'widgets_init', 'tia_widgets_init' );
+
 
   /////////////////
   // Add styles and scripts
   add_action( 'wp_enqueue_scripts', 'archivepoliticalads_scripts' );
   function archivepoliticalads_scripts() {
-
-    // Load the main styles
-    wp_enqueue_style( 'style.css', get_stylesheet_uri() );
     
     // Load in jQuery
     wp_deregister_script('jquery');
@@ -714,15 +758,21 @@
 
     // Load in bootstrap
     wp_enqueue_style( 'bootstrap.css', get_template_directory_uri() . '/css/bootstrap.css' );
-    wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '3.3.5' );
-
+    wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'),  '', true );
+      
     // Load in our carousel for the front page
     wp_enqueue_style( 'owl.carousel.css', get_template_directory_uri() . '/css/owl.carousel.css' );
-    wp_enqueue_script( 'owl.carousel', get_template_directory_uri() . '/js/owl.carousel.min.js', array(), '2.0.50' );
+    wp_enqueue_script( 'owl.carousel', get_template_directory_uri() . '/js/owl.carousel.min.js', array('jquery','bootstrap' ),  '', true );
+                
+    // Load the main styles
+    wp_enqueue_style( 'style.css', get_stylesheet_uri() );
+    // Load the media queries
+    wp_enqueue_style( 'media-queries.css', get_template_directory_uri() . '/css/media-queries.css' );
+    // Load the addional js 
+    wp_enqueue_script( 'apps_js', get_template_directory_uri() . '/js/apps.js', array('jquery','bootstrap' ),  '', true );
 
   }
-
-
+            
   /////////////////
   // Register political ads as a special type of post
   // TODO: Ad meta tags https://codex.wordpress.org/Function_Reference/register_post_type

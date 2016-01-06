@@ -9,39 +9,50 @@
 // Do not link the theme stylesheets in the Header template. Use the wp_enqueue_scripts action hook in a theme function instead.
 // Here's an example of a correctly-formatted HTML5 compliant head area:
 ?>
-<!DOCTYPE html>
-<html <?php language_attributes(); ?>>
-	<head>
-		<meta charset="<?php bloginfo( 'charset' ); ?>" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!DOCTYPE html>
+    <html <?php language_attributes(); ?>>
 
-		<title><?php wp_title(); ?></title>
-		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-		<?php wp_head(); ?>
-	</head>
-	<body>
-		<div id="temporary-blocker">Sorry, the site isn't ready for you to view it like this.  Make your window wider!</div>
-		<div class="container-fluid">
-			<div id="header" class="row">
-				<a href="<?php bloginfo('url'); ?>/">
-					<div id="branding" class="col-lg-6">
-						<img id="logo" src="<?php bloginfo('template_directory'); ?>/img/brand_logo.png" srcset="<?php bloginfo('template_directory'); ?>/img/brand_logo@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/brand_logo@3x.png 3x" />
-						<div id="title"><span id="title-political">Political</span><span id="title-ad">Ad</span> <span id="title-library">Library</span></div>
-					</div>
-				</a>
-				<div id="navigation" class="col-lg-6">
-					<ul>
-						<li><a href="<?php bloginfo('url'); ?>/about">about</a></li>
-						<li><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
-						<li><a href="<?php bloginfo('url'); ?>/data">data download</a></li>
-						<li><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
-						<li><a href="<?php bloginfo('url'); ?>/browse">search</a></li>
-					</ul>
-				</div>
-			</div>
-<?php
-// The Theme's main navigation should support a custom menu with wp_nav_menu().
-// Menus should support long link titles and a large amount of list items. These items should not break the design or layout.
-// Submenu items should display correctly. If possible, support drop-down menu styles for submenu items. Drop-downs allowing showing menu depth instead of just showing the top level.
-?>
+    <head>
+        <meta charset="<?php bloginfo( 'charset' ); ?>" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <title>
+            <?php wp_title(); ?>
+        </title>
+        <link rel="profile" href="http://gmpg.org/xfn/11" />
+        <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+        <?php wp_head(); ?>
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <div id="header" class="row">
+                <nav class="navbar navbar-default">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="<?php bloginfo('url'); ?>/">
+                            <div id="branding">
+                                <img id="logo" class="hidden-xs" src="<?php bloginfo('template_directory'); ?>/img/brand_logo.png" srcset="<?php bloginfo('template_directory'); ?>/img/brand_logo@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/brand_logo@3x.png 3x" />
+                                <div id="title"><span id="title-political">Political</span><span id="title-ad">Ad</span> <span id="title-library">Library</span></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse">
+                        <ul id="navigation" class="nav navbar-nav navbar-right">
+                            <li><a href="<?php bloginfo('url'); ?>/about">about</a></li>
+                            <li><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
+                            <li><a href="<?php bloginfo('url'); ?>/data-download">data download</a></li>
+                            <li><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
+                            <li><a href="<?php bloginfo('url'); ?>/browse">search</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </nav>
+            </div>

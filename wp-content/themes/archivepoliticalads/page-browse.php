@@ -4,17 +4,16 @@
 */
 ?>
     <?php get_header(); ?>
-
         <div id="browse-header" class="row">
-            <div class="col-lg-12">
+            <div class="col-md-12 col-lg-12">
                 <div class="row page-header-row">
-                    <div class="col-lg-6">
+                    <div class="col-sm-8 col-md-6">
                         <h1 id="browse-header-title" class="section-header">Search</h1>
                         <p id="browse-header-description">Search and Explore the Political Ad Library</p>
                     </div>
                 </div>
                 <div id="browse-header-search" class="row page-header-row">
-                    <div class="col-sm-8 col-sm-offset-2">
+                    <div class="col-xs-8 col-xs-offset-1 col-sm-10 col-md-10">
                         <?php get_search_form(); ?>
                     </div>
                 </div>
@@ -77,21 +76,18 @@
                                     </div>
                                     <div class="sponsors">
                                         <span class="browse-label">Sponsor<?php if(sizeof($metadata['ad_sponsors']) != 1) { echo("s"); }?>: </span>
-                                        <?php
-                        echo(generate_sponsors_string($metadata['ad_sponsors']));
-                      ?>
+                                        <?php echo(generate_sponsors_string($metadata['ad_sponsors'])); ?>
                                     </div>
                                     <div class="candidates">
                                         <span class="browse-label">Candidate<?php if(sizeof($metadata['ad_candidates']) != 1) { echo("s"); }?>: </span>
-                                        <?php
-                        echo(generate_candidates_string($metadata['ad_candidates']));
-                      ?>
+                                        <?php  echo(generate_candidates_string($metadata['ad_candidates'])); ?>
                                     </div>
+                                    <div class="cell-multiline-value">
+                                       <?php echo($metadata['ad_notes']);?>
+                                    </div>                            
                                 </div>
                             </div>
-                            <?php
-            }
-          ?>
+                            <?php  }  ?>
                     </div>
                     <?php
         } else {
@@ -102,8 +98,16 @@
           // TODO: embed the browse / explore
       }
     ?>
-        </div>
-        </div>
+            
+            <div class="row">
+                <?php get_template_part('content', 'sponsors'); ?>
+                <?php get_template_part('content', 'canidates'); ?>
+
+
+            </div>
+</div>
+
+   
 
 
         <?php get_footer(); ?>

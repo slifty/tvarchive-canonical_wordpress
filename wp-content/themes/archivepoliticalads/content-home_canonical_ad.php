@@ -32,6 +32,7 @@ while ( $query->have_posts() ) : $query->the_post();
 	?>
         <div class="row">
             <div id="ad-embed" class="col-md-12">
+                                                    
                 <iframe id="ad-embed-iframe" frameborder="0" width="100%" height="auto" allowfullscreen src="<?php echo($ad_embed_url);?>" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
             </div>
         </div>

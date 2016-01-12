@@ -6,14 +6,14 @@ Template Name: Blog Page
     <?php get_header(); ?>
 
         <div id="blog-header" class="row page-header-row">
-            <div class="col-xs-12 col-lg-6 ">
+            <div class="col-xs-12 col-sm-6 col-lg-6 ">
                 <h1 id="blog-header-title" class="section-header">Blog</h1>
                 <p id="blog-header-description">Dispatches from the TV News Team</p>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-xs-12 col-md-8  blog-main">
+        <div class="row page-content">
+            <div class="col-xs-12 col-sm-8 col-md-8  blog-main">
 
                 <?php
             $pagination_index = get_query_var('page', 0);

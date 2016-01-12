@@ -14,8 +14,8 @@ $query = new WP_Query( $args );
                 <?php the_time('F j, Y'); ?>
             </p>
             <?php if( get_the_post_thumbnail() ) : ?>
-                <div>
-                    <?php the_post_thumbnail( 'thumbnail', array( 'class' => 'post-img_home' ) ); ?>
+                <div class="img-fluid post-img_home">
+                    <?php the_post_thumbnail( 'thumbnail'); ?>
                 </div>
                 <?php endif; ?>
                     <?php remove_filter('the_excerpt', 'wpautop'); ?>
@@ -23,5 +23,20 @@ $query = new WP_Query( $args );
                             <?php the_excerpt(); ?>
                         </p>
         </div>
+
+
+
+<!--
+
+        <div class="home-feature-section_post col-xs-12 col-sm-4 col-md-4">
+         
+        </div>
+        <div class="home-feature-section_post col-xs-12 col-sm-4 hidden-md hidden-lg">
+           
+        </div>
+        <div class="home-feature-section_post col-xs-12 col-sm-4  hidden-md hidden-lg">
+            
+        </div>
+-->
 
         <?php endwhile; endif; wp_reset_postdata(); ?>

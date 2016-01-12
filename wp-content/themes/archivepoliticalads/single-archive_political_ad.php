@@ -19,8 +19,6 @@ while ( have_posts() ) : the_post();
 	$ad_network_count = $post_metadata['network_count'];
 	$ad_first_seen = $post_metadata['first_seen'];
 	$ad_last_seen = $post_metadata['last_seen'];
-
-
 	?>
 
             <div id="ad-embed" class="row">
@@ -127,7 +125,14 @@ while ( have_posts() ) : the_post();
                             <div class="cell-multiline-value">Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini. Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. </div>
                         </div>
                     </div>
+                    <div class="row download-row">
+                        <div id="download-data" class="cell first last">
+                            <div class="cell-label">Download Data About this Ad</div>
+                        </div>
+                    </div>
+                    <?php get_template_part('content', 'download_data'); ?>
 
+                        <!--
                     <div id="download-subheader" class="subheader-row row">
                         <div class="col-lg-12">
                             <h2>Download Data About this Ad</h2>
@@ -137,14 +142,93 @@ while ( have_posts() ) : the_post();
                     <div class="row download-row">
                         <div id="download-data" class="cell first last">
                             <div class="cell-label">Download Data About this Ad</div>
-
                             <div class="cell-multiline-value">Choose the fields you would like included below:</div>
                         </div>
                     </div>
-                    <?php get_template_part('content', 'download_data'); ?>
+
+-->
 
 
-                        <?php
+                        
+        <?php 
+			$references = get_field('references');
+			if(sizeof($references) > 0)
+			{
+				$reference = array_shift($references); 
+				?>
+                <div id="reference-gallery-header" class="header-row row">
+                    <div class="col-lg-12">
+                        <h1>REFERENCE GALLERY</h1>
+                    </div>
+                </div>
+                <div  id="reference-content" class="row">
+                    <div class="col-xs-12 col-md-7"><!--Left Column-->
+                        <div id="#featured-reference"  class="row"><!--Top Row in Left Column -->
+                            <div class="reference col-md-12">
+                                <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
+                                <div class="reference-date"><?php echo($reference['reference_date']); ?> </div>
+                                <div class="reference-description"><?php echo($reference['reference_excerpt']); ?></div>
+                                <div class="reference-link"><a href="<?php echo($reference['reference_link']); ?>" target="_blank">logo link</a></div>
+                            </div>
+                        </div>
+                        <?php }
+                            while(sizeof($references) > 1)
+                                {
+                                    ?>                       
+                        <div class="row"><!-- Bottom Row in Left Column-->
+                           
+                              <?php
+                                for($x = 0; $x < 2; $x++)
+                                {
+                                if(sizeof($references) == 0)
+                                continue;
+                            $reference = array_shift($references);
+                            ?>                          
+                            <div class="col-md-6">
+                                <div class="reference">
+                                    <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
+                                    <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
+                                    <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" />Image</div>
+                                    <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
+                                    <div class="reference-link"><a href="<?php echo($reference['reference_link']); ?>" target="_blank">logo link</a></div>
+                                </div>
+                            
+                            </div>
+                               
+                       
+                    
+      <?php } ?>
+                 </div>
+                </div>       
+                    <?php
+                                }
+            while(sizeof($references) >= 3)
+			
+					{
+						$reference = array_shift($references);
+						?>
+                        <div class="reference">
+                            <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
+                            <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
+                            <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" />Image</div>
+                            <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
+                            <div class="reference-link"><a href="<?php echo($reference['reference_link']); ?>" target="_blank">logo link</a></div>
+                        </div>
+                <?php } ?>
+                    </div>
+                </div>
+        <?php  ?>
+        
+        
+        
+        
+
+
+
+
+
+
+                                    <?php
 // End the loop.
 endwhile;
 ?>

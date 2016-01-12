@@ -48,7 +48,7 @@
                         <ul id="navigation" class="nav navbar-nav navbar-right">
                             <li><a href="<?php bloginfo('url'); ?>/about">about</a></li>
                             <li><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
-                            <li><a href="<?php bloginfo('url'); ?>/data-download">data download</a></li>
+                            <li><a href="<?php bloginfo('url'); ?>/data">data download</a></li>
                             <li><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
                             <li><a href="<?php bloginfo('url'); ?>/browse">search</a></li>
                         </ul>

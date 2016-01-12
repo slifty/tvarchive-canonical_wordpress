@@ -97,7 +97,7 @@ div.button {
     font-size: 24px;
 }
 .page-content {
-    padding: 60px 0px;
+    padding: 60px 0;
 }
 .page-content-row {
     padding: 30px 100px;
@@ -115,7 +115,7 @@ div.button {
     color: #343434;
     padding: 0px;
     margin: 0px;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 30px;
 }
 .subheader-row {
@@ -123,7 +123,7 @@ div.button {
 }
 .subheader-row h2 {
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: normal;
     text-transform: uppercase;
     margin: 0px;
@@ -193,6 +193,7 @@ div.button {
     height: 73px;
     margin-bottom: 0;
     border: none;
+    z-index: 999;
 }
 .navbar-default {
     background-color: transparent;
@@ -246,11 +247,15 @@ div.button {
     margin-top: 50px;
     height: 260px;
 }
-#footer .footer-title {
+#footer .footer-title,
+#footer-sidebar h3 {
     color: #bbb2a0;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 5px;
+}
+#footer-sidebar h3 {
+    margin-top: 5px;
 }
 #footer .footer-subtitle {
     color: #9b9b9b;
@@ -290,15 +295,17 @@ div.button {
     position: relative;
     margin-left: -15px;
     margin-right: -15px;
-    /*    height: 371px;*/
 }
 #home-header-content {
     height: 378px;
+    background-color: rgba(36, 94, 131, 0.82);
 }
 #home-header-introduction {
+    /*
     background-color: rgba(36, 94, 131, 0.82);
     height: 100%;
     padding-right: 50%;
+*/
 }
 #home-header-title {
     padding-top: 50px;
@@ -311,10 +318,12 @@ div.button {
 #home-header-explanation {
     padding-left: 130px;
     padding-top: 20px;
-    padding-bottom: 70px;
     font-size: 24px;
     line-height: 30px;
     color: #fff;
+}
+#home-header-explanation p {
+    margin: 0;
 }
 #home-header-search {
     background-color: rgba(232, 86, 69, 0.90);
@@ -377,7 +386,7 @@ div.button {
 .cell-multiline-value {
     color: #4a4a4a;
     line-height: 29px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 /* Ad Embed */
@@ -437,7 +446,7 @@ div.button {
     padding-bottom: 50px;
 }
 #download-about {
-    padding-bottom: 50px;
+/*    padding-bottom: 50px;*/
 }
 #download-subheader {
     background-color: #8ab858;
@@ -615,8 +624,8 @@ h3.resource-name {
 .post_home {
     background-color: #fff;
     border-top: 20px solid #e85646;
-    margin: 0;
-    min-height: 606px;
+    margin: 0 15px;
+    padding: 15px;
 }
 .post-title h2 {
     margin: 0px;
@@ -628,7 +637,7 @@ h3.resource-name {
     font-size: 36px;
 }
 .post-title_home {
-    margin: 15px;
+    margin: 15px 0;
 }
 .post-title_home a {
     color: #e85646;
@@ -640,6 +649,7 @@ h3.resource-name {
     text-transform: uppercase;
     color: #9b9b9b;
     font-weight: bold;
+    margin-bottom: 15px;
 }
 .post-excerpt {
     font-size: 18px;
@@ -660,13 +670,11 @@ h3.resource-name {
     width: 100%;
 }
 .post-img_home {
-    width: 100%;
-    height: auto;
-    max-height: 230px;
+    max-width: 377px;
 }
 .post-more {
     color: #4a90e2;
-    font-size: 20px;
+    font-size: 18px;
     margin-top: 30px;
     margin-bottom: 30px;
 }
@@ -675,19 +683,19 @@ h3.resource-name {
 }
 .post-navigation-button {
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 18px;
     padding: 0px;
 }
 .post-navigation-button a {
     color: #4a90e2;
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 18px;
 }
 .post-navigation-button a:hover {
     color: #e85646;
 }
 .post-pagination {
-    font-size: 20px;
+    font-size: 18px;
 }
 #next a {
     text-align: right;
@@ -713,14 +721,14 @@ h3#comments {}
     height: 56px;
 }
 .comment-author cite {
-    font-size: 20px;
+    font-size: 18px;
     color: #4a90e2;
     font-weight: 700;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-style: normal;
 }
 .comment-author span.says {
-    font-size: 20px;
+    font-size: 18px;
     color: #9b9b9b;
 }
 .comment-meta.commentmetadata a {
@@ -813,6 +821,9 @@ h3.blog-sidebar-title {
     color: #444;
     margin-bottom: 25px;
 }
+
+/* Political Ad*/
+
 .political-ad {
     min-height: 180px;
     padding-left: 100px;
@@ -828,11 +839,13 @@ h3.blog-sidebar-title {
     width: 100%;
 }
 .political-ad .title {
-    font-size: 20px;
+    font-size: 18px;
+    padding-bottom: 10px;
 }
 .political-ad .title a,
 .political-ad .title a:hover {
     color: #4a90e2;
+    font-weight: bolder;
 }
 .political-ad .browse-label {
     text-transform: uppercase;
@@ -844,4 +857,44 @@ h3.blog-sidebar-title {
 .political-ad .candidates {
     color: #9b9b9b;
     font-size: 14px;
+}
+
+/*REFERENCE GALLERY*/
+#reference-content {
+    background-color: #ededed;
+    padding-top: 0px;
+}
+#featured-reference {
+    margin: 15px;
+    margin-right: 36px;
+}
+#reference-gallery-header {
+    background-color: #fcb200;
+}
+.reference{
+    background-color: #fff;
+    border-top: 20px solid #245e83;
+    margin-top: 34px;
+}
+h3.reference-title{
+    font-size: 36px;
+    color: #245e83;
+    margin: 15px 15px 10px;
+    font-weight: bold;
+    
+}
+.reference-description{
+    font-size: 18px;
+        color:#343434;
+    margin: 15px;
+}
+.reference-date{
+     margin: 15px;
+    font-size: 14px;
+    color: #9b9b9b;
+    
+    
+}
+.reference-link{
+    
 }

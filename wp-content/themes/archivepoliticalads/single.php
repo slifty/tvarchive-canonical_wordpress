@@ -23,8 +23,8 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-xs-12 col-md-8  blog-main">
+        <div class="row page-content">
+            <div class="col-xs-12 col-sm-8 col-md-8  blog-main">
 
                 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 

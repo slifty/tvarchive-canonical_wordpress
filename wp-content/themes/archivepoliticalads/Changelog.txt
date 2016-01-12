@@ -1,0 +1,26 @@
+General cleanup of the HTML / CSS
+	Made adjustments to the html and css so it would better conform to the Bootstrap
+Update the existing design implementations to correct it and make it responsive for mobile phones
+	created a media queries style sheet and added it to functions.php
+	swapped col-lg with col-md
+	added user-scalable=no to make the mobile view appear a bit more like a native application
+	moved main style sheet below all others in function.php as it was being over written by bootstrap
+Implement the latest front page design.
+	create template parts for the features area on home page
+	implemented Owl slider
+		removed owl init sript from top of explore.php method incompatable with wordpress added to newly created apps.js
+		added an apps.js to add all in page init scripts
+		enquened apps.js
+Implement the "blog post" view. 
+	Add Featured image to Blog
+	Added sidebar to blog page
+	adjusted excerpt lenght
+Update the footer to include most recent blog posts
+	added footer widget
+
+
+
+
+
+
+

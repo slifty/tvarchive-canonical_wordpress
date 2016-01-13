@@ -153,7 +153,7 @@
     			$references = get_field('references');
                 if(sizeof($references) > 0)
     			{
-    				$reference = array_shift($references); 
+    				$reference = array($references); 
     				?>
                     <div id="reference-gallery-header" class="header-row row">
                         <div class="col-lg-12">
@@ -165,11 +165,12 @@
                         if($index % 4 == 0) // wide, first row
                         {
                             ?>
+
                             <div  id="reference-content" class="row">
                                 <div class="col-xs-12 col-md-7"><!--Left Column-->
                                     <div id="#featured-reference"  class="row"><!--Top Row in Left Column -->
                                         <div class="reference col-md-12">
-                                            <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
+                                            <h3 class="reference-title"><?php echo($reference['reference_title']); ?>this is the left top row</h3>
                                             <div class="reference-date"><?php echo($reference['reference_date']); ?> </div>
                                             <div class="reference-description"><?php echo($reference['reference_excerpt']); ?></div>
                                             <div class="reference-link"><a href="<?php echo($reference['reference_link']); ?>" target="_blank">logo link</a></div>
@@ -186,7 +187,7 @@
                                     <div class="row"><!-- Bottom Row in Left Column-->
                                        <div class="col-md-6">
                                             <div class="reference">
-                                                <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
+                                                <h3 class="reference-title"><?php echo($reference['reference_title']); ?>This is the left 1st 2nd row</h3>
                                                 <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
                                                 <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" />Image</div>
                                                 <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
@@ -205,7 +206,7 @@
                             ?>
                                         <div class="col-md-6">
                                             <div class="reference">
-                                                <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
+                                                <h3 class="reference-title"><?php echo($reference['reference_title']); ?>This is the left 2nd 2nd row</h3>
                                                 <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
                                                 <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" />Image</div>
                                                 <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
@@ -223,7 +224,7 @@
                             ?>
                                 <div class="col-xs-12 col-md-5"><!--Right Column-->
                                     <div class="reference">
-                                        <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
+                                        <h3 class="reference-title"><?php echo($reference['reference_title']); ?>this is the dright single row</h3>
                                         <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
                                         <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" />Image</div>
                                         <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
@@ -232,16 +233,11 @@
                                 </div>
                             </div>
                             <?php
-                            $cleanup = "";
+                            $cleanup = "</div>";
                         }
                     }
                     echo($cleanup);
-                ?>
-
-              <?php } ?>
-        }
-    ?>
-
-
+                } ?>
+            <?php } ?>
     </main>
     <?php get_footer(); ?>

@@ -196,7 +196,7 @@ div.button {
     z-index: 999;
 }
 .navbar-default {
-    background-color: transparent;
+    background-color: #fff;
     border-color: transparent;
 }
 .navbar-toggle .icon-bar {
@@ -207,7 +207,7 @@ div.button {
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-    background-color: transparent;
+    background-color: #fff;
 }
 .navbar-default .navbar-toggle {
     border-color: transparent;
@@ -222,13 +222,15 @@ div.button {
     font-size: 18px;
     line-height: 25px;
 }
+.navbar-default .navbar-collapse{
+    border: none;
+}
 #branding {
     height: 60px;
     /* margin-top: -13px; */
     bottom: 15px;
     position: relative;
 }
-
 /* Footer */
 
 #footer {
@@ -452,12 +454,12 @@ div.button {
     background-color: #8ab858;
 }
 #download-data-button {
-    height: 73px;
-    width: 228px;
-    margin-top: 20px;
+    height: 50px;
+    width: 180px;
+    /*margin-top: 20px;*/
     background-color: #4a90e2;
     color: #fff;
-    font-size: 24px;
+    font-size: 18px;
     border: none;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -860,41 +862,50 @@ h3.blog-sidebar-title {
 }
 
 /*REFERENCE GALLERY*/
-#reference-content {
-    background-color: #ededed;
-    padding-top: 0px;
-}
-#featured-reference {
-    margin: 15px;
-    margin-right: 36px;
-}
+
 #reference-gallery-header {
     background-color: #fcb200;
 }
+#reference-content {
+    padding: 45px 115px;
+    background-color: #efefef;
+    /*background-color: purple;*/
+}
 .reference{
     background-color: #fff;
+    /*background-color: grey;*/
     border-top: 20px solid #245e83;
-    margin-top: 34px;
+}
+.featured-reference {
+    width: 96%;
+    margin-right: 30px;
+}
+.double-reference {
+    margin-top: 30px;
+    margin-right: 30px;
+    width: 46%;
 }
 h3.reference-title{
     font-size: 36px;
     color: #245e83;
-    margin: 15px 15px 10px;
     font-weight: bold;
     
 }
 .reference-description{
     font-size: 18px;
-        color:#343434;
-    margin: 15px;
+    color:#343434;
 }
 .reference-date{
-     margin: 15px;
     font-size: 14px;
     color: #9b9b9b;
-    
-    
+    margin-bottom: 10px;x`  
 }
-.reference-link{
-    
+.reference-link {
+    float: right;
+    margin: 15px;
 }
+.reference-link img {
+    max-height: 70px;
+}
+/* nav*/
+

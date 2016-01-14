@@ -377,11 +377,13 @@ div.button {
     margin-top: 15px;
 }
 .cell-value {
-    color: #4a4a4a;
+    color: #4a90e2;
     font-size: 24px;
 }
+.cell-value_alt {
+    color: #4a4a4a;
+}
 .cell-value_home {
-    color: #4a90e2;
     font-size: 18px;
     width: 130px;
 }

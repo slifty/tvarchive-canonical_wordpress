@@ -10,7 +10,7 @@
         	$post_metadata = get_fields();
         	
         	$ad_embed_url = $post_metadata['embed_url'];
-        	$ad_notes = $post_metadata['notes'];
+        	$ad_notes = $post_metadata['ad_notes'];
         	$ad_id = $post_metadata['archive_id'];
         	$ad_sponsors = $post_metadata['ad_sponsors'];
         	$ad_candidates = $post_metadata['ad_candidates'];
@@ -84,25 +84,25 @@
                 </div>
                 <div id="ad-market-count" class="cell">
                     <div class="cell-label">Markets Aired In</div>
-                    <div class="cell-value">
+                    <div class="cell-value cell-value_alt">
                         <?php echo($ad_market_count);?>
                     </div>
                 </div>
                 <div id="ad-network-count" class="cell">
                     <div class="cell-label">Networks Aired On</div>
-                    <div class="cell-value">
+                    <div class="cell-value cell-value_alt">
                         <?php echo($ad_network_count);?>
                     </div>
                 </div>
                 <div id="ad-first-aired" class="cell">
                     <div class="cell-label">This Ad First Aired On</div>
-                    <div class="cell-value">
+                    <div class="cell-value cell-value_alt">
                         <?php echo($ad_first_seen);?>
                     </div>
                 </div>
                 <div id="ad-last-aired" class="last cell">
                     <div class="cell-label">This Ad Last Aired On</div>
-                    <div class="cell-value">
+                    <div class="cell-value cell-value_alt">
                         <?php echo($ad_last_seen);?>
                     </div>
                 </div>

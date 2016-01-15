@@ -8,7 +8,7 @@
         </div>
         <!--- end Header -->
 
-        <div class="row page-content">
+        <div id="data-content" class="page-content">
             <div id="download-content" class="">
                 <div class="row page-content-row">
                     <div class="col-xs-12 col-md-12">
@@ -21,8 +21,9 @@
                 <!-- end row about dataset-->
                 <div class="row page-content-row">
                     <div class="col-xs-12 col-md-12">
-                        <h2>BUILD YOUR OWN DATASET</h2>
-                        <div class="cell-multiline-value">Choose the fields you would like included below:</div>
+                        <h2>DOWNLOAD THE DATASET</h2>
+                        <?php get_template_part('content', 'download_data'); ?>
+                        <div class="cell-multiline-value"></div>
                     </div>
                 </div>
 

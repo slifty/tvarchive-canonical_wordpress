@@ -13,7 +13,7 @@ Template Name: Blog Page
         </div>
 
         <div class="row page-content">
-            <div class="col-xs-12 col-sm-8 col-md-8  blog-main">
+            <div class="col-xs-12 col-sm-7 col-md-8  blog-main">
 
                 <?php
             $pagination_index = get_query_var('page', 0);
@@ -41,8 +41,8 @@ Template Name: Blog Page
                             <?php the_time('F j, Y'); ?>
                         </p>
                         <?php if( get_the_post_thumbnail() ) : ?>
-                            <div class="img-container thumbnail">
-                                <?php the_post_thumbnail('thumbnail', array( 'class' => 'post-img' ) ); ?>
+                            <div class="">
+                                <?php the_post_thumbnail('large', array( 'class' => 'post-img' ) ); ?>
                             </div>
                             <?php endif; ?>
                                 <div class="post-excerpt">
@@ -58,8 +58,8 @@ Template Name: Blog Page
 
 
                         <!-- /pagination -->
-                        <div id="post-navigation" class="row">
-                            <div id="prev" class="col-xs-12 col-md-2 post-navigation-button">
+                        <div id="post-navigation">
+                            <div id="prev" class=" post-navigation-button">
 
                                 <?php
                         if($pagination_index > 0) {
@@ -69,7 +69,7 @@ Template Name: Blog Page
                             }
                         ?>
                             </div>
-                            <div id="next" class="col-xs-12 col-md-offset-4 col-md-2 post-navigation-button">
+                            <div id="next" class="post-navigation-button">
                                 <?php
                     if($has_more) { ?>
                                     <a href="<?php echo($blog_permalink.($pagination_index + 1));?>">Next</a>
@@ -89,7 +89,7 @@ Template Name: Blog Page
             <!-- /.blog-main -->
 
             <!-- /start sidebar -->
-            <div class="col-xs-12 col-sm-4  blog-sidebar hidden-xs">
+            <div class="col-xs-12 col-sm-5  blog-sidebar hidden-xs">
                 <div class="sidebar-module sidebar-module-inset">
                     <div class="sidebar-module">
                         <?php get_sidebar( ); ?>

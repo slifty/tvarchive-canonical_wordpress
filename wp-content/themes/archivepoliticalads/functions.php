@@ -710,7 +710,7 @@
     add_filter( 'excerpt_length', 'tta_excerpt_length', 999 );
 
     // Add Sidebar Widgets
-function tia_widgets_init() {
+  function tia_widgets_init() {
 
 	register_sidebar( array(
 		'name' => __( 'Blog Sidebar', 'tia' ),
@@ -743,7 +743,7 @@ function tia_widgets_init() {
 	) );
 	}
 
-add_action( 'widgets_init', 'tia_widgets_init' );
+  add_action( 'widgets_init', 'tia_widgets_init' );
 
 
   /////////////////
@@ -758,7 +758,7 @@ add_action( 'widgets_init', 'tia_widgets_init' );
 
     // Load in bootstrap
     wp_enqueue_style( 'bootstrap.css', get_template_directory_uri() . '/css/bootstrap.css' );
-    wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'),  '', true );
+    wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.js', array('jquery'),  '', true );
       
     // Load in our carousel for the front page
     wp_enqueue_style( 'owl.carousel.css', get_template_directory_uri() . '/css/owl.carousel.css' );

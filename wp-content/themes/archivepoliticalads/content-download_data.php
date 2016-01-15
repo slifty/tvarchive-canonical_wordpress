@@ -49,9 +49,8 @@
     </div>
 </div>
 -->
-		<div class="row download-row last">
-			<div class="col-xs-12 col-md-offset-3 col-md-3">
-
+		<div class="download-row last">
+			<div class="download-btn">
 				<input type="hidden" name="ad_identifier" value="<?php echo($ad_id); ?>" />
 				<input type="submit" id="download-data-button" class="button" value="Download CSV" />
 			</div>

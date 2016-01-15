@@ -23,10 +23,10 @@
     <!-- end searchr-->
 
 <div  id="home-feature-section" class="row">
-	<div  class="col-xs-12 col-sm-4 col-md-4">
+	<div  class="col-xs-12 col-sm-12 col-md-4">
         <?php get_template_part('content', 'home_blog_posts'); ?>
 	</div>
-    <div id="ad-embed_home" class="col-md-8 hidden-sm hidden-xs">
+    <div id="ad-embed_home" class="hidden-xs hidden-sm col-md-8">
         <?php get_template_part('content', 'home_canonical_ad'); ?>
     </div>
     

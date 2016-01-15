@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div id="browse-header-search" class="row page-header-row">
-                    <div class="col-xs-8 col-xs-offset-1 col-sm-10 col-md-10">
+                    <div class="col-xs-12 col-sm-10 col-md-10">
                         <?php get_search_form(); ?>
                     </div>
                 </div>
@@ -46,45 +46,54 @@
         }
         ?>
                 <div id="search-results-total" class="row">
-                    <?php echo(sizeof($archive_ids));?> Results Found</div>
+                    <?php echo(sizeof($archive_ids));?> Results Found
+                </div>
                 <?php
 
-        if ( sizeof($archive_ids) > 0) {
-          ?>
+                    if ( sizeof($archive_ids) > 0) {
+                      ?>
 
-                    <div id="search-results">
-                        <?php
-            $has_more = false;
-            if(sizeof($posts) == 11) {
-              $has_more = true;
-              array_pop($posts);
-            }
+                                <div id="search-results">
+                                    <?php
+                        $has_more = false;
+                        if(sizeof($posts) == 11) {
+                          $has_more = true;
+                          array_pop($posts);
+                        }
 
-            foreach($posts as $post) {
-              setup_postdata( $post );
-              $metadata = get_fields();
-              ?>
-                            <div class="political-ad" class="row">
-                                <div class="embed col-lg-3">
+                        foreach($posts as $post) {
+                          setup_postdata( $post );
+                          $metadata = get_fields();
+                          ?>
+                            <div class="political-ad row">
+                                <div class="embed col-xs-12 col-sm-6 col-lg-3">
                                     <iframe frameborder="0" allowfullscreen src="<?php echo($metadata['embed_url']);?>" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
                                 </div>
-                                <div class="col-lg-9">
-                                    <div class="title">
-                                        <a href="<?php the_permalink(); ?>" target="_blank">
-                                            <?php the_title(); ?>
-                                        </a>
+                                <div class="col-xs-12 col-sm-6  col-lg-9">
+                                    <div class="row">
+                                        <div class="title col-sm-12">
+                                            <a href="<?php the_permalink(); ?>" target="_blank">
+                                                <?php the_title(); ?>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="sponsors">
-                                        <span class="browse-label">Sponsor<?php if(sizeof($metadata['ad_sponsors']) != 1) { echo("s"); }?>: </span>
-                                        <?php echo(generate_sponsors_string($metadata['ad_sponsors'])); ?>
+                                    <div class="row">
+                                        <div class="sponsors col-sm-12">
+                                            <span class="browse-label">Sponsor<?php if(sizeof($metadata['ad_sponsors']) != 1) { echo("s"); }?>: </span>
+                                            <?php echo(generate_sponsors_string($metadata['ad_sponsors'])); ?>
+                                        </div>
                                     </div>
-                                    <div class="candidates">
-                                        <span class="browse-label">Candidate<?php if(sizeof($metadata['ad_candidates']) != 1) { echo("s"); }?>: </span>
-                                        <?php  echo(generate_candidates_string($metadata['ad_candidates'])); ?>
+                                    <div class="row">    
+                                        <div class="candidates col-sm-12">
+                                            <span class="browse-label">Candidate<?php if(sizeof($metadata['ad_candidates']) != 1) { echo("s"); }?>: </span>
+                                            <?php  echo(generate_candidates_string($metadata['ad_candidates'])); ?>
+                                        </div>
                                     </div>
-                                    <div class="cell-multiline-value">
-                                       <?php echo($metadata['ad_notes']);?>
-                                    </div>                            
+                                    <div class="row">
+                                        <div class="cell-multiline-value hidden-xs col-sm-12">
+                                           <?php echo($metadata['ad_notes']);?>
+                                        </div>  
+                                    </div>
                                 </div>
                             </div>
                             <?php  }  ?>

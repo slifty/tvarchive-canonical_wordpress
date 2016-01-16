@@ -13,7 +13,7 @@ Template Name: Blog Page
         </div>
 
         <div class="row page-content">
-            <div class="col-xs-12 col-sm-7 col-md-8  blog-main">
+            <div class="col-xs-12 col-sm-7 col-md-8 blog-main">
 
                 <?php
             $pagination_index = get_query_var('page', 0);
@@ -89,7 +89,7 @@ Template Name: Blog Page
             <!-- /.blog-main -->
 
             <!-- /start sidebar -->
-            <div class="col-xs-12 col-sm-5  blog-sidebar hidden-xs">
+            <div class="col-xs-12 col-sm-5 col-md-4 blog-sidebar hidden-xs">
                 <div class="sidebar-module sidebar-module-inset">
                     <div class="sidebar-module">
                         <?php get_sidebar( ); ?>

@@ -111,8 +111,6 @@
             <div class="row">
                 <?php get_template_part('content', 'sponsors'); ?>
                 <?php get_template_part('content', 'canidates'); ?>
-
-
             </div>
 </div>
 

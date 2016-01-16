@@ -2,8 +2,8 @@
  Theme Name:   PoliticalAd Canonical Library
  Theme URI:    http://archive.org
  Description:  The Internet Archive's PoliticalAd Project's primary theme
- Author:       Dan Schultz and Carolyn Li-Madeo
- Author URI:   http://slifty.com
+ Author:       Dan Schultz, Kiya Appling-Thurman and Carolyn Li-Madeo
+ Author URI:   http://slifty.com , http://kiyaappling.com
  Version:      1.0.0
  License:      
  License URI:  
@@ -145,6 +145,14 @@ div.button {
     background: #f7f7f5;
     height: 73px;
 }
+.navbar-brand {
+    float: left;
+    height: 73px;
+    padding: 6px 0 0; 
+    font-size: 18px;
+    line-height: 25px;
+    margin-left: 24px;
+}
 #branding {
     height: 60px;
 }
@@ -171,21 +179,21 @@ div.button {
 #title-library {
     color: #E85646;
 }
-#navigation {
+.navigation {
     font-size: 18px;
     font-weight: bold;
     margin-top: 25px;
     height: 60px;
 }
-#navigation ul {
+.navigation ul {
     float: right;
     list-style: none;
 }
-#navigation ul li {
+.navigation ul li {
     float: left;
     margin-right: 24px;
 }
-#navigation a {
+.navigation a {
     color: #4a4a4a;
 }
 .navbar {
@@ -200,6 +208,14 @@ div.button {
     background-color: transparent;
     border-color: transparent;
 }
+.uncollapse{
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+    width: auto;
+    border-top: 0;
+}
 .navbar-toggle .icon-bar {
     display: block;
     width: 25px;
@@ -209,22 +225,11 @@ div.button {
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #4a4a4a;
 }
-.navbar-brand {
-    float: left;
-    height: 59px;
-    /* padding: 15px 15px; */
-    font-size: 18px;
-    line-height: 25px;
-}
+
 .navbar-default .navbar-collapse{
     border: none;
 }
-#branding {
-    height: 60px;
-    /* margin-top: -13px; */
-   /* bottom: 15px;*/
-   /* position: relative;*/
-}
+
 /* Footer */
 
 #footer {

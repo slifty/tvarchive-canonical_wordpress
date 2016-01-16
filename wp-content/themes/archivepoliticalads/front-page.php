@@ -33,16 +33,15 @@
 </div>
     <!-- end home feature-->
 
-    <div id="home-explore-header" class="row header-row">
+  <!--   <div id="home-explore-header" class="row header-row">
         <div class="col-xs-12 col-md-12">
             <h1>Explore the Collection</h1>
         </div>
     </div>
     <div id="home-explore-section">
 
-        <?php get_template_part('content', 'sponsors'); ?>
-            <?php get_template_part('content', 'canidates'); ?>
+     
 
-    </div>
+    </div> -->
 
     <?php get_footer(); ?>

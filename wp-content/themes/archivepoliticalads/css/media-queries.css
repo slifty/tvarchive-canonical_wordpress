@@ -1,11 +1,6 @@
 /*   Media Queries*/
-
-
 /* Extra small devices (phones, less than 768px) */
-
-
 /* Portrait and Landscape */
-
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) and (-webkit-min-device-pixel-ratio: 2) {
     
     /*header*/
@@ -17,8 +12,9 @@
         height: 50px;
     }
     .navbar-brand{
-         line-height: normal;
-         height: 50px;
+        line-height: normal;
+        height: 50px;
+        padding: 15px 0;
     }
     #branding{
         margin-top: 0;
@@ -26,24 +22,22 @@
     #title {
         font-size: 18px;
         margin: 0;
+        width: 161px;
+        margin: 15px 0;
     }
     nav {
     float: right;
     /*padding: 15px 15px 0 0;*/
-}
-
-    header {
-
-        position: absolute;
-
     }
-
+    .navbar-toggle{
+        margin-right: 0;
+        padding: 9px 0;
+    }
     #menu-icon {
 
         display:inline-block;
-
     }
-    #navigation {
+    .navigation {
     font-size: 18px;
     font-weight: bold;
      margin-top: 48px; 
@@ -68,18 +62,7 @@
     nav:hover ul {
 
         display: block;
-
     }
-    /*menu end*/
-
-
-
-
-
-
-
-
-
 
     /* All Pages */
     .page-header-row {
@@ -360,20 +343,74 @@
     #footer-social-links {
         margin-bottom: 34px;
     }
-    /* temp solution*/
-    .navbar-collapse.collapse {
-        display: none!important;
-    }
 }
 
 /* Small devices (tablets, 768px and up) */
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) and (-webkit-min-device-pixel-ratio: 1) {
-    /* temp solution*/
-    .navbar-collapse.collapse {
-        display: none!important;
+        
+    /*menu*/
+    #header{
+        height: 50px;
     }
+    .navbar {
+        height: 50px;
+    }
+    .navbar-brand{
+        line-height: normal;
+        margin-bottom: 0;
+        margin-left: 31px;
+        padding: 7px 0 0;
+    }
+    #branding{
+        margin-top: 0;
+        bottom: 0;
+    }
+    #logo{
+        height: 36px;
+        width: 49px;
+        margin: 0 15px 0 0;
+    }
+    #title {
+        font-size: 18px;
+        margin-top: 13px;
+    }
+    nav {
+        float: right;
+        /*padding: 15px 15px 0 0;*/
+    }
+    #menu-icon {
+        display:inline-block;
+    }
+    .navigation {
+        font-size: 18px;
+        font-weight: bold;
+         margin-top: 48px; 
+        height: auto;
+    }
+    nav ul, nav:active ul { 
+        display: none;
+        position: absolute;
+        padding: 24px;
+        background: #f7f7f5;
+        right: 0px;
+        width: 10em;
+        border-radius: 4px 0 4px 4px;
+        z-index: 999;
+    }
+    nav li {
+        text-align: center;
+        width: 100%;
+        padding: 10px 0;
+        margin: 0;
+    }
+    nav:hover ul {
+
+        display: block;
+    }
+
     /* Page level*/
+
     .header-row {
         padding: 25px 15px;
     }
@@ -390,7 +427,9 @@
     .page-content-row h2 {
         margin: 0 0 15px;
     }
+
     /*Front Page*/
+
     #home-header-content {
         height: 232px;
     }
@@ -420,7 +459,9 @@
         width: 90%;
         margin: 0 30px;
     }
+
     /*home feature section*/
+
     #home-feature-section,
     #home-feature-section .col-sm-4 {
         padding: 15px 1%;
@@ -429,9 +470,6 @@
         display: none;
     }
     .post_home {
-    /*    min-width: 226px;
-        border-bottom: none;
-        margin: 15px;*/
         width: 31%;
         border-bottom: none;
         margin: 20px 6px;
@@ -455,7 +493,9 @@
     .post-title_home a{
         font-size: 30px;
     }
+
     /*Blog*/
+
     .post {
         margin: 15px 0 33px;
     }
@@ -468,7 +508,9 @@
     .blog-sidebar {
         margin-top: 15px;
     }
+
     /*Blog Single*/
+
     ol.commentlist {
         list-style: none;
     }
@@ -488,7 +530,9 @@
         margin-left: 40px;
     }
     ul.children li {}
+
     /*sidebar*/
+
     .sidebar-module.sidebar-module-inset {
          margin-right: 0; 
     }
@@ -498,6 +542,7 @@
     input#submit-newsletter{
         width: 84px;
     }
+
     /* Data page*/
 
     .download-btn {
@@ -506,7 +551,9 @@
         float: left;
         margin-bottom: 20px;
     }
+
     /* Resource*/
+
     .resource {
         min-width: 226px;
         padding-top: 15px;
@@ -524,12 +571,6 @@
         max-width: 190px;
         margin: 15px;
     }
-  /*  #resources-content{
-        padding: 0 30px;
-    }*/
-
-    /* Search*/
-
     #search-results-total{
         padding: 0;
     }
@@ -537,19 +578,22 @@
         padding: 0;
     }
     .cell-multiline-value{
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    overflow: hidden;
-    max-height: 6em;
-    line-height: 1.5em;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        overflow: hidden;
+        max-height: 6em;
+        line-height: 1.5em;
     }
+
     /*footer*/
+
     #footer {
         height: auto;
         padding: 0;
     }
 
     /*social media*/
+
     #footer-social-links ul {
         margin-top: 90%;
     }
@@ -566,14 +610,16 @@
 /* Medium devices (laptops, small desktops, 1024px and up) */
 
 @media screen and (min-device-width: 1024px) and (max-device-width: 1199px) and (-webkit-min-device-pixel-ratio: 1) {
-    .navbar-collapse.collapse {
-        height: auto !important;
-        padding-bottom: 0;
-        overflow: visible !important;
-        /*temp fix while designing*/
-        display: none!important;
+    /*header*/
+
+    /*Main Menu*/
+
+    .navbar-collapse{
+        padding-right: 0;
+        padding-left: 0;
     }
     /* page level*/
+
     .page-header-row {
         padding: 37px 15px;
     }
@@ -599,7 +645,9 @@
         padding: 50px 5%;
         min-width: 1000px;
     }
+
     /* Front page */
+
     .post_home{
         margin: 0;
     }
@@ -612,7 +660,9 @@
     .post-title_home a{
         font-size: 30px;
     }
+
     /* blog*/
+
     .post {}
 
     h3.blog-sidebar-title {
@@ -621,26 +671,34 @@
     .post-img{
        width: 100%; 
     }
+
     /*blog single*/
+
     .comment-meta.commentmetadata{
         left: 75px;
         position: relative;
         bottom: 17px;
     }
     .comment-body p {
-    font-size: 14px;
-    margin-left: 75px;
+        font-size: 14px;
+        margin-left: 75px;
     }
+
     /*sidebar*/
+
     .sidebar-module.sidebar-module-inset {
          margin-right: 0; 
     }
+
     /* data*/
+
     .download-row.last {
         /*padding: 50px 115px;*/
         margin-bottom: 20px;
     }
+
     /*Resources*/
+
     .resource-description {
         margin: 15px;
         font-size: 18px;
@@ -651,6 +709,7 @@
     #partner-logos {
     margin: 0 0 30px 90px;
     }
+
     /*Browse*/
 
     #search-results-total{
@@ -667,7 +726,9 @@
         line-height: 1.8em;
         margin-top: 10px;
     }
+
         /* footer*/
+
     #footer{
         padding: 0px 20px;
     }

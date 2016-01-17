@@ -1,0 +1,258 @@
+msgid ""
+msgstr "MIME-Version: 1.0\n"
+
+#. Name.
+msgid "WP Crontrol"
+msgstr ""
+
+#. Short description.
+msgid "WP Crontrol lets you view and control what&#039;s happening in the WP-Cron system."
+msgstr ""
+
+#. Screenshot description.
+msgid "New cron events can be added, modified, deleted, and executed."
+msgstr ""
+
+#. Screenshot description.
+msgid "New cron schedules can be added, giving plugin developers more options when scheduling events."
+msgstr ""
+
+#. Found in description header, installation header.
+msgid "Usage"
+msgstr ""
+
+#. Found in description list item.
+msgid "View all cron events along with their arguments, recurrence, and when they are next due."
+msgstr ""
+
+#. Found in description list item.
+msgid "Edit, delete, and immediately run any cron events."
+msgstr ""
+
+#. Found in description list item.
+msgid "Add new cron events."
+msgstr ""
+
+#. Found in description list item.
+msgid "Add, edit, and remove custom cron schedules."
+msgstr ""
+
+#. Found in description list item, installation list item.
+msgid "Go to the Tools -&gt; Cron Events menu to manage cron events."
+msgstr ""
+
+#. Found in description list item, installation list item.
+msgid "Go to the Settings -&gt; Cron Schedules menu to manage cron schedules."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "WP Crontrol lets you view and control what's happening in the WP-Cron system. From the admin screens you can:"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "The admin screen will show you a warning message if your cron system doesn't appear to be working (for example if your server can't connect to itself to fire scheduled cron events)."
+msgstr ""
+
+#. Found in installation list item.
+msgid "Go to the <em>Plugins</em> menu and click <em>Add New</em>."
+msgstr ""
+
+#. Found in installation list item.
+msgid "Search for <em>WP Crontrol</em>."
+msgstr ""
+
+#. Found in installation list item.
+msgid "Click <em>Install Now</em> next to the <em>WP Crontrol</em> plugin."
+msgstr ""
+
+#. Found in installation list item.
+msgid "Activate the plugin."
+msgstr ""
+
+#. Found in installation paragraph.
+msgid "You can install this plugin directly from your WordPress dashboard:"
+msgstr ""
+
+#. Found in installation paragraph.
+msgid "Alternatively, see the guide to <a href=\"http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation\">Manually Installing Plugins</a>."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Improvements to the UI."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "More error detection when testing WP-Cron functionality."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Improve the capability checks for single site and multisite."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Lots of escaping and sanitising."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fix various issues with multiple events with the same hook name."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Removed the WP-CLI commands, as these have now been added to WP-CLI core (see <code>wp help cron</code> for more info)"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Tweaks to i18n and date and args formatting"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Properly escape the <code>crontrol_message</code> query var (props Julio Potier)"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added <code>wp crontrol run-event</code> and <code>wp crontrol delete-event</code> WP-CLI commands"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Clarify language regarding hooks/entries/events"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Correctly display the local time when listing cron events"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Remove a PHP notice"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Pass the WP-Cron spawn check through the same filter as the actual spawner"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added support for <a href=\"http://wp-cli.org/\">WP-CLI</a>"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Removed some PHP4 code that's no longer relevant"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Bug fixes for running cron events and adding cron schedules"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added a cron spawn test to check for errors when spawning cron"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Various small tweaks"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "WordPress 3.4 compatibility"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Input of PHP code for cron events"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Non-repeating cron events"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Handles cron events with arguments"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Internationalization"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Editing/deleting/execution of cron events"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "More text, status messages, etc."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Allow a user to enter a schedule event in a human manner"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Looks better on WordPress 2.5"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fully documented the code."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixed the bug that the activate action wouldn't be run if the plugin wasn't in a subdirectory."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Now will play nicely in case any other plugins specify additional cron schedules."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Minor cosmetic fixes."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Super basic, look at what's in WP-Cron functionality."
+msgstr ""
+
+#. Found in faq header.
+msgid "What's the use of adding new cron schedules?"
+msgstr ""
+
+#. Found in faq header.
+msgid "How do I create a new PHP cron event?"
+msgstr ""
+
+#. Found in faq header.
+msgid "How do I create a new regular cron event?"
+msgstr ""
+
+#. Found in faq header.
+msgid "Are any WP-CLI commands available?"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Cron schedules are used by WordPress and plugins for scheduling events to be executed at regular intervals. Intervals must be provided by the WordPress core or a plugin in order to be used. As an example, many backup plugins provide support for periodic backups. In order to do a weekly backup, a weekly cron schedule must be entered into WP Crontrol first and then a backup plugin can take advantage of it as an interval."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "In the Tools -&gt; Cron Events admin panel, click on the \"Add PHP Cron Event\" tab underneath the cron event table. In the form that appears, enter the schedule and next run time in the boxes. The event schedule is how often your event will be executed. If you don't see a good interval, then add one in the Settings -&gt; Cron Schedules admin panel. In the \"Hook code\" area, enter the PHP code that should be run when your cron event is executed. You don't need to provide the PHP opening tag (<code>&lt;?php</code>)."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "There are two steps to getting a functioning cron event that executes regularly. The first step is telling WordPress about the hook. This is the part that WP Crontrol was created to provide. The second step is calling a function when your hook is executed."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "<em>Step One: Adding the hook</em>"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "In the Tools -&gt; Cron Events admin panel, enter the details of the hook. You're best off having a hookname that conforms to normal PHP variable naming conventions. The event schedule is how often your hook will be executed. If you don't see a good interval, then add one in the Settings -&gt; Cron Schedules admin panel."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "<em>Step Two: Writing the function</em>"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "This part takes place in PHP code (for example, in the <code>functions.php</code> file from your theme). To execute your hook, WordPress runs an <a href=\"https://codex.wordpress.org/Plugin_API#Actions\">action</a>. For this reason, we need to tell WordPress which function to execute when this action is run. The following line accomplishes that:"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "The next step is to write your function. Here's a simple example:"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "The cron commands which were previously included in WP Crontrol are now part of WP-CLI (since 0.16), so this plugin no longer provides any WP-CLI commands. See <code>wp help cron</code> for more info."
+msgstr ""

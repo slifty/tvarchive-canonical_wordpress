@@ -5,8 +5,9 @@
         <div class="footer-copy">Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot corn soko endive courgette tatsoi pea sprouts fava.</div>
         <div class="footer-link"><a href="http://archive.org/details/tv">archive.org/details/tv</a></div>
     </div>
-    <div class="footer-section col-sm-4 col-md-4 hidden-xs">
+    <div id="custom-footer-sidebar" class="footer-section col-sm-4 col-md-4 hidden-xs">
         <?php get_sidebar( 'footer' ); ?>
+        <a href="<?php bloginfo('url'); ?>/blog">More</a>
     </div>
     <div id="footer-social-links" class="col-sm-4 col-md-4 col-xs-12">
         <ul>

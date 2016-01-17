@@ -27,32 +27,30 @@
     <body>
         <div class="container-fluid">
             <div id="header" class="row">
-                <nav class="navbar navbar-default">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <div id="branding" class="col-xs-6 col-md-6 col-lg-6">
+                        <a href="<?php bloginfo('url'); ?>/">             
+                            <img class="hidden-xs" id="logo" src="<?php bloginfo('template_directory'); ?>/img/brand_logo.png" srcset="<?php bloginfo('template_directory'); ?>/img/brand_logo@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/brand_logo@3x.png 3x" />
+                            <div id="title"><span id="title-political">Political</span><span id="title-ad">Ad</span> <span id="title-library">Library</span></div>                   
+                        </a>
+                </div>
+                <div class="col-xs-6 col-md-6 col-lg-6">
+                    <nav class="navbar navbar-default">
+                        <button type="button" id="menu-icon" class="navbar-toggle" data-toggle="collapse" data-target="#mainNav-collapse" aria-expanded="false">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="<?php bloginfo('url'); ?>/">
-                            <div id="branding">
-                                <img id="logo" class="hidden-xs" src="<?php bloginfo('template_directory'); ?>/img/brand_logo.png" srcset="<?php bloginfo('template_directory'); ?>/img/brand_logo@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/brand_logo@3x.png 3x" />
-                                <div id="title"><span id="title-political">Political</span><span id="title-ad">Ad</span> <span id="title-library">Library</span></div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse">
-                        <ul id="navigation" class="nav navbar-nav navbar-right">
-                            <li><a href="<?php bloginfo('url'); ?>/about">about</a></li>
-                            <li><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
-                            <li><a href="<?php bloginfo('url'); ?>/data">data download</a></li>
-                            <li><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
-                            <li><a href="<?php bloginfo('url'); ?>/browse">search</a></li>
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </nav>
+                       <!--  <a href="#" ></a> -->
+                        <div class="collapse navbar-collapse navigation " id="mainNav-collapse">
+                            <ul>
+                                <li><a href="<?php bloginfo('url'); ?>/about">about</a></li>
+                                <li><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
+                                <li><a href="<?php bloginfo('url'); ?>/data">data download</a></li>
+                                <li><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
+                                <li><a href="<?php bloginfo('url'); ?>/browse">search</a></li>
+                            </ul>
+                         </div>   
+                    </nav>
+                </div>
             </div>

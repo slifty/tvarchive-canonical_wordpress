@@ -24,7 +24,7 @@
         </div>
 
         <div class="row page-content">
-            <div class="col-xs-12 col-sm-8 col-md-8  blog-main">
+            <div class="col-xs-12 col-sm-7 col-md-8  blog-main">
 
                 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
@@ -76,7 +76,7 @@
 
                     <!-- /.blog-main -->
                     <!-- /start sidebar -->
-                    <div class="hidden-xs col-sm-4  blog-sidebar">
+                    <div class="hidden-xs col-sm-5  blog-sidebar">
                         <div class="sidebar-module sidebar-module-inset">
                             <div class="sidebar-module">
                                 <?php get_sidebar( ); ?>

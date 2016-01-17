@@ -1,23 +1,72 @@
 /*   Media Queries*/
-
-
 /* Extra small devices (phones, less than 768px) */
-
-
 /* Portrait and Landscape */
-
-@media only screen and (min-device-width: 320px) and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+@media only screen and (min-device-width: 320px) and (max-device-width: 767px) and (-webkit-min-device-pixel-ratio: 2) {
+    
     /*header*/
     #header {
         height: 50px;
     }
+    /*menu*/
+    .navbar {
+        height: 50px;
+    }
+    .navbar-brand{
+        line-height: normal;
+        height: 50px;
+        padding: 15px 0;
+    }
+    #branding{
+        margin-top: 0;
+    }
     #title {
         font-size: 18px;
-        margin-top: 14px;
+        margin: 0;
+        width: 161px;
+        margin: 15px 0;
     }
+    nav {
+    float: right;
+    /*padding: 15px 15px 0 0;*/
+    }
+    .navbar-toggle{
+        margin-right: 0;
+        padding: 9px 0;
+    }
+    #menu-icon {
+
+        display:inline-block;
+    }
+    .navigation {
+    font-size: 18px;
+    font-weight: bold;
+     margin-top: 48px; 
+    height: auto;
+    }
+    nav ul, nav:active ul { 
+        display: none;
+        position: absolute;
+        padding: 24px;
+        background: #f7f7f5;
+        right: 0px;
+        width: 10em;
+        border-radius: 4px 0 4px 4px;
+        z-index: 999;
+    }
+    nav li {
+        text-align: center;
+        width: 100%;
+        padding: 10px 0;
+        margin: 0;
+    }
+    nav:hover ul {
+
+        display: block;
+    }
+
     /* All Pages */
     .page-header-row {
-        padding: 15px 15px 40px;
+        padding: 15px 0 40px;
     }
     .page-content {
         padding: 0;
@@ -32,12 +81,19 @@
         margin: 30px 0 15px;
         padding: 0;
     }
+    .page-content-row:nth-of-type(1) h2{
+        margin-top: 15px;
+    }
     .page-content-row p,
     blockquote p {
         font-size: 14px;
         line-height: 20px;
     }
     /* Front Page */
+    #home-header{
+        background-attachment: fixed;
+        background-position: 36% 0;  
+    }
     #home-header-content {
         height: 371px;
     }
@@ -58,7 +114,7 @@
         line-height: 25px;
     }
     #home-feature-section {
-        padding: 15px;
+        padding: 15px 0 0;
         background-color: #efefef;
     }
     .header-row {
@@ -70,6 +126,26 @@
     /*Home PAge Blog Pdost*/
     .post_home {
         min-height: 0;
+        margin: 20px 0;
+        padding: 0 0 15px;
+    }
+     .post_home:nth-of-type(1) {
+        margin-top: 0;
+    }
+    .post_home:nth-of-type(2){
+        border-top: 20px solid #BBB2A0;
+        display: block;
+    }
+    .post_home:nth-of-type(3) {
+        border-top: 20px solid #0A91AB;
+        display: block;
+    }
+    .home-feature-section_post {}
+    .post_home:nth-of-type(2) a{
+        color: #BBB2A0;
+    }
+    .post_home:nth-of-type(3) a{
+        color: #0A91AB;
     }
     .post-img_home {
         height: 195px;
@@ -94,11 +170,18 @@
     }
     /* Blog Listing Page*/
     .post {
-        margin: 0 0 33px;
+        margin: 0 0 15px;
     }
-    .post-title {}
+    .post:nth-of-type(1) {
+        margin-top: 15px;
+    }
+    .post-title {
+        font-size: 30px;
+        margin-top: 0;
+    }
     .post-img {
         height: auto;
+        width: 100%;
     }
     .post-more {
         font-size: 14px;
@@ -110,6 +193,9 @@
     .post-navigation-button a {
         font-size: 14px;
     }
+    #next{
+       margin-right: 0; 
+    }
     /* Single Post*/
     .post-content img {
         vertical-align: middle;
@@ -119,12 +205,24 @@
         margin: 0 0 50px;
         padding: 0 15px;
     }
+    .comment-meta.commentmetadata{
+        left: 60px;
+        position: relative;
+        bottom: 17px;
+    }
+    .comments h2, #respond h3{
+        font-size: 20px;
+    }
     ul.children {
         margin-left: 30px;
     }
     form label {
         font-size: 14px;
         font-weight: normal;
+    }
+    input#submit{
+       width: 128px;
+        height: 36px; 
     }
     /* Data*/
     .cell-multiline-value {
@@ -133,6 +231,11 @@
     }
     .download-row {
         padding: 0 15px;
+    }
+    .download-btn {
+        position: relative;
+        right: 17px;
+        float: left;
     }
     .checkbox {
         font-size: 14px;
@@ -195,14 +298,27 @@
         width: 65%;
         font-size: 12px;
     }
-    /*Search*/
+    /*Browse*/
     #search-results-total {
         padding: 15px;
         margin-bottom: 0;
         text-transform: uppercase;
     }
+    #search-results {
+        margin: 0 15px;
+    }
     .political-ad {
         padding-left: 0;
+        margin-bottom: 30px;
+    }
+    .political-ad .title{
+        padding: 0;
+        margin: 15px 0 10px;
+        font-size: 16px;
+    }
+    .political-ad .sponsors,.political-ad .candidates {
+        padding: 0;
+        font-size: 12px;
     }
     /*footer*/
     #footer {
@@ -227,33 +343,93 @@
     #footer-social-links {
         margin-bottom: 34px;
     }
-    /* temp solution*/
-    .navbar-collapse.collapse {
-        display: none!important;
-    }
 }
 
 /* Small devices (tablets, 768px and up) */
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) and (-webkit-min-device-pixel-ratio: 1) {
-    /* temp solution*/
-    .navbar-collapse.collapse {
-        display: none!important;
+        
+    /*menu*/
+    #header{
+        height: 50px;
     }
+    .navbar {
+        height: 50px;
+    }
+    .navbar-brand{
+        line-height: normal;
+        margin-bottom: 0;
+        margin-left: 31px;
+        padding: 7px 0 0;
+    }
+    #branding{
+        margin-top: 0;
+        bottom: 0;
+    }
+    #logo{
+        height: 36px;
+        width: 49px;
+        margin: 0 15px 0 0;
+    }
+    #title {
+        font-size: 18px;
+        margin-top: 13px;
+    }
+    nav {
+        float: right;
+        /*padding: 15px 15px 0 0;*/
+    }
+    #menu-icon {
+        display:inline-block;
+    }
+    .navigation {
+        font-size: 18px;
+        font-weight: bold;
+         margin-top: 48px; 
+        height: auto;
+    }
+    nav ul, nav:active ul { 
+        display: none;
+        position: absolute;
+        padding: 24px;
+        background: #f7f7f5;
+        right: 0px;
+        width: 10em;
+        border-radius: 4px 0 4px 4px;
+        z-index: 999;
+    }
+    nav li {
+        text-align: center;
+        width: 100%;
+        padding: 10px 0;
+        margin: 0;
+    }
+    nav:hover ul {
+
+        display: block;
+    }
+
     /* Page level*/
+
     .header-row {
         padding: 25px 15px;
     }
     .page-header-row {
-        padding: 15px 30px 60px;
+        padding: 15px 15px 60px;
     }
     .page-content {
         margin: 15px 30px 50px;
+        padding: 0;
+    }
+    .page-content-row {
+    padding: 30px 0;
     }
     .page-content-row h2 {
         margin: 0 0 15px;
     }
+
     /*Front Page*/
+
     #home-header-content {
         height: 232px;
     }
@@ -276,35 +452,65 @@
         color: #fff;
         margin: 0 15px;
     }
-    home-header-explanation p {
+    #home-header-explanation p {
         padding: 0;
     }
     #search-text {
         width: 90%;
         margin: 0 30px;
     }
+
     /*home feature section*/
+
     #home-feature-section,
     #home-feature-section .col-sm-4 {
         padding: 15px 1%;
     }
-    .post_home {
-        min-width: 226px;
-        border-bottom: none;
-        margin: 15px;
+    #ad-embed_home{
+        display: none;
     }
-    .home-feature-section_post {}
+    .post_home {
+        width: 31%;
+        border-bottom: none;
+        margin: 20px 6px;
+        float: left;
+        padding: 6px;
+    }
+   .post_home:nth-of-type(2){
+        display: block;
+        border-color: #BBB2A0;
+   }
+   .post_home:nth-of-type(3){
+        display: block;
+        border-color: #0A91AB;
+   }
+    .post_home:nth-of-type(2) a{
+        color: #BBB2A0;
+    }
+    .post_home:nth-of-type(3) a{
+        color: #0A91AB;
+    }
+    .post-title_home a{
+        font-size: 30px;
+    }
+
     /*Blog*/
+
     .post {
         margin: 15px 0 33px;
     }
     h2.post-title {
         margin-top: 0;
     }
-    blog-sidebar {
+    .post-img{
+       width: 100%; 
+    }
+    .blog-sidebar {
         margin-top: 15px;
     }
+
     /*Blog Single*/
+
     ol.commentlist {
         list-style: none;
     }
@@ -324,16 +530,70 @@
         margin-left: 40px;
     }
     ul.children li {}
+
+    /*sidebar*/
+
+    .sidebar-module.sidebar-module-inset {
+         margin-right: 0; 
+    }
+    #subscribe-text{
+        width: 226px;
+    }
+    input#submit-newsletter{
+        width: 84px;
+    }
+
+    /* Data page*/
+
+    .download-btn {
+        position: relative;
+        right: 17px;
+        float: left;
+        margin-bottom: 20px;
+    }
+
     /* Resource*/
+
     .resource {
         min-width: 226px;
         padding-top: 15px;
     }
+    .resource-row{
+        padding:0; 
+    }
+    #resources-content{
+      padding: 0 30px;  
+    }
+    #partner-logos {
+    margin: 0 0 30px 10px;
+    }
+    #partner-logos .logo {
+        max-width: 190px;
+        margin: 15px;
+    }
+    #search-results-total{
+        padding: 0;
+    }
+    .political-ad{
+        padding: 0;
+    }
+    .cell-multiline-value{
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        overflow: hidden;
+        max-height: 6em;
+        line-height: 1.5em;
+    }
+
     /*footer*/
+
     #footer {
         height: auto;
+        padding: 0;
     }
+
     /*social media*/
+
     #footer-social-links ul {
         margin-top: 90%;
     }
@@ -350,22 +610,25 @@
 /* Medium devices (laptops, small desktops, 1024px and up) */
 
 @media screen and (min-device-width: 1024px) and (max-device-width: 1199px) and (-webkit-min-device-pixel-ratio: 1) {
-    .navbar-collapse.collapse {
-        height: auto !important;
-        padding-bottom: 0;
-        overflow: visible !important;
-        /*temp fix while designing*/
-        display: none!important;
+    /*header*/
+
+    /*Main Menu*/
+
+    .navbar-collapse{
+        padding-right: 0;
+        padding-left: 0;
     }
     /* page level*/
+
     .page-header-row {
-        padding: 37px 115px;
+        padding: 37px 15px;
     }
     .page-content {
-        padding: 15px 115px;
+        padding: 15px 30px;
     }
     .page-content-row {
         padding: 0;
+        margin-top: 20px;
     }
     .post {
         margin: 0;
@@ -382,16 +645,93 @@
         padding: 50px 5%;
         min-width: 1000px;
     }
+
+    /* Front page */
+
+    .post_home{
+        margin: 0;
+    }
+    .post_home:nth-of-type(2){
+        display: none
+    }
+    .post_home:nth-of-type(3) {
+        display: none
+    }
+    .post-title_home a{
+        font-size: 30px;
+    }
+
     /* blog*/
+
     .post {}
+
     h3.blog-sidebar-title {
         margin-top: 30px;
     }
-    /* data*/
-    .download-row.last {
-        padding: 50px 115px;
+    .post-img{
+       width: 100%; 
     }
-    /* footer*/
+
+    /*blog single*/
+
+    .comment-meta.commentmetadata{
+        left: 75px;
+        position: relative;
+        bottom: 17px;
+    }
+    .comment-body p {
+        font-size: 14px;
+        margin-left: 75px;
+    }
+
+    /*sidebar*/
+
+    .sidebar-module.sidebar-module-inset {
+         margin-right: 0; 
+    }
+
+    /* data*/
+
+    .download-row.last {
+        /*padding: 50px 115px;*/
+        margin-bottom: 20px;
+    }
+
+    /*Resources*/
+
+    .resource-description {
+        margin: 15px;
+        font-size: 18px;
+    }
+    #resources-content {
+        padding: 0 30px;
+    }
+    #partner-logos {
+    margin: 0 0 30px 90px;
+    }
+
+    /*Browse*/
+
+    #search-results-total{
+        padding-left: 0;
+    }
+    .political-ad {
+        padding-left: 0;
+    }
+    .political-ad .embed {
+        height: 250px;
+    }
+    .cell-multiline-value{
+        max-height: 9em;
+        line-height: 1.8em;
+        margin-top: 10px;
+    }
+
+        /* footer*/
+
+    #footer{
+        padding: 0px 20px;
+    }
     #footer-social-links ul li {
         margin-left: 14px;
     }
@@ -403,9 +743,12 @@
 
 /* Large devices (large desktops, 1200px and up) */
 
-@media (min-width: @screen-lg-min) {
+@media (min-width: @screen-lg-min) and (min-width: 1200px) {
     /* temp solution*/
-    .navbar-collapse.collapse {
-        display: none!important;
+    .post_home:nth-of-type(2){
+      display: none
+    }
+    .post_home:nth-of-type(3) {
+        display: none
     }
 }

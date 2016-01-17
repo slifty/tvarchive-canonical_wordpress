@@ -101,7 +101,7 @@ function export_send_response($rows, $output='csv') {
     add_filter( 'excerpt_length', 'tta_excerpt_length', 999 );
 
     // Add Sidebar Widgets
-function tia_widgets_init() {
+  function tia_widgets_init() {
 
 	register_sidebar( array(
 		'name' => __( 'Blog Sidebar', 'tia' ),
@@ -134,7 +134,7 @@ function tia_widgets_init() {
 	) );
 	}
 
-add_action( 'widgets_init', 'tia_widgets_init' );
+  add_action( 'widgets_init', 'tia_widgets_init' );
 
 
 /////////////////

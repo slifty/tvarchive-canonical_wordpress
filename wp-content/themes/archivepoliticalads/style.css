@@ -2,8 +2,8 @@
  Theme Name:   PoliticalAd Canonical Library
  Theme URI:    http://archive.org
  Description:  The Internet Archive's PoliticalAd Project's primary theme
- Author:       Dan Schultz and Carolyn Li-Madeo
- Author URI:   http://slifty.com
+ Author:       Dan Schultz, Kiya Appling-Thurman and Carolyn Li-Madeo
+ Author URI:   http://slifty.com , http://kiyaappling.com
  Version:      1.0.0
  License:      
  License URI:  
@@ -145,6 +145,14 @@ div.button {
     background: #f7f7f5;
     height: 73px;
 }
+.navbar-brand {
+    float: left;
+    height: 73px;
+    padding: 6px 0 0; 
+    font-size: 18px;
+    line-height: 25px;
+    margin-left: 24px;
+}
 #branding {
     height: 60px;
 }
@@ -171,21 +179,21 @@ div.button {
 #title-library {
     color: #E85646;
 }
-#navigation {
+.navigation {
     font-size: 18px;
     font-weight: bold;
     margin-top: 25px;
     height: 60px;
 }
-#navigation ul {
+.navigation ul {
     float: right;
     list-style: none;
 }
-#navigation ul li {
+.navigation ul li {
     float: left;
     margin-right: 24px;
 }
-#navigation a {
+.navigation a {
     color: #4a4a4a;
 }
 .navbar {
@@ -195,9 +203,18 @@ div.button {
     border: none;
     z-index: 999;
 }
-.navbar-default {
+.navbar-default,.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus,.navbar-default .navbar-toggle  {
     background-color: transparent;
     border-color: transparent;
+}
+.uncollapse{
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+    width: auto;
+    border-top: 0;
 }
 .navbar-toggle .icon-bar {
     display: block;
@@ -205,28 +222,12 @@ div.button {
     height: 4px;
     border-radius: 4px;
 }
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus {
-    background-color: transparent;
-}
-.navbar-default .navbar-toggle {
-    border-color: transparent;
-}
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #4a4a4a;
 }
-.navbar-brand {
-    float: left;
-    height: 59px;
-    /* padding: 15px 15px; */
-    font-size: 18px;
-    line-height: 25px;
-}
-#branding {
-    height: 60px;
-    /* margin-top: -13px; */
-    bottom: 15px;
-    position: relative;
+
+.navbar-default .navbar-collapse{
+    border: none;
 }
 
 /* Footer */
@@ -256,6 +257,23 @@ div.button {
 }
 #footer-sidebar h3 {
     margin-top: 5px;
+}
+a#footer-sidebar-link{
+    color: #e85646;
+}
+.footer-recent-post_title {
+    color: #e85646; 
+}
+.footer-recent-post_date {
+    color: #9b9b9b;
+}
+.footer-recent-post_excerpt {
+    color: #fff;
+    max-height: 44px;
+    overflow: hidden;
+    margin-bottom: 5px;
+    white-space: normal;
+    text-overflow: ellipsis;
 }
 #footer .footer-subtitle {
     color: #9b9b9b;
@@ -375,11 +393,13 @@ div.button {
     margin-top: 15px;
 }
 .cell-value {
-    color: #4a4a4a;
+    color: #4a90e2;
     font-size: 24px;
 }
+.cell-value_alt {
+    color: #4a4a4a;
+}
 .cell-value_home {
-    color: #4a90e2;
     font-size: 18px;
     width: 130px;
 }
@@ -387,6 +407,11 @@ div.button {
     color: #4a4a4a;
     line-height: 29px;
     font-size: 18px;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 6em;
+    line-height: 1.5em;
 }
 
 /* Ad Embed */
@@ -437,13 +462,14 @@ div.button {
     color: #8ab858;
 }
 .download-row {
-    padding-left: 115px;
+    /*padding-left: 115px;*/
 }
 .download-row .cell-label {
     color: #8ab758;
 }
 .download-row.last {
-    padding-bottom: 50px;
+   /* padding-bottom: 50px;*/
+   margin-top: 20px;
 }
 #download-about {
 /*    padding-bottom: 50px;*/
@@ -452,12 +478,12 @@ div.button {
     background-color: #8ab858;
 }
 #download-data-button {
-    height: 73px;
-    width: 228px;
-    margin-top: 20px;
+    height: 50px;
+    width: 180px;
+    /*margin-top: 20px;*/
     background-color: #4a90e2;
     color: #fff;
-    font-size: 24px;
+    font-size: 18px;
     border: none;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -618,14 +644,24 @@ h3.resource-name {
     background-color: #e85646;
 }
 .post {
-    margin: 65px 100px 30px;
+    margin: 45px 60px 30px 100px;
     border-bottom: 1px solid #eee;
+    max-width: 1024px;
 }
 .post_home {
     background-color: #fff;
     border-top: 20px solid #e85646;
     margin: 0 15px;
     padding: 15px;
+}
+.home-feature-section_post {
+
+}
+.post_home:nth-of-type(2){
+    display: none;
+}
+.post_home:nth-of-type(3) {
+    display: none;
 }
 .post-title h2 {
     margin: 0px;
@@ -669,9 +705,13 @@ h3.resource-name {
 .thumbnail > img {
     width: 100%;
 }
-.post-img_home {
-    max-width: 377px;
+.post-img_home{
+   width: 100%;
 }
+.post-img {
+    width: 100%;
+    height: 354px;
+    }
 .post-more {
     color: #4a90e2;
     font-size: 18px;
@@ -679,7 +719,7 @@ h3.resource-name {
     margin-bottom: 30px;
 }
 #post-navigation {
-    margin: 50px 0 50px 15px;
+    margin: 30px 0 0 100px;
 }
 .post-navigation-button {
     text-transform: uppercase;
@@ -697,17 +737,26 @@ h3.resource-name {
 .post-pagination {
     font-size: 18px;
 }
+#next {
+    float: right;
+    margin-right: 115px;
+}
 #next a {
     text-align: right;
     color: #e85646;
 }
-#previous a {
+#prev {
+    float: left;
+}
+#pre a {
     text-align: left;
     color: #4a90e2;
 }
 
 /* Custom Comments */
-
+ol.commentlist {
+    list-style-type: none;
+}
 h3#comments {}
 .comments h2,
 #respond h3 {
@@ -796,16 +845,36 @@ input#submit {
     color: #fff;
     border: 0;
     border-radius: 4px;
+    box-shadow: none;
 }
 
 /*Blog Side Bar */
-
+.sidebar-module.sidebar-module-inset {
+    margin-right: 100px;
+}
 h3.blog-sidebar-title {
     font-size: 24px;
     color: #9b9b9b;
     text-transform: uppercase;
 }
-
+#subscribe-text{
+    padding: 10px;
+    width: 270px;
+    border-radius: 6px;
+    border: 1px solid #eeeeee;
+    font-size: 16px;
+    background-color: #fff;
+    margin-right: 9px;
+}
+input#submit-newsletter {
+    color: #fff;
+    background-color: #4a90e2;
+    height: 44px;
+    width: 92px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: none; 
+}
 /* Browse / Search */
 
 #browse-header {
@@ -860,41 +929,50 @@ h3.blog-sidebar-title {
 }
 
 /*REFERENCE GALLERY*/
-#reference-content {
-    background-color: #ededed;
-    padding-top: 0px;
-}
-#featured-reference {
-    margin: 15px;
-    margin-right: 36px;
-}
+
 #reference-gallery-header {
     background-color: #fcb200;
 }
+#reference-content {
+    padding: 45px 115px;
+    background-color: #efefef;
+    /*background-color: purple;*/
+}
 .reference{
     background-color: #fff;
+    /*background-color: grey;*/
     border-top: 20px solid #245e83;
-    margin-top: 34px;
+}
+.featured-reference {
+    width: 96%;
+    margin-right: 30px;
+}
+.double-reference {
+    margin-top: 30px;
+    margin-right: 30px;
+    width: 46%;
 }
 h3.reference-title{
     font-size: 36px;
     color: #245e83;
-    margin: 15px 15px 10px;
     font-weight: bold;
     
 }
 .reference-description{
     font-size: 18px;
-        color:#343434;
-    margin: 15px;
+    color:#343434;
 }
 .reference-date{
-     margin: 15px;
     font-size: 14px;
     color: #9b9b9b;
-    
-    
+    margin-bottom: 10px;x`  
 }
-.reference-link{
-    
+.reference-link {
+    float: right;
+    margin: 15px;
 }
+.reference-link img {
+    max-height: 70px;
+}
+/* nav*/
+

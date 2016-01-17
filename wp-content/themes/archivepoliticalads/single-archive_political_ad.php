@@ -10,7 +10,7 @@
         	$post_metadata = get_fields();
         	
         	$ad_embed_url = $post_metadata['embed_url'];
-        	$ad_notes = $post_metadata['notes'];
+        	$ad_notes = $post_metadata['ad_notes'];
         	$ad_id = $post_metadata['archive_id'];
         	$ad_sponsors = $post_metadata['ad_sponsors'];
         	$ad_candidates = $post_metadata['ad_candidates'];
@@ -84,25 +84,25 @@
                 </div>
                 <div id="ad-market-count" class="cell">
                     <div class="cell-label">Markets Aired In</div>
-                    <div class="cell-value">
+                    <div class="cell-value cell-value_alt">
                         <?php echo($ad_market_count);?>
                     </div>
                 </div>
                 <div id="ad-network-count" class="cell">
                     <div class="cell-label">Networks Aired On</div>
-                    <div class="cell-value">
+                    <div class="cell-value cell-value_alt">
                         <?php echo($ad_network_count);?>
                     </div>
                 </div>
                 <div id="ad-first-aired" class="cell">
                     <div class="cell-label">This Ad First Aired On</div>
-                    <div class="cell-value">
+                    <div class="cell-value cell-value_alt">
                         <?php echo($ad_first_seen);?>
                     </div>
                 </div>
                 <div id="ad-last-aired" class="last cell">
                     <div class="cell-label">This Ad Last Aired On</div>
-                    <div class="cell-value">
+                    <div class="cell-value cell-value_alt">
                         <?php echo($ad_last_seen);?>
                     </div>
                 </div>
@@ -148,32 +148,29 @@
                 </div>
             </div>
             -->
-               
             <?php 
-    			$references = get_field('references');
+                $references = get_field('references');
                 if(sizeof($references) > 0)
-    			{
-    				$reference = array_shift($references); 
-    				?>
+                {
+                    $reference = array($references); 
+                    ?>            
                     <div id="reference-gallery-header" class="header-row row">
                         <div class="col-lg-12">
                             <h1>REFERENCE GALLERY</h1>
                         </div>
-                    </div>
+                     </div>
                     <?php
                     foreach($references as $index => $reference) {
                         if($index % 4 == 0) // wide, first row
                         {
-                            ?>
+                            ?>                     
                             <div  id="reference-content" class="row">
                                 <div class="col-xs-12 col-md-7"><!--Left Column-->
-                                    <div id="#featured-reference"  class="row"><!--Top Row in Left Column -->
-                                        <div class="reference col-md-12">
-                                            <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
-                                            <div class="reference-date"><?php echo($reference['reference_date']); ?> </div>
-                                            <div class="reference-description"><?php echo($reference['reference_excerpt']); ?></div>
-                                            <div class="reference-link"><a href="<?php echo($reference['reference_link']); ?>" target="_blank">logo link</a></div>
-                                        </div>
+                                    <div class="reference featured-reference col-md-12">
+                                        <h3 class="reference-title"><?php echo($reference['reference_title']); ?>this is the left top row</h3>
+                                        <div class="reference-date"><?php echo($reference['reference_date']); ?> </div>
+                                        <div class="reference-description"><?php echo($reference['reference_excerpt']); ?></div>
+                                        <a class="reference-link" href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' class="reference-image" /></a>
                                     </div>
                             <?php
                             $cleanup = "
@@ -182,17 +179,14 @@
                         }
                         if($index % 4 == 1) // tall, right
                         {
-                            ?>
-                                    <div class="row"><!-- Bottom Row in Left Column-->
-                                       <div class="col-md-6">
-                                            <div class="reference">
-                                                <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
-                                                <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
-                                                <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" />Image</div>
-                                                <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
-                                                <div class="reference-link"><a href="<?php echo($reference['reference_link']); ?>" target="_blank">logo link</a></div>
-                                            </div>
-                                        </div>
+                            ?>                                    
+                                    <div class="reference double-reference col-md-6">
+                                            <h3 class="reference-title"><?php echo($reference['reference_title']); ?>This is the left 1st 2nd row</h3>
+                                            <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
+                                            <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" /></div>
+                                            <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
+                                            <a class="reference-link" href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' class="reference-image" /></a>
+                                    </div>
                             <?php
                             $cleanup = "
                                     </div>
@@ -202,16 +196,13 @@
                         }
                         if($index % 4 == 2) // small, second row
                         {
-                            ?>
-                                        <div class="col-md-6">
-                                            <div class="reference">
-                                                <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
-                                                <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
-                                                <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" />Image</div>
-                                                <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
-                                                <div class="reference-link"><a href="<?php echo($reference['reference_link']); ?>" target="_blank">logo link</a></div>
-                                            </div>
-                                        </div>
+                            ?>                                    
+                                    <div class="reference double-reference col-md-6">
+                                        <h3 class="reference-title"><?php echo($reference['reference_title']); ?>This is the left 2nd 2nd row</h3>
+                                        <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
+                                        <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" /></div>
+                                        <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
+                                        <a class="reference-link" href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' class="reference-image" /></a>
                                     </div>
                                 </div>
                             <?php
@@ -221,27 +212,20 @@
                         if($index % 4 == 3) // small, second row
                         {
                             ?>
-                                <div class="col-xs-12 col-md-5"><!--Right Column-->
-                                    <div class="reference">
-                                        <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
-                                        <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
-                                        <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" />Image</div>
-                                        <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
-                                        <div class="reference-link"><a href="<?php echo($reference['reference_link']); ?>" target="_blank">logo link</a></div>
-                                    </div>
+                                <div class="reference single-reference col-xs-12 col-md-5"><!--right Column-->
+                                    <h3 class="reference-title"><?php echo($reference['reference_title']); ?>this is the dright single row</h3>
+                                    <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
+                                    <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" /></div>
+                                    <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
+                                    <a class="reference-link" href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' class="reference-image" /></a>   
                                 </div>
                             </div>
                             <?php
-                            $cleanup = "";
+                            $cleanup = " ";
                         }
                     }
                     echo($cleanup);
-                ?>
-
-              <?php } ?>
-        }
-    ?>
-
-
+                } ?>                            
+            <?php } ?>
     </main>
     <?php get_footer(); ?>

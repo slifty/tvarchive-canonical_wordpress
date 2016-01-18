@@ -1,6 +1,6 @@
 <?php
-    $featured_post = get_field('featured_post', 'option');
-    if( $featured_post ) {
+    $featured_posts = get_field('featured_posts', 'option');
+    foreach($featured_posts as $featured_post) {
         global $post;
         $post = $featured_post;
         setup_postdata($featured_post);

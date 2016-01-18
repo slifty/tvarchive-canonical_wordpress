@@ -34,7 +34,7 @@
         var explore_slider = $("#explore-candidates-slider");
         explore_slider.owlCarousel({
           itemsCustom : [
-            [0, 1],
+            [0, 2],
             [500, 2],
             [750, 3],
             [1000, 4],

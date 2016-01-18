@@ -57,7 +57,7 @@
                 <div class="">
                     <div id="ad-note_home" class="ad-note_home">
                         <div class="cell-label cell-label_home">Note</div>
-                        <div class="cell-multiline-value">
+                        <div class="cell-multiline-value ad-note_content">
                             <?php echo($ad_notes);?>
                         </div>
                     </div>

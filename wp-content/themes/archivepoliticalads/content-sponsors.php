@@ -35,9 +35,9 @@
         var explore_slider = $("#explore-sponsors-slider");
         explore_slider.owlCarousel({
           itemsCustom : [
-            [0, 1],
-            [500, 2],
-            [750, 3],
+            [0, 2],
+            [500, 4],
+            [750, 4],
             [1000, 4],
             [1250, 5],
             [1500, 6]

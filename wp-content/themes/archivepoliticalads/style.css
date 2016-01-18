@@ -203,6 +203,8 @@ div.button {
     border: none;
     z-index: 999;
 }
+.navbar-toggle {
+}
 .navbar-default,.navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus,.navbar-default .navbar-toggle  {
     background-color: transparent;
@@ -978,4 +980,3 @@ h3.reference-title{
     max-height: 70px;
 }
 /* nav*/
-

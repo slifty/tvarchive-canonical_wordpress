@@ -1,4 +1,8 @@
-<?php get_header(); ?>
+<?php
+/*
+    Template Name: Resources
+*/
+?><?php get_header(); ?>
 
 <div id="resources-header" class="row page-header-row">
 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
@@ -11,7 +15,7 @@
 	<div id="partner-logos" class="row page-content-row">
 		<div class="">
 			<ul>
-				<?php 
+				<?php
 					$partners = get_field('partners');
 					if(sizeof($partners) == 0)
 					{
@@ -45,7 +49,7 @@
 </div>
 <div id="resources-content" class="row">
 	<div coass="col-lg-12">
-		<?php 
+		<?php
 			$resources = get_field('resources');
 			if(sizeof($resources) > 0)
 			{

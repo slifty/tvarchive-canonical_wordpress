@@ -1,6 +1,6 @@
-<?php 
-/* 
-Template Name: Blog Page
+<?php
+/*
+    Template Name: Blog
 */
 ?>
     <?php get_header(); ?>

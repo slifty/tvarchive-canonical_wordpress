@@ -1,4 +1,8 @@
-<?php get_header(); ?>
+<?php
+/*
+    Template Name: About
+*/
+?><?php get_header(); ?>
 
 <div id="about-header" class="row page-header-row">
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">

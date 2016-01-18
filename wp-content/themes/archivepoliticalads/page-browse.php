@@ -1,6 +1,6 @@
-<?php 
-/* 
-  Template Name: Browse PAge
+<?php
+/*
+    Template Name: Browse
 */
 ?>
     <?php get_header(); ?>
@@ -83,7 +83,7 @@
                                             <?php echo(generate_sponsors_string($metadata['ad_sponsors'])); ?>
                                         </div>
                                     </div>
-                                    <div class="row">    
+                                    <div class="row">
                                         <div class="candidates col-sm-12">
                                             <span class="browse-label">Candidate<?php if(sizeof($metadata['ad_candidates']) != 1) { echo("s"); }?>: </span>
                                             <?php  echo(generate_candidates_string($metadata['ad_candidates'])); ?>
@@ -92,7 +92,7 @@
                                     <div class="row">
                                         <div class="cell-multiline-value hidden-xs col-sm-12">
                                            <?php echo($metadata['ad_notes']);?>
-                                        </div>  
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -107,14 +107,14 @@
           // TODO: embed the browse / explore
       }
     ?>
-            
+
             <div class="row">
                 <?php get_template_part('content', 'sponsors'); ?>
                 <?php get_template_part('content', 'canidates'); ?>
             </div>
 </div>
 
-   
+
 
 
         <?php get_footer(); ?>

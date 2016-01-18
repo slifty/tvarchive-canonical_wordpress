@@ -91,14 +91,17 @@ function export_send_response($rows, $output='csv') {
   /////////////////
   // Add features image for Blog view
   add_theme_support( 'post-thumbnails' );
-    // set blog listing image size
-    set_post_thumbnail_size( 776, 253, true);
 
-    // Adjust excerpt length to better match design for Blog view
-    function tta_excerpt_length( $length ){
-        return 60;
-    }
-    add_filter( 'excerpt_length', 'tta_excerpt_length', 999 );
+  // set blog listing image size
+  set_post_thumbnail_size( 776, 253, true);
+  add_image_size( 'frontpage-thumb', 380, 230, true);
+  add_image_size( 'post-thumb', 776, 253, true );
+
+  // Adjust excerpt length to better match design for Blog view
+  function tta_excerpt_length( $length ){
+    return 60;
+  }
+  add_filter( 'excerpt_length', 'tta_excerpt_length', 999 );
 
     // Add Sidebar Widgets
   function tia_widgets_init() {
@@ -161,6 +164,32 @@ function archivepoliticalads_scripts() {
     wp_enqueue_style( 'media-queries.css', get_template_directory_uri() . '/css/media-queries.css' );
     // Load the addional js
     wp_enqueue_script( 'apps_js', get_template_directory_uri() . '/js/apps.js', array('jquery','bootstrap' ),  '', true );
+
+}
+
+////////////
+// Set up some theme options
+if( function_exists('acf_add_options_page') ) {
+
+    acf_add_options_page(array(
+        'page_title'    => 'Theme Settings',
+        'menu_title'    => 'Theme Settings',
+        'menu_slug'     => 'theme-settings',
+        'capability'    => 'edit_posts',
+        'redirect'      => true
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title'    => 'Theme Home Settings',
+        'menu_title'    => 'Home',
+        'parent_slug'   => 'theme-settings',
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title'    => 'Theme Footer Settings',
+        'menu_title'    => 'Footer',
+        'parent_slug'   => 'theme-settings',
+    ));
 
 }
 

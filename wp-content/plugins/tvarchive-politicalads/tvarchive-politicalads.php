@@ -738,6 +738,9 @@ function get_ad_instances($query = ''){
                 FROM ".$table_name."
                WHERE wp_identifier IN(".implode(', ', $ids).")";
 
+    if(sizeof($ids) == 0)
+        return array();
+
     $results = $wpdb->get_results($query);
     $rows = array();
     $metadata_cache = array();

@@ -452,6 +452,10 @@ a#footer-sidebar-link{
 #ad-note_home {
     padding-bottom: 0;
 }
+.ad-note_content {
+	max-height: 130px;
+	overflow: auto;
+}
 
 /* Data Download */
 

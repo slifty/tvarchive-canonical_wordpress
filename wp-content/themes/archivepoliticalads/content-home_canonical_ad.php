@@ -27,7 +27,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 separator-right">
                 <div class="row separator-bottom">
                     <div class="col-md-3">
                         <div id="ad-sponsor" class="">
@@ -53,7 +53,7 @@
                 </div>
             </div>
 
-            <div class="col-md-9 separator-left">
+            <div class="col-md-9">
                 <div class="">
                     <div id="ad-note_home" class="ad-note_home">
                         <div class="cell-label cell-label_home">Note</div>

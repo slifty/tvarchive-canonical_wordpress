@@ -560,6 +560,24 @@ function search_political_ads($query, $extra_args = array()) {
         }
     }
 
+    if(sizeof($parsed_query['archive_id'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['archive_id'] as $archive_id) {
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}postmeta
+                  WHERE meta_key LIKE %s
+                    AND meta_value = %s
+                ",
+                'archive_id',
+                $archive_id
+            ));
+            foreach($rows as $row) {
+                $matched_post_ids[] = $row->post_id;
+            }
+        }
+    }
+
     // Market, Channel, and Location are instance values
     if(sizeof($parsed_query['network'])) {
         $use_matched_post_ids = true;
@@ -695,9 +713,18 @@ function parse_political_ad_query($query) {
  * @param  string $ad_identifier (Optional) the archive identifier of a specific ad
  * @return array                 a complex object containing information about ad airings
  */
-function get_ad_instances($ad_identifier = ''){
+function get_ad_instances($query = ''){
     global $wp;
     global $wpdb;
+
+    $args = array(
+        'posts_per_page' => -1,
+        'fields' => 'ids'
+    );
+    $wp_query = search_political_ads($query, $args);
+    $ids = $wp_query->posts;
+
+
 
     // Collect the data associated with this ad
     $table_name = $wpdb->prefix . 'ad_instances';
@@ -708,11 +735,8 @@ function get_ad_instances($ad_identifier = ''){
                      end_time as end_time,
                      archive_identifier as archive_identifier,
                      wp_identifier as wp_identifier
-                FROM ".$table_name." ";
-
-    if($ad_identifier != '') {
-        $query .= "WHERE archive_identifier = '".esc_sql($ad_identifier)."'";
-    }
+                FROM ".$table_name."
+               WHERE wp_identifier IN(".implode(', ', $ids).")";
 
     $results = $wpdb->get_results($query);
     $rows = array();
@@ -725,7 +749,7 @@ function get_ad_instances($ad_identifier = ''){
         $archive_identifier = $result->archive_identifier;
 
         // Cache the metadata for this identifier
-        if(!array_key_exists($ad_identifier, $metadata_cache)) {
+        if(!array_key_exists($archive_identifier, $metadata_cache)) {
             $post_metadata = get_fields($wp_identifier);
             $metadata['ad_embed_url'] = array_key_exists('embed_url', $post_metadata)?$post_metadata['embed_url']:'';
             $metadata['ad_notes'] = array_key_exists('notes', $post_metadata)?$post_metadata['notes']:'';
@@ -738,21 +762,21 @@ function get_ad_instances($ad_identifier = ''){
             $metadata['ad_market_count'] = array_key_exists('market_count', $post_metadata)?$post_metadata['market_count']:'';
             $metadata['ad_first_seen'] = array_key_exists('first_seen', $post_metadata)?$post_metadata['first_seen']:'';
             $metadata['ad_last_seen'] =array_key_exists('last_seen', $post_metadata)? $post_metadata['last_seen']:'';
-            $metadata_cache[$ad_identifier] = $metadata;
+            $metadata_cache[$archive_identifier] = $metadata;
         }
 
         // Load the metadata from the cache
-        $ad_embed_url = $metadata_cache[$ad_identifier]['ad_embed_url'];
-        $ad_notes = $metadata_cache[$ad_identifier]['ad_notes'];
-        $archive_id = $metadata_cache[$ad_identifier]['archive_id'];
-        $ad_sponsor = $metadata_cache[$ad_identifier]['ad_sponsor'];
-        $ad_candidate = $metadata_cache[$ad_identifier]['ad_candidate'];
-        $ad_type = $metadata_cache[$ad_identifier]['ad_type'];
-        $ad_message = $metadata_cache[$ad_identifier]['ad_message'];
-        $ad_air_count = $metadata_cache[$ad_identifier]['ad_air_count'];
-        $ad_market_count = $metadata_cache[$ad_identifier]['ad_market_count'];
-        $ad_first_seen = $metadata_cache[$ad_identifier]['ad_first_seen'];
-        $ad_last_seen = $metadata_cache[$ad_identifier]['ad_last_seen'];
+        $ad_embed_url = $metadata_cache[$archive_identifier]['ad_embed_url'];
+        $ad_notes = $metadata_cache[$archive_identifier]['ad_notes'];
+        $archive_id = $metadata_cache[$archive_identifier]['archive_id'];
+        $ad_sponsor = $metadata_cache[$archive_identifier]['ad_sponsor'];
+        $ad_candidate = $metadata_cache[$archive_identifier]['ad_candidate'];
+        $ad_type = $metadata_cache[$archive_identifier]['ad_type'];
+        $ad_message = $metadata_cache[$archive_identifier]['ad_message'];
+        $ad_air_count = $metadata_cache[$archive_identifier]['ad_air_count'];
+        $ad_market_count = $metadata_cache[$archive_identifier]['ad_market_count'];
+        $ad_first_seen = $metadata_cache[$archive_identifier]['ad_first_seen'];
+        $ad_last_seen = $metadata_cache[$archive_identifier]['ad_last_seen'];
 
         // Create the row
         $row = [

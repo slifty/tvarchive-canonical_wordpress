@@ -140,7 +140,7 @@
                         <div class="row download-row last">
                             <div class="col-xs-offset-9 col-xs-3">
 
-                                <input type="hidden" name="ad_identifier" value="<?php echo($archive_id); ?>" />
+                                <input type="hidden" name="q" value="archive_id:'<?php echo($archive_id); ?>'" />
                                 <input type="submit" id="download-data-button" class="button" value="Download CSV" />
                             </div>
                         </div>

@@ -39,8 +39,8 @@ function export_sniff_requests(){
     global $wp;
 
     if(isset($wp->query_vars['__export'])){
-        if(array_key_exists('ad_identifier', $_GET))
-            $ad_instances = get_ad_instances($_GET['ad_identifier']);
+        if(array_key_exists('q', $_GET))
+            $ad_instances = get_ad_instances($_GET['q']);
         else
             $ad_instances = get_ad_instances();
 

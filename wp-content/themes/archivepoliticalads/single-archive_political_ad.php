@@ -6,22 +6,22 @@
         while ( have_posts() )
         {
             the_post();
-        	$post_id = get_the_ID();
-        	$post_metadata = get_fields();
+            $post_id = get_the_ID();
+            $post_metadata = get_fields();
 
-        	$ad_embed_url = $post_metadata['embed_url'];
-        	$ad_notes = $post_metadata['ad_notes'];
-        	$archive_id = $post_metadata['archive_id'];
-        	$ad_sponsors = $post_metadata['ad_sponsors'];
-        	$ad_candidates = $post_metadata['ad_candidates'];
-        	$ad_type = $post_metadata['ad_type'];
-        	$ad_message = $post_metadata['ad_message'];
-        	$ad_air_count = $post_metadata['air_count'];
-        	$ad_market_count = $post_metadata['market_count'];
-        	$ad_network_count = $post_metadata['network_count'];
-        	$ad_first_seen = $post_metadata['first_seen']?$post_metadata['first_seen']:'--';
-        	$ad_last_seen = $post_metadata['last_seen']?$post_metadata['last_seen']:'--';
-        	?>
+            $ad_embed_url = $post_metadata['embed_url'];
+            $ad_notes = $post_metadata['ad_notes'];
+            $archive_id = $post_metadata['archive_id'];
+            $ad_sponsors = $post_metadata['ad_sponsors'];
+            $ad_candidates = $post_metadata['ad_candidates'];
+            $ad_type = $post_metadata['ad_type'];
+            $ad_message = $post_metadata['ad_message'];
+            $ad_air_count = $post_metadata['air_count'];
+            $ad_market_count = $post_metadata['market_count'];
+            $ad_network_count = $post_metadata['network_count'];
+            $ad_first_seen = $post_metadata['first_seen']?$post_metadata['first_seen']:'--';
+            $ad_last_seen = $post_metadata['last_seen']?$post_metadata['last_seen']:'--';
+            ?>
 
             <div id="ad-embed" class="row">
                 <iframe id="ad-embed-iframe" class="col-lg-12" frameborder="0" allowfullscreen src="<?php echo($ad_embed_url);?>" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
@@ -59,7 +59,7 @@
                 <div id="ad-message" class="last cell">
                     <div class="cell-label">Message</div>
                     <div class="cell-value">
-                        <?php echo($ad_message);?>
+                        <?php echo(generate_message_string($ad_message));?>
                     </div>
                 </div>
             </div>

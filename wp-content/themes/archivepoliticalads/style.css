@@ -396,11 +396,11 @@ a#footer-sidebar-link{
     margin-top: 15px;
 }
 .cell-value {
-    color: #4a90e2;
+    color: #444;
     font-size: 24px;
 }
 .cell-value_alt {
-    color: #4a4a4a;
+    color: #444;
 }
 .cell-value_home {
     font-size: 18px;

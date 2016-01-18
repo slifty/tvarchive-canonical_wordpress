@@ -131,7 +131,7 @@ function load_ad_data() {
         $existing_ad = get_page_by_title( $ad_identifier, OBJECT, 'archive_political_ad');
         if($existing_ad) {
             $wp_identifier = $existing_ad->ID;
-            continue;
+            //continue;
         }
         else {
             // Create a new post for the ad
@@ -152,12 +152,11 @@ function load_ad_data() {
         $ad_id = $ad_identifier;
         $ad_type = "Political Ad";
         $ad_race = ""; // TODO: look this up
-        $ad_message = "";
+        $ad_message = property_exists($metadata, 'message')?$metadata->message:'unknown';
         update_field('field_566e30c856e35', $ad_embed_url , $wp_identifier); // embed_url
         update_field('field_566e328a943a3', $ad_id, $wp_identifier); // archive_id
         update_field('field_566e359261c2e', $ad_type, $wp_identifier); // ad_type
         update_field('field_566e360961c2f', $ad_message, $wp_identifier); // ad_message
-
 
         // Store the sponsors
         // TODO: metadata field should be "sponsors" not "sponsor"
@@ -167,6 +166,7 @@ function load_ad_data() {
             foreach($metadata->sponsor as $sponsor) {
                 if(array_key_exists($sponsor, $sponsor_lookup)) {
                     $sponsor_metadata = $sponsor_lookup[$sponsor];
+
                     if(sizeof($sponsor_metadata) > 1) {
                         $sponsor_type = "multiple";
                     } else {
@@ -187,7 +187,7 @@ function load_ad_data() {
             update_field('field_566e32bd943a4', $new_sponsors, $wp_identifier);
         }
 
-        // Add new candidates
+        // Store the candidates
         if(property_exists($metadata, 'candidate')
         && is_array($metadata->candidate)) {
             $new_candidates = array();
@@ -198,6 +198,19 @@ function load_ad_data() {
                 $new_candidates[] = $new_candidate;
             }
             update_field('field_566e3533943a7', $new_candidates, $wp_identifier);
+        }
+
+        // Store the subjects
+        if(property_exists($metadata, 'subject')
+        && is_array($metadata->subject)) {
+            $new_subjects = array();
+            foreach($metadata->subject as $subject) {
+                $new_subject = array(
+                    'field_569d12ec487ef' => $subject // Name
+                );
+                $new_subjects[] = $new_subject;
+            }
+            update_field('field_569d12c8487ee', $new_subjects, $wp_identifier);
         }
     }
 
@@ -795,6 +808,12 @@ function generate_candidates_string($ad_candidates) {
         $ad_candidates_strings[] = $ad_candidate['ad_candidate'];
     }
     return implode(", ", $ad_candidates_strings);
+}
+
+
+function generate_message_string($ad_message) {
+    $ad_message_field = get_field_object('field_566e360961c2f');
+    return $ad_message_field['choices'][$ad_message];
 }
 
 

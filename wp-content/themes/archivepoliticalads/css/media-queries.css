@@ -129,7 +129,7 @@
         margin: 20px 0;
         padding: 0 0 15px;
     }
-     .post_home:nth-of-type(1) {
+    .post_home:nth-of-type(1) {
         margin-top: 0;
     }
     .post_home:nth-of-type(2){
@@ -345,6 +345,11 @@
     #footer-social-links {
         margin-bottom: 34px;
     }
+
+    /*Canonical*/
+		#reference-gallery-content {
+		    padding: 30px;
+		}
 }
 
 /* Small devices (tablets, 768px and up) */
@@ -606,6 +611,12 @@
         width: 44px;
         height: 44px;
     }
+
+    /* Canonical */
+
+		#reference-gallery-content {
+		    padding: 30px;
+		}
 }
 
 /* Medium devices (laptops, small desktops, 1024px and up) */

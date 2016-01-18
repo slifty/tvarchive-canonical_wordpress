@@ -9,7 +9,7 @@
             <div class="row page-header-row">
                 <div class="col-sm-8 col-md-6">
                     <h1 id="browse-header-title" class="section-header">Search</h1>
-                    <p id="browse-header-description">Search and Explore the Political Ad Library</p>
+                    <p id="browse-header-description">Search and Explore the Political TV Ad Archive</p>
                 </div>
             </div>
             <div id="browse-header-search" class="row page-header-row">

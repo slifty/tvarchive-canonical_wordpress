@@ -157,74 +157,95 @@
                         <div class="col-lg-12">
                             <h1>REFERENCE GALLERY</h1>
                         </div>
-                     </div>
+                    </div>
+                    <div id="reference-gallery-content" class="row">
                     <?php
-                    foreach($references as $index => $reference) {
-                        if($index % 4 == 0) // wide, first row
-                        {
-                            ?>
-                            <div  id="reference-content" class="row">
-                                <div class="col-xs-12 col-md-7"><!--Left Column-->
-                                    <div class="reference featured-reference col-md-12">
-                                        <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
-                                        <div class="reference-date"><?php echo($reference['reference_date']); ?> </div>
-                                        <div class="reference-description"><?php echo($reference['reference_excerpt']); ?></div>
-                                        <a class="reference-link" href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' class="reference-image" /></a>
+                        // If there is only one item, that's a special case
+                        foreach($references as $index => $reference) {
+                            if($index % 4 == 0) // wide, first row
+                            {
+                                ?>
+                                <div class="row">
+                                    <div class="col-md-<?php echo((sizeof($references) - $index > 3)?"7":"12");?>">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="reference first-reference">
+                                                    <a href="<?php echo($reference['reference_link']); ?>" target="_blank"><h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3></a>
+                                                    <div class="reference-date"><?php echo($reference['reference_date']); ?> </div>
+                                                    <div class="reference-image"><a href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_image']);?>' /></a></div>
+                                                    <div class="reference-description"><?php echo($reference['reference_excerpt']); ?></div>
+                                                    <div class="reference-logo"><a href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' /></a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <?php
+                                $cleanup = "
                                     </div>
-                            <?php
-                            $cleanup = "
-                                </div>
-                            </div>";
-                        }
-                        if($index % 4 == 1) // tall, right
-                        {
-                            ?>
-                                    <div class="reference double-reference col-md-6">
-                                            <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
-                                            <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
-                                            <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" /></div>
-                                            <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
-                                            <a class="reference-link" href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' class="reference-image" /></a>
+                                </div>";
+                            }
+                            if($index % 4 == 1) // row2, col1
+                            {
+                                ?>
+                                        <div class="row">
+                                            <div class="col-md-6 col-xs-12">
+                                                <div class="reference second-reference">
+                                                    <a href="<?php echo($reference['reference_link']); ?>" target="_blank"><h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3></a>
+                                                    <div class="reference-date"><?php echo($reference['reference_date']); ?> </div>
+                                                    <div class="reference-image"><a href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_image']);?>' /></a></div>
+                                                    <div class="reference-description"><?php echo($reference['reference_excerpt']); ?></div>
+                                                    <div class="reference-logo"><a href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' /></a></div>
+                                                </div>
+                                            </div>
+                                <?php
+                                $cleanup = "
+                                        </div>
                                     </div>
-                            <?php
-                            $cleanup = "
-                                    </div>
-                                </div>
-                            </div>";
+                                </div>";
 
-                        }
-                        if($index % 4 == 2) // small, second row
-                        {
-                            ?>
-                                    <div class="reference double-reference col-md-6">
-                                        <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
-                                        <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
-                                        <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" /></div>
-                                        <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
-                                        <a class="reference-link" href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' class="reference-image" /></a>
+                            }
+                            if($index % 4 == 2) // small, second row
+                            {
+                                ?>
+                                            <div class="col-md-6 col-xs-12">
+                                                <div class="reference third-reference">
+                                                    <div class="reference-image"><a href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_image']);?>' /></a></div>
+                                                    <a href="<?php echo($reference['reference_link']); ?>" target="_blank"><h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3></a>
+                                                    <div class="reference-date"><?php echo($reference['reference_date']); ?> </div>
+                                                    <div class="reference-description"><?php echo($reference['reference_excerpt']); ?></div>
+                                                    <div class="reference-logo"><a href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' /></a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <?php
+                                $cleanup = "
+                                    </div>
+                                </div>";
+                            }
+                            if($index % 4 == 3) // small, second row
+                            {
+                                ?>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="reference fourth-reference">
+                                            <a href="<?php echo($reference['reference_link']); ?>" target="_blank"><h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3></a>
+                                            <div class="reference-date"><?php echo($reference['reference_date']); ?> </div>
+                                            <div class="reference-image"><a href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_image']);?>' /></a></div>
+                                            <div class="reference-description"><?php echo($reference['reference_excerpt']); ?></div>
+                                            <div class="reference-logo"><a href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' /></a></div>
+                                        </div>
                                     </div>
                                 </div>
-                            <?php
-                            $cleanup = "
-                            </div>";
+
+                                <?php
+                                $cleanup = " ";
+                            }
                         }
-                        if($index % 4 == 3) // small, second row
-                        {
-                            ?>
-                                <div class="reference single-reference col-xs-12 col-md-5"><!--right Column-->
-                                    <h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3>
-                                    <div class="reference-date"><?php echo($reference['reference_date']); ?></div>
-                                    <div><img src='<?php echo($reference['reference_image']);?>' class="reference-image" /></div>
-                                    <div class="reference-description"> <?php echo($reference['reference_excerpt']); ?> </div>
-                                    <a class="reference-link" href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' class="reference-image" /></a>
-                                </div>
-                            </div>
-                            <?php
-                            $cleanup = " ";
-                        }
+                        echo($cleanup);
                     }
-                    echo($cleanup);
-                } ?>
-            <?php } ?>
+                ?>
+            </div>
+            <?php
+        }
+    ?>
     </main>
     <?php get_footer(); ?>

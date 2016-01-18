@@ -10,17 +10,18 @@
             $post_metadata = get_fields();
 
             $ad_embed_url = $post_metadata['embed_url'];
-            $ad_notes = $post_metadata['ad_notes'];
-            $archive_id = $post_metadata['archive_id'];
-            $ad_sponsors = $post_metadata['ad_sponsors'];
-            $ad_candidates = $post_metadata['ad_candidates'];
-            $ad_type = $post_metadata['ad_type'];
-            $ad_message = $post_metadata['ad_message'];
-            $ad_air_count = $post_metadata['air_count'];
-            $ad_market_count = $post_metadata['market_count'];
-            $ad_network_count = $post_metadata['network_count'];
-            $ad_first_seen = $post_metadata['first_seen']?$post_metadata['first_seen']:'--';
-            $ad_last_seen = $post_metadata['last_seen']?$post_metadata['last_seen']:'--';
+            $ad_notes = array_key_exists('ad_notes', $post_metadata)?$post_metadata['ad_notes']:'';
+            $archive_id = array_key_exists('archive_id', $post_metadata)?$post_metadata['archive_id']:'';
+            $ad_sponsors = array_key_exists('ad_sponsors', $post_metadata)?$post_metadata['ad_sponsors']:array();
+            $ad_candidates = array_key_exists('ad_candidates', $post_metadata)?$post_metadata['ad_candidates']:array();
+            $ad_subjects = array_key_exists('ad_subjects', $post_metadata)?$post_metadata['ad_subjects']:array();
+            $ad_type = array_key_exists('ad_type', $post_metadata)?$post_metadata['ad_type']:'';
+            $ad_message = array_key_exists('ad_message', $post_metadata)?$post_metadata['ad_message']:'';
+            $ad_air_count = array_key_exists('air_count', $post_metadata)?$post_metadata['air_count']:0;
+            $ad_market_count = array_key_exists('market_count', $post_metadata)?$post_metadata['market_count']:0;
+            $ad_network_count = array_key_exists('network_count', $post_metadata)?$post_metadata['network_count']:0;
+            $ad_first_seen = (array_key_exists('first_seen', $post_metadata)&&$post_metadata['first_seen'])?$post_metadata['first_seen']:'--';
+            $ad_last_seen = (array_key_exists('last_seen', $post_metadata)&&$post_metadata['last_seen'])?$post_metadata['last_seen']:'--';
             ?>
 
             <div id="ad-embed" class="row">
@@ -35,16 +36,14 @@
 
             <div class="row about-ad-row">
                 <div id="ad-sponsor" class="first cell">
-                    <div class="cell-label">Sponsor
-                        <?php echo(sizeof($ad_sponsors)==1?'':'s'); ?>
+                    <div class="cell-label">Sponsor<?php echo(sizeof($ad_sponsors)==1?'':'s'); ?>
                     </div>
                     <div class="cell-value">
                         <?php echo(generate_sponsors_string($ad_sponsors));?>
                     </div>
                 </div>
                 <div id="ad-candidate" class="cell">
-                    <div class="cell-label">Candidate
-                        <?php echo(sizeof($ad_candidates)==1?'':'s'); ?>
+                    <div class="cell-label">Candidate<?php echo(sizeof($ad_candidates)==1?'':'s'); ?>
                     </div>
                     <div class="cell-value">
                         <?php echo(generate_candidates_string($ad_candidates)); ?>

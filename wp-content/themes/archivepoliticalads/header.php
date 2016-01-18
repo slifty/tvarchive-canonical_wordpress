@@ -42,7 +42,7 @@
                             <span class="icon-bar"></span>
                         </button>
                        <!--  <a href="#" ></a> -->
-                        <div class="collapse navbar-collapse navigation " id="mainNav-collapse">
+                        <div class="collapse navbar-collapse navigation no-transition" id="mainNav-collapse">
                             <ul>
                                 <li><a href="<?php bloginfo('url'); ?>/about">about</a></li>
                                 <li><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>

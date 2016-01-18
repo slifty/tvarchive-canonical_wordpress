@@ -19,8 +19,8 @@
         	$ad_air_count = $post_metadata['air_count'];
         	$ad_market_count = $post_metadata['market_count'];
         	$ad_network_count = $post_metadata['network_count'];
-        	$ad_first_seen = is_long($post_metadata['first_seen'])?date('M d, Y', $post_metadata['first_seen']):'--';
-        	$ad_last_seen = is_long($post_metadata['last_seen'])?date('M d, Y', $post_metadata['last_seen']):'--';
+        	$ad_first_seen = $post_metadata['first_seen']?$post_metadata['first_seen']:'--';
+        	$ad_last_seen = $post_metadata['last_seen']?$post_metadata['last_seen']:'--';
         	?>
 
             <div id="ad-embed" class="row">

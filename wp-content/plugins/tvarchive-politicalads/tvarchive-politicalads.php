@@ -302,8 +302,8 @@ function load_ad_data() {
             $ad_air_count = $results->air_count;
             $ad_market_count = $results->market_count;
             $ad_network_count = $results->network_count;
-            $ad_first_seen = strtotime($results->first_seen);
-            $ad_last_seen = strtotime($results->last_seen);
+            $ad_first_seen = date('Ymd', strtotime($results->first_seen));
+            $ad_last_seen = date('Ymd', strtotime($results->last_seen));
         }
 
         // Note: the keys here are defined by the Advanced Custom Fields settings

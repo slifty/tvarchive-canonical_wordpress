@@ -15,7 +15,7 @@
                 $sponsors = get_sponsors();
                 foreach($sponsors as $sponsor) {
                     ?>
-                    <a href="<?php bloginfo('url'); ?>/browse/?q=<?php echo(urlencode("sponsor:".$sponsor));?>">
+                    <a href="<?php bloginfo('url'); ?>/browse/?q=<?php echo(urlencode("sponsor:\"".$sponsor."\""));?>">
                         <div class="explore-item item">
                                 <div class="explore-wrapper">
                                     <div class="explore-label"><?php echo($sponsor); ?></div>

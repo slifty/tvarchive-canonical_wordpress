@@ -469,7 +469,7 @@ a#footer-sidebar-link{
     color: #8ab858;
 }
 .download-row {
-    /*padding-left: 115px;*/
+    padding-left: 100px;
 }
 .download-row .cell-label {
     color: #8ab758;
@@ -597,12 +597,13 @@ a#footer-sidebar-link{
 #resources-content {
     background-color: #ededed;
     padding-top: 0px;
+    padding-bottom: 30px;
 }
 #resources-content .page-content-row h2 {
     color: #bbb2a0;
 }
 .resource-row {
-    padding: 0px 130px;
+    padding: 0px 115px;
     margin-top: 30px;
 }
 .resource {

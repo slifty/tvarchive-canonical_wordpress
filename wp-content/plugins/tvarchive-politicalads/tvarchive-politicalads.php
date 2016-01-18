@@ -488,8 +488,189 @@ function get_sponsors() {
  * @param  array $query The array of fields we want to search in terms of.
  * @return array        The list of results
  */
-function search_political_ads($query) {
-    return array();
+function search_political_ads($query, $extra_args = array()) {
+    global $wpdb;
+    $parsed_query = parse_political_ad_query($query);
+
+    // Candidates, Sponsors, and Sponsor Type are nested meta values
+    $matched_post_ids = array();
+    $use_matched_post_ids = false;
+    if(sizeof($parsed_query['candidate'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['candidate'] as $candidate) {
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}postmeta
+                  WHERE meta_key LIKE %s
+                    AND meta_value LIKE %s
+                ",
+                'ad_candidates_%_ad_candidate',
+                '%'.$candidate.'%'
+            ));
+            foreach($rows as $row) {
+                $matched_post_ids[] = $row->post_id;
+            }
+        }
+    }
+    if(sizeof($parsed_query['sponsor'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['sponsor'] as $sponsor) {
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}postmeta
+                  WHERE meta_key LIKE %s
+                    AND meta_value LIKE %s
+                ",
+                'ad_sponsors_%_ad_sponsor',
+                '%'.$sponsor.'%'
+            ));
+            foreach($rows as $row) {
+                $matched_post_ids[] = $row->post_id;
+            }
+        }
+    }
+    if(sizeof($parsed_query['sponsor_type'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['sponsor_type'] as $sponsor_type) {
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}postmeta
+                  WHERE meta_key LIKE %s
+                    AND meta_value = %s
+                ",
+                'ad_sponsors_%_sponsor_type',
+                $sponsor_type
+            ));
+            foreach($rows as $row) {
+                $matched_post_ids[] = $row->post_id;
+            }
+        }
+    }
+
+    // Market, Channel, and Location are instance values
+    if(sizeof($parsed_query['network'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['network'] as $network) {
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}ad_instances
+                  WHERE network = %s
+               GROUP BY wp_identifier
+                ",
+                $network
+            ));
+            foreach($rows as $row) {
+                $matched_post_ids[] = $row->wp_identifier;
+            }
+        }
+    }
+    if(sizeof($parsed_query['market'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['market'] as $market) {
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}ad_instances
+                  WHERE market = %s
+               GROUP BY wp_identifier
+                ",
+                $market
+            ));
+            foreach($rows as $row) {
+                $matched_post_ids[] = $row->wp_identifier;
+            }
+        }
+    }
+    if(sizeof($parsed_query['location'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['location'] as $location) {
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}ad_instances
+                  WHERE location LIKE %s
+               GROUP BY wp_identifier
+                ",
+                '%'.$location.'%'
+            ));
+            foreach($rows as $row) {
+                $matched_post_ids[] = $row->wp_identifier;
+            }
+        }
+    }
+
+    // Remove dupes because why not
+    $matched_post_ids = array_unique($matched_post_ids);
+
+    // We have a list of matched post IDs, lets load up
+    $base_args = array(
+        'post_type'   => 'archive_political_ad',
+        'post_status'   => 'publish'
+    );
+    if($use_matched_post_ids) {
+        if(sizeof($matched_post_ids) > 0) {
+            $base_args['post__in'] = $matched_post_ids;
+        } else {
+            $base_args['post__in'] = array(-1);
+        }
+    }
+
+    $args = array_merge($base_args, $extra_args);
+
+    $wp_query = new WP_Query($args);
+    return $wp_query;
+}
+
+/**
+ * Break a string into an array of categorized terms.
+ * @param  [type] $query [description]
+ * @return [type]        [description]
+ */
+function parse_political_ad_query($query) {
+    // This will be super simple for now -- anything of the form a:b is a facet.
+    $parsed_query = array(
+        'general' => array(),
+        'archive_id' => array(),
+        'sponsor' => array(),
+        'candidate' => array(),
+        'sponsor_type' => array(),
+        'network' => array(),
+        'market' => array(),
+        'location' => array(),
+        'type' => array()
+    );
+
+    // First, break the query into parts, keeping quoted sections as one item
+    $query_parts = preg_split("/(?:'[^']*'|\"[^\"]*\")(*SKIP)(*F)|\h+/", $query);
+
+    // Split the parts into buckets
+    foreach($query_parts as $query_part) {
+        $facet_parts = preg_split('/\:/', $query_part);
+        if(sizeof($facet_parts) == 1) {
+            $bucket = 'general';
+            $value = $facet_parts[0];
+        } else {
+            $bucket = $facet_parts[0];
+            $value = $facet_parts[1];
+            // Note: we're just going to ignore if the user did something like a:b:c
+        }
+
+        // 'network' and 'channel' are the same
+        if($bucket == 'channel')
+            $bucket = 'network';
+
+        // remove quotes from the value
+        $value = preg_replace('/\"|\'|\\\\/', '', $value);
+        if(!array_key_exists($bucket, $parsed_query))
+            continue;
+        $parsed_query[$bucket][] = $value;
+    }
+
+    // Add in 'general' to all the parts
+    foreach($parsed_query as $bucket => $values) {
+        $parsed_query[$bucket] = array_merge($parsed_query['general'], $parsed_query[$bucket]);
+        $parsed_query[$bucket] = array_unique($parsed_query[$bucket]);
+    }
+
+    return $parsed_query;
 }
 
 

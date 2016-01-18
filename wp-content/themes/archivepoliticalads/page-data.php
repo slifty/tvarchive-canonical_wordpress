@@ -26,8 +26,13 @@
         <div class="row page-content-row">
             <div class="col-xs-12 col-md-12">
                 <h2>Download the Dataset</h2>
-                <?php get_template_part('content', 'download_data'); ?>
-                <div class="cell-multiline-value"></div>
+                <form method="get" action="<?php bloginfo('url'); ?>/export" target="_blank">
+                    <div class="download-row last">
+                        <div class="download-btn">
+                            <input type="submit" id="download-data-button" class="button" value="Download CSV" />
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
 

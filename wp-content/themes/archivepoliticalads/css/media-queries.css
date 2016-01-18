@@ -265,9 +265,11 @@
         margin: 15px auto;
         width: 95%;
     }
+    .resource {
+        margin-bottom: 15px;
+    }
     .page-content-row h3 {
-        margin: 15px;
-        padding: 0;
+        padding: 15px;
     }
     #featured-resource .resource-description {
         margin-right: 15px;
@@ -556,7 +558,6 @@
 
     .resource {
         min-width: 226px;
-        padding-top: 15px;
     }
     .resource-row{
         padding:0;

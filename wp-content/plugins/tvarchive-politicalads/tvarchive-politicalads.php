@@ -509,11 +509,12 @@ function get_ad_instances($ad_identifier = ''){
     $table_name = $wpdb->prefix . 'ad_instances';
 
     $query = "SELECT id as id,
-         network as network,
-         start_time as start_time,
-         archive_identifier as archive_identifier,
-         wp_identifier as wp_identifier
-    FROM ".$table_name." ";
+                     network as network,
+                     start_time as start_time,
+                     end_time as end_time,
+                     archive_identifier as archive_identifier,
+                     wp_identifier as wp_identifier
+                FROM ".$table_name." ";
 
     if($ad_identifier != '') {
         $query .= "WHERE archive_identifier = '".esc_sql($ad_identifier)."'";
@@ -526,29 +527,30 @@ function get_ad_instances($ad_identifier = ''){
         $wp_identifier = $result->wp_identifier;
         $network = $result->network;
         $start_time = $result->start_time;
+        $end_time = $result->end_time;
         $archive_identifier = $result->archive_identifier;
 
         // Cache the metadata for this identifier
         if(!array_key_exists($ad_identifier, $metadata_cache)) {
             $post_metadata = get_fields($wp_identifier);
-            $metadata['ad_embed_url'] = $post_metadata['embed_url'];
-            $metadata['ad_notes'] = $post_metadata['notes'];
-            $metadata['archive_id'] = $post_metadata['archive_identifier'];
-            $metadata['ad_sponsor'] = generate_sponsors_string($post_metadata['ad_sponsors']);
-            $metadata['ad_candidate'] = generate_candidates_string($post_metadata['ad_candidates']);
-            $metadata['ad_type'] = $post_metadata['ad_type'];
-            $metadata['ad_message'] = $post_metadata['ad_message'];
-            $metadata['ad_air_count'] = $post_metadata['air_count'];
-            $metadata['ad_market_count'] = $post_metadata['market_count'];
-            $metadata['ad_first_seen'] = $post_metadata['first_seen'];
-            $metadata['ad_last_seen'] = $post_metadata['last_seen'];
+            $metadata['ad_embed_url'] = array_key_exists('embed_url', $post_metadata)?$post_metadata['embed_url']:'';
+            $metadata['ad_notes'] = array_key_exists('notes', $post_metadata)?$post_metadata['notes']:'';
+            $metadata['archive_id'] = array_key_exists('archive_id', $post_metadata)?$post_metadata['archive_id']:'';
+            $metadata['ad_sponsor'] = generate_sponsors_string(array_key_exists('ad_sponsors', $post_metadata)?$post_metadata['ad_sponsors']:'');
+            $metadata['ad_candidate'] = generate_candidates_string(array_key_exists('ad_candidates', $post_metadata)?$post_metadata['ad_candidates']:'');
+            $metadata['ad_type'] = array_key_exists('ad_type', $post_metadata)?$post_metadata['ad_type']:'';
+            $metadata['ad_message'] = array_key_exists('ad_message', $post_metadata)?$post_metadata['ad_message']:'';
+            $metadata['ad_air_count'] = array_key_exists('air_count', $post_metadata)?$post_metadata['air_count']:'';
+            $metadata['ad_market_count'] = array_key_exists('market_count', $post_metadata)?$post_metadata['market_count']:'';
+            $metadata['ad_first_seen'] = array_key_exists('first_seen', $post_metadata)?$post_metadata['first_seen']:'';
+            $metadata['ad_last_seen'] =array_key_exists('last_seen', $post_metadata)? $post_metadata['last_seen']:'';
             $metadata_cache[$ad_identifier] = $metadata;
         }
 
         // Load the metadata from the cache
         $ad_embed_url = $metadata_cache[$ad_identifier]['ad_embed_url'];
         $ad_notes = $metadata_cache[$ad_identifier]['ad_notes'];
-        $ad_id = $metadata_cache[$ad_identifier]['ad_id'];
+        $archive_id = $metadata_cache[$ad_identifier]['archive_id'];
         $ad_sponsor = $metadata_cache[$ad_identifier]['ad_sponsor'];
         $ad_candidate = $metadata_cache[$ad_identifier]['ad_candidate'];
         $ad_type = $metadata_cache[$ad_identifier]['ad_type'];
@@ -564,17 +566,14 @@ function get_ad_instances($ad_identifier = ''){
             "network" => $network,
             "start_time" => $start_time,
             "end_time" => $end_time,
-            "archive_id" => $archive_identifier,
+            "archive_id" => $archive_id,
             "embed_url" => $ad_embed_url,
             "sponsor" => $ad_sponsor,
             "candidate" => $ad_candidate,
             "type" => $ad_type,
             "message" => $ad_message,
             "air_count" => $ad_air_count,
-            "market_count" => $ad_market_count,
-            "first_seen" => $ad_first_seen,
-            "last_seen" => $ad_last_seen,
-            "notes" => $notes
+            "market_count" => $ad_market_count
         ];
         array_push($rows, $row);
     }

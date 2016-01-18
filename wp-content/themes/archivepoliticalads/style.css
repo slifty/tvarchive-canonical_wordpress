@@ -110,6 +110,7 @@ div.button {
     font-size: 14px;
     font-weight: normal;
     padding-bottom: 10px;
+    text-transform: uppercase;
 }
 .page-content-row p {
     color: #343434;

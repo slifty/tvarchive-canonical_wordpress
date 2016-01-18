@@ -51,7 +51,13 @@
 -->
 		<div class="download-row last">
 			<div class="download-btn">
-				<input type="hidden" name="ad_identifier" value="<?php echo($ad_id); ?>" />
+                <?php
+                    if(isset($ad_id)) {
+                        ?>
+        				<input type="hidden" name="ad_identifier" value="echo($ad_id);>" />
+                        <?php
+                    }
+                ?>
 				<input type="submit" id="download-data-button" class="button" value="Download CSV" />
 			</div>
 		</div>

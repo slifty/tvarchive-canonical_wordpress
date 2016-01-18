@@ -12,12 +12,5 @@
           </div>
           <input name="submit" type="submit" class="btn btn-default"  id="submit-newsletter" tabindex="5" value="Subscribe">
         </form>
-     </div>  
-    <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
-        <div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
-            <?php dynamic_sidebar( 'sidebar-1' ); ?>
-        </div>
-        <!-- #primary-sidebar -->
-    <?php endif; ?>
+     </div>
 </div>
-    <!-- #secondary -->

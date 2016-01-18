@@ -125,16 +125,6 @@ function export_send_response($rows, $output='csv') {
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
 	) );
-
-    	register_sidebar( array(
-		'name' =>__( 'Footer Widget Area', 'tia'),
-		'id' => 'sidebar-3',
-		'description' => __( 'Appears in the footer of all pages', 'tia' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
 	}
 
   add_action( 'widgets_init', 'tia_widgets_init' );

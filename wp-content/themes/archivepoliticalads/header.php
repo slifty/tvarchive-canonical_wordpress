@@ -30,7 +30,7 @@
                 <div id="branding" class="col-xs-8 col-sm-6 col-md-5 col-lg-6">
                         <a href="<?php bloginfo('url'); ?>/">
                             <img class="hidden-xs" id="logo" src="<?php bloginfo('template_directory'); ?>/img/brand_logo.png" srcset="<?php bloginfo('template_directory'); ?>/img/brand_logo@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/brand_logo@3x.png 3x" />
-                            <div id="title"><span id="title-political">Political</span><span id="title-ad">Ad</span> <span id="title-library">Library</span></div>
+                            <div id="title"><span id="title-political">Political</span><span id="title-ad"> TV Ad</span> <span id="title-library">Archive</span></div>
                         </a>
                 </div>
                 <div class="col-xs-4 col-sm-6 col-md-7 col-lg-6">

@@ -49,12 +49,6 @@
                         <?php echo(generate_candidates_string($ad_candidates)); ?>
                     </div>
                 </div>
-                <div id="ad-type" class="cell">
-                    <div class="cell-label">Ad Type</div>
-                    <div class="cell-value">
-                        <?php echo($ad_type);?>
-                    </div>
-                </div>
                 <div id="ad-message" class="last cell">
                     <div class="cell-label">Message</div>
                     <div class="cell-value">

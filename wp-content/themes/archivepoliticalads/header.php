@@ -22,6 +22,35 @@
         <link rel="profile" href="http://gmpg.org/xfn/11" />
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
         <?php wp_head(); ?>
+
+        <script src="//archive.org/includes/analytics.js" type="text/javascript"></script>
+        <script ,type="text/javascript">
+            if (window.archive_analytics) {
+              var vs = window.archive_analytics.get_data_packets();
+              for (var i in vs) {
+                vs[i]['service']='tvads';
+                  }
+
+            }
+        </script>
+        <script type="text/javascript">
+            $(function() {
+                var explore_sliders = $(".explore-slider");
+                explore_sliders.owlCarousel({
+                  itemsCustom : [
+                    [0, 2],
+                    [300, 2],
+                    [550, 3],
+                    [700, 4],
+                    [900, 5],
+                    [992, 3],
+                    [1250, 4],
+                    [1500, 5]
+                  ]
+                });
+            });
+        </script>
+
     </head>
 
     <body>

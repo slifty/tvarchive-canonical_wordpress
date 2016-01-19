@@ -23,10 +23,10 @@
 
 
     <div  id="home-feature-section" class="row">
-        <div  class="col-xs-12 col-sm-12 col-md-4">
+        <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
             <?php get_template_part('content', 'home_blog_posts'); ?>
         </div>
-        <div id="ad-embed_home" class="hidden-xs hidden-sm col-md-8">
+        <div id="ad-embed_home" class="hidden-xs hidden-sm hidden-md col-lg-8">
             <?php get_template_part('content', 'home_canonical_ad'); ?>
         </div>
 
@@ -38,8 +38,9 @@
         </div>
     </div>
     <div id="home-explore-section">
-        <?php get_template_part('content', 'candidates'); ?>
-        <?php get_template_part('content', 'sponsors'); ?>
+        <?php get_template_part('content', 'explore_candidates'); ?>
+        <?php get_template_part('content', 'explore_sponsors'); ?>
+        <?php get_template_part('content', 'explore_sponsor_types'); ?>
     </div>
 
     <?php get_footer(); ?>

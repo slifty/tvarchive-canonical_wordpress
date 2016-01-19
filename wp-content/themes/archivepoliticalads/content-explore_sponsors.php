@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-12">
         <div id="explore-sponsors-content" class="explore-content-row">
-            <div id="explore-sponsors-slider" class="explore-list owl-demo">
+            <div id="explore-sponsors-slider" class="explore-list explore-slider">
             <?php
                 $sponsors = get_sponsors();
                 foreach($sponsors as $sponsor) {
@@ -29,19 +29,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        var explore_slider = $("#explore-sponsors-slider");
-        explore_slider.owlCarousel({
-          itemsCustom : [
-            [0, 2],
-            [500, 4],
-            [750, 4],
-            [1000, 4],
-            [1250, 5],
-            [1500, 6]
-          ]
-        });
-    });
-</script>

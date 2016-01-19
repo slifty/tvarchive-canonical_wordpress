@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-12">
         <div id="explore-candidates-content" class="explore-content-row">
-            <div id="explore-candidates-slider" class="explore-list owl-demo">
+            <div id="explore-candidates-slider" class="explore-list explore-slider">
             <?php
                 $candidates = get_candidates();
                 foreach($candidates as $candidate) {
@@ -29,19 +29,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(function() {
-        var explore_slider = $("#explore-candidates-slider");
-        explore_slider.owlCarousel({
-          itemsCustom : [
-            [0, 2],
-            [500, 2],
-            [750, 3],
-            [1000, 4],
-            [1250, 5],
-            [1500, 6]
-          ]
-        });
-    });
-</script>
 

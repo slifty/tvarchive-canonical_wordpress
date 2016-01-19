@@ -493,6 +493,32 @@ function get_sponsors() {
 }
 
 
+/**
+ * Get a complete list of the sponsor types with published ads in the system
+ * @return [type] [description]
+ */
+function get_sponsor_types() {
+    // TODO: Cache the results of this query
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'postmeta';
+    $query = "SELECT count(*) as ad_count,
+                     meta_value as ad_sponsor
+                FROM ".$table_name."
+               WHERE meta_key LIKE 'ad_sponsors_%_sponsor_type'
+                 AND post_id IN (select ID from wp_posts where post_status = 'publish')
+            GROUP BY meta_value
+            ORDER BY ad_count desc";
+
+    $results = $wpdb->get_results($query);
+
+    $sponsors = array();
+    foreach($results as $result) {
+        array_push($sponsors, $result->ad_sponsor);
+    }
+    return $sponsors;
+}
+
+
 //////////////
 /// Methods for political ad search
 
@@ -841,6 +867,12 @@ function generate_candidates_string($ad_candidates) {
 function generate_message_string($ad_message) {
     $ad_message_field = get_field_object('field_566e360961c2f');
     return $ad_message_field['choices'][$ad_message];
+}
+
+
+function generate_sponsor_type_string($sponsor_type) {
+    $sponsor_type_field = get_field_object('field_566e3353943a6');
+    return $sponsor_type_field['choices'][$sponsor_type];
 }
 
 

@@ -77,8 +77,9 @@
     } else {
         ?>
         <div class="row">
-            <?php get_template_part('content', 'candidates'); ?>
-            <?php get_template_part('content', 'sponsors'); ?>
+            <?php get_template_part('content', 'explore_candidates'); ?>
+            <?php get_template_part('content', 'explore_sponsors'); ?>
+            <?php get_template_part('content', 'explore_sponsor_types'); ?>
         </div>
         <?php
       // TODO: sorry no results lulz

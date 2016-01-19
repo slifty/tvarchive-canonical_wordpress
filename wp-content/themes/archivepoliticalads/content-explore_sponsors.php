@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <div id="explore-sponsors-title" class="explore-subtitle-row">
-            <h3 class="hidden-xs hidden-sm">Sponsors</h3>
+            <h3>Sponsors</h3>
             <p>Browse ads by sponsor</p>
         </div>
     </div>

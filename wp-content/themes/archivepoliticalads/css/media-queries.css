@@ -275,11 +275,12 @@
     /* Explore*/
     #home-explore-section {}
     .explore-subtitle-row {
-        padding-left: 0;
+        padding-left: 15px;
         margin-bottom: 10px;
         margin-top: 15px;
     }
     .explore-list {
+    	margin-bottom: 15px;
     	padding: 0px 15px;
     }
     .explore-list .explore-item {
@@ -406,7 +407,12 @@
     }
 
     /* Explore */
+
+    .explore-subtitle-row {
+        padding-left: 15px;
+     }
     .explore-list {
+    	margin-bottom: 15px;
     	padding: 0px 15px;
     }
     .explore-list .explore-item {

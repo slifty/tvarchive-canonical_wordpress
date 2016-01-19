@@ -334,8 +334,8 @@ a#footer-sidebar-link{
 #home-header-explanation {
   padding: 0px 130px;
   padding-top: 20px;
-  font-size: 24px;
-  line-height: 30px;
+  font-size: 20px;
+  line-height: 26px;
   color: #fff;
 }
 #home-header-explanation p {
@@ -642,7 +642,6 @@ h3.resource-name {
 .post_home {
 }
 .post_home_inner {
-	padding: 15px;
   background-color: #fff;
   border-top: 20px solid #e85646;
 }
@@ -712,10 +711,6 @@ h3.resource-name {
 }
 .post-img_home{
    width: 100%;
-}
-.img-fluid {
-	margin-left: -15px;
-	margin-right: -15px;
 }
 .post-img {
   width: 100%;

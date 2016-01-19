@@ -1,6 +1,6 @@
             <div id="footer" class="row">
                 <div class="footer-section col-xs-12 col-sm-4 col-md-4 ">
-                    <div class="footer-title">PoliticalAd Library</div>
+                    <div class="footer-title">Political TV Ad Archive</div>
                     <div class="footer-subtitle">by the Internet Archive</div>
                     <div class="footer-copy"><?php the_field('home_description', 'option'); ?></div>
                     <div class="footer-link"><a href="http://archive.org/details/tv">archive.org/details/tv</a></div>

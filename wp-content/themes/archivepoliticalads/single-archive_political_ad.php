@@ -118,7 +118,7 @@
                 <div class="col-lg-12">
                     <div id="download-about" class="cell first last">
                         <div class="cell-label">About the Dataset</div>
-                        <div class="cell-multiline-value">Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini. Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. </div>
+                        <div class="cell-multiline-value"><?php echo(get_field('about_the_data', 'options')); ?></div>
                     </div>
                 </div>
             </div>

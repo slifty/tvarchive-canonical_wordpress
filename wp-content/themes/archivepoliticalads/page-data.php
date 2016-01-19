@@ -8,7 +8,7 @@
 <div id="download-header" class="row page-header-row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <h1 id="download-header-title" class="section-header">Data Download</h1>
-        <p id="download-header-description">Put the Library to Work</p>
+        <p id="download-header-description">Put the Archive to Work</p>
     </div>
 </div>
 
@@ -16,55 +16,37 @@
     <div id="download-content" class="">
         <div class="row page-content-row">
             <div class="col-xs-12 col-md-12">
-                <h2><?php echo(get_field('data_header')); ?></h2>
-                <p>
-                    <?php echo(get_field('data_header_content')); ?>
-                </p>
+                <h2>About the Dataset</h2>
+                <div><?php echo(get_field('about_the_data', 'options')); ?></div>
             </div>
         </div>
 
         <div class="row page-content-row">
             <div class="col-xs-12 col-md-12">
-                <h2>Download the Dataset</h2>
                 <form method="get" action="<?php bloginfo('url'); ?>/export" target="_blank">
-                    <div class="download-row last">
-                        <div class="download-btn">
-                            <input type="submit" id="download-data-button" class="button" value="Download CSV" />
-                        </div>
+                    <div class="download-btn">
+                        <input type="submit" id="download-data-button" class="button" value="Download CSV" />
                     </div>
                 </form>
             </div>
         </div>
 
-        <div class="row page-content-row">
-            <div class="col-xs-12 col-lg-12">
-                <h2><?php echo(get_field('data_subheader_1')); ?></h2>
-                <p>
-                    <?php echo(get_field('data_subheader_1_content')); ?>
-                </p>
-            </div>
-        </div>
+        <?php
+            $wide_cells = get_field('wide_data_cells');
+            if(is_array($wide_cells)) {
+                foreach($wide_cells as $cell) {
+                    ?>
+                    <div class="row page-content-row">
+                        <div class="col-xs-12 col-lg-12">
+                            <h2><?php echo($cell['cell_header']); ?></h2>
+                            <div><?php echo($cell['cell_content']); ?></div>
+                        </div>
+                    </div>
+                    <?php
+                }
+            }
 
-        <div class="row page-content-row">
-            <div class="col-xs-12 col-md-12">
-                <h2 class="page-content-row"> <?php echo(get_field('data_subheader_2')); ?></h2>
-                <p>
-                    <?php echo(get_field('data_subheader_2_content')); ?>
-                </p>
-            </div>
-        </div>
-        <!-- end row data_subheader_2-->
-
-        <div class="row page-content-row">
-            <div class="col-xs-12 col-md-12">
-                <h2><?php echo(get_field('data_subheader_3')); ?></h2>
-                <p>
-                    <?php echo(get_field('data_subheader_3_content')); ?>
-                </p>
-            </div>
-        </div>
-        <!-- end row data_subheader_3-->
-
+        ?>
     </div>
     <!--    End Main Page Content-->
 

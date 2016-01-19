@@ -11,40 +11,48 @@
     </div>
 </div>
 <div id="about-content" class="page-content">
-	<div class="row page-content-row">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<h2><?php echo(get_field('about_header')); ?></h2>
-			<p><?php echo(get_field('about_header_content')); ?></p>
-		</div>
-	</div>
-	<div class="row page-content-row">
-		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-			<h2><?php echo(get_field('about_subheader_1')); ?></h2>
-			<p><?php echo(get_field('about_subheader_1_content')); ?></p>
-		</div>
-		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-			<h2><?php echo(get_field('about_subheader_2')); ?></h2>
-			<p><?php echo(get_field('about_subheader_2_content')); ?></p>
-		</div>
-		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-			<h2><?php echo(get_field('about_subheader_3')); ?></h2>
-			<p><?php echo(get_field('about_subheader_3_content')); ?></p>
-		</div>
-	</div>
-	<div class="row page-content-row">
-		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-			<h2><?php echo(get_field('about_subheader_4')); ?></h2>
-			<p><?php echo(get_field('about_subheader_4_content')); ?></p>
-		</div>
-		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-			<h2><?php echo(get_field('about_subheader_5')); ?></h2>
-			<p><?php echo(get_field('about_subheader_5_content')); ?></p>
-		</div>
-		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-			<h2><?php echo(get_field('about_subheader_6')); ?></h2>
-			<p><?php echo(get_field('about_subheader_6_content')); ?></p>
-		</div>
-	</div>
+    <?php
+        $wide_cells = get_field('wide_about_cells');
+        $narrow_cells = get_field('narrow_about_cells');
+
+        if(is_array($wide_cells)) {
+            foreach($wide_cells as $cell) {
+                ?>
+                <div class="row page-content-row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h2><?php echo($cell['cell_header']); ?></h2>
+                        <div><?php echo($cell['cell_content']); ?></div>
+                    </div>
+                </div>
+                <?php
+            }
+        }
+
+        if(is_array($narrow_cells)) {
+            $cleanup = "";
+            foreach($narrow_cells as $index => $cell) {
+                if($index % 3 == 0) {
+                    ?>
+                    <div class="row page-content-row">
+                    <?php
+                    $cleanup = "</div>";
+                }
+                ?>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <h2><?php echo($cell['cell_header']); ?></h2>
+                    <div><?php echo($cell['cell_content']); ?></div>
+                </div>
+                <?php
+                if($index %3 == 2) {
+                    ?>
+                    </div>
+                    <?php
+                    $cleanup = "";
+                }
+            }
+            echo($cleanup);
+        }
+    ?>
 </div>
 
 <?php get_footer(); ?>

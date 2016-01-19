@@ -1,6 +1,9 @@
 <div class="row">
     <?php
         $featured_posts = get_field('featured_posts', 'option');
+        if(!is_array($featured_posts))
+            $featured_posts = array();
+
         foreach($featured_posts as $featured_post) {
             global $post;
             $post = $featured_post;

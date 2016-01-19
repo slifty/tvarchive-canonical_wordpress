@@ -23,16 +23,6 @@
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
         <?php wp_head(); ?>
 
-        <script src="//archive.org/includes/analytics.js" type="text/javascript"></script>
-        <script ,type="text/javascript">
-            if (window.archive_analytics) {
-              var vs = window.archive_analytics.get_data_packets();
-              for (var i in vs) {
-                vs[i]['service']='tvads';
-                  }
-
-            }
-        </script>
         <script type="text/javascript">
             $(function() {
                 var explore_sliders = $(".explore-slider");

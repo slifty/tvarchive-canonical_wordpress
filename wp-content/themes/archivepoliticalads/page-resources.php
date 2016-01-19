@@ -46,31 +46,33 @@
 <div id="resources-content" class="row">
     <div coass="col-lg-12">
         <?php
-            $resources = get_field('resources');
-            if(is_array($resources)) {
-                $resource = array_shift($resources);
-                ?>
-                <div id="featured-resource" class="row resource-row page-content-row">
-                    <div class="col-lg-12">
-                        <div class="resource">
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <h3 class="resource-name"><?php echo($resource['resource_name']); ?></h3>
-                                    <div class="resource-description"><?php echo($resource['resource_description']); ?></div>
-                                    <div class="resource-link"><a href="<?php echo($resource['resource_link']); ?>" target="_blank">Visit</a></div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <img src='<?php echo($resource['resource_image']['url']);?>' class="resource-image"/>
+            $wide_resources = get_field('wide_resources');
+            $narrow_resources = get_field('narrow_resources');
+            if(is_array($wide_resources)) {
+                foreach($wide_resources as $resource) {
+                    ?>
+                    <div id="featured-resource" class="row resource-row page-content-row">
+                        <div class="col-lg-12">
+                            <div class="resource">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <a href="<?php echo($resource['resource_link']); ?>" target="_blank"><h3 class="resource-name"><?php echo($resource['resource_name']); ?></h3></a>
+                                        <div class="resource-description"><?php echo($resource['resource_description']); ?></div>
+                                        <div class="resource-link"><a href="<?php echo($resource['resource_link']); ?>" target="_blank">Visit</a></div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <a href="<?php echo($resource['resource_link']); ?>" target="_blank"><img src='<?php echo($resource['resource_image']['url']);?>' class="resource-image"/></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <?php
+                    <?php
+                }
             }
-            if(is_array($resources)) {
+            if(is_array($narrow_resources)) {
                 $cleanup = "";
-                foreach($resources as $index => $resource) {
+                foreach($narrow_resources as $index => $resource) {
 
                     if($index % 3 == 0) {
                         ?>
@@ -81,8 +83,8 @@
                     ?>
                     <div class="col-sm-4 col-lg-4">
                         <div class="resource">
-                            <h3 class="resource-name"><?php echo($resource['resource_name']); ?></h3>
-                            <img src='<?php echo($resource['resource_image']['url']);?>' class="resource-image"/>
+                            <a href="<?php echo($resource['resource_link']); ?>" target="_blank"><h3 class="resource-name"><?php echo($resource['resource_name']); ?></h3></a>
+                            <a href="<?php echo($resource['resource_link']); ?>" target="_blank"><img src='<?php echo($resource['resource_image']['url']);?>' class="resource-image"/></a>
                             <div class="resource-description"><?php echo($resource['resource_description']); ?></div>
                             <div class="resource-link"><a href="<?php echo($resource['resource_link']); ?>" target="_blank">Visit</a></div>
                         </div>

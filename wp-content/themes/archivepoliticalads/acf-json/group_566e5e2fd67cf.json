@@ -88,8 +88,8 @@
         },
         {
             "key": "field_566e5eec9d66c",
-            "label": "Resources",
-            "name": "resources",
+            "label": "Wide Resources",
+            "name": "wide_resources",
             "type": "repeater",
             "instructions": "Add one item per resource",
             "required": 0,
@@ -99,10 +99,10 @@
                 "class": "",
                 "id": ""
             },
-            "collapsed": "",
+            "collapsed": "field_566e5f059d66d",
             "min": "",
             "max": "",
-            "layout": "table",
+            "layout": "block",
             "button_label": "Add Row",
             "sub_fields": [
                 {
@@ -188,6 +188,109 @@
                     "placeholder": ""
                 }
             ]
+        },
+        {
+            "key": "field_569d988580fab",
+            "label": "Narrow Resources",
+            "name": "narrow_resources",
+            "type": "repeater",
+            "instructions": "Add one item per resource",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_566e5f059d66d",
+            "min": "",
+            "max": "",
+            "layout": "block",
+            "button_label": "Add Row",
+            "sub_fields": [
+                {
+                    "key": "field_569d988580fac",
+                    "label": "Resource Name",
+                    "name": "resource_name",
+                    "type": "text",
+                    "instructions": "The name of the resource",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "readonly": 0,
+                    "disabled": 0
+                },
+                {
+                    "key": "field_569d988580fad",
+                    "label": "Resource Description",
+                    "name": "resource_description",
+                    "type": "textarea",
+                    "instructions": "A long form description of the resource",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br",
+                    "readonly": 0,
+                    "disabled": 0
+                },
+                {
+                    "key": "field_569d988580fae",
+                    "label": "Resource Image",
+                    "name": "resource_image",
+                    "type": "image",
+                    "instructions": "An image that represents the resource",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": ""
+                },
+                {
+                    "key": "field_569d988580faf",
+                    "label": "Resource Link",
+                    "name": "resource_link",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                }
+            ]
         }
     ],
     "location": [
@@ -220,5 +323,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1453138013
+    "modified": 1453168782
 }

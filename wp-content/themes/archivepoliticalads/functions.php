@@ -181,6 +181,12 @@ if( function_exists('acf_add_options_page') ) {
         'parent_slug'   => 'theme-settings',
     ));
 
+    acf_add_options_sub_page(array(
+        'page_title'    => 'General Settings',
+        'menu_title'    => 'General',
+        'parent_slug'   => 'theme-settings',
+    ));
+
 }
 
 

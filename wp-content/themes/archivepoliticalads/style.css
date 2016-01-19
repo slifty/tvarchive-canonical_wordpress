@@ -894,7 +894,6 @@ input#submit-newsletter {
 #search-results-total {
     font-size: 24px;
     font-weight: bold;
-    padding-left: 115px;
     color: #444;
     margin-bottom: 25px;
 }
@@ -903,7 +902,6 @@ input#submit-newsletter {
 
 .political-ad {
     min-height: 180px;
-    padding: 0px 100px;
     margin-bottom: 50px;
 }
 .political-ad .embed {

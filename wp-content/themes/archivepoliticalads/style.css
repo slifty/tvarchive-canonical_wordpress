@@ -430,12 +430,17 @@ a#footer-sidebar-link{
   background-color: #f55949;
 }
 .about-ad-row {
-  padding: 0px 115px;
+  padding: 0px 90px;
+}
+.about-ad-row .cell {
+  min-height: 60px;
   border-bottom: 1px solid #3a3e4b;
+}
+.about-ad-row .cell-value {
+	font-size: 18px;
 }
 .about-ad-row_home {
   padding: 0;
-  border-bottom: 1px solid #3a3e4b;
 }
 .about-ad-row.last {
   border-bottom: none;
@@ -470,7 +475,7 @@ a#footer-sidebar-link{
   color: #8ab758;
 }
 .download-row.last {
- margin-top: 20px;
+	margin-bottom: 30px;
 }
 #download-about {
 }

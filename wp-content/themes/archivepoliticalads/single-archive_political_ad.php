@@ -22,6 +22,22 @@
             $ad_network_count = array_key_exists('network_count', $post_metadata)?$post_metadata['network_count']:0;
             $ad_first_seen = (array_key_exists('first_seen', $post_metadata)&&$post_metadata['first_seen'])?$post_metadata['first_seen']:'--';
             $ad_last_seen = (array_key_exists('last_seen', $post_metadata)&&$post_metadata['last_seen'])?$post_metadata['last_seen']:'--';
+
+            // Create sponsor links
+            $ad_sponsor_names = extract_sponsor_names($ad_sponsors);
+            foreach($ad_sponsor_names as $index => $sponsor_name) {
+                $ad_sponsor_names[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("sponsor:\"".$sponsor_name."\"")."'>".$sponsor_name."</a>";
+            }
+
+            // Create sponsor type links
+            $ad_sponsor_types = extract_sponsor_types($ad_sponsors);
+            foreach($ad_sponsor_types as $index => $sponsor_type) {
+                $ad_sponsor_types[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("sponsor_type:\"".$sponsor_type."\"")."''>".get_sponsor_type_value($sponsor_type)."</a>";
+            }
+            // Create candidate links
+            foreach($ad_candidates as $index => $ad_candidate) {
+                $ad_candidates[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("candidate:\"".$ad_candidate['ad_candidate']."\"")."''>".$ad_candidate['ad_candidate']."</a>";
+            }
             ?>
 
             <div id="ad-embed" class="row">
@@ -35,31 +51,34 @@
             </div>
 
             <div class="row about-ad-row">
-                <div id="ad-sponsor" class="first cell">
-                    <div class="cell-label">Sponsor<?php echo(sizeof($ad_sponsors)==1?'':'s'); ?>
+                <div id="ad-sponsor" class="cell xs-last sm-last col-xs-12 col-md-6">
+                    <div class="cell-label">Sponsor<?php echo(sizeof($ad_sponsor_names)==1?'':'s'); ?>
                     </div>
                     <div class="cell-value">
-                        <?php echo(generate_sponsors_string($ad_sponsors));?>
+                        <?php echo(implode(', ', $ad_sponsor_names)); ?>
                     </div>
                 </div>
-                <div id="ad-candidate" class="cell">
+                <div id="ad-sponsor" class="cell last col-xs-12 col-md-6">
+                    <div class="cell-label">Sponsor Type<?php echo(sizeof($ad_sponsor_types)==1?'':'s'); ?>
+                    </div>
+                    <div class="cell-value">
+                        <?php echo(implode(', ', $ad_sponsor_types)); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="row about-ad-row">
+                <div id="ad-candidate" class="cell last col-xs-12">
                     <div class="cell-label">Candidate<?php echo(sizeof($ad_candidates)==1?'':'s'); ?>
                     </div>
                     <div class="cell-value">
-                        <?php echo(generate_candidates_string($ad_candidates)); ?>
-                    </div>
-                </div>
-                <div id="ad-message" class="last cell">
-                    <div class="cell-label">Message</div>
-                    <div class="cell-value">
-                        <?php echo(generate_message_string($ad_message));?>
+                        <?php echo(implode(', ', $ad_candidates)); ?>
                     </div>
                 </div>
             </div>
 
             <?php if($ad_notes) { ?>
             <div class="row about-ad-row">
-                <div id="ad-note" class="first last cell">
+                <div id="ad-note" class="last cell col-xs-12">
                     <div class="cell-label">Note</div>
                     <div class="cell-multiline-value">
                         <?php echo($ad_notes);?>
@@ -69,40 +88,39 @@
             <?php } ?>
 
             <div class="row about-ad-row">
-                <div id="ad-air-count" class="first cell">
-                    <div class="cell-label">Number of Times Aired</div>
+                <div id="ad-air-count" class="cell xs-last col-xs-12 col-sm-4 col-lg-2">
+                    <div class="cell-label">Air Count</div>
                     <div class="cell-value">
                         <?php echo($ad_air_count);?>
                     </div>
                 </div>
-                <div id="ad-market-count" class="cell">
+                <div id="ad-market-count" class="cell xs-last col-xs-12 col-sm-4 col-lg-3">
                     <div class="cell-label">Markets Aired In</div>
                     <div class="cell-value cell-value_alt">
                         <?php echo($ad_market_count);?>
                     </div>
                 </div>
-                <div id="ad-network-count" class="cell">
+                <div id="ad-network-count" class="cell xs-last sm-last md-last col-xs-12 col-sm-4 col-lg-3">
                     <div class="cell-label">Networks Aired On</div>
                     <div class="cell-value cell-value_alt">
                         <?php echo($ad_network_count);?>
                     </div>
                 </div>
-                <div id="ad-first-aired" class="cell">
-                    <div class="cell-label">This Ad First Aired On</div>
+                <div id="ad-first-aired" class="cell xs-last col-xs-12 col-sm-6 col-lg-2">
+                    <div class="cell-label">First Aired On</div>
                     <div class="cell-value cell-value_alt">
                         <?php echo($ad_first_seen);?>
                     </div>
                 </div>
-                <div id="ad-last-aired" class="last cell">
-                    <div class="cell-label">This Ad Last Aired On</div>
+                <div id="ad-last-aired" class="last cell col-xs-12 col-sm-6 col-lg-2">
+                    <div class="cell-label">Last Aired On</div>
                     <div class="cell-value cell-value_alt">
                         <?php echo($ad_last_seen);?>
                     </div>
                 </div>
             </div>
-
             <div class="row last about-ad-row">
-                <div id="ad-learn" class="cell first last">
+                <div id="ad-learn" class="cell last col-xs-12">
                     <div class="cell-label">Learn More About This Ad On Archive.org</div>
                     <div class="cell-value"><a href="http://www.archive.org/details/<?php echo($archive_id);?>">www.archive.org/details/<?php echo($archive_id);?></a></div>
                 </div>
@@ -116,31 +134,20 @@
 
             <div class="row download-row">
                 <div class="col-lg-12">
-                    <div id="download-about" class="cell first last">
+                    <div id="download-about" class="cell last">
                         <div class="cell-label">About the Dataset</div>
                         <div class="cell-multiline-value"><?php echo(get_field('about_the_data', 'options')); ?></div>
                     </div>
                 </div>
             </div>
-            <div class="row download-row">
-                <div id="download-data" class="cell first last col-lg-12">
-                    <div class="cell-label">Download Data About this Ad</div>
-                </div>
-            </div>
-            <div class="row download-row">
-                <div class="col-lg-12">
+            <div class="row last download-row">
+                <div class="col-xs-12">
                     <form method="get" action="<?php bloginfo('url'); ?>/export" target="_blank">
-                        <div class="row download-row last">
-                            <div class="col-xs-offset-9 col-xs-3">
-
-                                <input type="hidden" name="q" value="archive_id:'<?php echo($archive_id); ?>'" />
-                                <input type="submit" id="download-data-button" class="button" value="Download CSV" />
-                            </div>
-                        </div>
+                        <input type="hidden" name="q" value="archive_id:'<?php echo($archive_id); ?>'" />
+                        <input type="submit" id="download-data-button" class="button" value="Download CSV" />
                     </form>
                 </div>
             </div>
-
 
             <?php
                 $references = get_field('references');
@@ -235,11 +242,11 @@
                             }
                         }
                         echo($cleanup);
-                    }
-                ?>
-            </div>
-            <?php
-        }
-    ?>
+                    ?>
+                    </div>
+                    <?php
+                }
+            }
+        ?>
     </main>
     <?php get_footer(); ?>

@@ -828,6 +828,40 @@ function get_ad_instances($query = ''){
 }
 
 
+function extract_sponsor_names($ad_sponsors) {
+    // Is this the right type?
+    if(!is_array($ad_sponsors))
+        return "";
+
+    $ad_sponsor_names = array();
+    foreach($ad_sponsors as $ad_sponsor) {
+        $sponsor_name = $ad_sponsor['ad_sponsor'];
+        $ad_sponsor_names[] = $sponsor_name;
+    }
+    return array_unique($ad_sponsor_names);
+}
+
+function extract_sponsor_types($ad_sponsors) {
+    // Is this the right type?
+    if(!is_array($ad_sponsors))
+        return "";
+
+    $ad_sponsor_types = array();
+    foreach($ad_sponsors as $ad_sponsor) {
+        $sponsor_type = $ad_sponsor['sponsor_type'];
+        $ad_sponsor_types[] = $sponsor_type;
+    }
+    return array_unique($ad_sponsor_types);
+}
+
+function get_sponsor_type_value($sponsor_type) {
+    $sponsor_type_field = get_field_object('field_566e3353943a6');
+    if(array_key_exists($sponsor_type, $sponsor_type_field['choices']))
+        return $sponsor_type_field['choices'][$sponsor_type];
+    else
+        return "";
+}
+
 /**
  * Convert a list of sponsors to a single string
  */
@@ -871,8 +905,6 @@ function generate_message_string($ad_message) {
 
 
 function generate_sponsor_type_string($sponsor_type) {
-    $sponsor_type_field = get_field_object('field_566e3353943a6');
-    return $sponsor_type_field['choices'][$sponsor_type];
 }
 
 

@@ -17,9 +17,9 @@
                     ?>
                     <a href="<?php bloginfo('url'); ?>/browse/?q=<?php echo(urlencode("sponsor_type:\"".$sponsor_type."\""));?>">
                         <div class="explore-item item">
-                                <div class="explore-wrapper">
-                                    <div class="explore-label"><?php echo($sponsor_type); ?></div>
-                                </div>
+                            <div class="explore-wrapper">
+                                <div class="explore-label"><?php echo($sponsor_type); ?></div>
+                            </div>
                         </div>
                     </a>
                     <?php

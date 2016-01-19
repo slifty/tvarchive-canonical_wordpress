@@ -22,7 +22,7 @@
     #title {
         font-size: 18px;
         margin: 0;
-        width: 161px;
+        width: 200px;
         margin: 15px 0;
     }
     nav {
@@ -224,9 +224,7 @@
         padding: 0 15px;
     }
     .download-btn {
-        position: relative;
-        right: 17px;
-        float: left;
+
     }
     .checkbox {
         font-size: 14px;
@@ -234,9 +232,7 @@
     .radio label,
     .checkbox label {}
     #download-data-button {
-        width: 124px;
-        height: 36px;
-        font-size: 14px;
+    	font-size: 14px;
     }
     input[type="submit"] {
         float: right;
@@ -341,6 +337,15 @@
 		#reference-gallery-content {
 		    padding: 30px;
 		}
+
+    /* canonical */
+    .about-ad-row {
+			padding: 0px 5px;
+    }
+
+    .xs-last {
+    	border-right: none;
+    }
 }
 
 /* Small devices (tablets, 768px and up) */
@@ -437,11 +442,12 @@
         padding: 0;
     }
     .page-content-row {
-    padding: 30px 0;
+    	padding: 30px 0px;
     }
     .page-content-row h2 {
-        margin: 0 0 15px;
+      margin: 0 0 15px;
     }
+
 
     /*Front Page*/
 
@@ -562,10 +568,6 @@
     /* Data page*/
 
     .download-btn {
-        position: relative;
-        right: 17px;
-        float: left;
-        margin-bottom: 20px;
     }
 
     /* Resource*/
@@ -626,6 +628,14 @@
 		#reference-gallery-content {
 		    padding: 30px;
 		}
+
+    .about-ad-row {
+			padding: 0px 5px;
+    }
+
+    .sm-last {
+    	border-right: none;
+    }
 }
 
 /* Medium devices (laptops, small desktops, 1024px and up) */
@@ -714,7 +724,6 @@
     /* data*/
 
     .download-row.last {
-        /*padding: 50px 115px;*/
         margin-bottom: 20px;
     }
 
@@ -759,6 +768,11 @@
     #footer-social-links ul li img {
         width: 44px;
         height: 44px;
+    }
+
+    /* canonical */
+    .md-last {
+    	border-right: none;
     }
 }
 

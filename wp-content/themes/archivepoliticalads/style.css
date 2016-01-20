@@ -249,7 +249,7 @@ div.button {
 }
 #footer .footer-section {
   margin-top: 50px;
-  height: 260px;
+  height: 100%;
 }
 #footer .footer-title,
 #footer-sidebar h3 {

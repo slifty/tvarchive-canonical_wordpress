@@ -612,11 +612,14 @@
     /*social media*/
 
     #footer-social-links ul {
-        margin-top: 90%;
+        margin-top: 0px;
+        float: none;
+        padding: 15px 0px;
+        height: 60px;
     }
     #footer-social-links ul li {
-        margin-left: 0;
-        margin-right: 10px
+        margin-left: 0px;
+        margin-right: 10px;
     }
     #footer-social-links ul li img {
         width: 44px;

@@ -5,7 +5,7 @@
                     <div class="footer-copy"><?php the_field('home_description', 'option'); ?></div>
                     <div class="footer-link"><a href="http://archive.org/details/tv">archive.org/details/tv</a></div>
                 </div>
-                <div id="custom-footer-sidebar" class="footer-section col-sm-6 col-md-4 hidden-xs">
+                <div id="custom-footer-sidebar" class="footer-section col-sm-6 col-md-4 hidden-sm hidden-xs">
                     <?php get_template_part( 'content', 'footer_blog_posts' ); ?>
                     <a href="<?php bloginfo('url'); ?>/blog">More</a>
                 </div>

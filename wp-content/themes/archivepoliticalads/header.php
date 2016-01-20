@@ -41,6 +41,16 @@
             });
         </script>
 
+        <script src="//archive.org/includes/analytics.js" type="text/javascript"></script>
+        <script ,type="text/javascript">
+        if (window.archive_analytics) {
+          var vs = window.archive_analytics.get_data_packets();
+          for (var i in vs) {
+            vs[i]['service']='tvads';
+              }
+
+        }
+        </script>
     </head>
 
     <body>

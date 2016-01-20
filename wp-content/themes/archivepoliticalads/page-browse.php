@@ -13,7 +13,7 @@
             </div>
         </div>
         <div id="browse-header-search" class="row page-header-row">
-            <div class="col-xs-12 col-sm-10 col-md-10">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <?php get_search_form(); ?>
             </div>
         </div>

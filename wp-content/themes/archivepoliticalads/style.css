@@ -452,7 +452,10 @@ a#footer-sidebar-link{
 }
 .about-ad-row.last {
   border-bottom: none;
-  padding-bottom: 45px;
+  padding-bottom: 20px;
+}
+.about-ad-row.last .cell{
+  border-bottom: none;
 }
 .about-ad-row .cell-label {
   color: #f55949;
@@ -486,6 +489,7 @@ a#footer-sidebar-link{
 	margin-bottom: 30px;
 }
 #download-about {
+	padding-left: 0px;
 }
 
 #download-subheader {
@@ -501,6 +505,7 @@ a#footer-sidebar-link{
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
+  box-shadow: none;
 }
 
 /* Visualization */

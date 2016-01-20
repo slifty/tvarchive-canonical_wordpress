@@ -20,6 +20,7 @@
 function register_archive_political_ad_type() {
     register_post_type( 'archive_political_ad',
         array(
+            'rewrite' => array('with_front' => false, 'slug' => 'ad'),
             'labels' => array(
                 'name' => __( 'Political Ads' ),
                 'singular_name' => __( 'Political Ad' ),

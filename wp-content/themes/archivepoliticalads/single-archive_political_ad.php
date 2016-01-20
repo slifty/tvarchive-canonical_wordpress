@@ -247,7 +247,7 @@
             </div>
 
             <div class="row download-row">
-                <div class="col-lg-12">
+                <div class="col-xs-12">
                     <div id="download-about" class="cell last">
                         <div class="cell-label">About the Dataset</div>
                         <div class="cell-multiline-value"><?php echo(get_field('about_the_data', 'options')); ?></div>

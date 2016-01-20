@@ -11,9 +11,7 @@
                 </div>
                 <div id="footer-social-links" class="col-sm-4 col-md-4 col-xs-12">
                     <ul>
-                        <li><img src="<?php bloginfo('template_directory'); ?>/img/facebook.png" srcset="<?php bloginfo('template_directory'); ?>/img/facebook@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/facebook@3x.png 3x" /></li>
                         <li><img src="<?php bloginfo('template_directory'); ?>/img/twitter.png" srcset="<?php bloginfo('template_directory'); ?>/img/twitter@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/twitter@3x.png 3x" /></li>
-                        <li><img src="<?php bloginfo('template_directory'); ?>/img/youtube.png" srcset="<?php bloginfo('template_directory'); ?>/img/youtube@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/youtube@3x.png 3x" /></li>
                         <li><img src="<?php bloginfo('template_directory'); ?>/img/mail.png" srcset="<?php bloginfo('template_directory'); ?>/img/mail@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/mail@3x.png 3x" /></li>
                     </ul>
                 </div>

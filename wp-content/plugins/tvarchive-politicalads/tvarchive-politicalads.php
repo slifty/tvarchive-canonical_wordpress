@@ -706,6 +706,7 @@ function parse_political_ad_query($query) {
         'general' => array(),
         'archive_id' => array(),
         'sponsor' => array(),
+        'subject' => array(),
         'candidate' => array(),
         'sponsor_type' => array(),
         'network' => array(),

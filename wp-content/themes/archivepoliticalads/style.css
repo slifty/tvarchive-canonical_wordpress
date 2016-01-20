@@ -1021,13 +1021,13 @@ input#submit-newsletter {
 }
 
 .y-tick {
-    stroke: black;
+    stroke: #444;
     fill: none;
     stroke-width: 1px;
 }
 
 .y-axis g line {
-    stroke: grey;
+    stroke: #444;
     fill: none;
     stroke-width: 1px;
 }

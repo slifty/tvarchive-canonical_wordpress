@@ -161,6 +161,7 @@
                                 .start(new Date("<?php echo($ad_first_seen);?>"))
                                 .end((new Date("<?php echo($ad_last_seen);?>")))
                                 .minScale(1)
+                                .hasDelimiter(false)
                                 .eventLineColor(function (datum, index) {
                                     return color(index);
                                 })

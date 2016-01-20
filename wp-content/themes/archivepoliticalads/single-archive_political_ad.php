@@ -144,13 +144,13 @@
             </div>
 
 
-            <div id="visualization-header" class="header-row row">
+            <div id="visualization-header" class="header-row hidden-xs hidden-sm row">
                 <div class="col-xs-12">
                     <h1>Where This Ad Aired</h1>
                 </div>
             </div>
 
-            <div id="visualization-row" class="page-content-row row">
+            <div id="visualization-row" class="page-content-row hidden-xs hidden-sm row">
                 <div class="col-xs-12">
                     <div id="market-visualization"></div>
                     <script type="text/javascript">
@@ -161,7 +161,6 @@
                                 .start(new Date("<?php echo($ad_first_seen);?>"))
                                 .end((new Date("<?php echo($ad_last_seen);?>")))
                                 .minScale(1)
-                                .hasDelimiter(false)
                                 .eventLineColor(function (datum, index) {
                                     return color(index);
                                 })

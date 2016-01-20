@@ -501,7 +501,11 @@ a#footer-sidebar-link{
 }
 
 #market-visualization {
-	margin-top: 80px;
+	margin-top: 50px;
+}
+#visualization-row {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
 }
 
 /* Explore */

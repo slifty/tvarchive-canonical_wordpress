@@ -139,7 +139,7 @@
             <div class="row last about-ad-row">
                 <div id="ad-learn" class="cell last col-xs-12">
                     <div class="cell-label">Learn More About This Ad On Archive.org</div>
-                    <div class="cell-value"><a href="http://www.archive.org/details/<?php echo($archive_id);?>">www.archive.org/details/<?php echo($archive_id);?></a></div>
+                    <div class="cell-value"><a href="http://archive.org/details/<?php echo($archive_id);?>">archive.org/details/<?php echo($archive_id);?></a></div>
                 </div>
             </div>
 

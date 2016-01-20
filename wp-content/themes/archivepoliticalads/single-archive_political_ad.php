@@ -157,8 +157,8 @@
                         $(function() {
                             var start_time = new Date("<?php echo($ad_first_seen);?>");
                             var end_time = new Date("<?php echo($ad_last_seen);?>");
-                            start_time.setTime(start_time.getTime() - 60*60*1000);
-                            end_time.setTime(end_time.getTime() + 60*60*1000);
+                            start_time.setTime(start_time.getTime() - 6*60*60*1000);
+                            end_time.setTime(end_time.getTime() + 6*60*60*1000);
                             var color = d3.scale.category20();
 
                             var eventDropsChart = d3.chart.eventDrops()

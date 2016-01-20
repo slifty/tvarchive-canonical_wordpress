@@ -155,11 +155,15 @@
                     <div id="market-visualization"></div>
                     <script type="text/javascript">
                         $(function() {
-
+                            var start_time = new Date("<?php echo($ad_first_seen);?>");
+                            var end_time = new Date("<?php echo($ad_last_seen);?>");
+                            start_time.setTime(start_time.getTime() - 60*60*1000);
+                            end_time.setTime(end_time.getTime() + 60*60*1000);
                             var color = d3.scale.category20();
+
                             var eventDropsChart = d3.chart.eventDrops()
-                                .start(new Date("<?php echo($ad_first_seen);?>"))
-                                .end((new Date("<?php echo($ad_last_seen);?>")))
+                                .start(start_time)
+                                .end(end_time)
                                 .minScale(1)
                                 .eventLineColor(function (datum, index) {
                                     return color(index);

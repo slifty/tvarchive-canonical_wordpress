@@ -358,6 +358,14 @@ a#footer-sidebar-link{
 #home-explore-header {
   background-color: #0a91ab;
 }
+.ad-title_home {
+	border-top: 20px solid #0094AF;
+	margin: 0px;
+	padding: 15px;
+	font-size: 36px;
+	font-weight: bold;
+	color: #0094AF;
+}
 .cell {
   float: left;
   margin-top: 35px;
@@ -453,7 +461,7 @@ a#footer-sidebar-link{
   padding-bottom: 30px;
 }
 #ad-note_home {
-  padding-bottom: 0;
+	padding-bottom: 15px;
 }
 .ad-note_content {
 	max-height: 130px;

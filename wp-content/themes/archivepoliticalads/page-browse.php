@@ -51,9 +51,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="title">
-                                        <a href="<?php the_permalink(); ?>" target="_blank">
-                                            <?php the_title(); ?>
-                                        </a>
+                                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                                     </div>
                                 </div>
                             </div>

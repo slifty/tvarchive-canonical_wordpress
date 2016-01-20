@@ -21,50 +21,22 @@
 
         ?>
         <div class="row">
-            <div id="ad-embed" class="col-md-12">
-                <iframe id="ad-embed-iframe" frameborder="0" width="100%" height="auto" allowfullscreen src="<?php echo($ad_embed_url);?>" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3 separator-right">
-                <div class="row separator-bottom">
-                    <div class="col-md-3">
-                        <div id="ad-sponsor" class="">
-                            <div class="cell-label cell-label_home">Sponsor<?php echo(sizeof($ad_sponsors)==1?'':'s'); ?>
-                            </div>
-                            <div class="cell-value cell-value_home">
-                                <?php echo(generate_sponsors_string($ad_sponsors));?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+            <a href="<?php the_permalink(); ?>"><h2 class="ad-title_home">Featured Political Ad</h2></a>
+            <div class="col-md-12 hidden-xs hidden-sm">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div id="ad-candidate" class="">
-                            <div class="cell-label cell-label_home">Candidate<?php echo(sizeof($ad_candidates)==1?'':'s'); ?>
-                            </div>
-                            <div class="cell-value cell-value_home">
-                                <?php echo(generate_candidates_string($ad_candidates)); ?>
-                            </div>
-                        </div>
+                    <div id="ad-embed" class="col-md-12">
+                        <iframe id="ad-embed-iframe" frameborder="0" width="100%" height="auto" allowfullscreen src="<?php echo($ad_embed_url);?>" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-9">
-                <div class="">
-                    <div id="ad-note_home" class="ad-note_home">
-                        <div class="cell-label cell-label_home">Note</div>
-                        <div class="cell-multiline-value ad-note_content">
-                            <?php echo($ad_notes);?>
-                        </div>
+                <div id="ad-note_home" class="ad-note_home">
+                    <div class="cell-label cell-label_home">Note</div>
+                    <div class="cell-multiline-value ad-note_content">
+                        <?php echo($ad_notes);?>
+                        <a href="<?php the_permalink(); ?>">READ MORE</a>
                     </div>
                 </div>
             </div>
         </div>
-
         <?php
     }
     wp_reset_postdata();

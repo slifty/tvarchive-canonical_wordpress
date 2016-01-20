@@ -201,6 +201,32 @@
                                         });
                                     }
                                 }
+
+                                // Sort in terms of state
+                                data.sort(function(a,b) {
+                                    var split_a = a.name.split(",");
+                                    var split_b = b.name.split(",");
+
+                                    // Get the state
+                                    if (split_a[1] > split_b[1]) {
+                                        return 1;
+                                    }
+                                    if (split_a[1] < split_b[1]) {
+                                        return -1;
+                                    }
+
+                                    // Same state, sort by city
+                                    if (split_a[0] > split_b[0]) {
+                                        return 1;
+                                    }
+                                    if (split_a[0] < split_b[0]) {
+                                        return -1;
+                                    }
+
+                                    // a must be equal to b
+                                    return 0;
+                                })
+
                                 d3.select('#market-visualization')
                                   .datum(data)
                                   .call(eventDropsChart);

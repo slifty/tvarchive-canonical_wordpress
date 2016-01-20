@@ -45,11 +45,11 @@
             ?>
 
             <div id="ad-embed" class="row">
-                <iframe id="ad-embed-iframe" class="col-lg-12" frameborder="0" allowfullscreen src="<?php echo($ad_embed_url);?>" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+                <iframe id="ad-embed-iframe" class="col-xs-12" frameborder="0" allowfullscreen src="<?php echo($ad_embed_url);?>" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
             </div>
 
             <div id="about-ad-header" class="header-row row">
-                <div class="col-lg-12">
+                <div class="col-xs-12">
                     <h1>About This Ad</h1>
                 </div>
             </div>

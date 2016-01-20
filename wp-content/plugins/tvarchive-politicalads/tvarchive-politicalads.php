@@ -568,6 +568,7 @@ function search_political_ads($query, $extra_args = array()) {
             }
         }
     }
+
     if(sizeof($parsed_query['sponsor_type'])) {
         $use_matched_post_ids = true;
         foreach($parsed_query['sponsor_type'] as $sponsor_type) {
@@ -579,6 +580,24 @@ function search_political_ads($query, $extra_args = array()) {
                 ",
                 'ad_sponsors_%_sponsor_type',
                 $sponsor_type
+            ));
+            foreach($rows as $row) {
+                $matched_post_ids[] = $row->post_id;
+            }
+        }
+    }
+
+    if(sizeof($parsed_query['subject'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['subject'] as $subject) {
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}postmeta
+                  WHERE meta_key LIKE %s
+                    AND meta_value LIKE %s
+                ",
+                'ad_subjects_%_ad_subject',
+                '%'.$subject.'%'
             ));
             foreach($rows as $row) {
                 $matched_post_ids[] = $row->post_id;

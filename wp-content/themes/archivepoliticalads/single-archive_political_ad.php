@@ -38,6 +38,10 @@
             foreach($ad_candidates as $index => $ad_candidate) {
                 $ad_candidates[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("candidate:\"".$ad_candidate['ad_candidate']."\"")."''>".$ad_candidate['ad_candidate']."</a>";
             }
+            // Create subject links
+            foreach($ad_subjects as $index => $ad_subject) {
+                $ad_subjects[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("subject:\"".$ad_subject['ad_subject']."\"")."''>".$ad_subject['ad_subject']."</a>";
+            }
             ?>
 
             <div id="ad-embed" class="row">
@@ -72,6 +76,16 @@
                     </div>
                     <div class="cell-value">
                         <?php echo(implode(', ', $ad_candidates)); ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row about-ad-row">
+                <div id="ad-candidate" class="cell last col-xs-12">
+                    <div class="cell-label">Subject<?php echo(sizeof($ad_subjects)==1?'':'s'); ?>
+                    </div>
+                    <div class="cell-value">
+                        <?php echo(implode(', ', $ad_subjects)); ?>
                     </div>
                 </div>
             </div>

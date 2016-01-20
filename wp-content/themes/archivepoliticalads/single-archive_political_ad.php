@@ -12,9 +12,9 @@
             $ad_embed_url = $post_metadata['embed_url'];
             $ad_notes = array_key_exists('ad_notes', $post_metadata)?$post_metadata['ad_notes']:'';
             $archive_id = array_key_exists('archive_id', $post_metadata)?$post_metadata['archive_id']:'';
-            $ad_sponsors = array_key_exists('ad_sponsors', $post_metadata)?$post_metadata['ad_sponsors']:array();
-            $ad_candidates = array_key_exists('ad_candidates', $post_metadata)?$post_metadata['ad_candidates']:array();
-            $ad_subjects = array_key_exists('ad_subjects', $post_metadata)?$post_metadata['ad_subjects']:array();
+            $ad_sponsors = (array_key_exists('ad_sponsors', $post_metadata) && $post_metadata['ad_sponsors'])?$post_metadata['ad_sponsors']:array();
+            $ad_candidates = (array_key_exists('ad_candidates', $post_metadata) && $post_metadata['ad_candidates'])?$post_metadata['ad_candidates']:array();
+            $ad_subjects = (array_key_exists('ad_subjects', $post_metadata) && $post_metadata['ad_subjects'])?$post_metadata['ad_subjects']:array();
             $ad_type = array_key_exists('ad_type', $post_metadata)?$post_metadata['ad_type']:'';
             $ad_message = array_key_exists('ad_message', $post_metadata)?$post_metadata['ad_message']:'';
             $ad_air_count = array_key_exists('air_count', $post_metadata)?$post_metadata['air_count']:0;
@@ -38,6 +38,7 @@
             foreach($ad_candidates as $index => $ad_candidate) {
                 $ad_candidates[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("candidate:\"".$ad_candidate['ad_candidate']."\"")."''>".$ad_candidate['ad_candidate']."</a>";
             }
+
             // Create subject links
             foreach($ad_subjects as $index => $ad_subject) {
                 $ad_subjects[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("subject:\"".$ad_subject['ad_subject']."\"")."''>".$ad_subject['ad_subject']."</a>";
@@ -80,6 +81,7 @@
                 </div>
             </div>
 
+            <?php if(sizeof($ad_subjects) > 0) { ?>
             <div class="row about-ad-row">
                 <div id="ad-candidate" class="cell last col-xs-12">
                     <div class="cell-label">Subject<?php echo(sizeof($ad_subjects)==1?'':'s'); ?>
@@ -89,6 +91,7 @@
                     </div>
                 </div>
             </div>
+            <?php } ?>
 
             <?php if($ad_notes) { ?>
             <div class="row about-ad-row">
@@ -137,6 +140,74 @@
                 <div id="ad-learn" class="cell last col-xs-12">
                     <div class="cell-label">Learn More About This Ad On Archive.org</div>
                     <div class="cell-value"><a href="http://www.archive.org/details/<?php echo($archive_id);?>">www.archive.org/details/<?php echo($archive_id);?></a></div>
+                </div>
+            </div>
+
+
+            <div id="visualization-header" class="header-row row">
+                <div class="col-xs-12">
+                    <h1>Where This Ad Aired</h1>
+                </div>
+            </div>
+
+            <div id="visualization-row" class="page-content-row row">
+                <div class="col-xs-12">
+                    <div id="market-visualization"></div>
+                    <script type="text/javascript">
+                        $(function() {
+
+                            var color = d3.scale.category20();
+                            var eventDropsChart = d3.chart.eventDrops()
+                                .start(new Date("<?php echo($ad_first_seen);?>"))
+                                .end((new Date("<?php echo($ad_last_seen);?>")))
+                                .minScale(1)
+                                .hasDelimiter(false)
+                                .eventLineColor(function (datum, index) {
+                                    return color(index);
+                                })
+                                .tickFormat([
+                                  [".%L", function(d) { return d.getMilliseconds(); }],
+                                  [":%S", function(d) { return d.getSeconds(); }],
+                                  ["%I:%M", function(d) { return d.getMinutes(); }],
+                                  ["%I %p", function(d) { return d.getHours(); }],
+                                  ["%d", function(d) { return d.getDay() && d.getDate() != 1; }],
+                                  ["%b %d", function(d) { return d.getDate() != 1; }],
+                                  ["%b", function(d) { return d.getMonth(); }],
+                                  ["%Y", function() { return true; }]
+                                ]);
+                            $.ajax({
+                                'url': '<?php bloginfo('url'); ?>/export?output=json&q=<?php echo(urlencode("archive_id:\'".$archive_id."\'")); ?>',
+                                'method': 'GET',
+                            })
+                            .done(function(ad_instances) {
+
+                                // Cluster instances by market + network
+                                var buckets = {};
+                                for(var x in ad_instances) {
+                                    var ad_instance = ad_instances[x];
+                                    var ad_bucket = ad_instance['location'].slice(0, -5);
+                                    if(!(ad_bucket in buckets)) {
+                                        buckets[ad_bucket] = [];
+                                    }
+                                    buckets[ad_bucket].push(new Date(ad_instance['start_time']));
+                                }
+
+                                // Create data objects from the clusters
+                                var data = [];
+                                for (var property in buckets) {
+                                    if (buckets.hasOwnProperty(property)) {
+                                        data.push({
+                                            name: property,
+                                            dates: buckets[property]
+                                        });
+                                    }
+                                }
+                                d3.select('#market-visualization')
+                                  .datum(data)
+                                  .call(eventDropsChart);
+                            });
+                        });
+                    </script>
                 </div>
             </div>
 

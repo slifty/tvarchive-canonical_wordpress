@@ -777,6 +777,8 @@ function get_ad_instances($query = ''){
 
     $query = "SELECT id as id,
                      network as network,
+                     market as market,
+                     location as location,
                      start_time as start_time,
                      end_time as end_time,
                      archive_identifier as archive_identifier,
@@ -793,6 +795,8 @@ function get_ad_instances($query = ''){
     foreach($results as $result) {
         $wp_identifier = $result->wp_identifier;
         $network = $result->network;
+        $market = $result->market;
+        $location = $result->location;
         $start_time = $result->start_time;
         $end_time = $result->end_time;
         $archive_identifier = $result->archive_identifier;
@@ -831,6 +835,8 @@ function get_ad_instances($query = ''){
         $row = [
             "wp_identifier" => $wp_identifier,
             "network" => $network,
+            "market" => $market,
+            "location" => $location,
             "start_time" => $start_time,
             "end_time" => $end_time,
             "archive_id" => $archive_id,

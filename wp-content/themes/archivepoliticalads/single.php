@@ -47,16 +47,6 @@
                     <div class="post-content">
                         <?php the_content(); ?>
                     </div>
-                    <div class="row">
-                        <div id="single-post-navigation">
-                            <div id="" class="col-xs-3  col-md-6 post-navigation-button">
-                                <?php previous_post_link(); ?>
-                            </div>
-                            <div id="next" class="col-xs-3  col-xs-offset-6 col-md-6 post-navigation-button">
-                                <?php next_post_link(); ?>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="comments">
                         <h2>Comments</h2>

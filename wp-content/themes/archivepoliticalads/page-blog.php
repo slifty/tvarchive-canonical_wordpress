@@ -8,7 +8,7 @@
 <div id="blog-header" class="row page-header-row">
     <div class="col-xs-12 col-sm-6 col-lg-6 ">
         <h1 id="blog-header-title" class="section-header">Blog</h1>
-        <p id="blog-header-description">Dispatches from the TV News Team</p>
+        <p id="blog-header-description">Dispatches from the TV Archive Team</p>
     </div>
 </div>
 
@@ -36,9 +36,9 @@
 
                 <div class="post">
                     <h2 class="post-title"><a href="<?php the_permalink();?>"><?php the_title(); ?></a></h2>
-                    <p class="post-date">
+                    <div class="post-date">
                         <?php the_time('F j, Y'); ?>
-                    </p>
+                    </div>
                     <?php
                         if( get_the_post_thumbnail() ) {
                             ?>

@@ -178,7 +178,7 @@
                                   ["%b %d", function(d) { return d.getDay() && d.getDate() != 1; }],
                                   ["%b %d", function(d) { return d.getDate() != 1; }],
                                   ["%b %d", function(d) { return d.getMonth(); }],
-                                  ["%b %d", function() { return true; }]
+                                  ["", function() { return true; }]
                                 ]);
                             $.ajax({
                                 'url': '<?php bloginfo('url'); ?>/export?output=json&q=<?php echo(urlencode("archive_id:\"".$archive_id."\"")); ?>',
@@ -263,7 +263,7 @@
                 <div class="col-xs-12">
                     <form method="get" action="<?php bloginfo('url'); ?>/export" target="_blank">
                         <input type="hidden" name="q" value="archive_id:'<?php echo($archive_id); ?>'" />
-                        <input type="submit" id="download-data-button" class="button" value="Download CSV For This Ad" />
+                        <input type="submit" id="download-data-button" class="button" value="Download This Ad's Data" />
                     </form>
                 </div>
             </div>

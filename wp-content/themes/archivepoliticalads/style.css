@@ -664,7 +664,7 @@ h3.resource-name {
     background-color: #e85646;
 }
 .post {
-    margin: 45px 60px 30px 100px;
+    margin: 15px 60px 30px 100px;
     border-bottom: 1px solid #eee;
     max-width: 1024px;
 }
@@ -696,8 +696,9 @@ h3.resource-name {
 .post_home:nth-of-type(3) a {
     color: #0A91AB;
 }
-.post-title h2 {
+.post-title {
     margin: 0px;
+    margin-top: 25px;
     padding: 0px;
 }
 .post-title a {
@@ -714,8 +715,7 @@ h3.resource-name {
     font-weight: bold;
 }
 .post-date {
-	  margin: 15px;
-    margin-top: 10px;
+    margin: 10px 0px;
     text-transform: uppercase;
     color: #9b9b9b;
     font-weight: bold;
@@ -723,8 +723,16 @@ h3.resource-name {
 .post-excerpt {
     font-size: 18px;
     line-height: 30px;
-    padding: 15px;
+    margin: 15px 0px;
     color: #343434;
+}
+
+.post_home_inner .post-excerpt {
+	padding: 0px 15px;
+	padding-bottom: 15px;
+}
+.post_home_inner .post-date {
+	margin: 15px;
 }
 .post-image {
     width: 776px;
@@ -743,6 +751,7 @@ h3.resource-name {
 }
 .post-img {
   width: 100%;
+  height: auto;
 }
 .post-more {
     color: #4a90e2;

@@ -144,6 +144,8 @@
             </div>
 
 
+            <?php if($ad_air_count > 0) { ?>
+
             <div id="visualization-header" class="header-row hidden-xs hidden-sm row">
                 <div class="col-xs-12">
                     <h1>Where This Ad Aired</h1>
@@ -157,8 +159,8 @@
                         $(function() {
                             var start_time = new Date("<?php echo($ad_first_seen);?>");
                             var end_time = new Date("<?php echo($ad_last_seen);?>");
-                            start_time.setTime(start_time.getTime() - 6*60*60*1000);
-                            end_time.setTime(end_time.getTime() + 6*60*60*1000);
+                            start_time.setTime(start_time.getTime() - 24*60*60*1000);
+                            end_time.setTime(end_time.getTime() + 24*60*60*1000);
                             var color = d3.scale.category20();
 
                             var eventDropsChart = d3.chart.eventDrops()
@@ -169,17 +171,17 @@
                                     return color(index);
                                 })
                                 .tickFormat([
-                                  [".%L", function(d) { return d.getMilliseconds(); }],
-                                  [":%S", function(d) { return d.getSeconds(); }],
-                                  ["%I:%M", function(d) { return d.getMinutes(); }],
-                                  ["%I %p", function(d) { return d.getHours(); }],
-                                  ["%d", function(d) { return d.getDay() && d.getDate() != 1; }],
+                                  ["", function(d) { return d.getMilliseconds(); }],
+                                  ["", function(d) { return d.getSeconds(); }],
+                                  ["", function(d) { return d.getMinutes(); }],
+                                  ["", function(d) { return d.getHours(); }],
+                                  ["%b %d", function(d) { return d.getDay() && d.getDate() != 1; }],
                                   ["%b %d", function(d) { return d.getDate() != 1; }],
                                   ["%b", function(d) { return d.getMonth(); }],
                                   ["%Y", function() { return true; }]
                                 ]);
                             $.ajax({
-                                'url': '<?php bloginfo('url'); ?>/export?output=json&q=<?php echo(urlencode("archive_id:\'".$archive_id."\'")); ?>',
+                                'url': '<?php bloginfo('url'); ?>/export?output=json&q=<?php echo(urlencode("archive_id:\"".$archive_id."\"")); ?>',
                                 'method': 'GET',
                             })
                             .done(function(ad_instances) {
@@ -231,14 +233,17 @@
                                     return 0;
                                 })
 
-                                d3.select('#market-visualization')
+                                var chart = d3.select('#market-visualization')
                                   .datum(data)
                                   .call(eventDropsChart);
+
+                                d3.select($('rect.zoom')[0]).on('.zoom', null);
                             });
                         });
                     </script>
                 </div>
             </div>
+            <?php } ?>
 
             <div id="download-header" class="header-row row">
                 <div class="col-lg-12">
@@ -258,7 +263,7 @@
                 <div class="col-xs-12">
                     <form method="get" action="<?php bloginfo('url'); ?>/export" target="_blank">
                         <input type="hidden" name="q" value="archive_id:'<?php echo($archive_id); ?>'" />
-                        <input type="submit" id="download-data-button" class="button" value="Download CSV" />
+                        <input type="submit" id="download-data-button" class="button" value="Download CSV For This Ad" />
                     </form>
                 </div>
             </div>

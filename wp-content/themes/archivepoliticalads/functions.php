@@ -38,16 +38,20 @@ function export_add_endpoint() {
 function export_sniff_requests(){
     global $wp;
 
-    if(isset($wp->query_vars['__export'])){
-        if(array_key_exists('q', $_GET))
+    if(isset($wp->query_vars['__export'])) {
+        $filename = time();
+        if(array_key_exists('q', $_GET)) {
+            $filename = preg_replace('/\W+/', '_', $_GET['q'])."_".$filename;
             $ad_instances = get_ad_instances($_GET['q']);
+        }
         else
             $ad_instances = get_ad_instances();
 
         if(array_key_exists('output', $_GET))
             export_send_response($ad_instances, $_GET['output']);
-        else
-            export_send_response($ad_instances);
+        else {
+            export_send_response($ad_instances, 'csv', $filename.".csv");
+        }
 
         export_send_response($ad_instances);
         exit;
@@ -58,12 +62,12 @@ function export_sniff_requests(){
 /**
  * Send the output based on the type ('csv' or 'json')
  */
-function export_send_response($rows, $output='csv') {
+function export_send_response($rows, $output='csv', $filename='data.csv') {
     switch($output) {
         case 'csv':
             // output headers so that the file is downloaded rather than displayed
             header('Content-Type: text/csv; charset=utf-8');
-            header('Content-Disposition: attachment; filename=data.csv');
+            header('Content-Disposition: attachment; filename='.$filename);
             if(sizeof($rows) == 0)
               exit;
 

@@ -680,7 +680,9 @@ function search_political_ads($query, $extra_args = array()) {
     // We have a list of matched post IDs, lets load up
     $base_args = array(
         'post_type'   => 'archive_political_ad',
-        'post_status'   => 'publish'
+        'post_status'   => 'publish',
+        'meta_key'          => 'air_count',
+        'orderby'           => 'meta_value_num',
     );
     if($use_matched_post_ids) {
         if(sizeof($matched_post_ids) > 0) {
@@ -736,7 +738,7 @@ function parse_political_ad_query($query) {
             $bucket = 'network';
 
         // remove quotes from the value
-        $value = preg_replace('/\"|\'|\\\\/', '', $value);
+        $value = preg_replace('/\"|\\\\/', '', $value);
         if(!array_key_exists($bucket, $parsed_query))
             continue;
         $parsed_query[$bucket][] = $value;

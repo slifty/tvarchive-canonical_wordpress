@@ -416,8 +416,6 @@ a#footer-sidebar-link{
   text-overflow: ellipsis;
   word-wrap: break-word;
   overflow: hidden;
-  max-height: 6em;
-  line-height: 1.5em;
 }
 
 /* Ad Embed */

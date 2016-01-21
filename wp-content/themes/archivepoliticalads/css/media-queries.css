@@ -595,11 +595,7 @@
         padding: 0;
     }
     .cell-multiline-value{
-        text-overflow: ellipsis;
-        word-wrap: break-word;
         overflow: hidden;
-        max-height: 6em;
-        line-height: 1.5em;
     }
 
     /*footer*/
@@ -756,8 +752,6 @@
         height: 250px;
     }
     .cell-multiline-value{
-        max-height: 9em;
-        line-height: 1.8em;
         margin-top: 10px;
     }
 

@@ -178,7 +178,7 @@
                                   ["%b %d", function(d) { return d.getDay() && d.getDate() != 1; }],
                                   ["%b %d", function(d) { return d.getDate() != 1; }],
                                   ["%b %d", function(d) { return d.getMonth(); }],
-                                  ["", function() { return true; }]
+                                  ["%b %d", function() { return true; }]
                                 ]);
                             $.ajax({
                                 'url': '<?php bloginfo('url'); ?>/export?output=json&q=<?php echo(urlencode("archive_id:\"".$archive_id."\"")); ?>',

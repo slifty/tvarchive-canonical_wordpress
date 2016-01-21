@@ -1025,6 +1025,14 @@ input#submit-newsletter {
 
 }
 
+.delimiter {
+	display: none;
+}
+.domain {
+	stroke: #444;
+	fill: none;
+  stroke-width: 1px;
+}
 
 .zoom {
     fill: transparent;

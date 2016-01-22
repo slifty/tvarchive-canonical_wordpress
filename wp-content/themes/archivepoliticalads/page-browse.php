@@ -26,7 +26,10 @@
     && trim($_GET['q']) != '') {
         $pagination_index = get_query_var('page', 0);
         $query = $_GET['q'];
-        $wp_query = search_political_ads($query);
+        $args= array(
+            'posts_per_page' => -1
+        );
+        $wp_query = search_political_ads($query, $args);
 
         ?>
         <div id="search-results-total" class="row page-content-row">
@@ -135,7 +138,6 @@
         <?php get_template_part('content', 'explore_sponsors'); ?>
         <?php get_template_part('content', 'explore_sponsor_types'); ?>
         <?php
-      // TODO: sorry no results lulz
     }
 ?>
 </div>

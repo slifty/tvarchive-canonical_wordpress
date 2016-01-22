@@ -262,7 +262,7 @@
             <div class="row last download-row">
                 <div class="col-xs-12">
                     <form method="get" action="<?php bloginfo('url'); ?>/export" target="_blank">
-                        <input type="hidden" name="q" value="archive_id:\"<?php echo($archive_id); ?>\"" />
+                        <input type="hidden" name="q" value="archive_id:<?php echo($archive_id); ?>" />
                         <input type="submit" id="download-data-button" class="button" value="Download This Ad's Data" />
                     </form>
                 </div>

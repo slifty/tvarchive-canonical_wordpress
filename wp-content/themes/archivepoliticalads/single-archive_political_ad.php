@@ -194,7 +194,10 @@
                                     if(!(ad_bucket in buckets)) {
                                         buckets[ad_bucket] = [];
                                     }
-                                    buckets[ad_bucket].push(new Date(ad_instance['start_time']));
+                                    // Create a date
+                                    var t = ad_instance['start_time'].split(/[- :]/);
+                                    var d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+                                    buckets[ad_bucket].push(d);
                                 }
 
                                 // Create data objects from the clusters

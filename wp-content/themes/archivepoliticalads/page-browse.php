@@ -79,7 +79,7 @@
                     <div>
                         <div class="col-xs-12 col-sm-6 col-lg-3">
                             <div class="embed">
-                                <iframe frameborder="0" allowfullscreen src="<?php echo($metadata['embed_url']);?>" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+                                <iframe frameborder="0" allowfullscreen src="<?php echo($post_metadata['embed_url']);?>" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-lg-9">

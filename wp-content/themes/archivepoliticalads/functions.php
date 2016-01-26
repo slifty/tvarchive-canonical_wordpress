@@ -203,5 +203,23 @@ if( function_exists('acf_add_options_page') ) {
 
 }
 
+// Enable embeds because Wordpress is dumb
+function change_mce_options( $initArray ) {
+    // Comma separated string od extendes tags
+    // Command separated string of extended elements
+    $ext = 'pre[id|name|class|style],iframe[align|longdesc|name|width|height|frameborder|scrolling|marginheight|marginwidth|src]';
+
+    if ( isset( $initArray['extended_valid_elements'] ) ) {
+        $initArray['extended_valid_elements'] .= ',' . $ext;
+    } else {
+        $initArray['extended_valid_elements'] = $ext;
+    }
+    // maybe; set tiny paramter verify_html
+    //$initArray['verify_html'] = false;
+
+    return $initArray;
+}
+add_filter( 'tiny_mce_before_init', 'change_mce_options' );
+
 
 ?>

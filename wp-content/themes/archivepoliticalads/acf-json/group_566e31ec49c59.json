@@ -80,7 +80,7 @@
                         "unknown": "Unknown",
                         "cand": "Candidate",
                         "candcmte": "Candidate Committee",
-                        "501c": "Non Profit (501c3)",
+                        "501c": "Non Profit (501c)",
                         "PAC": "PAC",
                         "SuperPAC": "Super PAC",
                         "mixed": "Multiple Types"
@@ -402,5 +402,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1453138000
+    "modified": 1454026607
 }

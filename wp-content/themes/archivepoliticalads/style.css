@@ -11,6 +11,10 @@
  Text Domain:  archivepoliticalads
 */
 
+html {
+    position: relative;
+    min-height: 100%;
+}
 * {
   margin: 0px;
   padding: 0px;
@@ -21,6 +25,7 @@ h1 {
 }
 body {
   color: #4a4a4a;
+  margin-bottom: 360px;
 }
 a {
   color: #4a90e2;
@@ -237,8 +242,11 @@ div.button {
 /* Footer */
 #footer {
   background-color: #3a3e4b;
-  height: 360px;
-  padding: 0px 100px;
+  height: auto;
+  padding: 50px 100px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
 #footer a {
   color: #0a91ab;
@@ -248,7 +256,7 @@ div.button {
    text-decoration: underline;
 }
 #footer .footer-section {
-  margin-top: 50px;
+  margin-top: 0px;
   height: 100%;
 }
 #footer .footer-title,

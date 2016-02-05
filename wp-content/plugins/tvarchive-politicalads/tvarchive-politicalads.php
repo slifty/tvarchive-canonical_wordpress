@@ -533,11 +533,18 @@ function search_political_ads($query, $extra_args = array()) {
     $parsed_query = parse_political_ad_query($query);
 
     // Candidates, Sponsors, and Sponsor Type are nested meta values
-    $matched_post_ids = array();
+    $or_post_ids = array();
+    $not_post_ids = array();
+    $and_post_sets = array();
+    $general_and_ids = array(); // "and" that was set to general implies ANY category match, not EVERY category match
     $use_matched_post_ids = false;
+    $use_general_and = false;
+
     if(sizeof($parsed_query['candidate'])) {
         $use_matched_post_ids = true;
-        foreach($parsed_query['candidate'] as $candidate) {
+        foreach($parsed_query['candidate'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
             $rows = $wpdb->get_results($wpdb->prepare(
                 "SELECT *
                    FROM {$wpdb->prefix}postmeta
@@ -545,16 +552,37 @@ function search_political_ads($query, $extra_args = array()) {
                     AND meta_value LIKE %s
                 ",
                 'ad_candidates_%_ad_candidate',
-                '%'.$candidate.'%'
+                '%'.$query_part['value'].'%'
             ));
+
+            $temp_ids = array();
             foreach($rows as $row) {
-                $matched_post_ids[] = $row->post_id;
+                $temp_ids[] = $row->post_id;
+            }
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
             }
         }
     }
     if(sizeof($parsed_query['sponsor'])) {
         $use_matched_post_ids = true;
-        foreach($parsed_query['sponsor'] as $sponsor) {
+        foreach($parsed_query['sponsor'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
             $rows = $wpdb->get_results($wpdb->prepare(
                 "SELECT *
                    FROM {$wpdb->prefix}postmeta
@@ -562,17 +590,39 @@ function search_political_ads($query, $extra_args = array()) {
                     AND meta_value LIKE %s
                 ",
                 'ad_sponsors_%_ad_sponsor',
-                '%'.$sponsor.'%'
+                '%'.$query_part['value'].'%'
             ));
+
+            $temp_ids = array();
             foreach($rows as $row) {
-                $matched_post_ids[] = $row->post_id;
+                $temp_ids[] = $row->post_id;
+            }
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
             }
         }
     }
 
     if(sizeof($parsed_query['sponsor_type'])) {
         $use_matched_post_ids = true;
-        foreach($parsed_query['sponsor_type'] as $sponsor_type) {
+        foreach($parsed_query['sponsor_type'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
             $rows = $wpdb->get_results($wpdb->prepare(
                 "SELECT *
                    FROM {$wpdb->prefix}postmeta
@@ -580,17 +630,39 @@ function search_political_ads($query, $extra_args = array()) {
                     AND meta_value = %s
                 ",
                 'ad_sponsors_%_sponsor_type',
-                $sponsor_type
+                $query_part['value']
             ));
+
+            $temp_ids = array();
             foreach($rows as $row) {
-                $matched_post_ids[] = $row->post_id;
+                $temp_ids[] = $row->post_id;
+            }
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
             }
         }
     }
 
     if(sizeof($parsed_query['subject'])) {
         $use_matched_post_ids = true;
-        foreach($parsed_query['subject'] as $subject) {
+        foreach($parsed_query['subject'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
             $rows = $wpdb->get_results($wpdb->prepare(
                 "SELECT *
                    FROM {$wpdb->prefix}postmeta
@@ -598,17 +670,40 @@ function search_political_ads($query, $extra_args = array()) {
                     AND meta_value LIKE %s
                 ",
                 'ad_subjects_%_ad_subject',
-                '%'.$subject.'%'
+                '%'.$query_part['value'].'%'
             ));
+
+            $temp_ids = array();
             foreach($rows as $row) {
-                $matched_post_ids[] = $row->post_id;
+                $temp_ids[] = $row->post_id;
+            }
+
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
             }
         }
     }
 
     if(sizeof($parsed_query['archive_id'])) {
         $use_matched_post_ids = true;
-        foreach($parsed_query['archive_id'] as $archive_id) {
+        foreach($parsed_query['archive_id'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
             $rows = $wpdb->get_results($wpdb->prepare(
                 "SELECT *
                    FROM {$wpdb->prefix}postmeta
@@ -616,10 +711,29 @@ function search_political_ads($query, $extra_args = array()) {
                     AND meta_value = %s
                 ",
                 'archive_id',
-                $archive_id
+                $query_part['value']
             ));
+
+            $temp_ids = array();
             foreach($rows as $row) {
-                $matched_post_ids[] = $row->post_id;
+                $temp_ids[] = $row->post_id;
+            }
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
             }
         }
     }
@@ -627,52 +741,215 @@ function search_political_ads($query, $extra_args = array()) {
     // Market, Channel, and Location are instance values
     if(sizeof($parsed_query['network'])) {
         $use_matched_post_ids = true;
-        foreach($parsed_query['network'] as $network) {
+        foreach($parsed_query['network'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
             $rows = $wpdb->get_results($wpdb->prepare(
                 "SELECT *
                    FROM {$wpdb->prefix}ad_instances
                   WHERE network = %s
                GROUP BY wp_identifier
                 ",
-                $network
+                $query_part['value']
             ));
+
+            $temp_ids = array();
             foreach($rows as $row) {
-                $matched_post_ids[] = $row->wp_identifier;
+                $temp_ids[] = $row->wp_identifier;
+            }
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
             }
         }
     }
     if(sizeof($parsed_query['market'])) {
         $use_matched_post_ids = true;
-        foreach($parsed_query['market'] as $market) {
+        foreach($parsed_query['market'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
             $rows = $wpdb->get_results($wpdb->prepare(
                 "SELECT *
                    FROM {$wpdb->prefix}ad_instances
                   WHERE market = %s
                GROUP BY wp_identifier
                 ",
-                $market
+                $query_part['value']
             ));
+
+            $temp_ids = array();
             foreach($rows as $row) {
-                $matched_post_ids[] = $row->wp_identifier;
+                $temp_ids[] = $row->wp_identifier;
+            }
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
             }
         }
     }
+
     if(sizeof($parsed_query['location'])) {
         $use_matched_post_ids = true;
-        foreach($parsed_query['location'] as $location) {
+        foreach($parsed_query['location'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
             $rows = $wpdb->get_results($wpdb->prepare(
                 "SELECT *
                    FROM {$wpdb->prefix}ad_instances
                   WHERE location LIKE %s
                GROUP BY wp_identifier
                 ",
-                '%'.$location.'%'
+                '%'.$query_part['value'].'%'
             ));
+
+            $temp_ids = array();
             foreach($rows as $row) {
-                $matched_post_ids[] = $row->wp_identifier;
+                $temp_ids[] = $row->wp_identifier;
+            }
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
             }
         }
     }
+
+    if(sizeof($parsed_query['after'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['after'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}ad_instances
+                  WHERE start_time >= %s
+               GROUP BY wp_identifier
+                ",
+                date('Y-m-d H:i:s', strtotime($query_part['value']))
+            ));
+
+            $temp_ids = array();
+            foreach($rows as $row) {
+                $temp_ids[] = $row->wp_identifier;
+            }
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
+            }
+        }
+    }
+
+    if(sizeof($parsed_query['before'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['before'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}ad_instances
+                  WHERE start_time <= %s
+               GROUP BY wp_identifier
+                ",
+                date('Y-m-d H:i:s', strtotime($query_part['value']))
+            ));
+
+            $temp_ids = array();
+            foreach($rows as $row) {
+                $temp_ids[] = $row->wp_identifier;
+            }
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
+            }
+        }
+    }
+
+    // Proccess the booleans
+    $matched_post_ids = array();
+
+    // Add the "or" set as a new and set
+    $and_post_sets[] = $or_post_ids;
+
+    // Did we have a general AND?
+    if($use_general_and)
+        $and_post_sets[] = $general_and_ids;
+
+    if(sizeof($and_post_sets) == 1)
+        $matched_post_ids = $and_post_sets[0];
+    else
+        $matched_post_ids = call_user_func_array('array_intersect', $and_post_sets);
+
+    // Remove the "not" set
+    $matched_post_ids = array_diff($matched_post_ids, $not_post_ids);
 
     // Remove dupes because why not
     $matched_post_ids = array_unique($matched_post_ids);
@@ -681,7 +958,7 @@ function search_political_ads($query, $extra_args = array()) {
     $base_args = array(
         'post_type'   => 'archive_political_ad',
         'post_status'   => 'publish',
-        'meta_key'          => 'air_count',
+        'meta_key'          => 'first_seen',
         'orderby'           => 'meta_value_num',
     );
     if($use_matched_post_ids) {
@@ -715,39 +992,79 @@ function parse_political_ad_query($query) {
         'network' => array(),
         'market' => array(),
         'location' => array(),
-        'type' => array()
+        'type' => array(),
+        'before' => array(),
+        'after' => array()
     );
 
-    // First, break the query into parts, keeping quoted sections as one item
-    $query_parts = preg_split("/(?:'[^']*'|\"[^\"]*\")(*SKIP)(*F)|\h+/", $query);
+    // Which of these buckets are considered part of "general"
+    $general_buckets = array(
+        'archive_id',
+        'sponsor',
+        'subject',
+        'candidate',
+        'sponsor_type',
+        'network',
+        'market',
+        'location',
+        'type'
+    );
 
-    // Split the parts into buckets
-    foreach($query_parts as $query_part) {
-        $facet_parts = preg_split('/\:/', $query_part);
-        if(sizeof($facet_parts) == 1) {
-            $bucket = 'general';
-            $value = $facet_parts[0];
-        } else {
-            $bucket = $facet_parts[0];
-            $value = $facet_parts[1];
-            // Note: we're just going to ignore if the user did something like a:b:c
+    // First, break the query into boolean parts
+    $query_boolean_parts = preg_split("/(\sAND\s|\sOR\s|\sNOT\s)/", $query, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+    // Start off with a good old fashoned OR
+    $active_boolean = 'OR';
+    foreach($query_boolean_parts as $query_boolean_part) {
+
+        // If this is a boolean, we aren't including it in the query itself
+        $query_boolean_part = trim($query_boolean_part);
+        if($query_boolean_part == 'OR'
+        || $query_boolean_part == 'AND'
+        || $query_boolean_part == 'NOT') {
+                $active_boolean = $query_boolean_part;
+                continue;
         }
 
-        // 'network' and 'channel' are the same
-        if($bucket == 'channel')
-            $bucket = 'network';
+        // We have a piece of a query, run with it
+        // First, break the query into parts, keeping quoted sections as one item
+        $query_parts = preg_split("/(?:'[^']*'|\"[^\"]*\")(*SKIP)(*F)|\h+/", $query_boolean_part);
 
-        // remove quotes from the value
-        $value = preg_replace('/\"|\\\\/', '', $value);
-        if(!array_key_exists($bucket, $parsed_query))
-            continue;
-        $parsed_query[$bucket][] = $value;
-    }
+        // Split the parts into buckets
+        foreach($query_parts as $query_part) {
+            $facet_parts = preg_split('/\:/', $query_part);
+            if(sizeof($facet_parts) == 1) {
+                $bucket = 'general';
+                $value = $facet_parts[0];
+                $boolean = 'GENERAL_'.$active_boolean;
+            } else {
+                $bucket = $facet_parts[0];
+                $value = $facet_parts[1];
+                $boolean = $active_boolean;
+                // Note: we're just going to ignore if the user did something like a:b:c
+            }
 
-    // Add in 'general' to all the parts
-    foreach($parsed_query as $bucket => $values) {
-        $parsed_query[$bucket] = array_merge($parsed_query['general'], $parsed_query[$bucket]);
-        $parsed_query[$bucket] = array_unique($parsed_query[$bucket]);
+            // 'network' and 'channel' are the same
+            if($bucket == 'channel')
+                $bucket = 'network';
+
+            // remove quotes from the value
+            $value = preg_replace('/\"|\\\\/', '', $value);
+            if(!array_key_exists($bucket, $parsed_query))
+                continue;
+
+            // We don't want to search for empty strings
+            $parsed_query[$bucket][] = array(
+                'value' => $value,
+                'boolean' => $boolean
+            );
+        }
+
+        // Add in 'general' to a few specific buckets
+        foreach($general_buckets as $bucket) {
+            $parsed_query[$bucket] = array_merge($parsed_query['general'], $parsed_query[$bucket]);
+            $parsed_query[$bucket] = array_unique($parsed_query[$bucket], SORT_REGULAR);
+        }
     }
 
     return $parsed_query;

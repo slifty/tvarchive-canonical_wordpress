@@ -239,6 +239,15 @@ div.button {
     border: none;
 }
 
+/* Navbar color */
+.slug-home {}
+.slug-about #about-nav a { color: #F4B242; }
+.slug-blog #blog-nav a { color: #E85646; }
+.slug-data #data-nav a { color: #8AB858; }
+.slug-resources #resources-nav a { color: #BBB2A0; }
+.slug-browse #browse-nav a { color: #0A91AB; }
+
+
 /* Footer */
 #footer {
   background-color: #3a3e4b;

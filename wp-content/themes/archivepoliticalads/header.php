@@ -53,7 +53,7 @@
         </script>
     </head>
 
-    <body>
+    <body class="slug-<?php global $post; echo(is_home()?"home":$post->post_name);?>">
         <div class="container-fluid">
             <div id="header" class="row">
                 <div id="branding" class="col-xs-8 col-sm-6 col-md-5 col-lg-6">
@@ -73,11 +73,11 @@
                        <!--  <a href="#" ></a> -->
                         <div class="collapse navbar-collapse navigation no-transition" id="mainNav-collapse">
                             <ul>
-                                <li><a href="<?php bloginfo('url'); ?>/about">about</a></li>
-                                <li><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
-                                <li><a href="<?php bloginfo('url'); ?>/data">data download</a></li>
-                                <li><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
-                                <li><a href="<?php bloginfo('url'); ?>/browse">search</a></li>
+                                <li id="about-nav"><a href="<?php bloginfo('url'); ?>/about">about</a></li>
+                                <li id="blog-nav"><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
+                                <li id="data-nav"><a href="<?php bloginfo('url'); ?>/data">data download</a></li>
+                                <li id="resources-nav"><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
+                                <li id="browse-nav"><a href="<?php bloginfo('url'); ?>/browse">search</a></li>
                             </ul>
                          </div>
                     </nav>

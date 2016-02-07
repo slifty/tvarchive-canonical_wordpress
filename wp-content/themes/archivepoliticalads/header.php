@@ -15,6 +15,19 @@
     <head>
         <meta charset="<?php bloginfo( 'charset' ); ?>" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <?php
+            // Add metadata to core pages
+            if(is_page() || is_home()) {
+                $meta_description = get_field("meta_description");
+                $default_meta_description = get_field("default_meta_description", 'options');
+                if($meta_description) {
+                    echo("<meta type=\"description\" content=\"".str_replace('"', '\\"', $meta_description)."\">");
+                } elseif($default_meta_description) {
+                    echo("<meta type=\"description\" content=\"".str_replace('"', '\\"', $default_meta_description)."\">");
+                }
+            }
+        ?>
+
 
         <title>
             Political TV Ad Archive <?php wp_title(); ?>

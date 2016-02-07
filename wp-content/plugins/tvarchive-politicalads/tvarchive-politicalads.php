@@ -462,6 +462,9 @@ function get_candidates() {
 
     $candidates = array();
     foreach($results as $result) {
+        if(trim($result->ad_candidate) == "")
+            continue;
+
         $candidate = array(
             "name" => $result->ad_candidate,
             "count" => $result->ad_count
@@ -492,6 +495,9 @@ function get_sponsors() {
 
     $sponsors = array();
     foreach($results as $result) {
+        if(trim($result->ad_sponsor) == "")
+            continue;
+
         $sponsor = array(
             "name" => $result->ad_sponsor,
             "count" => $result->ad_count
@@ -522,6 +528,9 @@ function get_sponsor_types() {
 
     $sponsor_types = array();
     foreach($results as $result) {
+        if(trim($result->ad_sponsor_type) == "")
+            continue;
+
         $sponsor_type = array(
             "name" => $result->ad_sponsor_type,
             "count" => $result->ad_count

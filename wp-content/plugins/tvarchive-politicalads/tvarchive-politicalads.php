@@ -1038,6 +1038,10 @@ function parse_political_ad_query($query) {
     $active_boolean = 'OR';
     foreach($query_boolean_parts as $query_boolean_part) {
 
+        // Is the part empty?  Skip it if so
+        if($query_boolean_part == "")
+            continue;
+
         // If this is a boolean, we aren't including it in the query itself
         $query_boolean_part = trim($query_boolean_part);
         if($query_boolean_part == 'OR'
@@ -1111,8 +1115,6 @@ function get_ad_instances($query = ''){
     $wp_query = search_political_ads($query, $args);
     $ids = $wp_query->posts;
 
-
-
     // Collect the data associated with this ad
     $table_name = $wpdb->prefix . 'ad_instances';
 
@@ -1150,6 +1152,7 @@ function get_ad_instances($query = ''){
             $metadata['archive_id'] = array_key_exists('archive_id', $post_metadata)?$post_metadata['archive_id']:'';
             $metadata['ad_sponsor'] = generate_sponsors_string(array_key_exists('ad_sponsors', $post_metadata)?$post_metadata['ad_sponsors']:'');
             $metadata['ad_candidate'] = generate_candidates_string(array_key_exists('ad_candidates', $post_metadata)?$post_metadata['ad_candidates']:'');
+            $metadata['ad_subject'] = generate_subjects_string(array_key_exists('ad_subjects', $post_metadata)?$post_metadata['ad_subjects']:array());
             $metadata['ad_type'] = array_key_exists('ad_type', $post_metadata)?$post_metadata['ad_type']:'';
             $metadata['ad_message'] = array_key_exists('ad_message', $post_metadata)?$post_metadata['ad_message']:'';
             $metadata['ad_air_count'] = array_key_exists('air_count', $post_metadata)?$post_metadata['air_count']:'';
@@ -1165,6 +1168,7 @@ function get_ad_instances($query = ''){
         $archive_id = $metadata_cache[$archive_identifier]['archive_id'];
         $ad_sponsor = $metadata_cache[$archive_identifier]['ad_sponsor'];
         $ad_candidate = $metadata_cache[$archive_identifier]['ad_candidate'];
+        $ad_subject = $metadata_cache[$archive_identifier]['ad_subject'];
         $ad_type = $metadata_cache[$archive_identifier]['ad_type'];
         $ad_message = $metadata_cache[$archive_identifier]['ad_message'];
         $ad_air_count = $metadata_cache[$archive_identifier]['ad_air_count'];
@@ -1183,6 +1187,7 @@ function get_ad_instances($query = ''){
             "archive_id" => $archive_id,
             "embed_url" => $ad_embed_url,
             "sponsor" => $ad_sponsor,
+            "subject" => $ad_subject,
             "candidate" => $ad_candidate,
             "type" => $ad_type,
             "message" => $ad_message,
@@ -1262,6 +1267,23 @@ function generate_candidates_string($ad_candidates) {
         $ad_candidates_strings[] = $ad_candidate['ad_candidate'];
     }
     return implode(", ", $ad_candidates_strings);
+}
+
+
+/**
+ * Convert a list of candidates to a single string
+ */
+function generate_subjects_string($ad_subjects) {
+
+    // Is this the right type?
+    if(!is_array($ad_subjects))
+        return "";
+
+    $ad_candidates_strings = array();
+    foreach($ad_subjects as $ad_subject) {
+        $ad_subjects_strings[] = $ad_subject['ad_subject'];
+    }
+    return implode(", ", $ad_subjects_strings);
 }
 
 

@@ -462,7 +462,11 @@ function get_candidates() {
 
     $candidates = array();
     foreach($results as $result) {
-        array_push($candidates, $result->ad_candidate);
+        $candidate = array(
+            "name" => $result->ad_candidate,
+            "count" => $result->ad_count
+        );
+        array_push($candidates, $candidate);
     }
     return $candidates;
 }
@@ -488,7 +492,11 @@ function get_sponsors() {
 
     $sponsors = array();
     foreach($results as $result) {
-        array_push($sponsors, $result->ad_sponsor);
+        $sponsor = array(
+            "name" => $result->ad_sponsor,
+            "count" => $result->ad_count
+        );
+        array_push($sponsors, $sponsor);
     }
     return $sponsors;
 }
@@ -503,7 +511,7 @@ function get_sponsor_types() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'postmeta';
     $query = "SELECT count(*) as ad_count,
-                     meta_value as ad_sponsor
+                     meta_value as ad_sponsor_type
                 FROM ".$table_name."
                WHERE meta_key LIKE 'ad_sponsors_%_sponsor_type'
                  AND post_id IN (select ID from wp_posts where post_status = 'publish')
@@ -512,11 +520,15 @@ function get_sponsor_types() {
 
     $results = $wpdb->get_results($query);
 
-    $sponsors = array();
+    $sponsor_types = array();
     foreach($results as $result) {
-        array_push($sponsors, $result->ad_sponsor);
+        $sponsor_type = array(
+            "name" => $result->ad_sponsor_type,
+            "count" => $result->ad_count
+        );
+        array_push($sponsor_types, $sponsor_type);
     }
-    return $sponsors;
+    return $sponsor_types;
 }
 
 

@@ -18,7 +18,8 @@
                     <a href="<?php bloginfo('url'); ?>/browse/?q=<?php echo(urlencode("candidate:\"".$candidate."\""));?>">
                         <div class="explore-item item">
                                 <div class="explore-wrapper">
-                                    <div class="explore-label"><?php echo($candidate); ?></div>
+                                    <div class="explore-label"><?php echo($candidate['name']); ?></div>
+                                    <div class="explore-count"><?php echo($candidate['count']); ?>  Ad<?php echo($candidate['count']==1?"":"s");?></div>
                                 </div>
                         </div>
                     </a>

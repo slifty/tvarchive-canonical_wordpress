@@ -175,7 +175,7 @@ div.button {
   font-weight: bold;
   margin-left: 10px;
   margin-top: 22px;
-  width: 260px;
+  width: 265px;
 }
 #title-political {
   color: #6cb1d0;
@@ -563,8 +563,8 @@ a#footer-sidebar-link{
 }
 .explore-list .explore-item {
   float: left;
-  width: 225px;
-  height: 200px;
+  width: 175px;
+  height: 160px;
   background: rgba(224, 163, 61, 0.90);
   position: relative;
   display: table;
@@ -578,8 +578,21 @@ a#footer-sidebar-link{
 .explore-label {
   border: 2px solid #fff;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  margin: auto;
+  margin-top: 30px;
+  vertical-align: middle;
+  text-align: center;
+  width: 150px;
+}
+
+.explore-count {
+  color: #fff;
+  font-size: 12px;
+  line-height: 14px;
   text-transform: uppercase;
   padding: 8px 12px;
   margin: auto;

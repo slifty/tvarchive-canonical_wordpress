@@ -979,8 +979,8 @@ function search_political_ads($query, $extra_args = array()) {
     $base_args = array(
         'post_type'   => 'archive_political_ad',
         'post_status'   => 'publish',
-        'meta_key'          => 'first_seen',
-        'orderby'           => 'meta_value_num',
+        'orderby'           => 'post_date',
+        'order'             => 'DESC'
     );
     if($use_matched_post_ids) {
         if(sizeof($matched_post_ids) > 0) {

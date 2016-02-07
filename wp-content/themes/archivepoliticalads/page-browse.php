@@ -44,7 +44,7 @@
             while($wp_query->have_posts()) {
                 $wp_query->the_post();
                 $post_metadata = get_fields();
-                $date_created = get_the_date('n/j/y');
+                $date_created = get_the_date('n/j/y, g:i A');
                 $ad_notes = array_key_exists('ad_notes', $post_metadata)?$post_metadata['ad_notes']:'';
                 $archive_id = array_key_exists('archive_id', $post_metadata)?$post_metadata['archive_id']:'';
                 $ad_sponsors = (array_key_exists('ad_sponsors', $post_metadata) && $post_metadata['ad_sponsors'])?$post_metadata['ad_sponsors']:array();
@@ -91,7 +91,15 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="title">
-                                        <a href="<?php the_permalink(); ?>"><?php echo(implode(", ", $ad_candidates)); ?> - <?php echo(($ad_first_seen == "--")?$date_created:$ad_first_seen); ?></a>
+                                        <a href="<?php the_permalink(); ?>"><?php echo(implode(", ", $ad_candidates)); ?></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class=" col-sm-12">
+                                    <div class="sponsors">
+                                        <span class="browse-label">Ingested:</span>
+                                        <?php echo($date_created); ?>
                                     </div>
                                 </div>
                             </div>

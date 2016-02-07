@@ -4,8 +4,6 @@
 */
 ?><?php get_header(); ?>
 
-<?php print_r(get_sponsor_metadata()); die(); ?>
-
 <div id="about-header" class="row page-header-row">
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
         <h1 id="about-header-title" class="section-header">About</h1>

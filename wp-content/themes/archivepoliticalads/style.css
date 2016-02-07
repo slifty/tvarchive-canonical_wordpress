@@ -819,9 +819,9 @@ h3.resource-name {
 #prev {
     float: left;
 }
-#pre a {
+#prev a {
     text-align: left;
-    color: #4a90e2;
+    color: #e85646;
 }
 
 /* Custom Comments */

@@ -24,11 +24,13 @@
 <?php
     if(array_key_exists('q', $_GET)
     && trim($_GET['q']) != '') {
-        $pagination_index = get_query_var('page', 0);
+        $pagination_index = get_query_var('paged', 0);
         $query = $_GET['q'];
         $args= array(
-            'posts_per_page' => -1
+            'posts_per_page' => 4,
+            'paged' => $pagination_index
         );
+
         $wp_query = search_political_ads($query, $args);
 
         ?>
@@ -132,6 +134,16 @@
                 </div>
             <?php
         }
+        ?>
+
+        <div class="row page-content-row">
+            <div class="col-xs-12 col-sm-6 col-lg-9 col-sm-offset-7 col-lg-offset-3">
+                <div id="next" class="post-navigation-button"><?php next_posts_link( 'Page '.(max($pagination_index,1) + 1)." &gt;" ); ?></div>
+                <div id="prev" class="post-navigation-button"><?php previous_posts_link( '&lt; Page '.($pagination_index - 1) ); ?></div>
+            </div>
+        </div>
+
+        <?php
     } else {
         ?>
         <?php get_template_part('content', 'explore_candidates'); ?>

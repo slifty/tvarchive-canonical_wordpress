@@ -174,6 +174,36 @@
                     },
                     "default_value": "",
                     "placeholder": ""
+                },
+                {
+                    "key": "field_56b8b33887ec3",
+                    "label": "Ad Candidate Message",
+                    "name": "ad_candidate_message",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "Unknown": "Unknown",
+                        "Pro": "Pro",
+                        "Con": "Con",
+                        "Mixed": "Mixed"
+                    },
+                    "default_value": {
+                        "Unknown": "Unknown"
+                    },
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "disabled": 0,
+                    "readonly": 0
                 }
             ]
         },
@@ -439,5 +469,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1454860930
+    "modified": 1454945119
 }

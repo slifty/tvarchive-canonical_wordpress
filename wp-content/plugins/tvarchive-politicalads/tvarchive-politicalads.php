@@ -331,6 +331,12 @@ function load_ad_data() {
         update_field('field_566e36b0962e4', $ad_first_seen, $wp_identifier); // first_seen
         update_field('field_566e36d5962e5', $ad_last_seen,  $wp_identifier); // last_seen
     }
+
+    // Clear the transient cache
+    $table_name = $wpdb->prefix . 'options';
+    $query = "DELETE FROM `".$table_name."` WHERE `option_name` LIKE ('_transient%adcache%')";
+    $results = $wpdb->query($query);
+
 }
 
 add_action('archive_sync', 'load_ad_data');
@@ -1482,25 +1488,36 @@ function instance_export_add_endpoint() {
  * Look to see if export is being requested, if so take over and return the export
  * @return die if API request
  */
-function instance_export_sniff_requests(){
+function instance_export_sniff_requests() {
     global $wp;
 
     if(isset($wp->query_vars['__instance_export'])) {
         $filename = time();
-        if(array_key_exists('q', $_GET)) {
-            $filename = preg_replace('/\W+/', '_', $_GET['q'])."_".$filename;
-            $ad_instances = get_ad_instances($_GET['q']);
-        }
-        else
-            $ad_instances = get_ad_instances();
+        $output = array_key_exists('output', $_GET)?$_GET['output']:'csv';
+        $query = array_key_exists('q', $_GET)?$_GET['q']:"";
 
-        if(array_key_exists('output', $_GET))
-            export_send_response($ad_instances, $_GET['output']);
-        else {
-            export_send_response($ad_instances, 'csv', $filename."_instances.csv");
+        // Nail down the filename
+        $filename = preg_replace('/\W+/', '_', $query)."_".$filename;
+        $cache_name = "adcache".preg_replace('/\W+/', '_', $query).$output;
+
+        // Check the cache (if appropriate)
+        // TODO: the cache name isn't normalized (so "Sponsor:Jeb Candidate:Jeb" and "Candidate:Jeb Sponsor:Jeb" would be two caches despite being the same query)
+        // TODO: wordpress transients don't support names longer than 45 characters, we should find a better solution
+        // TODO: we're going to only cache when the query is blank for now
+        if($query == '') {
+            $ad_instances = get_transient($filename);
+
+            // There is no cached copy
+            if($ad_instances === false) {
+                $ad_instances = get_ad_instances($query);
+                set_transient($cache_name, $ad_instances, 60*60*30); // The cache lasts 30 minutes
+            }
+        } else {
+            // We can't cache, the query is too long
+            $ad_instances = get_ad_instances($query);
         }
 
-        export_send_response($ad_instances);
+        export_send_response($ad_instances, $output, $filename."_instances");
         exit;
     }
 }
@@ -1552,12 +1569,12 @@ function ad_export_sniff_requests(){
 /**
  * Send the output based on the type ('csv' or 'json')
  */
-function export_send_response($rows, $output='csv', $filename='data.csv') {
+function export_send_response($rows, $output='csv', $filename='data') {
     switch($output) {
         case 'csv':
             // output headers so that the file is downloaded rather than displayed
             header('Content-Type: text/csv; charset=utf-8');
-            header('Content-Disposition: attachment; filename='.$filename);
+            header('Content-Disposition: attachment; filename='.$filename.'.csv');
             if(sizeof($rows) == 0)
               exit;
 

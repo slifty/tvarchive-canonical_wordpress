@@ -84,6 +84,10 @@
     .page-content-row:nth-of-type(1) h2{
         margin-top: 15px;
     }
+    .page-subheader-row {
+        padding: 12px 10px;
+    }
+
     .page-content-row p,
     blockquote p {
         font-size: 14px;
@@ -224,8 +228,9 @@
         padding: 0 15px;
     }
     .download-btn {
-
+    	margin: 15px 0px;
     }
+
     .checkbox {
         font-size: 14px;
     }
@@ -237,6 +242,13 @@
     input[type="submit"] {
         float: right;
     }
+
+    /* Press */
+
+		.press-visualization img {
+			margin-top: 15px;
+		}
+
     /* Resources*/
     #partner-logos {
         margin-bottom: 0;
@@ -244,9 +256,6 @@
     #partner-logos .logo {
         max-width: 120px;
         margin: 5px;
-    }
-    .page-subheader-row {
-        padding: 12px 15px;
     }
     .resource-row {
         margin: 15px auto;
@@ -447,6 +456,11 @@
       margin: 0 0 15px;
     }
 
+    .page-subheader-row {
+        padding: 12px 15px;
+    }
+
+
 
     /*Front Page*/
 
@@ -566,9 +580,6 @@
 
     /* Data page*/
 
-    .download-btn {
-    }
-
     /* Resource*/
 
     .resource {
@@ -659,6 +670,12 @@
         padding: 0;
         margin-top: 20px;
     }
+
+
+    .page-subheader-row {
+        padding: 12px 15px;
+    }
+
     .post {
         margin: 0;
     }

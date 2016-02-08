@@ -246,6 +246,7 @@ div.button {
 .slug-data #data-nav a { color: #8AB858; }
 .slug-resources #resources-nav a { color: #BBB2A0; }
 .slug-browse #browse-nav a { color: #0A91AB; }
+.slug-press #press-nav a { color: #674172; }
 
 
 /* Footer */
@@ -959,6 +960,43 @@ input#submit-newsletter {
     font-weight: bold;
     color: #444;
     margin-bottom: 25px;
+}
+
+/* Press */
+#press-header {
+	background-color: #674172;
+}
+
+#press-subheader {
+	background-color: #674172;
+}
+
+.press-visualization img {
+	width: 100%;
+}
+#press-list {
+	margin-bottom: 15px;
+}
+
+#press-list h2 {
+	color: #674172;
+}
+
+#press-mentions {
+	list-style: disc;
+	font-size: 14px;
+}
+#press-mentions li {
+	margin-left: 20px;
+}
+.article .title {
+	font-weight: bold;
+}
+.article .source {
+	font-weight: bold;
+}
+.article .date {
+	color: #999;
 }
 
 /* Political Ad*/

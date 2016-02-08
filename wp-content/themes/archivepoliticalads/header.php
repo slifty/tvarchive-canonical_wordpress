@@ -89,9 +89,10 @@
                             <ul>
                                 <li id="about-nav"><a href="<?php bloginfo('url'); ?>/about">about</a></li>
                                 <li id="blog-nav"><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
-                                <li id="data-nav"><a href="<?php bloginfo('url'); ?>/data">data download</a></li>
+                                <li id="data-nav"><a href="<?php bloginfo('url'); ?>/data">data</a></li>
                                 <li id="resources-nav"><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
-                                <li id="browse-nav"><a href="<?php bloginfo('url'); ?>/browse">search</a></li>
+                                <li id="press-nav"><a href="<?php bloginfo('url'); ?>/press">press</a></li>
+                                <li id="data-nav"><a href="<?php bloginfo('url'); ?>/data">data</a></li>
                             </ul>
                          </div>
                     </nav>

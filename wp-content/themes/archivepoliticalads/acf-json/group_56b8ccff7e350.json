@@ -15,11 +15,11 @@
                 "class": "",
                 "id": ""
             },
-            "collapsed": "",
+            "collapsed": "field_56b8cd499a43d",
             "min": "",
             "max": "",
-            "layout": "table",
-            "button_label": "Add Row",
+            "layout": "block",
+            "button_label": "Add Article",
             "sub_fields": [
                 {
                     "key": "field_56b8cd499a43d",
@@ -112,8 +112,8 @@
                     "return_format": "array",
                     "preview_size": "thumbnail",
                     "library": "all",
-                    "min_width": "",
-                    "min_height": "",
+                    "min_width": 600,
+                    "min_height": 300,
                     "min_size": "",
                     "max_width": "",
                     "max_height": "",
@@ -133,7 +133,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "acf_after_title",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
@@ -154,5 +154,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1454952218
+    "modified": 1454965446
 }

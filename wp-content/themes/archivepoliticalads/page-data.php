@@ -23,9 +23,18 @@
 
         <div class="row page-content-row">
             <div class="col-xs-12 col-md-12">
-                <form method="get" action="<?php bloginfo('url'); ?>/export" target="_blank">
+                <form method="get" action="<?php bloginfo('url'); ?>/instance_export" target="_blank">
                     <div class="download-btn">
-                        <input type="submit" id="download-data-button" class="button" value="Download CSV" />
+                        <input type="submit" id="download-data-button" class="button" value="Download List of Ad Instances" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row page-content-row">
+            <div class="col-xs-12 col-md-12">
+                <form method="get" action="<?php bloginfo('url'); ?>/ad_export" target="_blank">
+                    <div class="download-btn">
+                        <input type="submit" id="download-data-button" class="button" value="Download List of Canonoical Ads" />
                     </div>
                 </form>
             </div>

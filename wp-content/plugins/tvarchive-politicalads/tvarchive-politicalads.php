@@ -94,8 +94,10 @@ function create_ad_instances_table() {
         network varchar(20),
         market varchar(20),
         location varchar(128),
+        program varchar(128),
         start_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
         end_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+        date_created datetime DEFAULT NOW() NOT NULL,
         UNIQUE KEY instance_key (archive_identifier,network,start_time),
         KEY archive_identifier_key (archive_identifier),
         KEY wp_identifier_key (wp_identifier),
@@ -264,6 +266,7 @@ function load_ad_data() {
             $location = array_key_exists($network, $network_lookup)?$network_lookup[$network]['location']:'';
             $start_time = date("Y-m-d H:i:s", $instance->start);
             $end_time = date("Y-m-d H:i:s", $instance->end);
+            $program = ""; // TODO: insert program name if possible
 
             // Only try to insert if it doesn't exist already
             if(!array_key_exists($network, $existing_instances)
@@ -278,7 +281,8 @@ function load_ad_data() {
                         'market' => $market,
                         'location' => $location,
                         'start_time' => $start_time,
-                        'end_time' => $end_time
+                        'end_time' => $end_time,
+                        'program' => $program,
                     )
                 );
             }
@@ -954,6 +958,45 @@ function search_political_ads($query, $extra_args = array()) {
         }
     }
 
+    if(sizeof($parsed_query['data_since'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['data_since'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}ad_instances
+                  WHERE date_created >= %s
+               GROUP BY wp_identifier
+                ",
+                date('Y-m-d H:i:s', strtotime($query_part['value']))
+            ));
+
+            $temp_ids = array();
+            foreach($rows as $row) {
+                $temp_ids[] = $row->wp_identifier;
+            }
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
+            }
+        }
+    }
+
     // Proccess the booleans
     $matched_post_ids = array();
 
@@ -1015,7 +1058,8 @@ function parse_political_ad_query($query) {
         'location' => array(),
         'type' => array(),
         'before' => array(),
-        'after' => array()
+        'after' => array(),
+        'data_since' => array(),
     );
 
     // Which of these buckets are considered part of "general"
@@ -1100,6 +1144,56 @@ function parse_political_ad_query($query) {
 /// Methods for data export
 
 /**
+ * Return a list of raw ad data
+ * @return [type] [description]
+ */
+function get_ads() {
+    global $wp;
+    global $wpdb;
+    $args = array(
+        'posts_per_page' => -1
+    );
+    $wp_query = search_political_ads('', $args);
+    $ads = $wp_query->posts;
+    $rows = array();
+    foreach($ads as $ad) {
+        $post_metadata = get_fields($ad);
+        $wp_identifier = $ad->ID;
+        $ad_embed_url = array_key_exists('embed_url', $post_metadata)?$post_metadata['embed_url']:'';
+        $ad_notes = array_key_exists('notes', $post_metadata)?$post_metadata['notes']:'';
+        $archive_id = array_key_exists('archive_id', $post_metadata)?$post_metadata['archive_id']:'';
+        $ad_sponsor = generate_sponsors_string(array_key_exists('ad_sponsors', $post_metadata)?$post_metadata['ad_sponsors']:'');
+        $ad_candidate = generate_candidates_string(array_key_exists('ad_candidates', $post_metadata)?$post_metadata['ad_candidates']:'');
+        $ad_subject = generate_subjects_string(array_key_exists('ad_subjects', $post_metadata)?$post_metadata['ad_subjects']:array());
+        $ad_type = array_key_exists('ad_type', $post_metadata)?$post_metadata['ad_type']:'';
+        $ad_message = array_key_exists('ad_message', $post_metadata)?$post_metadata['ad_message']:'';
+        $ad_air_count = array_key_exists('air_count', $post_metadata)?$post_metadata['air_count']:'';
+        $ad_market_count = array_key_exists('market_count', $post_metadata)?$post_metadata['market_count']:'';
+        $ad_first_seen = array_key_exists('first_seen', $post_metadata)?$post_metadata['first_seen'].' UTC':'';
+        $ad_last_seen =array_key_exists('last_seen', $post_metadata)? $post_metadata['last_seen'].' UTC':'';
+        $ad_ingest_date = $ad->post_date.' UTC';
+
+
+        $row = [
+            "wp_identifier" => $wp_identifier,
+            "archive_id" => $archive_id,
+            "embed_url" => $ad_embed_url,
+            "sponsor" => $ad_sponsor,
+            "subject" => $ad_subject,
+            "candidate" => $ad_candidate,
+            "type" => $ad_type,
+            "message" => $ad_message,
+            "air_count" => $ad_air_count,
+            "market_count" => $ad_market_count,
+            "date_ingested" => $ad_ingest_date
+        ];
+
+        $rows[] = $row;
+    }
+    return $rows;
+}
+
+/**
  * Return a list of ad instances, either for the entire corpus or a single ad
  * @param  string $ad_identifier (Optional) the archive identifier of a specific ad
  * @return array                 a complex object containing information about ad airings
@@ -1125,7 +1219,8 @@ function get_ad_instances($query = ''){
                      start_time as start_time,
                      end_time as end_time,
                      archive_identifier as archive_identifier,
-                     wp_identifier as wp_identifier
+                     wp_identifier as wp_identifier,
+                     date_created as date_created
                 FROM ".$table_name."
                WHERE wp_identifier IN(".implode(', ', $ids).")";
 
@@ -1140,8 +1235,9 @@ function get_ad_instances($query = ''){
         $network = $result->network;
         $market = $result->market;
         $location = $result->location;
-        $start_time = $result->start_time;
-        $end_time = $result->end_time;
+        $start_time = $result->start_time.' UTC';
+        $end_time = $result->end_time.' UTC';
+        $date_created = $result->date_created;
         $archive_identifier = $result->archive_identifier;
 
         // Cache the metadata for this identifier
@@ -1157,8 +1253,8 @@ function get_ad_instances($query = ''){
             $metadata['ad_message'] = array_key_exists('ad_message', $post_metadata)?$post_metadata['ad_message']:'';
             $metadata['ad_air_count'] = array_key_exists('air_count', $post_metadata)?$post_metadata['air_count']:'';
             $metadata['ad_market_count'] = array_key_exists('market_count', $post_metadata)?$post_metadata['market_count']:'';
-            $metadata['ad_first_seen'] = array_key_exists('first_seen', $post_metadata)?$post_metadata['first_seen']:'';
-            $metadata['ad_last_seen'] =array_key_exists('last_seen', $post_metadata)? $post_metadata['last_seen']:'';
+            $metadata['ad_first_seen'] = array_key_exists('first_seen', $post_metadata)?$post_metadata['first_seen'].' UTC':'';
+            $metadata['ad_last_seen'] =array_key_exists('last_seen', $post_metadata)? $post_metadata['last_seen'].' UTC':'';
             $metadata_cache[$archive_identifier] = $metadata;
         }
 
@@ -1192,7 +1288,8 @@ function get_ad_instances($query = ''){
             "type" => $ad_type,
             "message" => $ad_message,
             "air_count" => $ad_air_count,
-            "market_count" => $ad_market_count
+            "market_count" => $ad_market_count,
+            "date_created" => $date_created
         ];
         array_push($rows, $row);
     }
@@ -1349,6 +1446,141 @@ function politicalad_meta() {
 
 }
 
+
+/**
+ * API methods
+ */
+
+/////////////////
+// Register the instance export API
+// Check out http://coderrr.com/create-an-api-endpoint-in-wordpress/ for approach info
+
+add_filter('query_vars', 'instance_export_add_query_vars');
+add_action('parse_request', 'instance_export_sniff_requests');
+add_action('init', 'instance_export_add_endpoint');
+
+/** Add public query vars
+ * @param array $vars List of current public query vars
+ * @return array $vars
+ */
+function instance_export_add_query_vars($vars){
+    $vars[] = '__instance_export';
+    $vars[] = 'instance_export_options';
+    return $vars;
+}
+
+/**
+ * Route the export API values to match the query vars specified in export_add_query_vars
+ * @return void
+ */
+function instance_export_add_endpoint() {
+    $triggering_endpoint = '^instance_export/?(.*)?/?';
+    add_rewrite_rule($triggering_endpoint,'index.php?__instance_export=1&instance_export_options=$matches[1]','top');
+}
+
+/**
+ * Look to see if export is being requested, if so take over and return the export
+ * @return die if API request
+ */
+function instance_export_sniff_requests(){
+    global $wp;
+
+    if(isset($wp->query_vars['__instance_export'])) {
+        $filename = time();
+        if(array_key_exists('q', $_GET)) {
+            $filename = preg_replace('/\W+/', '_', $_GET['q'])."_".$filename;
+            $ad_instances = get_ad_instances($_GET['q']);
+        }
+        else
+            $ad_instances = get_ad_instances();
+
+        if(array_key_exists('output', $_GET))
+            export_send_response($ad_instances, $_GET['output']);
+        else {
+            export_send_response($ad_instances, 'csv', $filename."_instances.csv");
+        }
+
+        export_send_response($ad_instances);
+        exit;
+    }
+}
+
+
+add_filter('query_vars', 'ad_export_add_query_vars');
+add_action('parse_request', 'ad_export_sniff_requests');
+add_action('init', 'ad_export_add_endpoint');
+
+/** Add public query vars
+ * @param array $vars List of current public query vars
+ * @return array $vars
+ */
+function ad_export_add_query_vars($vars){
+    $vars[] = '__ad_export';
+    $vars[] = 'ad_export_options';
+    return $vars;
+}
+
+/**
+ * Route the export API values to match the query vars specified in export_add_query_vars
+ * @return void
+ */
+function ad_export_add_endpoint() {
+    $triggering_endpoint = '^ad_export/?(.*)?/?';
+    add_rewrite_rule($triggering_endpoint,'index.php?__ad_export=1&ad_export_options=$matches[1]','top');
+}
+
+/**
+ * Look to see if export is being requested, if so take over and return the export
+ * @return die if API request
+ */
+function ad_export_sniff_requests(){
+    global $wp;
+    if(isset($wp->query_vars['__ad_export'])) {
+        $filename = time();
+        $ads = get_ads();
+
+        if(array_key_exists('output', $_GET))
+            export_send_response($ads, $_GET['output']);
+        else {
+            export_send_response($ads, 'csv', $filename."_ads.csv");
+        }
+        exit;
+    }
+}
+
+
+/**
+ * Send the output based on the type ('csv' or 'json')
+ */
+function export_send_response($rows, $output='csv', $filename='data.csv') {
+    switch($output) {
+        case 'csv':
+            // output headers so that the file is downloaded rather than displayed
+            header('Content-Type: text/csv; charset=utf-8');
+            header('Content-Disposition: attachment; filename='.$filename);
+            if(sizeof($rows) == 0)
+              exit;
+
+            // Create the header data
+            $header = array_keys($rows[0]);
+
+            // create a file pointer connected to the output stream
+            $output = fopen('php://output', 'w');
+
+            // output the column headings
+            fputcsv($output, $header);
+
+            // loop over the rows, outputting them
+            foreach($rows as $row) {
+              fputcsv($output, $row);
+            }
+            exit;
+        case 'json':
+            header('Content-Type: application/json');
+            echo(json_encode($rows));
+            exit;
+    }
+}
 
 
 // Helper methods used in the plugin

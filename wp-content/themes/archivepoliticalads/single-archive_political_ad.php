@@ -181,7 +181,7 @@
                                   ["", function() { return true; }]
                                 ]);
                             $.ajax({
-                                'url': '<?php bloginfo('url'); ?>/export?output=json&q=<?php echo(urlencode("archive_id:\"".$archive_id."\"")); ?>',
+                                'url': '<?php bloginfo('url'); ?>/instance_export?output=json&q=<?php echo(urlencode("archive_id:\"".$archive_id."\"")); ?>',
                                 'method': 'GET',
                             })
                             .done(function(ad_instances) {
@@ -264,7 +264,7 @@
             </div>
             <div class="row last download-row">
                 <div class="col-xs-12">
-                    <form method="get" action="<?php bloginfo('url'); ?>/export" target="_blank">
+                    <form method="get" action="<?php bloginfo('url'); ?>/instance_export" target="_blank">
                         <input type="hidden" name="q" value="archive_id:<?php echo($archive_id); ?>" />
                         <input type="submit" id="download-data-button" class="button" value="Download Data About This Ad" />
                     </form>

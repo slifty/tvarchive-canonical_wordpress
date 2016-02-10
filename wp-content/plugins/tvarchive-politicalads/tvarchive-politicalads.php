@@ -266,6 +266,7 @@ function load_ad_data() {
             $location = array_key_exists($network, $network_lookup)?$network_lookup[$network]['location']:'';
             $start_time = date("Y-m-d H:i:s", $instance->start);
             $end_time = date("Y-m-d H:i:s", $instance->end);
+            $date_created = date("Y-m-d H:i:s");
             $program = $instance->title;
 
             // Only try to insert if it doesn't exist already
@@ -283,6 +284,7 @@ function load_ad_data() {
                         'start_time' => $start_time,
                         'end_time' => $end_time,
                         'program' => $program,
+                        'date_created' => $date_created
                     )
                 );
             }

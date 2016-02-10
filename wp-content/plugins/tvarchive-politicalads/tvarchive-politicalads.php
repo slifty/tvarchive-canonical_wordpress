@@ -97,7 +97,7 @@ function create_ad_instances_table() {
         program varchar(128),
         start_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
         end_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-        date_created datetime DEFAULT NOW() NOT NULL,
+        date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
         UNIQUE KEY instance_key (archive_identifier,network,start_time),
         KEY archive_identifier_key (archive_identifier),
         KEY wp_identifier_key (wp_identifier),

@@ -80,7 +80,9 @@
                         "unknown": "Unknown",
                         "cand": "Candidate",
                         "candcmte": "Candidate Committee",
+                        "partycmte": "Party Committee",
                         "501c": "Non Profit (501c)",
+                        "527: Tax Exempt (527)": "527: Tax Exempt (527)",
                         "PAC": "PAC",
                         "SuperPAC": "Super PAC",
                         "mixed": "Multiple Types"
@@ -450,6 +452,27 @@
                     "first_day": 0
                 }
             ]
+        },
+        {
+            "key": "field_56ba0cbfea0cb",
+            "label": "Ad Title",
+            "name": "ad_title",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "readonly": 0,
+            "disabled": 0
         }
     ],
     "location": [
@@ -469,5 +492,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1454945119
+    "modified": 1455042822
 }

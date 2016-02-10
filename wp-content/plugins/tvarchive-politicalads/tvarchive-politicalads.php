@@ -266,7 +266,7 @@ function load_ad_data() {
             $location = array_key_exists($network, $network_lookup)?$network_lookup[$network]['location']:'';
             $start_time = date("Y-m-d H:i:s", $instance->start);
             $end_time = date("Y-m-d H:i:s", $instance->end);
-            $program = ""; // TODO: insert program name if possible
+            $program = $instance->title;
 
             // Only try to insert if it doesn't exist already
             if(!array_key_exists($network, $existing_instances)
@@ -1168,7 +1168,17 @@ function get_ads() {
         $ad_embed_url = array_key_exists('embed_url', $post_metadata)?$post_metadata['embed_url']:'';
         $ad_notes = array_key_exists('notes', $post_metadata)?$post_metadata['notes']:'';
         $archive_id = array_key_exists('archive_id', $post_metadata)?$post_metadata['archive_id']:'';
-        $ad_sponsor = generate_sponsors_string(array_key_exists('ad_sponsors', $post_metadata)?$post_metadata['ad_sponsors']:'');
+        $ad_sponsors = array_key_exists('ad_sponsors', $post_metadata)?$post_metadata['ad_sponsors']:array();
+        // Create sponsor links
+        $ad_sponsor_names = extract_sponsor_names($ad_sponsors);
+        foreach($ad_sponsor_names as $index => $sponsor_name) {
+            $ad_sponsor_names[$index] = $sponsor_name;
+        }
+        // Create sponsor type links
+        $ad_sponsor_types = extract_sponsor_types($ad_sponsors);
+        foreach($ad_sponsor_types as $index => $sponsor_type) {
+            $ad_sponsor_types[$index] = get_sponsor_type_value($sponsor_type);
+        }
         $ad_candidate = generate_candidates_string(array_key_exists('ad_candidates', $post_metadata)?$post_metadata['ad_candidates']:'');
         $ad_subject = generate_subjects_string(array_key_exists('ad_subjects', $post_metadata)?$post_metadata['ad_subjects']:array());
         $ad_type = array_key_exists('ad_type', $post_metadata)?$post_metadata['ad_type']:'';
@@ -1178,18 +1188,24 @@ function get_ads() {
         $ad_first_seen = array_key_exists('first_seen', $post_metadata)?$post_metadata['first_seen'].' UTC':'';
         $ad_last_seen =array_key_exists('last_seen', $post_metadata)? $post_metadata['last_seen'].' UTC':'';
         $ad_ingest_date = $ad->post_date.' UTC';
+        $ad_references = $ad->references;
 
+        // Apparently it's possible that references will return an array (if the plugin is updated)
+        if(is_array($ad_references))
+            $ad_references = sizeof($ad_references);
 
         $row = [
             "wp_identifier" => $wp_identifier,
             "archive_id" => $archive_id,
             "embed_url" => $ad_embed_url,
-            "sponsor" => $ad_sponsor,
+            "sponsor" => implode(", ", $ad_sponsor_names),
+            "sponsor_type" => implode(", ", $ad_sponsor_types),
             "subject" => $ad_subject,
             "candidate" => $ad_candidate,
             "type" => $ad_type,
             "message" => $ad_message,
             "air_count" => $ad_air_count,
+            "reference_count" => $ad_references,
             "market_count" => $ad_market_count,
             "date_ingested" => $ad_ingest_date
         ];
@@ -1252,7 +1268,17 @@ function get_ad_instances($query = ''){
             $metadata['ad_embed_url'] = array_key_exists('embed_url', $post_metadata)?$post_metadata['embed_url']:'';
             $metadata['ad_notes'] = array_key_exists('notes', $post_metadata)?$post_metadata['notes']:'';
             $metadata['archive_id'] = array_key_exists('archive_id', $post_metadata)?$post_metadata['archive_id']:'';
-            $metadata['ad_sponsor'] = generate_sponsors_string(array_key_exists('ad_sponsors', $post_metadata)?$post_metadata['ad_sponsors']:'');
+            $ad_sponsors = array_key_exists('ad_sponsors', $post_metadata)?$post_metadata['ad_sponsors']:array();
+            // Create sponsor links
+            $metadata['ad_sponsor_names'] = extract_sponsor_names($ad_sponsors);
+            foreach($metadata['ad_sponsor_names'] as $index => $sponsor_name) {
+                $metadata['ad_sponsor_names'][$index] = $sponsor_name;
+            }
+            // Create sponsor type links
+            $metadata['ad_sponsor_types'] = extract_sponsor_types($ad_sponsors);
+            foreach($metadata['ad_sponsor_types'] as $index => $sponsor_type) {
+                $metadata['ad_sponsor_types'][$index] = get_sponsor_type_value($sponsor_type);
+            }
             $metadata['ad_candidate'] = generate_candidates_string(array_key_exists('ad_candidates', $post_metadata)?$post_metadata['ad_candidates']:'');
             $metadata['ad_subject'] = generate_subjects_string(array_key_exists('ad_subjects', $post_metadata)?$post_metadata['ad_subjects']:array());
             $metadata['ad_type'] = array_key_exists('ad_type', $post_metadata)?$post_metadata['ad_type']:'';
@@ -1268,7 +1294,8 @@ function get_ad_instances($query = ''){
         $ad_embed_url = $metadata_cache[$archive_identifier]['ad_embed_url'];
         $ad_notes = $metadata_cache[$archive_identifier]['ad_notes'];
         $archive_id = $metadata_cache[$archive_identifier]['archive_id'];
-        $ad_sponsor = $metadata_cache[$archive_identifier]['ad_sponsor'];
+        $ad_sponsor_names = $metadata_cache[$archive_identifier]['ad_sponsor_names'];
+        $ad_sponsor_types = $metadata_cache[$archive_identifier]['ad_sponsor_types'];
         $ad_candidate = $metadata_cache[$archive_identifier]['ad_candidate'];
         $ad_subject = $metadata_cache[$archive_identifier]['ad_subject'];
         $ad_type = $metadata_cache[$archive_identifier]['ad_type'];
@@ -1288,7 +1315,8 @@ function get_ad_instances($query = ''){
             "end_time" => $end_time,
             "archive_id" => $archive_id,
             "embed_url" => $ad_embed_url,
-            "sponsor" => $ad_sponsor,
+            "sponsor" => implode(', ', $ad_sponsor_names),
+            "sponsor_type" => implode(', ', $ad_sponsor_types),
             "subject" => $ad_subject,
             "candidate" => $ad_candidate,
             "type" => $ad_type,
@@ -1559,7 +1587,7 @@ function ad_export_sniff_requests(){
         if(array_key_exists('output', $_GET))
             export_send_response($ads, $_GET['output']);
         else {
-            export_send_response($ads, 'csv', $filename."_ads.csv");
+            export_send_response($ads, 'csv', $filename."_ads");
         }
         exit;
     }

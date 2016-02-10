@@ -25,7 +25,7 @@
             <div class="col-xs-12 col-md-12">
                 <form method="get" action="<?php bloginfo('url'); ?>/instance_export" target="_blank">
                     <div class="download-btn">
-                        <input type="submit" id="download-data-button" class="button" value="Download List of Ad Instances" />
+                        <input type="submit" id="download-data-button" class="button" value="Download details of ad airings on TV" />
                     </div>
                 </form>
             </div>
@@ -34,7 +34,7 @@
             <div class="col-xs-12 col-md-12">
                 <form method="get" action="<?php bloginfo('url'); ?>/ad_export" target="_blank">
                     <div class="download-btn">
-                        <input type="submit" id="download-data-button" class="button" value="Download List of Canonoical Ads" />
+                        <input type="submit" id="download-data-button" class="button" value="Download list of unique ads archived" />
                     </div>
                 </form>
             </div>

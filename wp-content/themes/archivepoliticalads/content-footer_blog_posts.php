@@ -3,7 +3,7 @@
     <div id="footer-sidebar" class="footer-sidebar widget-area" role="complementary">
         <h3>Recent Blog Posts</h3>
         <?php
-            $postslist = get_posts('numberposts=2&order=ASC&orderby=title');
+            $postslist = get_posts('numberposts=2');
             foreach ($postslist as $post) :
             setup_postdata($post);
             ?>

@@ -15,7 +15,7 @@
                 $candidates = get_candidates();
                 foreach($candidates as $candidate) {
                     ?>
-                    <a href="<?php bloginfo('url'); ?>/browse/?q=<?php echo(urlencode("candidate:\"".$candidate."\""));?>">
+                    <a href="<?php bloginfo('url'); ?>/browse/?q=<?php echo(urlencode("candidate:\"".$candidate['name']."\""));?>">
                         <div class="explore-item item">
                                 <div class="explore-wrapper">
                                     <div class="explore-label"><?php echo($candidate['name']); ?></div>

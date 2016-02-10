@@ -17,7 +17,7 @@
                     if($sponsor == "")
                         continue;
                     ?>
-                    <a href="<?php bloginfo('url'); ?>/browse/?q=<?php echo(urlencode("sponsor:\"".$sponsor."\""));?>">
+                    <a href="<?php bloginfo('url'); ?>/browse/?q=<?php echo(urlencode("sponsor:\"".$sponsor['name']."\""));?>">
                         <div class="explore-item item">
                                 <div class="explore-wrapper">
                                     <div class="explore-label"><?php echo($sponsor['name']); ?></div>

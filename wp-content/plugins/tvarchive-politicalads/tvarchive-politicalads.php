@@ -1539,18 +1539,18 @@ function instance_export_sniff_requests() {
         // TODO: the cache name isn't normalized (so "Sponsor:Jeb Candidate:Jeb" and "Candidate:Jeb Sponsor:Jeb" would be two caches despite being the same query)
         // TODO: wordpress transients don't support names longer than 45 characters, we should find a better solution
         // TODO: we're going to only cache when the query is blank for now
-        if($query == '') {
-            $ad_instances = get_transient($filename);
+        // if($query == '') {
+        //     $ad_instances = get_transient($filename);
 
-            // There is no cached copy
-            if($ad_instances === false) {
-                $ad_instances = get_ad_instances($query, $data_since);
-                set_transient($cache_name, $ad_instances, 60*60*30); // The cache lasts 30 minutes
-            }
-        } else {
-            // We can't cache, the query is too long
+        //     // There is no cached copy
+        //     if($ad_instances === false) {
+        //         $ad_instances = get_ad_instances($query, $data_since);
+        //         set_transient($cache_name, $ad_instances, 60*60*30); // The cache lasts 30 minutes
+        //     }
+        // } else {
+        //     // We can't cache, the query is too long
             $ad_instances = get_ad_instances($query, $data_since);
-        }
+        // }
 
         export_send_response($ad_instances, $output, $filename."_instances");
         exit;

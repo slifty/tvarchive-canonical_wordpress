@@ -1222,7 +1222,7 @@ function get_ads() {
  * @param  string $ad_identifier (Optional) the archive identifier of a specific ad
  * @return array                 a complex object containing information about ad airings
  */
-function get_ad_instances($query = ''){
+function get_ad_instances($query = '', $data_since = false){
     global $wp;
     global $wpdb;
 
@@ -1247,6 +1247,10 @@ function get_ad_instances($query = ''){
                      date_created as date_created
                 FROM ".$table_name."
                WHERE wp_identifier IN(".implode(', ', $ids).")";
+
+    // If we have a "data since" clause, only return instances that have been added since that date
+    if($data_since)
+        $query .= " AND date_created >= '".esc_sql($data_since)."'";
 
     if(sizeof($ids) == 0)
         return array();
@@ -1525,6 +1529,7 @@ function instance_export_sniff_requests() {
         $filename = time();
         $output = array_key_exists('output', $_GET)?$_GET['output']:'csv';
         $query = array_key_exists('q', $_GET)?$_GET['q']:"";
+        $data_since = array_key_exists('data_since', $_GET)?date('Y-m-d H:i:s',strtotime($_GET['data_since'])):false;
 
         // Nail down the filename
         $filename = preg_replace('/\W+/', '_', $query)."_".$filename;
@@ -1539,12 +1544,12 @@ function instance_export_sniff_requests() {
 
             // There is no cached copy
             if($ad_instances === false) {
-                $ad_instances = get_ad_instances($query);
+                $ad_instances = get_ad_instances($query, $data_since);
                 set_transient($cache_name, $ad_instances, 60*60*30); // The cache lasts 30 minutes
             }
         } else {
             // We can't cache, the query is too long
-            $ad_instances = get_ad_instances($query);
+            $ad_instances = get_ad_instances($query, $data_since);
         }
 
         export_send_response($ad_instances, $output, $filename."_instances");

@@ -1233,6 +1233,8 @@ function get_ad_instances($query = '', $data_since = false){
     $wp_query = search_political_ads($query, $args);
     $ids = $wp_query->posts;
 
+    $parsed_query = parse_political_ad_query($query);
+
     // Collect the data associated with this ad
     $table_name = $wpdb->prefix . 'ad_instances';
 
@@ -1251,6 +1253,135 @@ function get_ad_instances($query = '', $data_since = false){
     // If we have a "data since" clause, only return instances that have been added since that date
     if($data_since)
         $query .= " AND date_created >= '".esc_sql($data_since)."'";
+
+    // The ads themselves have been filtered to use AND / OR / NOT for various attributes.
+    // Now we need to apply AND / OR values for instance level attributes
+    // We do that using "OR" logic (since the AND has been covered at the ad level)
+
+    // Network Check
+    if(sizeof($parsed_query['network'])) {
+        $networks = array();
+        foreach($parsed_query['network'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    continue;
+                    break;
+                case 'GENERAL_AND':
+                case 'AND':
+                case 'GENERAL_OR':
+                case 'OR':
+                    $networks[] = "'".esc_sql($query_part['value'])."'";
+                    break;
+            }
+        }
+        if(sizeof($networks) > 0)
+            $query .= " AND network IN(".implode(', ', $networks).")";
+    }
+
+    // Market Check
+    if(sizeof($parsed_query['market'])) {
+        $markets = array();
+        foreach($parsed_query['market'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    continue;
+                    break;
+                case 'GENERAL_AND':
+                case 'AND':
+                case 'GENERAL_OR':
+                case 'OR':
+                    $markets[] = "'".esc_sql($query_part['value'])."'";
+                    break;
+            }
+        }
+        if(sizeof($markets) > 0)
+            $query .= " AND market IN(".implode(', ', $markets).")";
+    }
+
+    // Location Check
+    if(sizeof($parsed_query['location'])) {
+        $locations = array();
+        foreach($parsed_query['location'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    continue;
+                    break;
+                case 'GENERAL_AND':
+                case 'AND':
+                case 'GENERAL_OR':
+                case 'OR':
+                    $locations[] = "location LIKE '%".esc_sql($query_part['value'])."%'";
+                    break;
+            }
+        }
+        if(sizeof($locations) > 0) {
+            $query .= " AND (".implode(' OR ', $locations).")";
+        }
+    }
+
+    // Time Check
+    if(sizeof($parsed_query['before'])
+    || sizeof($parsed_query['after'])) {
+        $before = array();
+        $after = array();
+        foreach($parsed_query['before'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $after[] = strtotime($query_part['value']);
+                    break;
+                case 'GENERAL_AND':
+                case 'AND':
+                case 'GENERAL_OR':
+                case 'OR':
+                    $before[] = strtotime($query_part['value']);
+                    break;
+            }
+        }
+
+        foreach($parsed_query['after'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $before[] = strtotime($query_part['value']);
+                    break;
+                case 'GENERAL_AND':
+                case 'AND':
+                case 'GENERAL_OR':
+                case 'OR':
+                    $after[] = strtotime($query_part['value']);
+                    break;
+            }
+        }
+
+        // Take the latest "before"
+        if(sizeof($before) > 0) {
+            $final_before = "'".date('Y-m-d H:i:s', max($before))."'";
+            $query .= " AND start_time <= ".$final_before;
+        }
+        if(sizeof($after) > 0) {
+            $final_after = "'".date('Y-m-d H:i:s', min($after))."'";
+            $query .= " AND start_time >= ".$final_after;
+        }
+    }
 
     if(sizeof($ids) == 0)
         return array();

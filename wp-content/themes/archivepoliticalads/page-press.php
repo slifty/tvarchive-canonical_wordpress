@@ -19,8 +19,8 @@
                 <?php
                     $articles = get_field('articles');
                     $sorted_articles = usort($articles, function($a, $b) {
-                        $a_date = strtotime($article['publication_date']);
-                        $b_date = strtotime($article['publication_date']);
+                        $a_date = strtotime($a['publication_date']);
+                        $b_date = strtotime($b['publication_date']);
                         if ($a_date == $b_date) {
                             return 0;
                         }

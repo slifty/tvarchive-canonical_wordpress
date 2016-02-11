@@ -92,9 +92,9 @@
                         "class": "",
                         "id": ""
                     },
-                    "first_day": 0,
-                    "display_format": "d\/m\/Y",
-                    "return_format": "d\/m\/Y"
+                    "display_format": "m\/d\/Y",
+                    "return_format": "m\/d\/Y",
+                    "first_day": 0
                 },
                 {
                     "key": "field_56b8ce6d9a446",
@@ -154,5 +154,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1454965446
+    "modified": 1455165076
 }

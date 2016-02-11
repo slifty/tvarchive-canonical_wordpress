@@ -750,6 +750,7 @@ h3.resource-name {
 }
 .post-content ul {
 	list-style: disc;
+	margin-left: 15px;
 }
 .post-date {
     margin: 10px 0px;

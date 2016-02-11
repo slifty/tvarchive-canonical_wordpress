@@ -745,6 +745,12 @@ h3.resource-name {
     font-size: 36px;
     font-weight: bold;
 }
+.post-content h2 {
+	font-size: 18px;
+}
+.post-content ul {
+	list-style: disc;
+}
 .post-date {
     margin: 10px 0px;
     text-transform: uppercase;

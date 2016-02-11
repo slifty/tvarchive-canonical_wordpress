@@ -36,9 +36,9 @@
 
                 <div class="post">
                     <h2 class="post-title"><a href="<?php the_permalink();?>"><?php the_title(); ?></a></h2>
-                    <div class="post-date">
-                        <?php the_time('F j, Y'); ?>
-                    </div>
+                    <div class="post-date"><?php the_time('F j, Y'); ?></div>
+                    <div class="post-author">by <?php the_author(); ?></div>
+
                     <?php
                         if( get_the_post_thumbnail() ) {
                             ?>

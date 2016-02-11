@@ -751,6 +751,11 @@ h3.resource-name {
     color: #9b9b9b;
     font-weight: bold;
 }
+.post-author {
+		text-transform: none;
+		font-weight: normal;
+		color: #E85646;
+}
 .post-excerpt {
     font-size: 18px;
     line-height: 30px;

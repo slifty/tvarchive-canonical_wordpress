@@ -18,10 +18,19 @@
             <ul id="press-mentions">
                 <?php
                     $articles = get_field('articles');
+                    $sorted_articles = usort($articles, function($a, $b) {
+                        $a_date = strtotime($article['publication_date']);
+                        $b_date = strtotime($article['publication_date']);
+                        if ($a_date == $b_date) {
+                            return 0;
+                        }
+                        return ($a_date < $b_date) ? -1 : 1;
+                    });
+
                     if(is_array($articles)) {
                         foreach($articles as $article) {
                             ?>
-                            <li class="article"><a href="<?php echo($article['link']); ?>" target="_blank" class="title"><?php echo($article['headline']); ?></a> - <span class="source"><?php echo($article['source']); ?></span> <span class="date">(<?php echo($article['publication_date']); ?>)</span></li>
+                            <li class="article"><a href="<?php echo($article['link']); ?>" target="_blank" class="title"><?php echo($article['headline']); ?></a> - <span class="source"><?php echo($article['source']); ?></span> <span class="date">(<?php echo(date('F j, Y', strtotime($article['publication_date']))); ?>)</span></li>
                             <?php
                         }
                     }

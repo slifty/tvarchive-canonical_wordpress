@@ -1242,6 +1242,7 @@ function get_ad_instances($query = '', $data_since = false){
                      network as network,
                      market as market,
                      location as location,
+                     program as program,
                      start_time as start_time,
                      end_time as end_time,
                      archive_identifier as archive_identifier,
@@ -1394,6 +1395,7 @@ function get_ad_instances($query = '', $data_since = false){
         $network = $result->network;
         $market = $result->market;
         $location = $result->location;
+        $program = $result->program;
         $start_time = $result->start_time.' UTC';
         $end_time = $result->end_time.' UTC';
         $date_created = $result->date_created;
@@ -1448,6 +1450,7 @@ function get_ad_instances($query = '', $data_since = false){
             "network" => $network,
             "market" => $market,
             "location" => $location,
+            "program" => $program,
             "start_time" => $start_time,
             "end_time" => $end_time,
             "archive_id" => $archive_id,

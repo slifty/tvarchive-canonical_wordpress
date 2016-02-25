@@ -1698,12 +1698,14 @@ function instance_export_sniff_requests() {
             if($page == 0)
                 export_send_header($ad_instances, $output, $filename."_instances");
 
-            // Send the content for all following pages
-            export_send_chunk($ad_instances, $output);
-
             // Once we've reached the end, stop
-            if(sizeof($ad_instances) == 0)
+            if(sizeof($ad_instances) == 0) {
+                export_send_footer($output);
                 exit;
+            }
+
+            // Send the content for all following pages
+            export_send_chunk($ad_instances, $output, $page);
 
             // Move to the next page
             $page += 1;
@@ -1749,10 +1751,12 @@ function ad_export_sniff_requests(){
         if(array_key_exists('output', $_GET)) {
             export_send_header($ads, $_GET['output']);
             export_send_chunk($ads, $_GET['output']);
+            export_send_footer($_GET['output']);
         }
         else {
             export_send_header($ads, 'csv', $filename."_ads");
             export_send_chunk($ads, 'csv', $filename."_ads");
+            export_send_footer('csv');
         }
         exit;
     }
@@ -1778,16 +1782,16 @@ function export_send_header($rows, $output='csv', $filename='data') {
             $output = fopen('php://output', 'w');
             fputcsv($output, $header);
             fclose($output);
-
-
             break;
+
         case 'json':
             header('Content-Type: application/json');
+            echo("[");
             break;
     }
 }
 
-function export_send_chunk($rows, $output='csv') {
+function export_send_chunk($rows, $output='csv', $page=0) {
     switch($output) {
         case 'csv':
             // loop over the rows, outputting them
@@ -1799,7 +1803,21 @@ function export_send_chunk($rows, $output='csv') {
             }
             break;
         case 'json':
-            echo(json_encode($rows));
+            // strip the array braces
+            $json = substr(json_encode($rows), 1, -1);
+            if($page > 0)
+                echo(",");
+            echo($json);
+            break;
+    }
+}
+
+function export_send_footer($output='csv') {
+    switch($output) {
+        case 'csv':
+            break;
+        case 'json':
+            echo("]");
             break;
     }
 }

@@ -1222,7 +1222,7 @@ function get_ads() {
  * @param  string $ad_identifier (Optional) the archive identifier of a specific ad
  * @return array                 a complex object containing information about ad airings
  */
-function get_ad_instances($query = '', $data_since = false){
+function get_ad_instances($query = '', $data_since = false, $page = -1){
     global $wp;
     global $wpdb;
 
@@ -1386,6 +1386,10 @@ function get_ad_instances($query = '', $data_since = false){
 
     if(sizeof($ids) == 0)
         return array();
+
+    if($page >= 0) {
+        $query .= " LIMIT ".($page * 10000).", 10000";
+    }
 
     $results = $wpdb->get_results($query);
     $rows = array();
@@ -1683,11 +1687,28 @@ function instance_export_sniff_requests() {
         //     }
         // } else {
         //     // We can't cache, the query is too long
-            $ad_instances = get_ad_instances($query, $data_since);
-        // }
 
-        export_send_response($ad_instances, $output, $filename."_instances");
-        exit;
+
+        // We need to do this in chunks to prevent memory issues
+        $page = 0;
+        while(true) {
+            $ad_instances = get_ad_instances($query, $data_since, $page);
+
+            // Send a header for the first page
+            if($page == 0)
+                export_send_header($ad_instances, $output, $filename."_instances");
+
+            // Send the content for all following pages
+            export_send_chunk($ad_instances, $output);
+
+            // Once we've reached the end, stop
+            if(sizeof($ad_instances) == 0)
+                exit;
+
+            // Move to the next page
+            $page += 1;
+        }
+
     }
 }
 
@@ -1725,10 +1746,13 @@ function ad_export_sniff_requests(){
         $filename = time();
         $ads = get_ads();
 
-        if(array_key_exists('output', $_GET))
-            export_send_response($ads, $_GET['output']);
+        if(array_key_exists('output', $_GET)) {
+            export_send_header($ads, $_GET['output']);
+            export_send_chunk($ads, $_GET['output']);
+        }
         else {
-            export_send_response($ads, 'csv', $filename."_ads");
+            export_send_header($ads, 'csv', $filename."_ads");
+            export_send_chunk($ads, 'csv', $filename."_ads");
         }
         exit;
     }
@@ -1738,7 +1762,7 @@ function ad_export_sniff_requests(){
 /**
  * Send the output based on the type ('csv' or 'json')
  */
-function export_send_response($rows, $output='csv', $filename='data') {
+function export_send_header($rows, $output='csv', $filename='data') {
     switch($output) {
         case 'csv':
             // output headers so that the file is downloaded rather than displayed
@@ -1752,19 +1776,31 @@ function export_send_response($rows, $output='csv', $filename='data') {
 
             // create a file pointer connected to the output stream
             $output = fopen('php://output', 'w');
-
-            // output the column headings
             fputcsv($output, $header);
+            fclose($output);
 
-            // loop over the rows, outputting them
-            foreach($rows as $row) {
-              fputcsv($output, $row);
-            }
-            exit;
+
+            break;
         case 'json':
             header('Content-Type: application/json');
+            break;
+    }
+}
+
+function export_send_chunk($rows, $output='csv') {
+    switch($output) {
+        case 'csv':
+            // loop over the rows, outputting them
+            foreach($rows as $row) {
+              // create a file pointer connected to the output stream
+              $output = fopen('php://output', 'w');
+              fputcsv($output, $row);
+              fclose($output);
+            }
+            break;
+        case 'json':
             echo(json_encode($rows));
-            exit;
+            break;
     }
 }
 

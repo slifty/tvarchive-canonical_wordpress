@@ -271,7 +271,7 @@
                 "other": "Other"
             },
             "default_value": {
-                "Campaign Ad": "Campaign Ad"
+                "campaign": "campaign"
             },
             "allow_null": 0,
             "multiple": 0,
@@ -494,5 +494,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1456894960
+    "modified": 1456895287
 }

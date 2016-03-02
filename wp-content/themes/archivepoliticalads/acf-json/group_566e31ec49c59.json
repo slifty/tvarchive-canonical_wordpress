@@ -265,9 +265,10 @@
                 "id": ""
             },
             "choices": {
-                "campaign:Campaign Ad": "campaign:Campaign Ad",
-                "issue:Issue Ad": "issue:Issue Ad",
-                "other:Other": "other:Other"
+                "unknown": "Unknown",
+                "campaign": "Campaign Ad",
+                "issue": "Issue Ad",
+                "other": "Other"
             },
             "default_value": {
                 "Campaign Ad": "Campaign Ad"
@@ -493,5 +494,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1456894713
+    "modified": 1456894960
 }

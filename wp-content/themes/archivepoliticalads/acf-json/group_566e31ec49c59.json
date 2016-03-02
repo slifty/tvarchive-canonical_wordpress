@@ -265,11 +265,12 @@
                 "id": ""
             },
             "choices": {
-                "Political Ad": "Political Ad",
-                "Commercial Ad": "Commercial Ad"
+                "campaign:Campaign Ad": "campaign:Campaign Ad",
+                "issue:Issue Ad": "issue:Issue Ad",
+                "other:Other": "other:Other"
             },
             "default_value": {
-                "Political Ad": "Political Ad"
+                "Campaign Ad": "Campaign Ad"
             },
             "allow_null": 0,
             "multiple": 0,
@@ -492,5 +493,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1455042822
+    "modified": 1456894713
 }

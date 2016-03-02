@@ -95,6 +95,7 @@ function create_ad_instances_table() {
         market varchar(20),
         location varchar(128),
         program varchar(128),
+        program_type varchar(128),
         start_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
         end_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
         date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
@@ -268,6 +269,7 @@ function load_ad_data() {
             $end_time = date("Y-m-d H:i:s", $instance->end);
             $date_created = date("Y-m-d H:i:s");
             $program = $instance->title;
+            $program_type = $instance->program_type;
 
             // Only try to insert if it doesn't exist already
             if(!array_key_exists($network, $existing_instances)
@@ -284,6 +286,7 @@ function load_ad_data() {
                         'start_time' => $start_time,
                         'end_time' => $end_time,
                         'program' => $program,
+                        'program_type' => $program_type,
                         'date_created' => $date_created
                     )
                 );
@@ -1243,6 +1246,7 @@ function get_ad_instances($query = '', $data_since = false, $page = -1){
                      market as market,
                      location as location,
                      program as program,
+                     program_type as program_type,
                      start_time as start_time,
                      end_time as end_time,
                      archive_identifier as archive_identifier,
@@ -1400,6 +1404,7 @@ function get_ad_instances($query = '', $data_since = false, $page = -1){
         $market = $result->market;
         $location = $result->location;
         $program = $result->program;
+        $program_type = $result->program_type;
         $start_time = $result->start_time.' UTC';
         $end_time = $result->end_time.' UTC';
         $date_created = $result->date_created;
@@ -1455,6 +1460,7 @@ function get_ad_instances($query = '', $data_since = false, $page = -1){
             "market" => $market,
             "location" => $location,
             "program" => $program,
+            "program_type" => $program_type,
             "start_time" => $start_time,
             "end_time" => $end_time,
             "archive_id" => $archive_id,

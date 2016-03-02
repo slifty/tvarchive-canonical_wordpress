@@ -1673,32 +1673,33 @@ function instance_export_sniff_requests() {
         $filename = time();
         $output = array_key_exists('output', $_GET)?$_GET['output']:'csv';
         $query = array_key_exists('q', $_GET)?$_GET['q']:"";
+        $subject_split = array_key_exists('subject_split', $_GET)?$_GET['subject_split']:false;
         $data_since = array_key_exists('data_since', $_GET)?date('Y-m-d H:i:s',strtotime($_GET['data_since'])):false;
 
         // Nail down the filename
         $filename = preg_replace('/\W+/', '_', $query)."_".$filename;
         $cache_name = "adcache".preg_replace('/\W+/', '_', $query).$output;
 
-        // Check the cache (if appropriate)
-        // TODO: the cache name isn't normalized (so "Sponsor:Jeb Candidate:Jeb" and "Candidate:Jeb Sponsor:Jeb" would be two caches despite being the same query)
-        // TODO: wordpress transients don't support names longer than 45 characters, we should find a better solution
-        // TODO: we're going to only cache when the query is blank for now
-        // if($query == '') {
-        //     $ad_instances = get_transient($filename);
-
-        //     // There is no cached copy
-        //     if($ad_instances === false) {
-        //         $ad_instances = get_ad_instances($query, $data_since);
-        //         set_transient($cache_name, $ad_instances, 60*60*30); // The cache lasts 30 minutes
-        //     }
-        // } else {
-        //     // We can't cache, the query is too long
-
-
         // We need to do this in chunks to prevent memory issues
         $page = 0;
         while(true) {
             $ad_instances = get_ad_instances($query, $data_since, $page);
+
+            // Do we want to break subjects into multiple lines
+            if($subject_split) {
+                $new_instances = array();
+
+                foreach($ad_instances as $ad_instance) {
+                    $subjects = explode(", ", $ad_instance['subject']);
+                    foreach($subjects as $subject) {
+                        $new_instance = $ad_instance;
+                        $new_instance['subject'] = $subject;
+                        $new_instances[] = $new_instance;
+                    }
+                }
+
+                $ad_instances = $new_instances;
+            }
 
             // Send a header for the first page
             if($page == 0)

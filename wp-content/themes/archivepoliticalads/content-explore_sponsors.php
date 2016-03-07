@@ -19,10 +19,10 @@
                     ?>
                     <a href="<?php bloginfo('url'); ?>/browse/?q=<?php echo(urlencode("sponsor:\"".$sponsor['name']."\""));?>">
                         <div class="explore-item item">
-                                <div class="explore-wrapper">
-                                    <div class="explore-label"><?php echo($sponsor['name']); ?></div>
-                                    <div class="explore-count"><?php echo($sponsor['count']); ?>  Ad<?php echo($sponsor['count']==1?"":"s");?></div>
-                                </div>
+                            <div class="explore-wrapper">
+                                <div class="explore-label"><?php echo($sponsor['name']); ?></div>
+                                <div class="explore-count"><?php echo($sponsor['count']); ?>  Ad<?php echo($sponsor['count']==1?"":"s");?></div>
+                            </div>
                         </div>
                     </a>
                     <?php

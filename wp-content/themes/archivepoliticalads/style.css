@@ -570,6 +570,23 @@ a#footer-sidebar-link{
   position: relative;
   display: table;
   margin-right: 20px;
+  overflow: hidden;
+}
+.explore-image {
+  display: table-cell;
+  height: 100%;
+	vertical-align: middle;
+  width: 100%;
+}
+.explore-image img {
+	z-index: -1;
+	position: absolute;
+	margin: auto;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	width: 100%;
 }
 .explore-wrapper {
   display: table-cell;

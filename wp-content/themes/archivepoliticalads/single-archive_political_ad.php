@@ -139,7 +139,7 @@
                 <div id="ad-embed-code" class="last cell col-xs-12 col-sm-12 col-lg-12">
                     <div class="cell-label">Embed Code</div>
                     <div class="cell-value cell-value_alt">
-                        <textarea disabled><iframe src="https://archive.org/embed/<?php echo($archive_id);?>" width="640" height="480" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>);</textarea>
+                        <textarea disabled><iframe src="https://archive.org/embed/<?php echo($archive_id);?>" width="640" height="480" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe></textarea>
                     </div>
                 </div>
             </div>

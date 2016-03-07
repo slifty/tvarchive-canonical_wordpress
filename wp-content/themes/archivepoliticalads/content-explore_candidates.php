@@ -22,7 +22,7 @@
                                 <div class="explore-count"><?php echo($candidate['count']); ?>  Ad<?php echo($candidate['count']==1?"":"s");?></div>
                             </div>
                             <div class="explore-image">
-                                <img src="https://archive.org/services/img/<?php echo(preg_replace('/[^\d\w]/','',$candidate['name'])); ?>" />
+                                <img src="<?php echo(get_archive_image_url($candidate['name'])); ?>" />
                             </div>
                         </div>
                     </a>

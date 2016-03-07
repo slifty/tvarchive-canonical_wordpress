@@ -1829,6 +1829,12 @@ function export_send_footer($output='csv') {
     }
 }
 
+function get_archive_image_url($object) {
+    $object = strtolower($object);
+    $corrected = str_replace(" ", "", ucwords(preg_replace('/[^\d\w\s]+/','',$object)));
+    return "https://archive.org/services/img/".$corrected;
+}
+
 
 // Helper methods used in the plugin
 if (!function_exists('write_log')) {

@@ -18,7 +18,7 @@
             <ul id="press-mentions">
                 <?php
                     $articles = get_field('articles');
-                    $sorted_articles = usort($articles, function($a, $b) {
+                    usort($articles, function($a, $b) {
                         $a_date = strtotime($a['publication_date']);
                         $b_date = strtotime($b['publication_date']);
                         if ($a_date == $b_date) {
@@ -27,7 +27,7 @@
                         return ($a_date < $b_date) ? -1 : 1;
                     });
 
-                    $sorted_articles = array_reverse($sorted_articles);
+                    $articles = array_reverse($articles);
 
                     if(is_array($articles)) {
                         foreach($articles as $article) {

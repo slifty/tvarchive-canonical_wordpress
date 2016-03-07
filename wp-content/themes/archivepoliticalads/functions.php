@@ -74,7 +74,7 @@ function archivepoliticalads_scripts() {
     wp_enqueue_script( 'owl.carousel', get_template_directory_uri() . '/js/owl.carousel.min.js', array('jquery','bootstrap' ),  '', true );
 
     // Load the main styles
-    wp_enqueue_style( 'style.css', get_stylesheet_uri() );
+    wp_enqueue_style( 'style.css', get_stylesheet_uri().'?1' );
     // Load the media queries
     wp_enqueue_style( 'media-queries.css', get_template_directory_uri() . '/css/media-queries.css' );
     // Load the addional js

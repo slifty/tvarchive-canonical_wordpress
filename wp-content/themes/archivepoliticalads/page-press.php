@@ -27,6 +27,8 @@
                         return ($a_date < $b_date) ? -1 : 1;
                     });
 
+                    $sorted_articles = array_reverse($sorted_articles);
+
                     if(is_array($articles)) {
                         foreach($articles as $article) {
                             ?>

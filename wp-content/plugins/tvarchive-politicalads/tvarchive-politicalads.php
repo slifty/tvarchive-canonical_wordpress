@@ -228,7 +228,7 @@ function load_ad_data() {
 
         // Update extra fields
         update_field('field_56e62a2127943', $ad_race, $wp_identifier); // Ad Race
-        update_field('field_56e62a2927944', $ad_race, $wp_identifier); // Ad Cycle
+        update_field('field_56e62a2927944', $ad_cycle, $wp_identifier); // Ad Cycle
 
         // Store the candidates
         if(property_exists($metadata, 'candidate')

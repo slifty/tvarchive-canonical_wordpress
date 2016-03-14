@@ -182,8 +182,10 @@ function load_ad_data() {
                         $affiliated_candidate = "";
                         $affiliation_type = "none";
                     } else {
-                        $ad_race = $sponsor_metadata->race;
-                        $ad_cycle = $sponsor_metadata->cycle;
+                        if($ad_race == "") {
+                            $ad_race = $sponsor_metadata->race;
+                            $ad_cycle = $sponsor_metadata->cycle;
+                        }
                         $sponsor_type = $sponsor_metadata->type;
 
                         // Load in the candidate
@@ -226,15 +228,23 @@ function load_ad_data() {
             update_field('field_566e32bd943a4', $new_sponsors, $wp_identifier);
         }
 
-        // Update extra fields
-        update_field('field_56e62a2127943', $ad_race, $wp_identifier); // Ad Race
-        update_field('field_56e62a2927944', $ad_cycle, $wp_identifier); // Ad Cycle
-
         // Store the candidates
         if(property_exists($metadata, 'candidate')
         && is_array($metadata->candidate)) {
             $new_candidates = array();
             foreach($metadata->candidate as $candidate) {
+
+                // Does this candidate have associated metadata
+                if(array_key_exists($candidate, $sponsor_lookup)
+                && array_key_exists('cand', $sponsor_lookup[$candidate])) {
+                    $candidate_metadata = $sponsor_lookup[$candidate]['cand'];
+                    // Load in the race
+                    if($ad_race == "") {
+                        $ad_race = $candidate_metadata->race;
+                        $ad_cycle = $candidate_metadata->cycle;
+                    }
+                }
+
                 $new_candidate = array(
                     'field_566e3573943a8' => $candidate // Name
                 );
@@ -242,6 +252,10 @@ function load_ad_data() {
             }
             update_field('field_566e3533943a7', $new_candidates, $wp_identifier);
         }
+
+        // Update extra fields
+        update_field('field_56e62a2127943', $ad_race, $wp_identifier); // Ad Race
+        update_field('field_56e62a2927944', $ad_cycle, $wp_identifier); // Ad Cycle
 
         // Store the subjects
         if(property_exists($metadata, 'subject')
@@ -379,6 +393,7 @@ function load_ad_data() {
 }
 
 add_action('archive_sync', 'load_ad_data');
+
 
 function activate_archive_sync() {
     // Does the scheduled task exist already?
@@ -1232,20 +1247,29 @@ function get_ads() {
         $ad_notes = array_key_exists('notes', $post_metadata)?$post_metadata['notes']:'';
         $archive_id = array_key_exists('archive_id', $post_metadata)?$post_metadata['archive_id']:'';
         $ad_sponsors = array_key_exists('ad_sponsors', $post_metadata)?$post_metadata['ad_sponsors']:array();
-        // Create sponsor links
+        // Create sponsor array
         $ad_sponsor_names = extract_sponsor_names($ad_sponsors);
         foreach($ad_sponsor_names as $index => $sponsor_name) {
             $ad_sponsor_names[$index] = $sponsor_name;
         }
-        // Create sponsor type links
+        // Create sponsor type array
         $ad_sponsor_types = extract_sponsor_types($ad_sponsors);
         foreach($ad_sponsor_types as $index => $sponsor_type) {
             $ad_sponsor_types[$index] = get_sponsor_type_value($sponsor_type);
         }
+        $ad_sponsor_affiliations = extract_sponsor_affiliations($ad_sponsors);
+        $ad_sponsor_affiliation_types = extract_sponsor_affiliation_types($ad_sponsors);
         $ad_candidate = generate_candidates_string(array_key_exists('ad_candidates', $post_metadata)?$post_metadata['ad_candidates']:'');
         $ad_subject = generate_subjects_string(array_key_exists('ad_subjects', $post_metadata)?$post_metadata['ad_subjects']:array());
         $ad_type = array_key_exists('ad_type', $post_metadata)?$post_metadata['ad_type']:'';
+        $ad_race = array_key_exists('ad_race', $post_metadata)?$post_metadata['ad_race']:'';
+        $ad_cycle = array_key_exists('ad_cycle', $post_metadata)?$post_metadata['ad_cycle']:'';
         $ad_message = array_key_exists('ad_message', $post_metadata)?$post_metadata['ad_message']:'';
+
+        // TODO: Figure out why this bug happens
+        if(is_array($ad_message))
+            $ad_message = array_pop($ad_message);
+
         $ad_air_count = array_key_exists('air_count', $post_metadata)?$post_metadata['air_count']:'';
         $ad_market_count = array_key_exists('market_count', $post_metadata)?$post_metadata['market_count']:'';
         $ad_first_seen = array_key_exists('first_seen', $post_metadata)?$post_metadata['first_seen'].' UTC':'';
@@ -1263,9 +1287,13 @@ function get_ads() {
             "embed_url" => $ad_embed_url,
             "sponsor" => implode(", ", $ad_sponsor_names),
             "sponsor_type" => implode(", ", $ad_sponsor_types),
+            "sponsor_affiliation" => implode(", ", $ad_sponsor_affiliations),
+            "sponsor_affiliation_type" => implode(", ", $ad_sponsor_affiliation_types),
             "subject" => $ad_subject,
             "candidate" => $ad_candidate,
             "type" => $ad_type,
+            "race" => $ad_race,
+            "cycle" => $ad_cycle,
             "message" => $ad_message,
             "air_count" => $ad_air_count,
             "reference_count" => $ad_references,
@@ -1485,10 +1513,19 @@ function get_ad_instances($query = '', $data_since = false, $page = -1){
             foreach($metadata['ad_sponsor_types'] as $index => $sponsor_type) {
                 $metadata['ad_sponsor_types'][$index] = get_sponsor_type_value($sponsor_type);
             }
+            $metadata['ad_sponsor_affiliations'] = extract_sponsor_affiliations($ad_sponsors);
+            $metadata['ad_sponsor_affiliation_types'] = extract_sponsor_affiliation_types($ad_sponsors);
             $metadata['ad_candidate'] = generate_candidates_string(array_key_exists('ad_candidates', $post_metadata)?$post_metadata['ad_candidates']:'');
             $metadata['ad_subject'] = generate_subjects_string(array_key_exists('ad_subjects', $post_metadata)?$post_metadata['ad_subjects']:array());
             $metadata['ad_type'] = array_key_exists('ad_type', $post_metadata)?$post_metadata['ad_type']:'';
+            $metadata['ad_race'] = array_key_exists('ad_race', $post_metadata)?$post_metadata['ad_race']:'';
+            $metadata['ad_cycle'] = array_key_exists('ad_cycle', $post_metadata)?$post_metadata['ad_cycle']:'';
             $metadata['ad_message'] = array_key_exists('ad_message', $post_metadata)?$post_metadata['ad_message']:'';
+
+            // TODO: figure out why this bug sometimes happens
+            if(is_array($metadata['ad_message']))
+                $metadata['ad_message'] = array_pop($metadata['ad_message']);
+
             $metadata['ad_air_count'] = array_key_exists('air_count', $post_metadata)?$post_metadata['air_count']:'';
             $metadata['ad_market_count'] = array_key_exists('market_count', $post_metadata)?$post_metadata['market_count']:'';
             $metadata['ad_first_seen'] = array_key_exists('first_seen', $post_metadata)?$post_metadata['first_seen'].' UTC':'';
@@ -1502,9 +1539,13 @@ function get_ad_instances($query = '', $data_since = false, $page = -1){
         $archive_id = $metadata_cache[$archive_identifier]['archive_id'];
         $ad_sponsor_names = $metadata_cache[$archive_identifier]['ad_sponsor_names'];
         $ad_sponsor_types = $metadata_cache[$archive_identifier]['ad_sponsor_types'];
+        $ad_sponsor_affiliations = $metadata_cache[$archive_identifier]['ad_sponsor_affiliations'];
+        $ad_sponsor_affiliation_types = $metadata_cache[$archive_identifier]['ad_sponsor_affiliation_types'];
         $ad_candidate = $metadata_cache[$archive_identifier]['ad_candidate'];
         $ad_subject = $metadata_cache[$archive_identifier]['ad_subject'];
         $ad_type = $metadata_cache[$archive_identifier]['ad_type'];
+        $ad_race = $metadata_cache[$archive_identifier]['ad_race'];
+        $ad_cycle = $metadata_cache[$archive_identifier]['ad_cycle'];
         $ad_message = $metadata_cache[$archive_identifier]['ad_message'];
         $ad_air_count = $metadata_cache[$archive_identifier]['ad_air_count'];
         $ad_market_count = $metadata_cache[$archive_identifier]['ad_market_count'];
@@ -1525,6 +1566,10 @@ function get_ad_instances($query = '', $data_since = false, $page = -1){
             "embed_url" => $ad_embed_url,
             "sponsor" => implode(', ', $ad_sponsor_names),
             "sponsor_type" => implode(', ', $ad_sponsor_types),
+            "sponsor_affiliation" => implode(', ', $ad_sponsor_affiliations),
+            "sponsor_affiliation_type" => implode(', ', $ad_sponsor_affiliation_types),
+            "race" => $ad_race,
+            "cycle" => $ad_cycle,
             "subject" => $ad_subject,
             "candidate" => $ad_candidate,
             "type" => $ad_type,
@@ -1563,6 +1608,32 @@ function extract_sponsor_types($ad_sponsors) {
         $ad_sponsor_types[] = $sponsor_type;
     }
     return array_unique($ad_sponsor_types);
+}
+
+function extract_sponsor_affiliations($ad_sponsors) {
+    // Is this the right type?
+    if(!is_array($ad_sponsors))
+        return "";
+
+    $ad_sponsor_affiliations = array();
+    foreach($ad_sponsors as $ad_sponsor) {
+        $sponsor_affiliation = $ad_sponsor['sponsor_affiliation'];
+        $ad_sponsor_affiliations[] = $sponsor_affiliation;
+    }
+    return array_unique($ad_sponsor_affiliations);
+}
+
+function extract_sponsor_affiliation_types($ad_sponsors) {
+    // Is this the right type?
+    if(!is_array($ad_sponsors))
+        return "";
+
+    $ad_sponsor_affiliation_types = array();
+    foreach($ad_sponsors as $ad_sponsor) {
+        $sponsor_affiliation_type = $ad_sponsor['sponsor_affiliation_type'];
+        $ad_sponsor_affiliation_types[] = $sponsor_affiliation_type;
+    }
+    return array_unique($ad_sponsor_affiliation_types);
 }
 
 function get_sponsor_type_value($sponsor_type) {

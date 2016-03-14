@@ -136,7 +136,7 @@ function load_ad_data() {
         $existing_ad = get_page_by_title( $ad_identifier, OBJECT, 'archive_political_ad');
         if($existing_ad) {
             $wp_identifier = $existing_ad->ID;
-            //continue;
+            continue;
         }
         else {
             // Create a new post for the ad

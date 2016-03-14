@@ -376,11 +376,6 @@ function load_ad_data() {
         update_field('field_566e36d5962e5', $ad_last_seen,  $wp_identifier); // last_seen
     }
 
-    // Clear the transient cache
-    $table_name = $wpdb->prefix . 'options';
-    $query = "DELETE FROM `".$table_name."` WHERE `option_name` LIKE ('_transient%adcache%')";
-    $results = $wpdb->query($query);
-
 }
 
 add_action('archive_sync', 'load_ad_data');

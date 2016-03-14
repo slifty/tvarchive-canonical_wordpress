@@ -97,6 +97,56 @@
                     "placeholder": "",
                     "disabled": 0,
                     "readonly": 0
+                },
+                {
+                    "key": "field_56e1a39716543",
+                    "label": "Sponsor Affiliation",
+                    "name": "sponsor_affiliation",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "readonly": 0,
+                    "disabled": 0
+                },
+                {
+                    "key": "field_56e1a3e316544",
+                    "label": "Sponsor Affiliation Type",
+                    "name": "sponsor_affiliation_type",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "none": "none",
+                        "pro": "pro",
+                        "con": "con"
+                    },
+                    "default_value": {
+                        "none": "none"
+                    },
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "disabled": 0,
+                    "readonly": 0
                 }
             ]
         },
@@ -475,6 +525,48 @@
             "maxlength": "",
             "readonly": 0,
             "disabled": 0
+        },
+        {
+            "key": "field_56e62a2127943",
+            "label": "Ad Race",
+            "name": "ad_race",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "readonly": 0,
+            "disabled": 0
+        },
+        {
+            "key": "field_56e62a2927944",
+            "label": "Ad Cycle",
+            "name": "ad_cycle",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "readonly": 0,
+            "disabled": 0
         }
     ],
     "location": [
@@ -494,5 +586,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1456895287
+    "modified": 1457924661
 }

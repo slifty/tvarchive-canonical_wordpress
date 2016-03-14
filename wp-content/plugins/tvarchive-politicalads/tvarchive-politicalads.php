@@ -71,6 +71,7 @@ function register_archive_political_ad_type() {
           $role->add_cap( 'create_ads' );
         }
 }
+
 add_action( 'init', 'register_archive_political_ad_type' );
 
 /**
@@ -135,7 +136,7 @@ function load_ad_data() {
         $existing_ad = get_page_by_title( $ad_identifier, OBJECT, 'archive_political_ad');
         if($existing_ad) {
             $wp_identifier = $existing_ad->ID;
-            continue;
+            //continue;
         }
         else {
             // Create a new post for the ad
@@ -157,10 +158,15 @@ function load_ad_data() {
         $ad_type = "Political Ad";
         $ad_race = ""; // TODO: look this up
         $ad_message = property_exists($metadata, 'message')?$metadata->message:'unknown';
+
+        // Check if message is an array (unclear why this happens sometimes)
+        $ad_message = is_array($ad_message)?array_pop($ad_message):$ad_message;
+
         update_field('field_566e30c856e35', $ad_embed_url , $wp_identifier); // embed_url
         update_field('field_566e328a943a3', $ad_id, $wp_identifier); // archive_id
         update_field('field_566e359261c2e', $ad_type, $wp_identifier); // ad_type
         update_field('field_566e360961c2f', $ad_message, $wp_identifier); // ad_message
+        update_field('field_566e359261c2e', 'campaign', $wp_identifier); // ad type
 
         // Store the sponsors
         // TODO: metadata field should be "sponsors" not "sponsor"
@@ -169,27 +175,60 @@ function load_ad_data() {
             $new_sponsors = array();
             foreach($metadata->sponsor as $sponsor) {
                 if(array_key_exists($sponsor, $sponsor_lookup)) {
-                    $sponsor_metadata = $sponsor_lookup[$sponsor];
-
-                    if(sizeof($sponsor_metadata) > 1) {
-                        $sponsor_type = "multiple";
+                    $sponsor_metadata = end($sponsor_lookup[$sponsor]);
+                    // Was there a sponsor?
+                    if($sponsor_metadata === false) {
+                        $sponsor_type = "unknown";
+                        $affiliated_candidate = "";
+                        $affiliation_type = "none";
                     } else {
-                        $types = array_keys($sponsor_metadata);
-                        $sponsor_type = array_pop($types);
+                        $ad_race = $sponsor_metadata->race;
+                        $ad_cycle = $sponsor_metadata->cycle;
+                        $sponsor_type = $sponsor_metadata->type;
+
+                        // Load in the candidate
+                        $affiliated_candidate = "";
+                        if(array_key_exists($sponsor_metadata->singlecandCID, $sponsor_lookup)
+                        && array_key_exists('cand', $sponsor_lookup[$sponsor_metadata->singlecandCID]))
+                            $affiliated_candidate = $sponsor_lookup[$sponsor_metadata->singlecandCID]['cand']->sponsorname;
+
+                        // Is there an affiliated candidate?
+                        if($affiliated_candidate == "")
+                            $affiliation_type = "none";
+                        else
+                            $affiliation_type = $sponsor_metadata->suppopp?'con':'pro';
+
+                        // If this is a candidate committee, load the candidate from the committee
+                        // NOTE: cand + committees share a unique ID in the open secrets database
+                        if($sponsor_type == "candcmte") {
+                            $associated_metadata = $sponsor_lookup[$sponsor_metadata->uniqueid];
+                            if(array_key_exists('cand', $associated_metadata)) {
+                                $affiliated_candidate = $associated_metadata['cand']->sponsorname;
+                                $affiliation_type = 'pro';
+                            }
+                        }
                     }
                 }
                 else {
+                    $affiliated_candidate = "";
+                    $affiliation_type = 'none';
                     $sponsor_type = "unknown";
                 }
 
                 $new_sponsor = array(
                     'field_566e32fb943a5' => $sponsor, // Name
-                    'field_566e3353943a6' => $sponsor_type // Type
+                    'field_566e3353943a6' => $sponsor_type, // Type
+                    'field_56e1a39716543' => $affiliated_candidate, // Affiliated candidate
+                    'field_56e1a3e316544' => $affiliation_type // Affiliation type
                 );
                 $new_sponsors[] = $new_sponsor;
             }
             update_field('field_566e32bd943a4', $new_sponsors, $wp_identifier);
         }
+
+        // Update extra fields
+        update_field('field_56e62a2127943', $ad_race, $wp_identifier); // Ad Race
+        update_field('field_56e62a2927944', $ad_race, $wp_identifier); // Ad Cycle
 
         // Store the candidates
         if(property_exists($metadata, 'candidate')
@@ -438,9 +477,23 @@ function get_sponsor_metadata() {
     // Process the result
     $sponsors = array();
 
+    // We're going to map each sponsor type to TWO keys:
+    // 1) the sponsor name
+    // 2) the unique ID
     foreach($result->response->record as $sponsor) {
         $sponsor = $sponsor->{'@attributes'};
         $sponsor_name = $sponsor->sponsorname;
+        $unique_id = $sponsor->uniqueid;
+
+        // Candidates have the party as part of the name
+        if($sponsor->type == "cand") {
+            $sponsor_name = substr($sponsor_name, 0, -4);
+        }
+
+        // Make sure the sponsor name is updated
+        $sponsor->sponsorname = $sponsor_name;
+
+        // Set up the name first
         if(array_key_exists($sponsor_name, $sponsors)) {
             $sponsors[$sponsor_name][$sponsor->type] = $sponsor;
         } else {
@@ -448,6 +501,16 @@ function get_sponsor_metadata() {
                 $sponsor->type => $sponsor
             );
         }
+
+        // Set up the unique ID unique_id
+        if(array_key_exists($sponsor_name, $sponsors)) {
+            $sponsors[$unique_id][$sponsor->type] = $sponsor;
+        } else {
+            $sponsors[$unique_id] = array(
+                $sponsor->type => $sponsor
+            );
+        }
+
     }
 
     return $sponsors;

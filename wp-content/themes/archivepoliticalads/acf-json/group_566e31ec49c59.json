@@ -134,8 +134,8 @@
                     },
                     "choices": {
                         "none": "none",
-                        "pro": "pro",
-                        "con": "con"
+                        "supports": "supports",
+                        "opposes": "opposes"
                     },
                     "default_value": {
                         "none": "none"
@@ -586,5 +586,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1457924661
+    "modified": 1457928527
 }

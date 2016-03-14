@@ -196,7 +196,7 @@ function load_ad_data() {
                         if($affiliated_candidate == "")
                             $affiliation_type = "none";
                         else
-                            $affiliation_type = $sponsor_metadata->suppopp?'con':'pro';
+                            $affiliation_type = $sponsor_metadata->suppopp?'opposes':'supports';
 
                         // If this is a candidate committee, load the candidate from the committee
                         // NOTE: cand + committees share a unique ID in the open secrets database
@@ -204,7 +204,7 @@ function load_ad_data() {
                             $associated_metadata = $sponsor_lookup[$sponsor_metadata->uniqueid];
                             if(array_key_exists('cand', $associated_metadata)) {
                                 $affiliated_candidate = $associated_metadata['cand']->sponsorname;
-                                $affiliation_type = 'pro';
+                                $affiliation_type = 'supports';
                             }
                         }
                     }

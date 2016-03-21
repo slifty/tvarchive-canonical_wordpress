@@ -1049,6 +1049,47 @@ function search_political_ads($query, $extra_args = array()) {
         }
     }
 
+    if(sizeof($parsed_query['type'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['type'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}postmeta
+                  WHERE meta_key LIKE %s
+                    AND meta_value LIKE %s
+                ",
+                'ad_type',
+                $query_part['value']
+            ));
+
+            $temp_ids = array();
+            foreach($rows as $row) {
+                $temp_ids[] = $row->post_id;
+            }
+
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
+            }
+        }
+    }
+
     if(sizeof($parsed_query['archive_id'])) {
         $use_matched_post_ids = true;
         foreach($parsed_query['archive_id'] as $query_part) {

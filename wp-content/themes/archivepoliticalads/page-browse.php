@@ -56,37 +56,51 @@
             $program_values = array();
             $ad_type_values = array();
 
+            // Get the general values to filter out of advanced search
+            $general_values = array();
+            foreach($parsed_query['general'] as $item) {
+                $general_values[] = $item['value'];
+            }
+
             foreach($parsed_query['candidate'] as $item) {
                 $candidate_values[] = $item['value'];
             }
+            $candidate_values = array_diff($candidate_values, $general_values);
 
             foreach($parsed_query['sponsor'] as $item) {
                 $sponsor_values[] = $item['value'];
             }
+            $sponsor_values = array_diff($sponsor_values, $general_values);
 
             foreach($parsed_query['sponsor_type'] as $item) {
                 $sponsor_type_values[] = $item['value'];
             }
+            $sponsor_type_values = array_diff($sponsor_type_values, $general_values);
 
             foreach($parsed_query['message'] as $item) {
                 $message_values[] = $item['value'];
             }
+            $message_values = array_diff($message_values, $general_values);
 
             foreach($parsed_query['market'] as $item) {
                 $market_values[] = $item['value'];
             }
+            $market_values = array_diff($market_values, $general_values);
 
             foreach($parsed_query['network'] as $item) {
                 $channel_values[] = $item['value'];
             }
+            $channel_values = array_diff($channel_values, $general_values);
 
             foreach($parsed_query['program'] as $item) {
                 $program_values[] = $item['value'];
             }
+            $program_values = array_diff($program_values, $general_values);
 
             foreach($parsed_query['type'] as $item) {
                 $ad_type_values[] = $item['value'];
             }
+            $ad_type_values = array_diff($ad_type_values, $general_values);
 
             // autocomplete assumes the last value ends in a comma so, add an empty item
             $candidate_values[] = '';

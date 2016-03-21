@@ -352,7 +352,7 @@
         $query = $_GET['q'];
         $sort = array_key_exists('order', $_GET)?$_GET['order']:'count';
         $args= array(
-            'posts_per_page' => 4,
+            'posts_per_page' => 10,
             'paged' => $pagination_index,
         );
 

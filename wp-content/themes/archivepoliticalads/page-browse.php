@@ -446,7 +446,7 @@
                                     <div class="title">
                                         <a href="<?php the_permalink(); ?>">
                                         <?php
-                                            if(sizeof($ad_candidates > 0)) {
+                                            if(sizeof($ad_candidates) > 0) {
                                                 echo(implode(", ", $ad_candidates));
                                             } else {
                                                 echo(implode(", ", $ad_sponsor_names));

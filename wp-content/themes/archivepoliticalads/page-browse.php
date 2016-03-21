@@ -444,7 +444,15 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="title">
-                                        <a href="<?php the_permalink(); ?>"><?php echo(implode(", ", $ad_candidates)); ?></a>
+                                        <a href="<?php the_permalink(); ?>">
+                                        <?php
+                                            if(sizeof($ad_candidates > 0)) {
+                                                echo(implode(", ", $ad_candidates));
+                                            } else {
+                                                echo(implode(", ", $ad_sponsor_names));
+                                            }
+                                        ?>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

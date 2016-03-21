@@ -145,6 +145,11 @@ div.button {
   background: url('./img/search.png') no-repeat 18px 10px;
   background-color: #fff;
 }
+#search-results-sort-block {
+	text-align: right;
+	text-transform: uppercase;
+	color: #245e83;
+}
 
 /* Header */
 

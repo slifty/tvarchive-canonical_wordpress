@@ -336,17 +336,46 @@
     && trim($_GET['q']) != '') {
         $pagination_index = get_query_var('paged', 0);
         $query = $_GET['q'];
+        $sort = array_key_exists('order', $_GET)?$_GET['order']:'count';
         $args= array(
             'posts_per_page' => 4,
-            'paged' => $pagination_index
+            'paged' => $pagination_index,
         );
+
+        switch($sort) {
+            case 'date':
+                $args['orderby'] = 'post_date';
+                $args['order'] = 'DESC';
+                break;
+            case 'count':
+            default:
+                $args['orderby'] = 'meta_value_num';
+                $args['meta_key'] = 'air_count';
+                $args['order'] = 'DESC';
+        }
 
         $wp_query = search_political_ads($query, $args);
 
         ?>
-        <div id="search-results-total" class="row page-content-row">
-            <div class="col-xs-12">
+        <div class="row page-content-row">
+            <div class="col-sm-6 col-xs-12" id="search-results-total">
                 <?php echo($wp_query->found_posts);?> Result<?php echo($wp_query->found_posts==1?'':'s'); ?> Found
+            </div>
+            <div class="col-sm-6 hidden-xs" id="search-results-sort-block">
+                Order By:
+                <select id="search-results-sort">
+                    <option value="count" <?php echo(($sort == "count")?"selected":""); ?>>Air Count</option>
+                    <option value="date" <?php echo(($sort == "date")?"selected":""); ?>>Date Added</option>
+                </select>
+                <script type="text/javascript">
+                    $(function() {
+                        $("#search-results-sort").change(function() {
+                            var sort = $("#search-results-sort").val();
+                            $("#search-form-order").val(sort);
+                            $("#search-form").submit();
+                        });
+                    })
+                </script>
             </div>
         </div>
         <div id="search-results">

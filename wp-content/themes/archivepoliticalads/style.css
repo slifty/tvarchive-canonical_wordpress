@@ -49,6 +49,7 @@ div.button {
   text-align: center;
   cursor: pointer;
 }
+
 .separator-left {
   border-left: 1px solid #3a3e4b;
 }
@@ -983,6 +984,26 @@ input#submit-newsletter {
 }
 #browse-header-search {
     padding-top: 0px;
+    padding-bottom: 0px;
+}
+#browse-header-advanced {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.advanced-facet-title {
+	color: #FFF;
+	padding-top: 5px;
+}
+.advanced-facet-value input {
+	padding-left: 10px;
+}
+#browse-header-toggle {
+    padding-top: 5px;
+    text-align: right;
+    color: #FFF;
+}
+#search-toggle {
+	cursor: pointer;
 }
 #search-results-total {
     font-size: 24px;

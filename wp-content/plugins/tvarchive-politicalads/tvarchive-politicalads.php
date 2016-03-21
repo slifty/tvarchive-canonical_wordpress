@@ -104,6 +104,9 @@ function create_ad_instances_table() {
         KEY archive_identifier_key (archive_identifier),
         KEY wp_identifier_key (wp_identifier),
         KEY network_key (network)
+        KEY market_key (market),
+        KEY program_key (program),
+        KEY program_type_key (program_type),
     ) $charset_collate;";
     dbDelta( $sql );
 }
@@ -628,6 +631,204 @@ function get_sponsor_types() {
     return $sponsor_types;
 }
 
+/**
+ * Get a complete list of the messages with published ads in the system
+ * @return [type] [description]
+ */
+function get_messages() {
+    // TODO: Cache the results of this query
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'postmeta';
+    $query = "SELECT count(*) as ad_count,
+                     meta_value as ad_message
+                FROM ".$table_name."
+               WHERE meta_key LIKE 'ad_message'
+                 AND post_id IN (select ID from wp_posts where post_status = 'publish')
+            GROUP BY meta_value
+            ORDER BY ad_count desc";
+
+    $results = $wpdb->get_results($query);
+
+    $messages = array();
+    foreach($results as $result) {
+        if(trim($result->ad_message) == "")
+            continue;
+
+        $message = array(
+            "name" => $result->ad_message,
+            "count" => $result->ad_count
+        );
+        array_push($messages, $message);
+    }
+    return $messages;
+}
+
+/**
+ * Get a complete list of the messages with published ads in the system
+ * @return [type] [description]
+ */
+function get_ad_types() {
+    // TODO: Cache the results of this query
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'postmeta';
+    $query = "SELECT count(*) as ad_count,
+                     meta_value as ad_type
+                FROM ".$table_name."
+               WHERE meta_key LIKE 'ad_type'
+                 AND post_id IN (select ID from wp_posts where post_status = 'publish')
+            GROUP BY meta_value
+            ORDER BY ad_count desc";
+
+    $results = $wpdb->get_results($query);
+
+    $ad_types = array();
+    foreach($results as $result) {
+        if(trim($result->ad_type) == "")
+            continue;
+
+        $ad_type = array(
+            "name" => $result->ad_type,
+            "count" => $result->ad_count
+        );
+        array_push($ad_types, $ad_type);
+    }
+    return $ad_types;
+}
+
+/**
+ * Get a complete list of the markets with published ads in the system
+ * @return [type] [description]
+ */
+function get_markets() {
+    // TODO: Cache the results of this query
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'ad_instances';
+
+    $query = "SELECT count(distinct wp_identifier) as ad_count,
+                     market as market
+                FROM ".$table_name."
+            GROUP BY market";
+
+    $results = $wpdb->get_results($query);
+
+    $markets = array();
+    foreach($results as $result) {
+        if(trim($result->market) == "")
+            continue;
+
+        $market = array(
+            "name" => $result->market,
+            "count" => $result->ad_count
+        );
+        array_push($markets, $market);
+    }
+    return $markets;
+}
+
+/**
+ * Get a complete list of the markets with published ads in the system
+ * @return [type] [description]
+ */
+function get_programs() {
+    // TODO: Cache the results of this query
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'ad_instances';
+
+    $query = "SELECT count(distinct wp_identifier) as ad_count,
+                     program as program
+                FROM ".$table_name."
+            GROUP BY program";
+
+    $results = $wpdb->get_results($query);
+
+    $programs = array();
+    foreach($results as $result) {
+        if(trim($result->program) == "")
+            continue;
+
+        $program = array(
+            "name" => $result->program,
+            "count" => $result->ad_count
+        );
+        array_push($programs, $program);
+    }
+    return $programs;
+}
+
+/**
+ * Get a complete list of the markets with published ads in the system
+ * @return [type] [description]
+ */
+function get_program_types() {
+    // TODO: Cache the results of this query
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'ad_instances';
+
+    $query = "SELECT count(distinct wp_identifier) as ad_count,
+                     program_type as program_type
+                FROM ".$table_name."
+            GROUP BY program_type";
+
+    $results = $wpdb->get_results($query);
+
+    $program_types = array();
+    foreach($results as $result) {
+        if(trim($result->program_type) == "")
+            continue;
+
+        $program_type = array(
+            "name" => $result->program_type,
+            "count" => $result->ad_count
+        );
+        array_push($program_types, $program_type);
+    }
+    return $program_types;
+}
+
+/**
+ * Get a complete list of the markets with published ads in the system
+ * @return [type] [description]
+ */
+function get_channels() {
+    // TODO: Cache the results of this query
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'ad_instances';
+
+    $query = "SELECT count(distinct wp_identifier) as ad_count,
+                     network as network
+                FROM ".$table_name."
+            GROUP BY network";
+
+    $results = $wpdb->get_results($query);
+
+    $channels = array();
+    foreach($results as $result) {
+        if(trim($result->network) == "")
+            continue;
+
+        $channel = array(
+            "name" => $result->network,
+            "count" => $result->ad_count
+        );
+        array_push($channels, $channel);
+    }
+    return $channels;
+}
+
+
+/**
+ * Takes a list of meatadata objects and returns just the names
+ * @param  [type] $metadata_array [description]
+ * @return [type]                 [description]
+ */
+function get_metadata_names($metadata_array) {
+    $metadata_names = array();
+    foreach($metadata_array as $metadata_item) {
+        $metadata_names[] = $metadata_item['name'];
+    }
+    return $metadata_names;
+}
+
 
 //////////////
 /// Methods for political ad search
@@ -807,6 +1008,47 @@ function search_political_ads($query, $extra_args = array()) {
         }
     }
 
+    if(sizeof($parsed_query['message'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['message'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}postmeta
+                  WHERE meta_key LIKE %s
+                    AND meta_value LIKE %s
+                ",
+                'ad_message',
+                $query_part['value']
+            ));
+
+            $temp_ids = array();
+            foreach($rows as $row) {
+                $temp_ids[] = $row->post_id;
+            }
+
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
+            }
+        }
+    }
+
     if(sizeof($parsed_query['archive_id'])) {
         $use_matched_post_ids = true;
         foreach($parsed_query['archive_id'] as $query_part) {
@@ -886,6 +1128,7 @@ function search_political_ads($query, $extra_args = array()) {
             }
         }
     }
+
     if(sizeof($parsed_query['market'])) {
         $use_matched_post_ids = true;
         foreach($parsed_query['market'] as $query_part) {
@@ -938,6 +1181,84 @@ function search_political_ads($query, $extra_args = array()) {
                GROUP BY wp_identifier
                 ",
                 '%'.$query_part['value'].'%'
+            ));
+
+            $temp_ids = array();
+            foreach($rows as $row) {
+                $temp_ids[] = $row->wp_identifier;
+            }
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
+            }
+        }
+    }
+
+    if(sizeof($parsed_query['program'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['program'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}ad_instances
+                  WHERE program LIKE %s
+               GROUP BY wp_identifier
+                ",
+                '%'.$query_part['value'].'%'
+            ));
+
+            $temp_ids = array();
+            foreach($rows as $row) {
+                $temp_ids[] = $row->wp_identifier;
+            }
+            switch($query_part['boolean']) {
+                case 'GENERAL_NOT':
+                case 'NOT':
+                    $not_post_ids = array_merge($not_post_ids, $temp_ids);
+                    break;
+                case 'GENERAL_AND':
+                    $use_general_and = true;
+                    $general_and_ids = array_merge($general_and_ids, $temp_ids);
+                    break;
+                case 'AND':
+                    $and_post_sets[] = $temp_ids;
+                    break;
+                case 'GENERAL_OR':
+                case 'OR':
+                    $or_post_ids = array_merge($or_post_ids, $temp_ids);
+                    break;
+            }
+        }
+    }
+
+    if(sizeof($parsed_query['program_type'])) {
+        $use_matched_post_ids = true;
+        foreach($parsed_query['program_type'] as $query_part) {
+            if($query_part['value'] == "")
+                continue;
+
+            $rows = $wpdb->get_results($wpdb->prepare(
+                "SELECT *
+                   FROM {$wpdb->prefix}ad_instances
+                  WHERE program_type LIKE %s
+               GROUP BY wp_identifier
+                ",
+                $query_part['value']
             ));
 
             $temp_ids = array();
@@ -1139,6 +1460,9 @@ function parse_political_ad_query($query) {
         'sponsor_type' => array(),
         'network' => array(),
         'market' => array(),
+        'message' => array(),
+        'program' => array(),
+        'program_type' => array(),
         'location' => array(),
         'type' => array(),
         'before' => array(),
@@ -1155,6 +1479,7 @@ function parse_political_ad_query($query) {
         'sponsor_type',
         'network',
         'market',
+        'program',
         'location',
         'type'
     );
@@ -1963,6 +2288,21 @@ function get_archive_image_url($object) {
     $corrected = str_replace(" ", "", ucwords(preg_replace('/[^\d\w\s]+/','',$object)));
     return "https://archive.org/services/img/".$corrected;
 }
+
+function load_politicalad_scripts(){
+    global $wp_scripts;
+    wp_enqueue_script( 'jquery' );
+    wp_enqueue_script( 'jquery-ui-core' );
+    wp_enqueue_script( 'jquery-ui-autocomplete' );
+
+    // get registered script object for jquery-ui
+    $ui = $wp_scripts->query('jquery-ui-core');
+    $url = "//ajax.googleapis.com/ajax/libs/jqueryui/{$ui->ver}/themes/smoothness/jquery-ui.min.css";
+    wp_enqueue_style('jquery-ui-smoothness', $url, false, null);
+
+}
+
+add_action( 'init', 'load_politicalad_scripts' );
 
 
 // Helper methods used in the plugin

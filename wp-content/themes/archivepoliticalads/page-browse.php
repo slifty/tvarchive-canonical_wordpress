@@ -17,8 +17,318 @@
                 <?php get_search_form(); ?>
             </div>
         </div>
+        <?php
+            $facet_candidates = get_metadata_names(get_candidates());
+            $facet_sponsors = get_metadata_names(get_sponsors());
+            $facet_sponsor_types = get_metadata_names(get_sponsor_types());
+            $facet_messages = get_metadata_names(get_messages());
+            $facet_markets = get_metadata_names(get_markets());
+            $facet_channels = get_metadata_names(get_channels());
+            $facet_programs = get_metadata_names(get_programs());
+            $facet_ad_types = get_metadata_names(get_ad_types());
+
+            // Alphabetical order
+            sort($facet_candidates);
+            sort($facet_sponsors);
+            sort($facet_sponsor_types);
+            sort($facet_messages);
+            sort($facet_markets);
+            sort($facet_channels);
+            sort($facet_programs);
+            sort($facet_ad_types);
+
+            if(array_key_exists('q', $_GET)
+            && trim($_GET['q']) != '') {
+                $pagination_index = get_query_var('paged', 0);
+                $query = $_GET['q'];
+                $parsed_query = parse_political_ad_query($query);
+            } else {
+                $parsed_query = parse_political_ad_query("");
+            }
+
+            // Extract the values
+            $candidate_values = array();
+            $sponsor_values = array();
+            $sponsor_type_values = array();
+            $message_values = array();
+            $market_values = array();
+            $channel_values = array();
+            $program_values = array();
+            $ad_type_values = array();
+
+            foreach($parsed_query['candidate'] as $item) {
+                $candidate_values[] = $item['value'];
+            }
+
+            foreach($parsed_query['sponsor'] as $item) {
+                $sponsor_values[] = $item['value'];
+            }
+
+            foreach($parsed_query['sponsor_type'] as $item) {
+                $sponsor_type_values[] = $item['value'];
+            }
+
+            foreach($parsed_query['message'] as $item) {
+                $message_values[] = $item['value'];
+            }
+
+            foreach($parsed_query['market'] as $item) {
+                $market_values[] = $item['value'];
+            }
+
+            foreach($parsed_query['network'] as $item) {
+                $channel_values[] = $item['value'];
+            }
+
+            foreach($parsed_query['program'] as $item) {
+                $program_values[] = $item['value'];
+            }
+
+            foreach($parsed_query['type'] as $item) {
+                $ad_type_values[] = $item['value'];
+            }
+
+            // autocomplete assumes the last value ends in a comma so, add an empty item
+            $candidate_values[] = '';
+            $sponsor_values[] = '';
+            $sponsor_type_values[] = '';
+            $message_values[] = '';
+            $market_values[] = '';
+            $channel_values[] = '';
+            $program_values[] = '';
+            $ad_type_values[] = '';
+
+        ?>
+        <div id="browse-header-advanced" class="row page-header-row" style="display:none;">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <form id="advanced-search-form" action="<?php bloginfo('url'); ?>/browse">
+                    <div id="advanced-facets">
+                        <ul>
+                            <li>
+                                <div class="advanced-facet-title">Candidate</div>
+                                <div class="advanced-facet-value"><input type="text" id="candidate-facet" value="<?php echo(implode(', ', $candidate_values)); ?>" /></div>
+                            </li>
+                            <li>
+                                <div class="advanced-facet-title">Sponsor</div>
+                                <div class="advanced-facet-value"><input type="text" id="sponsor-facet" value="<?php echo(implode(', ', $sponsor_values)); ?>" /></div>
+                            </li>
+                            <li>
+                                <div class="advanced-facet-title">Sponsor Type</div>
+                                <div class="advanced-facet-value"><input type="text" id="sponsor-type-facet" value="<?php echo(implode(', ', $sponsor_type_values)); ?>" /></div>
+                            </li>
+                            <li>
+                                <div class="advanced-facet-title">Message</div>
+                                <div class="advanced-facet-value"><input type="text" id="message-facet" value="<?php echo(implode(', ', $message_values)); ?>" /></div>
+                            </li>
+                            <li>
+                                <div class="advanced-facet-title">Market</div>
+                                <div class="advanced-facet-value"><input type="text" id="market-facet" value="<?php echo(implode(', ', $market_values)); ?>" /></div>
+                            </li>
+                            <li>
+                                <div class="advanced-facet-title">Channel</div>
+                                <div class="advanced-facet-value"><input type="text" id="channel-facet" value="<?php echo(implode(', ', $channel_values)); ?>" /></div>
+                            </li>
+                            <li>
+                                <div class="advanced-facet-title">Program</div>
+                                <div class="advanced-facet-value"><input type="text" id="program-facet" value="<?php echo(implode(', ', $program_values)); ?>" /></div>
+                            </li>
+                            <li>
+                                <div class="advanced-facet-title">Ad Type</div>
+                                <div class="advanced-facet-value"><input type="text" id="ad-type-facet" value="<?php echo(implode(', ', $ad_type_values)); ?>" /></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="advanced-dates">
+
+                    </div>
+                    <input type="hidden" id="advanced-search-value" name="q" value="" />
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var facetCandidates = ["<?php echo(implode('","', $facet_candidates)); ?>"];
+            var facetSponsors = ["<?php echo(implode('","', $facet_sponsors)); ?>"];
+            var facetSponsorTypes = ["<?php echo(implode('","', $facet_sponsor_types)); ?>"];
+            var facetMessages = ["<?php echo(implode('","', $facet_messages)); ?>"];
+            var facetMarkets = ["<?php echo(implode('","', $facet_markets)); ?>"];
+            var facetChannels = ["<?php echo(implode('","', $facet_channels)); ?>"];
+            var facetPrograms = ["<?php echo(implode('","', $facet_programs)); ?>"];
+            var facetAdTypes = ["<?php echo(implode('","', $facet_ad_types)); ?>"];
+
+            function split( val ) {
+              return val.split( /,\s*/ );
+            }
+            function extractLast( term ) {
+              return split( term ).pop();
+            }
+
+            function preparedAutoComplete( object, list) {
+                object
+                .bind( "keydown", function( event ) {
+                    if ( event.keyCode === $.ui.keyCode.TAB &&
+                        $( this ).autocomplete( "instance" ).menu.active ) {
+                        event.preventDefault();
+                    }
+                })
+                .autocomplete({
+                    minLength: 0,
+                    source: function( request, response ) {
+                      // delegate back to autocomplete, but extract the last term
+                      response( $.ui.autocomplete.filter(
+                        list, extractLast( request.term ) ) );
+                    },
+                    focus: function() {
+                        // prevent value inserted on focus
+                        return false;
+                    },
+                    select: function( event, ui ) {
+                        var original = this.value;
+                        var terms = split( this.value );
+                        // remove the current input
+                        terms.pop();
+                        // add the selected item
+                        terms.push( ui.item.value );
+                        // add placeholder to get the comma-and-space at the end
+                        terms.push( "" );
+                        this.value = terms.join( ", " );
+
+                        // Were any changes made?
+                        if(original == this.value)
+                            return true;
+
+                        return false;
+                    }
+                });
+            }
+
+            function populateAdvancedQuery() {
+                var queryComponents = [];
+
+                var candidates = $("#candidate-facet").val().split(",");
+                var sponsors = $("#sponsor-facet").val().split(",");
+                var sponsorTypes = $("#sponsor-type-facet").val().split(",");
+                var messages = $("#message-facet").val().split(",");
+                var markets = $("#market-facet").val().split(",");
+                var channels = $("#channel-facet").val().split(",");
+                var programs = $("#program-facet").val().split(",");
+                var ad_types = $("#ad-type-facet").val().split(",");
+
+                for (var index in candidates) {
+                    var value = candidates[index];
+                    if(value.trim() != "") {
+                        queryComponents.push('candidate:"' + value.trim() + '"');
+                    }
+                }
+
+                for (var index in sponsors) {
+                    var value = sponsors[index];
+                    if(value.trim() != "") {
+                        queryComponents.push('sponsor:"' + value.trim() + '"');
+                    }
+                }
+
+                for (var index in sponsorTypes) {
+                    var value = sponsorTypes[index];
+                    if(value.trim() != "") {
+                        queryComponents.push('sponsor_type:"' + value.trim() + '"');
+                    }
+                }
+
+                for (var index in messages) {
+                    var value = messages[index];
+                    if(value.trim() != "") {
+                        queryComponents.push('message:"' + value.trim() + '"');
+                    }
+                }
+
+                for (var index in markets) {
+                    var value = markets[index];
+                    if(value.trim() != "") {
+                        queryComponents.push('market:"' + value.trim() + '"');
+                    }
+                }
+
+                for (var index in channels) {
+                    var value = channels[index];
+                    if(value.trim() != "") {
+                        queryComponents.push('channel:"' + value.trim() + '"');
+                    }
+                }
+
+                for (var index in programs) {
+                    var value = programs[index];
+                    if(value.trim() != "") {
+                        queryComponents.push('program:"' + value.trim() + '"');
+                    }
+                }
+
+                for (var index in ad_types) {
+                    var value = ad_types[index];
+                    if(value.trim() != "") {
+                        queryComponents.push('type:"' + value.trim() + '"');
+                    }
+                }
+
+                var queryString = queryComponents.join(" OR ");
+                $("#advanced-search-value").val(queryString);
+            }
+
+            $('form').each(function() {
+                $(this).find('input').keypress(function(e) {
+                    // Enter pressed?
+                    if(e.which == 10 || e.which == 13) {
+                        populateAdvancedQuery();
+                        this.form.submit();
+                    }
+                });
+            });
+
+            $(function() {
+                preparedAutoComplete($("#candidate-facet"), facetCandidates);
+                preparedAutoComplete($("#sponsor-facet"), facetSponsors);
+                preparedAutoComplete($("#sponsor-type-facet"), facetSponsorTypes);
+                preparedAutoComplete($("#message-facet"), facetMessages);
+                preparedAutoComplete($("#market-facet"), facetMarkets);
+                preparedAutoComplete($("#channel-facet"), facetChannels);
+                preparedAutoComplete($("#program-facet"), facetPrograms);
+                preparedAutoComplete($("#ad-type-facet"), facetAdTypes);
+
+                // Parse results on submit
+                $("#advanced-search-form").submit(function() {
+                    populateAdvancedQuery();
+                });
+            });
+        </script>
+
+        <div id="browse-header-toggle" class="row page-header-row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div id="search-toggle"></div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function() {
+                var searchToggle = $("#search-toggle");
+                searchToggle.text("Advanced Search");
+                isBasic = true;
+                searchToggle.click(function() {
+                    if(isBasic) {
+                        $("#browse-header-advanced").show();
+                        $("#browse-header-search").hide();
+                        searchToggle.text("Basic Search");
+                        isBasic = false;
+                    } else {
+                        $("#browse-header-search").show();
+                        $("#browse-header-advanced").hide();
+                        searchToggle.text("Advanced Search");
+                        isBasic = true;
+                    }
+                });
+            });
+        </script>
     </div>
 </div>
+
 
 <div id="browse-content" class="page-content">
 <?php

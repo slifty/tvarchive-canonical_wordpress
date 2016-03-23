@@ -11,6 +11,7 @@
 
             $ad_embed_url = $post_metadata['embed_url'];
             $ad_notes = array_key_exists('ad_notes', $post_metadata)?$post_metadata['ad_notes']:'';
+            $transcript = array_key_exists('transcript', $post_metadata)?$post_metadata['transcript']:'';
             $archive_id = array_key_exists('archive_id', $post_metadata)?$post_metadata['archive_id']:'';
             $ad_sponsors = (array_key_exists('ad_sponsors', $post_metadata) && $post_metadata['ad_sponsors'])?$post_metadata['ad_sponsors']:array();
             $ad_candidates = (array_key_exists('ad_candidates', $post_metadata) && $post_metadata['ad_candidates'])?$post_metadata['ad_candidates']:array();
@@ -54,6 +55,17 @@
                     <h1>About This Ad</h1>
                 </div>
             </div>
+
+            <?php if($transcript) { ?>
+            <div class="row about-ad-row">
+                <div id="ad-note" class="last cell col-xs-12">
+                    <div class="cell-label">Transcript</div>
+                    <div class="cell-multiline-value">
+                        <?php echo($transcript);?>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
 
             <div class="row about-ad-row">
                 <div id="ad-sponsor" class="cell xs-last sm-last col-xs-12 col-md-6">

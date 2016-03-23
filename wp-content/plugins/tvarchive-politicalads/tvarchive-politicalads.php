@@ -124,6 +124,7 @@ function load_ad_data() {
     // STEP 0: Prepare lookup tables
     $network_lookup = get_network_metadata();
     $sponsor_lookup = get_sponsor_metadata();
+    $transcript_lookup = get_transcripts();
 
     ///////
     // STEP 1: Load all newly discovered political ads, creating entries for each new ad
@@ -139,7 +140,6 @@ function load_ad_data() {
         $existing_ad = get_page_by_title( $ad_identifier, OBJECT, 'archive_political_ad');
         if($existing_ad) {
             $wp_identifier = $existing_ad->ID;
-            continue;
         }
         else {
             // Create a new post for the ad
@@ -152,125 +152,138 @@ function load_ad_data() {
             $wp_identifier = wp_insert_post( $post );
         }
 
-        // Load the metadata for this ad
-        $metadata = $new_ad->json;
+        // Some items we always sync with wordpress...
+        if($existing_ad) {
 
-        // Store the basic information
-        $ad_embed_url = 'https://archive.org/embed/'.$ad_identifier;
-        $ad_id = $ad_identifier;
-        $ad_type = "Political Ad";
-        $ad_race = ""; // TODO: look this up
-        $ad_message = property_exists($metadata, 'message')?$metadata->message:'unknown';
+            // Load the transcript
+            if(array_key_exists($ad_identifier, $transcript_lookup))
+                $transcript = $transcript_lookup[$ad_identifier];
+            else
+                $transcript = "";
 
-        // Check if message is an array (unclear why this happens sometimes)
-        $ad_message = is_array($ad_message)?array_pop($ad_message):$ad_message;
+            update_field('field_56f2bc3b38669', $transcript , $wp_identifier); // transcript
 
-        update_field('field_566e30c856e35', $ad_embed_url , $wp_identifier); // embed_url
-        update_field('field_566e328a943a3', $ad_id, $wp_identifier); // archive_id
-        update_field('field_566e359261c2e', $ad_type, $wp_identifier); // ad_type
-        update_field('field_566e360961c2f', $ad_message, $wp_identifier); // ad_message
-        update_field('field_566e359261c2e', 'campaign', $wp_identifier); // ad type
+        } else {
+            // Load the metadata for this ad
+            $metadata = $new_ad->json;
 
-        // Store the sponsors
-        // TODO: metadata field should be "sponsors" not "sponsor"
-        if(property_exists($metadata, 'sponsor')
-        && is_array($metadata->sponsor)) {
-            $new_sponsors = array();
-            foreach($metadata->sponsor as $sponsor) {
-                if(array_key_exists($sponsor, $sponsor_lookup)) {
-                    $sponsor_metadata = end($sponsor_lookup[$sponsor]);
-                    // Was there a sponsor?
-                    if($sponsor_metadata === false) {
-                        $sponsor_type = "unknown";
-                        $affiliated_candidate = "";
-                        $affiliation_type = "none";
-                    } else {
-                        if($ad_race == "") {
-                            $ad_race = $sponsor_metadata->race;
-                            $ad_cycle = $sponsor_metadata->cycle;
-                        }
-                        $sponsor_type = $sponsor_metadata->type;
+            // Store the basic information
+            $ad_embed_url = 'https://archive.org/embed/'.$ad_identifier;
+            $ad_id = $ad_identifier;
+            $ad_type = "Political Ad";
+            $ad_race = ""; // TODO: look this up
+            $ad_message = property_exists($metadata, 'message')?$metadata->message:'unknown';
 
-                        // Load in the candidate
-                        $affiliated_candidate = "";
-                        if(array_key_exists($sponsor_metadata->singlecandCID, $sponsor_lookup)
-                        && array_key_exists('cand', $sponsor_lookup[$sponsor_metadata->singlecandCID]))
-                            $affiliated_candidate = $sponsor_lookup[$sponsor_metadata->singlecandCID]['cand']->sponsorname;
+            // Check if message is an array (unclear why this happens sometimes)
+            $ad_message = is_array($ad_message)?array_pop($ad_message):$ad_message;
 
-                        // Is there an affiliated candidate?
-                        if($affiliated_candidate == "")
+            update_field('field_566e30c856e35', $ad_embed_url , $wp_identifier); // embed_url
+            update_field('field_566e328a943a3', $ad_id, $wp_identifier); // archive_id
+            update_field('field_566e359261c2e', $ad_type, $wp_identifier); // ad_type
+            update_field('field_566e360961c2f', $ad_message, $wp_identifier); // ad_message
+            update_field('field_566e359261c2e', 'campaign', $wp_identifier); // ad type
+
+            // Store the sponsors
+            // TODO: metadata field should be "sponsors" not "sponsor"
+            if(property_exists($metadata, 'sponsor')
+            && is_array($metadata->sponsor)) {
+                $new_sponsors = array();
+                foreach($metadata->sponsor as $sponsor) {
+                    if(array_key_exists($sponsor, $sponsor_lookup)) {
+                        $sponsor_metadata = end($sponsor_lookup[$sponsor]);
+                        // Was there a sponsor?
+                        if($sponsor_metadata === false) {
+                            $sponsor_type = "unknown";
+                            $affiliated_candidate = "";
                             $affiliation_type = "none";
-                        else
-                            $affiliation_type = $sponsor_metadata->suppopp?'opposes':'supports';
+                        } else {
+                            if($ad_race == "") {
+                                $ad_race = $sponsor_metadata->race;
+                                $ad_cycle = $sponsor_metadata->cycle;
+                            }
+                            $sponsor_type = $sponsor_metadata->type;
 
-                        // If this is a candidate committee, load the candidate from the committee
-                        // NOTE: cand + committees share a unique ID in the open secrets database
-                        if($sponsor_type == "candcmte") {
-                            $associated_metadata = $sponsor_lookup[$sponsor_metadata->uniqueid];
-                            if(array_key_exists('cand', $associated_metadata)) {
-                                $affiliated_candidate = $associated_metadata['cand']->sponsorname;
-                                $affiliation_type = 'supports';
+                            // Load in the candidate
+                            $affiliated_candidate = "";
+                            if(array_key_exists($sponsor_metadata->singlecandCID, $sponsor_lookup)
+                            && array_key_exists('cand', $sponsor_lookup[$sponsor_metadata->singlecandCID]))
+                                $affiliated_candidate = $sponsor_lookup[$sponsor_metadata->singlecandCID]['cand']->sponsorname;
+
+                            // Is there an affiliated candidate?
+                            if($affiliated_candidate == "")
+                                $affiliation_type = "none";
+                            else
+                                $affiliation_type = $sponsor_metadata->suppopp?'opposes':'supports';
+
+                            // If this is a candidate committee, load the candidate from the committee
+                            // NOTE: cand + committees share a unique ID in the open secrets database
+                            if($sponsor_type == "candcmte") {
+                                $associated_metadata = $sponsor_lookup[$sponsor_metadata->uniqueid];
+                                if(array_key_exists('cand', $associated_metadata)) {
+                                    $affiliated_candidate = $associated_metadata['cand']->sponsorname;
+                                    $affiliation_type = 'supports';
+                                }
                             }
                         }
                     }
-                }
-                else {
-                    $affiliated_candidate = "";
-                    $affiliation_type = 'none';
-                    $sponsor_type = "unknown";
-                }
-
-                $new_sponsor = array(
-                    'field_566e32fb943a5' => $sponsor, // Name
-                    'field_566e3353943a6' => $sponsor_type, // Type
-                    'field_56e1a39716543' => $affiliated_candidate, // Affiliated candidate
-                    'field_56e1a3e316544' => $affiliation_type // Affiliation type
-                );
-                $new_sponsors[] = $new_sponsor;
-            }
-            update_field('field_566e32bd943a4', $new_sponsors, $wp_identifier);
-        }
-
-        // Store the candidates
-        if(property_exists($metadata, 'candidate')
-        && is_array($metadata->candidate)) {
-            $new_candidates = array();
-            foreach($metadata->candidate as $candidate) {
-
-                // Does this candidate have associated metadata
-                if(array_key_exists($candidate, $sponsor_lookup)
-                && array_key_exists('cand', $sponsor_lookup[$candidate])) {
-                    $candidate_metadata = $sponsor_lookup[$candidate]['cand'];
-                    // Load in the race
-                    if($ad_race == "") {
-                        $ad_race = $candidate_metadata->race;
-                        $ad_cycle = $candidate_metadata->cycle;
+                    else {
+                        $affiliated_candidate = "";
+                        $affiliation_type = 'none';
+                        $sponsor_type = "unknown";
                     }
+
+                    $new_sponsor = array(
+                        'field_566e32fb943a5' => $sponsor, // Name
+                        'field_566e3353943a6' => $sponsor_type, // Type
+                        'field_56e1a39716543' => $affiliated_candidate, // Affiliated candidate
+                        'field_56e1a3e316544' => $affiliation_type // Affiliation type
+                    );
+                    $new_sponsors[] = $new_sponsor;
                 }
-
-                $new_candidate = array(
-                    'field_566e3573943a8' => $candidate // Name
-                );
-                $new_candidates[] = $new_candidate;
+                update_field('field_566e32bd943a4', $new_sponsors, $wp_identifier);
             }
-            update_field('field_566e3533943a7', $new_candidates, $wp_identifier);
-        }
 
-        // Update extra fields
-        update_field('field_56e62a2127943', $ad_race, $wp_identifier); // Ad Race
-        update_field('field_56e62a2927944', $ad_cycle, $wp_identifier); // Ad Cycle
+            // Store the candidates
+            if(property_exists($metadata, 'candidate')
+            && is_array($metadata->candidate)) {
+                $new_candidates = array();
+                foreach($metadata->candidate as $candidate) {
 
-        // Store the subjects
-        if(property_exists($metadata, 'subject')
-        && is_array($metadata->subject)) {
-            $new_subjects = array();
-            foreach($metadata->subject as $subject) {
-                $new_subject = array(
-                    'field_569d12ec487ef' => $subject // Name
-                );
-                $new_subjects[] = $new_subject;
+                    // Does this candidate have associated metadata
+                    if(array_key_exists($candidate, $sponsor_lookup)
+                    && array_key_exists('cand', $sponsor_lookup[$candidate])) {
+                        $candidate_metadata = $sponsor_lookup[$candidate]['cand'];
+                        // Load in the race
+                        if($ad_race == "") {
+                            $ad_race = $candidate_metadata->race;
+                            $ad_cycle = $candidate_metadata->cycle;
+                        }
+                    }
+
+                    $new_candidate = array(
+                        'field_566e3573943a8' => $candidate // Name
+                    );
+                    $new_candidates[] = $new_candidate;
+                }
+                update_field('field_566e3533943a7', $new_candidates, $wp_identifier);
             }
-            update_field('field_569d12c8487ee', $new_subjects, $wp_identifier);
+
+            // Update extra fields
+            update_field('field_56e62a2127943', $ad_race, $wp_identifier); // Ad Race
+            update_field('field_56e62a2927944', $ad_cycle, $wp_identifier); // Ad Cycle
+
+            // Store the subjects
+            if(property_exists($metadata, 'subject')
+            && is_array($metadata->subject)) {
+                $new_subjects = array();
+                foreach($metadata->subject as $subject) {
+                    $new_subject = array(
+                        'field_569d12ec487ef' => $subject // Name
+                    );
+                    $new_subjects[] = $new_subject;
+                }
+                update_field('field_569d12c8487ee', $new_subjects, $wp_identifier);
+            }
         }
     }
 
@@ -392,7 +405,6 @@ function load_ad_data() {
         update_field('field_566e36b0962e4', $ad_first_seen, $wp_identifier); // first_seen
         update_field('field_566e36d5962e5', $ad_last_seen,  $wp_identifier); // last_seen
     }
-
 }
 
 add_action('archive_sync', 'load_ad_data');
@@ -463,6 +475,30 @@ function get_network_metadata() {
     }
 
     return $networks;
+}
+
+/**
+* Get the network -> market / location conversion
+*/
+function get_transcripts() {
+    // Get a list of ad instances from the archive
+    $url = 'https://archive.org/advancedsearch.php?q=collection%3Apolitical_ads+AND+mediatype%3Amovies&fl%5B%5D=description&fl%5B%5D=identifier&sort%5B%5D=&sort%5B%5D=&sort%5B%5D=&rows=10000&page=1&output=json&save=yes';
+    $url_result = file_get_contents($url);
+    $results = json_decode($url_result);
+
+    // Convert results to an expected format
+    $transcripts = array();
+    if($results) {
+        if(property_exists($results, 'response')
+        && property_exists($results->response, 'docs')) {
+            foreach($results->response->docs as $result) {
+                if(property_exists($result, 'identifier')
+                && property_exists($result, 'description'))
+                    $transcripts[$result->identifier] = $result->description;
+            }
+        }
+    }
+    return $transcripts;
 }
 
 /**
@@ -1640,6 +1676,7 @@ function get_ads() {
         $ad_market_count = array_key_exists('market_count', $post_metadata)?$post_metadata['market_count']:'';
         $ad_first_seen = array_key_exists('first_seen', $post_metadata)?$post_metadata['first_seen'].' UTC':'';
         $ad_last_seen =array_key_exists('last_seen', $post_metadata)? $post_metadata['last_seen'].' UTC':'';
+        $transcript =array_key_exists('transcript', $post_metadata)? $post_metadata['transcript']:'';
         $ad_ingest_date = $ad->post_date.' UTC';
         $ad_references = $ad->references;
 
@@ -1664,6 +1701,7 @@ function get_ads() {
             "air_count" => $ad_air_count,
             "reference_count" => $ad_references,
             "market_count" => $ad_market_count,
+            "transcript" => $transcript,
             "date_ingested" => $ad_ingest_date
         ];
 
@@ -1887,6 +1925,7 @@ function get_ad_instances($query = '', $data_since = false, $page = -1){
             $metadata['ad_race'] = array_key_exists('ad_race', $post_metadata)?$post_metadata['ad_race']:'';
             $metadata['ad_cycle'] = array_key_exists('ad_cycle', $post_metadata)?$post_metadata['ad_cycle']:'';
             $metadata['ad_message'] = array_key_exists('ad_message', $post_metadata)?$post_metadata['ad_message']:'';
+            $metadata['transcript'] = array_key_exists('transcript', $post_metadata)?$post_metadata['transcript']:'';
 
             // TODO: figure out why this bug sometimes happens
             if(is_array($metadata['ad_message']))
@@ -1913,6 +1952,7 @@ function get_ad_instances($query = '', $data_since = false, $page = -1){
         $ad_race = $metadata_cache[$archive_identifier]['ad_race'];
         $ad_cycle = $metadata_cache[$archive_identifier]['ad_cycle'];
         $ad_message = $metadata_cache[$archive_identifier]['ad_message'];
+        $transcript = $metadata_cache[$archive_identifier]['transcript'];
         $ad_air_count = $metadata_cache[$archive_identifier]['ad_air_count'];
         $ad_market_count = $metadata_cache[$archive_identifier]['ad_market_count'];
         $ad_first_seen = $metadata_cache[$archive_identifier]['ad_first_seen'];
@@ -1940,7 +1980,6 @@ function get_ad_instances($query = '', $data_since = false, $page = -1){
             "candidate" => $ad_candidate,
             "type" => $ad_type,
             "message" => $ad_message,
-            "air_count" => $ad_air_count,
             "market_count" => $ad_market_count,
             "date_created" => $date_created
         ];

@@ -141,6 +141,27 @@
             "display_format": "m\/d\/Y",
             "return_format": "m\/d\/Y",
             "first_day": 0
+        },
+        {
+            "key": "field_56f2bc3b38669",
+            "label": "Transcript",
+            "name": "transcript",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": "",
+            "new_lines": "",
+            "readonly": 0,
+            "disabled": 0
         }
     ],
     "location": [
@@ -160,5 +181,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1453138017
+    "modified": 1458748518
 }

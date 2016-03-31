@@ -47,7 +47,7 @@
       </div>
     </div>
     <div id="home-explore-section" class="row">
-      <div class="col-xs-12 col-md-9">
+      <div class="col-xs-12 col-md-12">
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="candidates">
             <?php get_template_part('content', 'explore_candidates'); ?>

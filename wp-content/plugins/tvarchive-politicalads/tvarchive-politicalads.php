@@ -205,7 +205,8 @@ function load_ad_data() {
 
                             // Load in the candidate
                             $affiliated_candidate = "";
-                            if(array_key_exists($sponsor_metadata->singlecandCID, $sponsor_lookup)
+                            if($sponsor_metadata->singlecandCID != ""
+                            && array_key_exists($sponsor_metadata->singlecandCID, $sponsor_lookup)
                             && array_key_exists('cand', $sponsor_lookup[$sponsor_metadata->singlecandCID]))
                                 $affiliated_candidate = $sponsor_lookup[$sponsor_metadata->singlecandCID]['cand']->sponsorname;
 

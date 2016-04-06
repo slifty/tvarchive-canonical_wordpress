@@ -188,8 +188,8 @@ function load_ad_data() {
             && is_array($metadata->sponsor)) {
                 $new_sponsors = array();
                 foreach($metadata->sponsor as $sponsor) {
-                    if(array_key_exists($sponsor, $sponsor_lookup)) {
-                        $sponsor_metadata = end($sponsor_lookup[$sponsor]);
+                    if(array_key_exists(strtoupper($sponsor), $sponsor_lookup)) {
+                        $sponsor_metadata = end($sponsor_lookup[strtoupper($sponsor)]);
                         // Was there a sponsor?
                         if($sponsor_metadata === false) {
                             $sponsor_type = "unknown";
@@ -249,9 +249,9 @@ function load_ad_data() {
                 foreach($metadata->candidate as $candidate) {
 
                     // Does this candidate have associated metadata
-                    if(array_key_exists($candidate, $sponsor_lookup)
-                    && array_key_exists('cand', $sponsor_lookup[$candidate])) {
-                        $candidate_metadata = $sponsor_lookup[$candidate]['cand'];
+                    if(array_key_exists(strtoupper($candidate), $sponsor_lookup)
+                    && array_key_exists('cand', $sponsor_lookup[strtoupper($candidate)])) {
+                        $candidate_metadata = $sponsor_lookup[strtoupper($candidate)]['cand'];
                         // Load in the race
                         if($ad_race == "") {
                             $ad_race = $candidate_metadata->race;
@@ -408,7 +408,6 @@ function load_ad_data() {
 
 add_action('archive_sync', 'load_ad_data');
 
-
 function activate_archive_sync() {
     // Does the scheduled task exist already?
     if(wp_get_schedule('archive_sync') === false) {
@@ -545,10 +544,10 @@ function get_sponsor_metadata() {
             continue;
 
         // Set up the name first
-        if(array_key_exists($sponsor_name, $sponsors)) {
-            $sponsors[$sponsor_name][$sponsor->type] = $sponsor;
+        if(array_key_exists(strtoupper($sponsor_name), $sponsors)) {
+            $sponsors[strtoupper($sponsor_name)][$sponsor->type] = $sponsor;
         } else {
-            $sponsors[$sponsor_name] = array(
+            $sponsors[strtoupper($sponsor_name)] = array(
                 $sponsor->type => $sponsor
             );
         }

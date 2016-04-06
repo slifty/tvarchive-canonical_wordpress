@@ -16,7 +16,7 @@
                 $first = true;
                 $highestCount = 0;
                 $i = 0;
-                foreach($sponsor_types as $sponsor) {
+                foreach($sponsor_types as $sponsor_type) {
                     $i++;
                     if ($first) {
                       $highestCount = $sponsor_type['count'];

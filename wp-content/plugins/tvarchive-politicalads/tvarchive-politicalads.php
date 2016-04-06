@@ -152,18 +152,17 @@ function load_ad_data() {
             $wp_identifier = wp_insert_post( $post );
         }
 
-        // Some items we always sync with wordpress...
-        if($existing_ad) {
+        // Always Load the transcript
+        if(array_key_exists($ad_identifier, $transcript_lookup))
+            $transcript = $transcript_lookup[$ad_identifier];
+        else
+            $transcript = "";
 
-            // Load the transcript
-            if(array_key_exists($ad_identifier, $transcript_lookup))
-                $transcript = $transcript_lookup[$ad_identifier];
-            else
-                $transcript = "";
+        update_field('field_56f2bc3b38669', $transcript , $wp_identifier); // transcript
 
-            update_field('field_56f2bc3b38669', $transcript , $wp_identifier); // transcript
 
-        } else {
+        // Some items we only want to sync the first time
+        if(!$existing_ad) {
             // Load the metadata for this ad
             $metadata = $new_ad->json;
 
@@ -205,8 +204,7 @@ function load_ad_data() {
 
                             // Load in the candidate
                             $affiliated_candidate = "";
-                            if($sponsor_metadata->singlecandCID != ""
-                            && array_key_exists($sponsor_metadata->singlecandCID, $sponsor_lookup)
+                            if(array_key_exists($sponsor_metadata->singlecandCID, $sponsor_lookup)
                             && array_key_exists('cand', $sponsor_lookup[$sponsor_metadata->singlecandCID]))
                                 $affiliated_candidate = $sponsor_lookup[$sponsor_metadata->singlecandCID]['cand']->sponsorname;
 
@@ -408,6 +406,9 @@ function load_ad_data() {
     }
 }
 
+add_action('archive_sync', 'load_ad_data');
+
+
 function activate_archive_sync() {
     // Does the scheduled task exist already?
     if(wp_get_schedule('archive_sync') === false) {
@@ -540,6 +541,9 @@ function get_sponsor_metadata() {
         // Make sure the sponsor name is updated
         $sponsor->sponsorname = $sponsor_name;
 
+        if($sponsor_name == "")
+            continue;
+
         // Set up the name first
         if(array_key_exists($sponsor_name, $sponsors)) {
             $sponsors[$sponsor_name][$sponsor->type] = $sponsor;
@@ -550,7 +554,10 @@ function get_sponsor_metadata() {
         }
 
         // Set up the unique ID unique_id
-        if(array_key_exists($sponsor_name, $sponsors)) {
+        if($unique_id == "")
+            continue;
+
+        if(array_key_exists($unique_id, $sponsors)) {
             $sponsors[$unique_id][$sponsor->type] = $sponsor;
         } else {
             $sponsors[$unique_id] = array(

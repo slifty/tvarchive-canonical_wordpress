@@ -408,9 +408,6 @@ function load_ad_data() {
     }
 }
 
-add_action('archive_sync', 'load_ad_data');
-
-
 function activate_archive_sync() {
     // Does the scheduled task exist already?
     if(wp_get_schedule('archive_sync') === false) {

@@ -7,7 +7,7 @@
 <div id="about-header" class="row page-header-row">
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
         <h1 id="about-header-title" class="section-header">About</h1>
-        <p id="about-header-description">About the Political Ad Archive</p>
+        <p id="about-header-description">About the Political TV Ad Archive</p>
     </div>
 </div>
 <div id="about-content" class="page-content">

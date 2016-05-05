@@ -168,7 +168,7 @@ function load_ad_data() {
             $ad_embed_url = 'https://archive.org/embed/'.$ad_identifier;
             $ad_id = $ad_identifier;
             $ad_type = "Political Ad";
-            $ad_race = ""; // TODO: look this up
+            $ad_race = "";
             $ad_message = property_exists($metadata, 'message')?$metadata->message:'unknown';
 
             // Check if message is an array (unclear why this happens sometimes)

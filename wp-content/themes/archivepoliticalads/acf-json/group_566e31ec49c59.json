@@ -567,6 +567,40 @@
             "maxlength": "",
             "readonly": 0,
             "disabled": 0
+        },
+        {
+            "key": "field_5719467568b97",
+            "label": "Start Override",
+            "name": "start_override",
+            "type": "date_picker",
+            "instructions": "Airings before this date are ignored.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "m\/d\/Y",
+            "return_format": "m\/d\/Y",
+            "first_day": 0
+        },
+        {
+            "key": "field_571946b368b98",
+            "label": "End Override",
+            "name": "end_override",
+            "type": "date_picker",
+            "instructions": "Airings after this date are ignored.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "m\/d\/Y",
+            "return_format": "m\/d\/Y",
+            "first_day": 0
         }
     ],
     "location": [
@@ -586,5 +620,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1457932256
+    "modified": 1461274318
 }

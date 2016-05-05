@@ -116,6 +116,7 @@
             </div>
             <?php } ?>
 
+            <?php if($ad_air_count > 0) { ?>
             <div class="row about-ad-row">
                 <div id="ad-air-count" class="cell xs-last col-xs-12 col-sm-4 col-lg-2">
                     <div class="cell-label">Air Count</div>
@@ -147,7 +148,11 @@
                         <?php echo($ad_last_seen);?>
                     </div>
                 </div>
+            </div>
+            <?php } ?>
 
+
+            <div class="row about-ad-row">
                 <div id="ad-embed-code" class="last cell col-xs-12 col-sm-12 col-lg-12">
                     <div class="cell-label">Embed Code</div>
                     <div class="cell-value cell-value_alt">

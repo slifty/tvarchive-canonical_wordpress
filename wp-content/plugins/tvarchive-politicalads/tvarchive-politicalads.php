@@ -9,7 +9,6 @@
 * License:
 */
 
-
 //////////////
 /// Plugin setup methods
 
@@ -103,15 +102,14 @@ function create_ad_instances_table() {
         UNIQUE KEY instance_key (archive_identifier,network,start_time),
         KEY archive_identifier_key (archive_identifier),
         KEY wp_identifier_key (wp_identifier),
-        KEY network_key (network)
+        KEY network_key (network),
         KEY market_key (market),
         KEY program_key (program),
-        KEY program_type_key (program_type),
+        KEY program_type_key (program_type)
     ) $charset_collate;";
     dbDelta( $sql );
 }
-register_activation_hook( __FILE__, 'create_ad_instances_table');
-
+register_activation_hook( '__FILE__', 'create_ad_instances_table');
 
 /**
  * A method that will load in all ad data (metadata, instances, etc)
@@ -298,12 +296,20 @@ function load_ad_data() {
         $wp_identifier = $existing_ad->ID;
         $ad_identifier = $existing_ad->post_title;
 
+        if($ad_identifier != "PolAd_KathleenMatthews_beaq6")
+            continue;
+
         // STEP 2: Get every instance, and create a record for each instance
         // NOTE: it won't double insert when run more than once due to the unique key
         $instances = get_ad_archive_instances($ad_identifier);
 
+        // Load the overrides
+        $start_override = get_field('start_override', $wp_identifier);
+        $end_override = get_field('end_override', $wp_identifier);
+
         // Collect existing instances;
         $existing_instances = array();
+
         // Collect the data associated with this ad
         $table_name = $wpdb->prefix . 'ad_instances';
 
@@ -316,8 +322,6 @@ function load_ad_data() {
                    WHERE archive_identifier = '".esc_sql($ad_identifier)."'";
 
         $results = $wpdb->get_results($query);
-        $rows = array();
-        $metadata_cache = array();
         foreach($results as $result) {
             $network = $result->network;
             $start_time = $result->start_time;
@@ -325,7 +329,7 @@ function load_ad_data() {
             if(!array_key_exists($network, $existing_instances)) {
                 $existing_instances[$network] = array();
             }
-            $existing_instances[$network][] = $start_time;
+            $existing_instances[$network][] = "".strtotime($start_time);
         }
 
         // Iterate through each instance
@@ -339,9 +343,18 @@ function load_ad_data() {
             $program = $instance->title;
             $program_type = $instance->program_type;
 
+            // If the start time isn't within the override range, skip this airing
+            if($start_override != null
+            && strtotime($start_override) > strtotime($start_time))
+                continue;
+
+            if($end_override != null
+            && strtotime($end_override) < strtotime($start_time))
+                continue;
+
             // Only try to insert if it doesn't exist already
             if(!array_key_exists($network, $existing_instances)
-            || !in_array($start_time, $existing_instances[$network])) {
+            || !in_array("".strtotime($start_time), $existing_instances[$network])) {
                 $table_name = $wpdb->prefix . 'ad_instances';
                 $wpdb->insert(
                     $table_name,
@@ -359,6 +372,19 @@ function load_ad_data() {
                     )
                 );
             }
+        }
+
+        // If there is an override, remove any airings that we may have saved in the past that don't fall within the override range
+        if($start_override != null) {
+            $table_name = $wpdb->prefix . 'ad_instances';
+            $query = $wpdb->prepare('DELETE FROM %1$s WHERE UNIX_TIMESTAMP(start_time) < %2$d && wp_identifier = %3$d', array($table_name, strtotime($start_override), $wp_identifier));
+            $wpdb->query($query);
+        }
+
+        if($end_override != null) {
+            $table_name = $wpdb->prefix . 'ad_instances';
+            $query = $wpdb->prepare('DELETE FROM %1$s WHERE UNIX_TIMESTAMP(start_time) > %2$d && wp_identifier = %3$d', array($table_name, strtotime($end_override), $wp_identifier));
+            $wpdb->query($query);
         }
     }
 

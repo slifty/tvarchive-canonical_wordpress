@@ -296,9 +296,6 @@ function load_ad_data() {
         $wp_identifier = $existing_ad->ID;
         $ad_identifier = $existing_ad->post_title;
 
-        if($ad_identifier != "PolAd_KathleenMatthews_beaq6")
-            continue;
-
         // STEP 2: Get every instance, and create a record for each instance
         // NOTE: it won't double insert when run more than once due to the unique key
         $instances = get_ad_archive_instances($ad_identifier);

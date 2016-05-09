@@ -122,7 +122,7 @@ div.button {
   color: #343434;
   padding: 0px;
   margin: 0px;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 30px;
 }
 .subheader-row {
@@ -130,7 +130,7 @@ div.button {
 }
 .subheader-row h2 {
   color: #fff;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: normal;
   text-transform: uppercase;
   margin: 0px;
@@ -161,7 +161,7 @@ div.button {
   float: left;
   height: 73px;
   padding: 6px 0 0;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 25px;
   margin-left: 24px;
 }
@@ -193,7 +193,7 @@ div.button {
   color: #E85646;
 }
 .navigation {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
   margin-top: 25px;
   height: 60px;
@@ -430,13 +430,13 @@ a#footer-sidebar-link{
   color: #444;
 }
 .cell-value_home {
-  font-size: 18px;
+  font-size: 14px;
   width: 130px;
 }
 .cell-multiline-value {
   color: #4a4a4a;
   line-height: 29px;
-  font-size: 18px;
+  font-size: 14px;
   text-overflow: ellipsis;
   word-wrap: break-word;
   overflow: hidden;
@@ -467,7 +467,7 @@ a#footer-sidebar-link{
   border-bottom: 1px solid #3a3e4b;
 }
 .about-ad-row .cell-value {
-	font-size: 18px;
+	font-size: 14px;
 }
 .about-ad-row_home {
   padding: 0;
@@ -522,7 +522,7 @@ a#footer-sidebar-link{
   width: 100%;
   background-color: #4a90e2;
   color: #fff;
-  font-size: 18px;
+  font-size: 14px;
   border: none;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -769,7 +769,7 @@ h3.resource-name {
     font-weight: bold;
 }
 .post-content h2 {
-	font-size: 18px;
+	font-size: 14px;
 }
 .post-content ul {
 	list-style: disc;
@@ -787,7 +787,7 @@ h3.resource-name {
 		color: #E85646;
 }
 .post-excerpt {
-    font-size: 18px;
+    font-size: 14px;
     line-height: 30px;
     margin: 15px 0px;
     color: #343434;
@@ -821,7 +821,7 @@ h3.resource-name {
 }
 .post-more {
     color: #4a90e2;
-    font-size: 18px;
+    font-size: 14px;
     margin-top: 30px;
     margin-bottom: 30px;
 }
@@ -830,19 +830,19 @@ h3.resource-name {
 }
 .post-navigation-button {
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: 14px;
     padding: 0px;
 }
 .post-navigation-button a {
     color: #4a90e2;
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: 14px;
 }
 .post-navigation-button a:hover {
     color: #e85646;
 }
 .post-pagination {
-    font-size: 18px;
+    font-size: 14px;
 }
 #next {
     float: right;
@@ -877,14 +877,14 @@ h3#comments {}
     height: 56px;
 }
 .comment-author cite {
-    font-size: 18px;
+    font-size: 14px;
     color: #4a90e2;
     font-weight: 700;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-style: normal;
 }
 .comment-author span.says {
-    font-size: 18px;
+    font-size: 14px;
     color: #9b9b9b;
 }
 .comment-meta.commentmetadata a {
@@ -892,7 +892,7 @@ h3#comments {}
     font-size: 14px;
 }
 .comment-body p {
-    font-size: 18px;
+    font-size: 14px;
     color: #343434;
     margin-bottom: 100px;
 }
@@ -1070,7 +1070,7 @@ input#submit-newsletter {
     width: 100%;
 }
 .political-ad .title {
-    font-size: 18px;
+    font-size: 14px;
     padding-bottom: 10px;
 }
 .political-ad .title a,
@@ -1136,7 +1136,7 @@ input#submit-newsletter {
   margin: 15px;
 }
 .reference-description{
-    font-size: 18px;
+    font-size: 14px;
     color:#343434;
     margin: 10px 15px;
 }

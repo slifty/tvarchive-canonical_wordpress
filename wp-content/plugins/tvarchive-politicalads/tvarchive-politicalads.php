@@ -2412,10 +2412,10 @@ function get_market_translations() {
         "RDU" => "Raleigh-Durham-Fayetteville,  NC",
         "RNO" => "Reno, NV",
         "ROA" => "Roanoke-Lynchburg, VA",
-        "SF " => "an Francisco-Oakland-San Jose, CA",
+        "SF" => "San Francisco-Oakland-San Jose, CA",
         "SUX" => "Sioux City, Iowa",
         "TPA" => "Tampa-St. Petersburg, FL",
-        "VA " => "Washington, DC/Hagerstown, MD"
+        "VA" => "Washington, DC/Hagerstown, MD"
     );
 }
 

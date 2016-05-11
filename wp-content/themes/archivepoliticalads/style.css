@@ -25,7 +25,6 @@ h1 {
 }
 body {
   color: #4a4a4a;
-  margin-bottom: 360px;
 }
 a {
   color: #4a90e2;
@@ -48,6 +47,14 @@ div.button {
   padding: 22px 10px;
   text-align: center;
   cursor: pointer;
+}
+
+#wrap {
+	min-height: 100%;
+}
+
+#main {
+	padding-bottom: 800px;
 }
 
 .separator-left {
@@ -123,7 +130,7 @@ div.button {
   padding: 0px;
   margin: 0px;
   font-size: 14px;
-  line-height: 30px;
+  line-height: 20px;
 }
 .subheader-row {
   padding: 13px 100px;
@@ -161,7 +168,7 @@ div.button {
   float: left;
   height: 73px;
   padding: 6px 0 0;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 25px;
   margin-left: 24px;
 }
@@ -193,7 +200,7 @@ div.button {
   color: #E85646;
 }
 .navigation {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: bold;
   margin-top: 25px;
   height: 60px;
@@ -257,12 +264,8 @@ div.button {
 
 /* Footer */
 #footer {
-  background-color: #3a3e4b;
-  height: auto;
-  padding: 50px 100px;
-  position: absolute;
-  left: 0;
-  bottom: 0;
+  margin-top: -800px;
+  clear: both;
 }
 #footer a {
   color: #0a91ab;
@@ -316,6 +319,12 @@ a#footer-sidebar-link{
 #footer .footer-link {
   font-size: 14px;
 }
+
+#footer-content {
+	padding: 50px 0px;
+  background-color: #3a3e4b;
+}
+
 #footer-social-links {}
 #footer-social-links ul {
   margin-top: 160px;
@@ -329,6 +338,21 @@ a#footer-sidebar-link{
 #footer-social-links ul li img {
   height: 50px;
   width: 50px;
+}
+#footer-video-subheader {
+	background-color: #FCB12B;
+	color: #fff;
+}
+
+#footer-video {
+	padding: 20px;
+  background-color: #444444;
+  text-align: center;
+}
+
+#footer-video iframe {
+	width: 700px;
+	height: 400px;
 }
 
 /* Front Page */

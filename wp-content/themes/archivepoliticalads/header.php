@@ -69,32 +69,34 @@
 
     <body class="slug-<?php global $post; echo(is_home()?"home":$post->post_name);?>">
         <div class="container-fluid">
-            <div id="header" class="row">
-                <div id="branding" class="col-xs-8 col-sm-6 col-md-5 col-lg-6">
-                        <a href="<?php bloginfo('url'); ?>/">
-                            <img class="hidden-xs" id="logo" src="<?php bloginfo('template_directory'); ?>/img/brand_logo.png" srcset="<?php bloginfo('template_directory'); ?>/img/brand_logo@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/brand_logo@3x.png 3x" />
-                            <div id="title"><span id="title-political">Political</span><span id="title-ad"> TV Ad</span> <span id="title-library">Archive</span></div>
-                        </a>
-                </div>
-                <div class="col-xs-4 col-sm-6 col-md-7 col-lg-6">
-                    <nav class="navbar navbar-default">
-                        <button type="button" id="menu-icon" class="navbar-toggle" data-toggle="collapse" data-target="#mainNav-collapse" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                       <!--  <a href="#" ></a> -->
-                        <div class="collapse navbar-collapse navigation no-transition" id="mainNav-collapse">
-                            <ul>
-                                <li id="about-nav"><a href="<?php bloginfo('url'); ?>/about">about</a></li>
-                                <li id="blog-nav"><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
-                                <li id="data-nav"><a href="<?php bloginfo('url'); ?>/data">data</a></li>
-                                <li id="resources-nav"><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
-                                <li id="press-nav"><a href="<?php bloginfo('url'); ?>/press">press</a></li>
-                                <li id="browse-nav"><a href="<?php bloginfo('url'); ?>/browse">search</a></li>
-                            </ul>
-                         </div>
-                    </nav>
-                </div>
-            </div>
+            <div id="wrap">
+                <div id="main">
+                    <div id="header" class="row">
+                        <div id="branding" class="col-xs-8 col-sm-6 col-md-5 col-lg-6">
+                                <a href="<?php bloginfo('url'); ?>/">
+                                    <img class="hidden-xs" id="logo" src="<?php bloginfo('template_directory'); ?>/img/brand_logo.png" srcset="<?php bloginfo('template_directory'); ?>/img/brand_logo@2x.png 2x, <?php bloginfo('template_directory'); ?>/img/brand_logo@3x.png 3x" />
+                                    <div id="title"><span id="title-political">Political</span><span id="title-ad"> TV Ad</span> <span id="title-library">Archive</span></div>
+                                </a>
+                        </div>
+                        <div class="col-xs-4 col-sm-6 col-md-7 col-lg-6">
+                            <nav class="navbar navbar-default">
+                                <button type="button" id="menu-icon" class="navbar-toggle" data-toggle="collapse" data-target="#mainNav-collapse" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                               <!--  <a href="#" ></a> -->
+                                <div class="collapse navbar-collapse navigation no-transition" id="mainNav-collapse">
+                                    <ul>
+                                        <li id="about-nav"><a href="<?php bloginfo('url'); ?>/about">about</a></li>
+                                        <li id="blog-nav"><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
+                                        <li id="data-nav"><a href="<?php bloginfo('url'); ?>/data">data</a></li>
+                                        <li id="resources-nav"><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
+                                        <li id="press-nav"><a href="<?php bloginfo('url'); ?>/press">press</a></li>
+                                        <li id="browse-nav"><a href="<?php bloginfo('url'); ?>/browse">search</a></li>
+                                    </ul>
+                                 </div>
+                            </nav>
+                        </div>
+                    </div>

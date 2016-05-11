@@ -229,7 +229,7 @@
                                 for (var property in buckets) {
                                     if (buckets.hasOwnProperty(property)) {
                                         data.push({
-                                            name: property.substring(0, 20) + (property.length > 20?"...":""),
+                                            name: property.substring(0, 18) + (property.length > 18?"...":""),
                                             dates: buckets[property]
                                         });
                                     }

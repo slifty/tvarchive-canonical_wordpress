@@ -789,6 +789,37 @@ function get_markets() {
     return $markets;
 }
 
+
+/**
+ * Get a complete list of the locations with published ads in the system
+ * @return [type] [description]
+ */
+function get_locations() {
+    // TODO: Cache the results of this query
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'ad_instances';
+
+    $query = "SELECT count(distinct wp_identifier) as ad_count,
+                     location as location
+                FROM ".$table_name."
+            GROUP BY location";
+
+    $results = $wpdb->get_results($query);
+
+    $locations = array();
+    foreach($results as $result) {
+        if(trim($result->location) == "")
+            continue;
+
+        $location = array(
+            "name" => $result->location,
+            "count" => $result->ad_count
+        );
+        array_push($locations, $location);
+    }
+    return $locations;
+}
+
 /**
  * Get a complete list of the markets with published ads in the system
  * @return [type] [description]

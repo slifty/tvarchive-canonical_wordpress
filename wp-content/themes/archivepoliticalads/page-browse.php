@@ -22,7 +22,6 @@
             $facet_sponsors = get_metadata_names(get_sponsors());
             $facet_sponsor_types = get_metadata_names(get_sponsor_types());
             $facet_messages = get_metadata_names(get_messages());
-            $facet_markets = get_metadata_names(get_markets());
             $facet_channels = get_metadata_names(get_channels());
             $facet_programs = get_metadata_names(get_programs());
             $facet_ad_types = get_metadata_names(get_ad_types());
@@ -32,7 +31,6 @@
             sort($facet_sponsors);
             sort($facet_sponsor_types);
             sort($facet_messages);
-            sort($facet_markets);
             sort($facet_channels);
             sort($facet_programs);
             sort($facet_ad_types);
@@ -51,7 +49,6 @@
             $sponsor_values = array();
             $sponsor_type_values = array();
             $message_values = array();
-            $market_values = array();
             $channel_values = array();
             $program_values = array();
             $ad_type_values = array();
@@ -82,11 +79,6 @@
             }
             $message_values = array_diff($message_values, $general_values);
 
-            foreach($parsed_query['market'] as $item) {
-                $market_values[] = $item['value'];
-            }
-            $market_values = array_diff($market_values, $general_values);
-
             foreach($parsed_query['network'] as $item) {
                 $channel_values[] = $item['value'];
             }
@@ -107,7 +99,6 @@
             $sponsor_values[] = '';
             $sponsor_type_values[] = '';
             $message_values[] = '';
-            $market_values[] = '';
             $channel_values[] = '';
             $program_values[] = '';
             $ad_type_values[] = '';
@@ -135,10 +126,6 @@
                                 <div class="advanced-facet-value"><input type="text" id="message-facet" value="<?php echo(implode(', ', $message_values)); ?>" /></div>
                             </li>
                             <li>
-                                <div class="advanced-facet-title">Market</div>
-                                <div class="advanced-facet-value"><input type="text" id="market-facet" value="<?php echo(implode(', ', $market_values)); ?>" /></div>
-                            </li>
-                            <li>
                                 <div class="advanced-facet-title">Channel</div>
                                 <div class="advanced-facet-value"><input type="text" id="channel-facet" value="<?php echo(implode(', ', $channel_values)); ?>" /></div>
                             </li>
@@ -164,7 +151,6 @@
             var facetSponsors = ["<?php echo(implode('","', $facet_sponsors)); ?>"];
             var facetSponsorTypes = ["<?php echo(implode('","', $facet_sponsor_types)); ?>"];
             var facetMessages = ["<?php echo(implode('","', $facet_messages)); ?>"];
-            var facetMarkets = ["<?php echo(implode('","', $facet_markets)); ?>"];
             var facetChannels = ["<?php echo(implode('","', $facet_channels)); ?>"];
             var facetPrograms = ["<?php echo(implode('","', $facet_programs)); ?>"];
             var facetAdTypes = ["<?php echo(implode('","', $facet_ad_types)); ?>"];
@@ -222,7 +208,6 @@
                 var sponsors = $("#sponsor-facet").val().split(",");
                 var sponsorTypes = $("#sponsor-type-facet").val().split(",");
                 var messages = $("#message-facet").val().split(",");
-                var markets = $("#market-facet").val().split(",");
                 var channels = $("#channel-facet").val().split(",");
                 var programs = $("#program-facet").val().split(",");
                 var ad_types = $("#ad-type-facet").val().split(",");
@@ -252,13 +237,6 @@
                     var value = messages[index];
                     if(value.trim() != "") {
                         queryComponents.push('message:"' + value.trim() + '"');
-                    }
-                }
-
-                for (var index in markets) {
-                    var value = markets[index];
-                    if(value.trim() != "") {
-                        queryComponents.push('market:"' + value.trim() + '"');
                     }
                 }
 
@@ -302,7 +280,6 @@
                 preparedAutoComplete($("#sponsor-facet"), facetSponsors);
                 preparedAutoComplete($("#sponsor-type-facet"), facetSponsorTypes);
                 preparedAutoComplete($("#message-facet"), facetMessages);
-                preparedAutoComplete($("#market-facet"), facetMarkets);
                 preparedAutoComplete($("#channel-facet"), facetChannels);
                 preparedAutoComplete($("#program-facet"), facetPrograms);
                 preparedAutoComplete($("#ad-type-facet"), facetAdTypes);

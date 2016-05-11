@@ -229,7 +229,7 @@
                                 for (var property in buckets) {
                                     if (buckets.hasOwnProperty(property)) {
                                         data.push({
-                                            name: property,
+                                            name: property.substring(0, 20) + (property.length > 20?"...":""),
                                             dates: buckets[property]
                                         });
                                     }
@@ -272,6 +272,7 @@
             </div>
             <?php } ?>
 
+            <?php if($ad_air_count > 0) { ?>
             <div id="download-header" class="header-row row">
                 <div class="col-lg-12">
                     <h1>Download</h1>
@@ -294,6 +295,7 @@
                     </form>
                 </div>
             </div>
+            <?php } ?>
 
             <?php
                 $references = get_field('references');

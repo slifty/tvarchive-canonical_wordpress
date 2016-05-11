@@ -122,6 +122,7 @@ function load_ad_data() {
     // STEP 0: Prepare lookup tables
     $network_lookup = get_network_metadata();
     $sponsor_lookup = get_sponsor_metadata();
+    $market_translations = get_market_translations();
     $transcript_lookup = get_transcripts();
 
     ///////
@@ -333,7 +334,7 @@ function load_ad_data() {
         foreach($instances as $instance) {
             $network = $instance->chan;
             $market = array_key_exists($network, $network_lookup)?$network_lookup[$network]['market']:'';
-            $location = array_key_exists($network, $network_lookup)?$network_lookup[$network]['location']:'';
+            $location = array_key_exists($market, $market_translations)?$market_translations[$market]:'';
             $start_time = date("Y-m-d H:i:s", $instance->start);
             $end_time = date("Y-m-d H:i:s", $instance->end);
             $date_created = date("Y-m-d H:i:s");
@@ -1989,7 +1990,7 @@ function get_ad_instances($query = '', $data_since = false, $page = -1){
         $row = [
             "wp_identifier" => $wp_identifier,
             "network" => $network,
-            "market" => $market,
+            // "market" => $market,
             "location" => $location,
             "program" => $program,
             "program_type" => $program_type,
@@ -2388,6 +2389,34 @@ function export_send_footer($output='csv') {
             echo("]");
             break;
     }
+}
+
+function get_market_translations() {
+    return array(
+        "BOS" => "Boston, MA/Manchester, NH",
+        "CAE" => "Columbia, SC",
+        "CID" => "Ceder Rapids-Waterloo-Iowa City-Dublin, Iowa",
+        "CLE" => "Cleveland, Ohio",
+        "CLT" => "Charlotte, NC",
+        "COS" => "Colorado Springs-Pueblo, CO",
+        "CVG" => "Cincinnati, OH",
+        "DEN" => "Denver, CO",
+        "DSM" => "Des Moines-Ames, Iowa",
+        "GSP" => "Greenville-Spartanburg, SC/Asheville-Anderson, NC",
+        "LAS" => "Las Vegas, NV",
+        "MCO" => "Orlando-Daytona Beach-Melbourne, FL",
+        "MIA" => "Miami-Fort Lauderdale, FL",
+        "NYC" => "New York City, NY",
+        "ORF" => "Norfolk-Portsmouth-Newport News, NC",
+        "PHL" => "Philadelphia, PA",
+        "RDU" => "Raleigh-Durham-Fayetteville,  NC",
+        "RNO" => "Reno, NV",
+        "ROA" => "Roanoke-Lynchburg, VA",
+        "SF " => "an Francisco-Oakland-San Jose, CA",
+        "SUX" => "Sioux City, Iowa",
+        "TPA" => "Tampa-St. Petersburg, FL",
+        "VA " => "Washington, DC/Hagerstown, MD"
+    );
 }
 
 function get_archive_image_url($object) {

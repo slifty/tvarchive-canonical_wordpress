@@ -61,7 +61,7 @@
             <div id="post-navigation">
                 <div id="prev" class=" post-navigation-button">
                     <?php
-                        if($pagination_index > 0) {
+                        if($pagination_index > 1) {
                             ?>
                             <a href="<?php echo($blog_permalink.($pagination_index - 1));?>">Previous</a>
                             <?php

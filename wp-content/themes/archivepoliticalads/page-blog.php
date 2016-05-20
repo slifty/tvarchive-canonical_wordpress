@@ -16,10 +16,12 @@
     <div class="col-xs-12 col-sm-12 col-md-7 blog-main">
         <?php
         $pagination_index = get_query_var('page', 0);
+        if($pagination_index < 1)
+            $pagination_index = 1;
 
         $args = array(
             'posts_per_page'   => 4,
-            'offset'           => $pagination_index * 3);
+            'offset'           => ($pagination_index - 1) * 3);
 
         $posts = get_posts($args);
         if ( sizeof($posts) > 0 ) {
@@ -59,7 +61,7 @@
             <div id="post-navigation">
                 <div id="prev" class=" post-navigation-button">
                     <?php
-                        if($pagination_index > 0) {
+                        if($pagination_index > 1) {
                             ?>
                             <a href="<?php echo($blog_permalink.($pagination_index - 1));?>">Previous</a>
                             <?php

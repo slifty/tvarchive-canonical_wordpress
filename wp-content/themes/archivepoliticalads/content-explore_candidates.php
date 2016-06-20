@@ -2,7 +2,6 @@
     <div class="col-md-12">
         <div id="explore-candidates-title" class="explore-subtitle-row text-center">
             <h3>Political Ads by Candidate</h3>
-            <p></p>
         </div>
     </div>
 </div>

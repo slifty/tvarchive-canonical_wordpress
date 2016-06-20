@@ -569,6 +569,10 @@ a#footer-sidebar-link{
 
 /* Explore */
 
+#home-explore-section{
+	padding-bottom: 2em;
+}
+
 .explore-subtitle-row {
   padding: 0px 100px;
   margin-bottom: 40px;
@@ -648,7 +652,6 @@ a#footer-sidebar-link{
 	color: white;
 }
 
-
 .explore-list {
   list-style: none;
   padding: 0px auto;
@@ -719,8 +722,6 @@ a#footer-sidebar-link{
 .explore-item:nth-child(odd) .explore-bar{
 	background: #d0021b;
 }
-
-
 
 .explore-show-more{
     color: #fff;

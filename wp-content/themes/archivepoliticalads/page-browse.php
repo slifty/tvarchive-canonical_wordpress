@@ -108,41 +108,63 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <form id="advanced-search-form" action="<?php bloginfo('url'); ?>/browse">
                     <div id="advanced-facets">
-                        <ul>
-                            <li>
-                                <div class="advanced-facet-title">Candidate</div>
-                                <div class="advanced-facet-value"><input type="text" id="candidate-facet" value="<?php echo(implode(', ', $candidate_values)); ?>" /></div>
-                            </li>
-                            <li>
-                                <div class="advanced-facet-title">Sponsor</div>
-                                <div class="advanced-facet-value"><input type="text" id="sponsor-facet" value="<?php echo(implode(', ', $sponsor_values)); ?>" /></div>
-                            </li>
-                            <li>
-                                <div class="advanced-facet-title">Sponsor Type</div>
-                                <div class="advanced-facet-value"><input type="text" id="sponsor-type-facet" value="<?php echo(implode(', ', $sponsor_type_values)); ?>" /></div>
-                            </li>
-                            <li>
-                                <div class="advanced-facet-title">Message</div>
-                                <div class="advanced-facet-value"><input type="text" id="message-facet" value="<?php echo(implode(', ', $message_values)); ?>" /></div>
-                            </li>
-                            <li>
-                                <div class="advanced-facet-title">Channel</div>
-                                <div class="advanced-facet-value"><input type="text" id="channel-facet" value="<?php echo(implode(', ', $channel_values)); ?>" /></div>
-                            </li>
-                            <li>
-                                <div class="advanced-facet-title">Program</div>
-                                <div class="advanced-facet-value"><input type="text" id="program-facet" value="<?php echo(implode(', ', $program_values)); ?>" /></div>
-                            </li>
-                            <li>
-                                <div class="advanced-facet-title">Ad Type</div>
-                                <div class="advanced-facet-value"><input type="text" id="ad-type-facet" value="<?php echo(implode(', ', $ad_type_values)); ?>" /></div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="advanced-dates">
-
+                        <fieldset>
+                            <legend>Candidates and Sponsors</legend>
+                            <div class="advanced-search-facet row">
+                                <label for="candidate-facet" class="col-md-2 col-sm-12">Candidate</label>
+                                <input type="text" class="col-md-10 col-sm-12" id="candidate-facet" name="candidate-facet" placeholder="search by candidate full, last or first name" value="<?php echo(implode(', ', $candidate_values)); ?>" />
+                            </div>
+                            <div class="advanced-search-facet row">
+                                <label for="sponsor-facet" class="col-md-2 col-sm-12">Sponsor</label>
+                                <input type="text" class="col-md-10 col-sm-12" id="sponsor-facet" name="sponsor-facet" placeholder="search by full or partial sponsor name" value="<?php echo(implode(', ', $sponsor_values)); ?>" />
+                            </div>
+                            <div class="advanced-search-facet row">
+                                <label for="sponsor-type-facet" class="col-md-2 col-sm-12">Sponsor Type</label>
+                                <input type="text" class="col-md-10 col-sm-12" id="sponsor-type-facet" name="sponsor-type-facet" placeholder="search by sponsor type (candidate committee, super PAC, etc)" value="<?php echo(implode(', ', $sponsor_type_values)); ?>" />
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Ad</legend>
+                            <div class="advanced-search-facet row">
+                                <label for="message-facet" class="col-md-2 col-sm-12">Subject</label>
+                                <input type="text" class="col-md-10 col-sm-12" id="message-facet" name="message-facet" placeholder="search by ad subject (immigration, taxes, etc)" value="<?php echo(implode(', ', $message_values)); ?>" />
+                            </div>
+                            <div class="advanced-search-facet row">
+                                <fieldset class="ad-type-facet">
+                                    <legend class="col-md-2 col-sm-12">
+                                        Ad Type
+                                    </legend>
+                                    <div class="col-md-10 col-sm-12">
+                                        <div class="checkbox">
+                                            <label for="issue" class="col-md-2 col-sm-12">Issue</label>
+                                            <input type="checkbox" name="issue" id="issue" value="issue" />
+                                        </div>
+                                        <div class="checkbox">
+                                            <label for="campaign" class="col-md-2 col-sm-12">Campaign</label>
+                                            <input type="checkbox" name="campaign" id="campaign" value="campaign" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Airing History</legend>
+                            <div class="advanced-search-facet row">
+                                <label for="market-facet" class="col-md-2 col-sm-12">Market</label>
+                                <input type="text" class="col-md-10 col-sm-12" id="market-facet" name="market-facet" value="<?php echo(implode(', ', $market_values)); ?>" />
+                            </div>
+                            <div class="advanced-search-facet row">
+                                <label for="channel-facet" class="col-md-2 col-sm-12">Channel</label>
+                                <input type="text" class="col-md-10 col-sm-12" id="channel-facet" name="channel-facet" value="<?php echo(implode(', ', $channel_values)); ?>" />
+                            </div>
+                            <div class="advanced-search-facet row">
+                                <label for="program-facet" class="col-md-2 col-sm-12">Program</label>
+                                <input type="text" class="col-md-10 col-sm-12" id="program-facet" name="program-facet" value="<?php echo(implode(', ', $program_values)); ?>" />
+                            </div>
+                        </fieldset>
                     </div>
                     <input type="hidden" id="advanced-search-value" name="q" value="" />
+                    <input type="submit" class="btn primary" id="advanced-search-submit" value="Search" />
                 </form>
             </div>
         </div>
@@ -210,7 +232,8 @@
                 var messages = $("#message-facet").val().split(",");
                 var channels = $("#channel-facet").val().split(",");
                 var programs = $("#program-facet").val().split(",");
-                var ad_types = $("#ad-type-facet").val().split(",");
+                var ad_types = [];
+                    ad_types.push($("#ad-type-facet input:checked").val());
 
                 for (var index in candidates) {
                     var value = candidates[index];
@@ -263,6 +286,8 @@
 
                 var queryString = queryComponents.join(" OR ");
                 $("#advanced-search-value").val(queryString);
+
+                console.log(queryString);
             }
 
             $('form').each(function() {
@@ -282,7 +307,7 @@
                 preparedAutoComplete($("#message-facet"), facetMessages);
                 preparedAutoComplete($("#channel-facet"), facetChannels);
                 preparedAutoComplete($("#program-facet"), facetPrograms);
-                preparedAutoComplete($("#ad-type-facet"), facetAdTypes);
+                //preparedAutoComplete($("#ad-type-facet"), facetAdTypes);
 
                 // Parse results on submit
                 $("#advanced-search-form").submit(function() {

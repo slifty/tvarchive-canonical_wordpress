@@ -1096,6 +1096,48 @@ input#submit-newsletter {
 }
 /* Browse / Search */
 
+form#advanced-search-form{
+	font-size: 16px;
+}
+#advanced-search-form .advanced-search-facet{
+	margin-bottom: 1rem;
+}
+#advanced-search-form fieldset{
+	margin-bottom: 3em;
+}
+#advanced-search-form fieldset fieldset{
+	margin-bottom: 0;
+}
+#advanced-search-form fieldset legend{
+	font-size: 1.25em;
+	border:none;
+}
+#advanced-search-form label, #advanced-search-form fieldset fieldset legend{
+	padding: 10px 16px;
+	font-size: 1em;
+	font-weight: normal;
+	display:inline-block;
+}
+
+#advanced-search-form input[type="text"]{
+	padding: 10px 16px;
+	background: none;
+	box-shadow:none;
+	border-radius: 3px;
+}
+#advanced-search-form input[type="submit"]{
+	color: #fff;
+  background-color: #4a90e2;
+  height: 44px;
+  border-radius: 4px;
+  border: none;
+  box-shadow: none;
+  margin: 2rem auto;
+  width: auto;
+  padding: 6px 2em;
+  float: right;
+}
+
 #browse-header {
     background-color: #0a91ab;
 }
@@ -1104,11 +1146,12 @@ input#submit-newsletter {
     padding-bottom: 0px;
 }
 #browse-header-advanced {
-    padding-top: 0px;
+    padding-top: 9rem;
     padding-bottom: 0px;
+    background: white;
 }
 .advanced-facet-title {
-	color: #FFF;
+	color: #4a4a4a;
 	padding-top: 5px;
 }
 .advanced-facet-value input {
@@ -1117,7 +1160,7 @@ input#submit-newsletter {
 #browse-header-toggle {
     padding-top: 5px;
     text-align: right;
-    color: #FFF;
+    background: white;
 }
 #search-toggle {
 	cursor: pointer;

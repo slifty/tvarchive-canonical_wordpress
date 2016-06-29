@@ -72,7 +72,7 @@ function archivepoliticalads_scripts() {
 
     // Set up datamaps
     wp_deregister_script('datamaps');
-    wp_register_script( 'datamaps', get_template_directory_uri() . '/js/datamaps.usa.min.js', array(), '0.5.0' );
+    wp_register_script( 'datamaps', get_template_directory_uri() . '/js/datamaps.usa.js', array(), '0.5.0' );
     wp_enqueue_script('datamaps');
 
     // Load in bootstrap

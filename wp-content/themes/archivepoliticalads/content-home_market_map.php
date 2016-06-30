@@ -1,5 +1,16 @@
 <div class="row">
     <div class="market-map-container">
+        <ul class="nav nav-pills" id="homepage-market-map-pills" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#" aria-controls="All Ads" role="tab" data-toggle="pill">All Ads</a>
+            </li>
+            <li role="presentation">
+                <a href="#" aria-controls="Ads before July 1" role="tab" data-toggle="pill">Ads before July 1</a>
+            </li>
+            <li role="presentation">
+                <a href="#" aria-controls="Ads since July 1" role="tab" data-toggle="pill">Ads since July 1</a>
+            </li>
+        </ul>
         <div id="homepage-market-map"></div>
     </div>
 </div>

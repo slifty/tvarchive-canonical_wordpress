@@ -380,7 +380,18 @@ a#footer-sidebar-link{
 	max-width: 1200px;
 	margin: 0 auto;
 	border-top: 1px solid #eee;
+	text-align: center;
 }
+#homepage-market-map-pills{
+	margin-top: 3em;
+	margin-bottom: 0;
+	display: inline-block;
+}
+#homepage-market-map{
+	text-align:left;
+}
+
+
 
 #home-header-search {
   background-color: rgba(232, 86, 69, 0.90);
@@ -620,27 +631,27 @@ a#footer-sidebar-link{
 	margin-bottom: 3em;
 }
 
-#candidate-race-pills > li + li {
+#candidate-race-pills > li + li, #homepage-market-map-pills > li + li{
 	margin-left: 0;
 }
 
-#candidate-race-pills > li > a{
+#candidate-race-pills > li > a, #homepage-market-map-pills > li > a{
 	background: #efefef;
 	color: #3a3e4b;
 	border-radius: 0;
 }
 
-#candidate-race-pills > li:first-child > a{
+#candidate-race-pills > li:first-child > a, #homepage-market-map-pills > li:first-child > a{
 	border-bottom-left-radius: 4px;
 	border-top-left-radius: 4px;
 }
 
-#candidate-race-pills > li:last-child > a{
+#candidate-race-pills > li:last-child > a, #homepage-market-map-pills > li:last-child > a{
 	border-bottom-right-radius: 4px;
 	border-top-right-radius: 4px;
 }
 
-#candidate-race-pills > li.active > a{
+#candidate-race-pills > li.active > a, #homepage-market-map-pills > li.active > a{
 	background: #3a3e4b;
 	color: white;
 }

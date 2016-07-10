@@ -357,38 +357,42 @@ a#footer-sidebar-link{
 
 /* Front Page */
 
-#home-header {
-  background-image: url('img/home_header.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  position: relative;
-  margin-left: -15px;
-  margin-right: -15px;
-}
-#home-header-content {
-  height: 378px;
-  background-color: rgba(36, 94, 131, 0.82);
-}
-#home-header-introduction {
+#home-header-section {
+	padding: 50px 100px 20px;
 }
 #home-header-title {
-  padding: 0px 115px;
-  padding-top: 50px;
-  font-weight: bold;
-  font-size: 36px;
-  color: #fff;
-  line-height: 39px;
+	font-size: 2.25em;
+	font-weight: normal;
+}
+#home-header-title span.total-airing-count{
+	color: #e85646;
+}
+#home-header-title span.total-market-count{
+	color: #0094AF;
 }
 #home-header-explanation {
-  padding: 0px 115px;
-  padding-top: 20px;
-  font-size: 20px;
-  line-height: 26px;
-  color: #fff;
+	font-size: 1.25em;
 }
 #home-header-explanation p {
   margin: 0;
 }
+.market-map-container{
+	max-width: 1200px;
+	margin: 0 auto;
+	border-top: 1px solid #eee;
+	text-align: center;
+}
+#homepage-market-map-pills{
+	margin-top: 3em;
+	margin-bottom: 0;
+	display: inline-block;
+}
+#homepage-market-map{
+	text-align:left;
+}
+
+
+
 #home-header-search {
   background-color: rgba(232, 86, 69, 0.90);
   height: 75px;
@@ -627,27 +631,27 @@ a#footer-sidebar-link{
 	margin-bottom: 3em;
 }
 
-#candidate-race-pills > li + li {
+#candidate-race-pills > li + li, #homepage-market-map-pills > li + li{
 	margin-left: 0;
 }
 
-#candidate-race-pills > li > a{
+#candidate-race-pills > li > a, #homepage-market-map-pills > li > a{
 	background: #efefef;
 	color: #3a3e4b;
 	border-radius: 0;
 }
 
-#candidate-race-pills > li:first-child > a{
+#candidate-race-pills > li:first-child > a, #homepage-market-map-pills > li:first-child > a{
 	border-bottom-left-radius: 4px;
 	border-top-left-radius: 4px;
 }
 
-#candidate-race-pills > li:last-child > a{
+#candidate-race-pills > li:last-child > a, #homepage-market-map-pills > li:last-child > a{
 	border-bottom-right-radius: 4px;
 	border-top-right-radius: 4px;
 }
 
-#candidate-race-pills > li.active > a{
+#candidate-race-pills > li.active > a, #homepage-market-map-pills > li.active > a{
 	background: #3a3e4b;
 	color: white;
 }
@@ -1097,19 +1101,62 @@ input#submit-newsletter {
 }
 /* Browse / Search */
 
+form#advanced-search-form{
+	font-size: 16px;
+}
+#advanced-search-form .advanced-search-facet{
+	margin-bottom: 1rem;
+}
+#advanced-search-form fieldset{
+	margin-bottom: 3em;
+}
+#advanced-search-form fieldset fieldset{
+	margin-bottom: 0;
+}
+#advanced-search-form fieldset legend{
+	font-size: 1.25em;
+	border:none;
+}
+#advanced-search-form label, #advanced-search-form fieldset fieldset legend{
+	padding: 10px 16px;
+	font-size: 1em;
+	font-weight: normal;
+	display:inline-block;
+}
+
+#advanced-search-form input[type="text"]{
+	padding: 10px 16px;
+	background: none;
+	box-shadow:none;
+	border-radius: 3px;
+}
+#advanced-search-form input[type="submit"]{
+	color: #fff;
+  background-color: #4a90e2;
+  height: 44px;
+  border-radius: 4px;
+  border: none;
+  box-shadow: none;
+  margin: 2rem auto;
+  width: auto;
+  padding: 6px 2em;
+  float: right;
+}
+
 #browse-header {
     background-color: #0a91ab;
 }
 #browse-header-search {
     padding-top: 0px;
-    padding-bottom: 0px;
+    padding-bottom: 3em;
 }
 #browse-header-advanced {
-    padding-top: 0px;
+    padding-top: 9rem;
     padding-bottom: 0px;
+    background: white;
 }
 .advanced-facet-title {
-	color: #FFF;
+	color: #4a4a4a;
 	padding-top: 5px;
 }
 .advanced-facet-value input {
@@ -1118,7 +1165,7 @@ input#submit-newsletter {
 #browse-header-toggle {
     padding-top: 5px;
     text-align: right;
-    color: #FFF;
+    background: white;
 }
 #search-toggle {
 	cursor: pointer;

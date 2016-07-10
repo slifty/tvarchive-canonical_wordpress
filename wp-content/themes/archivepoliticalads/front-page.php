@@ -1,14 +1,21 @@
 <?php get_header(); ?>
-    <div id="home-header" class="row">
+    <div id="home-header-section" class="row">
         <div id="home-header-content">
             <div id="home-header-introduction">
-                <div id="home-header-title" class="col-xs-12">
-                    <?php the_field('home_header', 'option'); ?>
+                <div id="home-header-title" class="col-sm-12 col-md-4">
+                    <h1>Political ads broadcast <span class="total-airing-count">175,515 times</span> over <span class="total-market-count">23 markets</span></h1>
                 </div>
-
-                <div id="home-header-explanation" class="col-xs-12 col-md-12 ">
+                <div id="home-header-explanation" class="col-sm-12 col-md-8">
                     <?php the_field('home_description', 'option'); ?>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="home-market-map-section">
+            <div class="col-xs-12">
+                <?php get_template_part('content', 'home_market_map'); ?>
             </div>
         </div>
     </div>

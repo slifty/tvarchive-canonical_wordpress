@@ -61,6 +61,9 @@ wp-content/*
 
 # ignore these plugins
 wp-content/plugins/hello.php
+wp-content/plugins/akismet/
+wp-content/plugins/index.php
+wp-content/themes/index.php
 
 # ignore specific themes
 wp-content/themes/twenty*/

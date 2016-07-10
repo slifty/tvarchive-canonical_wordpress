@@ -280,21 +280,34 @@
     /* Explore*/
     #home-explore-section {}
     .explore-subtitle-row {
-        padding-left: 15px;
         margin-bottom: 10px;
         margin-top: 15px;
+        padding: 0 15px;
     }
     .explore-list {
     	margin-bottom: 15px;
     	padding: 0px 15px;
     }
     .explore-list .explore-item {
-        width: 157px;
-        height: 141px;
+        width: 100%;
+        margin-bottom: 15px;
     }
-    .explore-label {
-        width: 65%;
-        font-size: 12px;
+    .explore-list .explore-label {
+        width: 100%;
+        max-width: 100%;
+        font-size: 16px;
+        margin-bottom: 5px;
+        padding-right: 0;
+    }
+    .explore-list .explore-label p{
+    		display: inline-block;
+    		margin-right: 10px;
+    }
+    .explore-list .explore-label small{
+    		display: inline-block;
+    }
+    .explore-list .explore-bar-container{
+    	width: 100%;
     }
     /*Browse*/
     #search-results-total {
@@ -436,14 +449,14 @@
     	margin-bottom: 15px;
     	padding: 0px 15px;
     }
-    .explore-list .explore-item {
+    /*.explore-list .explore-item {
         width: 157px;
         height: 141px;
     }
     .explore-label {
         width: 65%;
         font-size: 12px;
-    }
+    }*/
 
     /* Page level*/
 

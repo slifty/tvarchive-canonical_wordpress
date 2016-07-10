@@ -605,13 +605,13 @@ function get_candidates() {
     // TODO: Cache the results of this query
     global $wpdb;
     $table_name = $wpdb->prefix . 'postmeta';
-    $query = "SELECT count(*) as ad_count,
-                     meta_value as ad_candidate
-                FROM ".$table_name."
-               WHERE meta_key LIKE 'ad_candidates_%_ad_candidate'
-                 AND post_id IN (select ID from wp_posts where post_status = 'publish')
-            GROUP BY meta_value
-            ORDER BY ad_count desc";
+    $query = "SELECT count(*) as ad_count, a.meta_value as ad_candidate, b.meta_value as ad_race from ".$table_name." a
+                    inner join ".$table_name." b on a.post_id = b.post_id
+                    WHERE a.meta_key LIKE 'ad_candidates_%_ad_candidate' and b.meta_key = 'ad_race'
+                    AND a.post_id IN (select ID from wp_posts where post_status = 'publish')
+                    GROUP BY ad_candidate order by ad_count desc";
+
+
 
     $results = $wpdb->get_results($query);
 
@@ -622,13 +622,48 @@ function get_candidates() {
 
         $candidate = array(
             "name" => $result->ad_candidate,
-            "count" => $result->ad_count
+            "count" => $result->ad_count,
+            "race" => $result->ad_race
         );
         array_push($candidates, $candidate);
     }
     return $candidates;
 }
 
+
+/**
+ * Get a complete list of the races for which ads are published in the system
+ * @return [type] [description]
+ */
+function get_races() {
+    // TODO: Cache the results of this query
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'postmeta';
+    $query = "SELECT count(*) as ad_count,
+                     meta_value as ad_race
+                FROM ".$table_name."
+               WHERE meta_key LIKE 'ad_race'
+                 AND post_id IN (select ID from wp_posts where post_status = 'publish')
+            GROUP BY meta_value
+            ORDER BY ad_count desc";
+
+
+
+    $results = $wpdb->get_results($query);
+
+    $races = array();
+    foreach($results as $result) {
+        if(trim($result->ad_race) == "")
+            continue;
+
+        $race = array(
+            "name" => $result->ad_race,
+            "count" => $result->ad_count
+        );
+        array_push($races, $race);
+    }
+    return $races;
+}
 
 /**
  * Get a complete list of the sponsors with published ads in the system

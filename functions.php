@@ -1,8 +1,5 @@
 <?php
 
-// Load the theme config file
-include('theme-config.php');
-
   /////////////////
   // Add features image for Blog view
   add_theme_support( 'post-thumbnails' );

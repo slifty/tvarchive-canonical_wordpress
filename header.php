@@ -8,6 +8,7 @@
 // Add a call to wp_head() before the closing </head> tag. Plugins use this action hook to add their own scripts, stylesheets, and other functionality.
 // Do not link the theme stylesheets in the Header template. Use the wp_enqueue_scripts action hook in a theme function instead.
 // Here's an example of a correctly-formatted HTML5 compliant head area:
+//
 ?>
     <!DOCTYPE html>
     <html <?php language_attributes(); ?>>

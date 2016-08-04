@@ -18,7 +18,7 @@
 
 var marketData = [];
 
- var bubblesData = [
+    var bubblesData = [
         {
            radius: 39,
            num: '24,161',
@@ -245,7 +245,7 @@ var marketData = [];
            longitude:-80,
            market: 'ROA'
          }
-        ]
+    ]
 
 
 

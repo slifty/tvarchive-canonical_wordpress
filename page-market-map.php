@@ -19,11 +19,19 @@
         </div>
     </div>
     <div class="row">
-        <div id="home-market-map-section">
+        <div id="market-map-section">
             <div class="col-xs-12">
                 <?php get_template_part('content', 'home_market_map'); ?>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div id="most-aired-ads-section">
+            <div class="col-xs-12">
+                <?php get_template_part('content', 'market_map_ads'); ?>
+            </div>
+        </div>
+    </div>
+
 
     <?php get_footer(); ?>

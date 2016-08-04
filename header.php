@@ -38,22 +38,22 @@
         <?php wp_head(); ?>
 
         <script type="text/javascript">
-            $(function() {
-                var explore_sliders = $(".explore-slider");
-                explore_sliders.owlCarousel({
-                  itemsCustom : [
-                    [0, 2],
-                    [300, 2],
-                    [550, 3],
-                    [700, 4],
-                    [800, 4],
-                    [1270, 5],
-                    [1500, 6],
-                    [1700, 7],
-                    [1900, 8],
-                  ]
-                });
-            });
+            // $(function() {
+            //     var explore_sliders = $(".explore-slider");
+            //     explore_sliders.owlCarousel({
+            //       itemsCustom : [
+            //         [0, 2],
+            //         [300, 2],
+            //         [550, 3],
+            //         [700, 4],
+            //         [800, 4],
+            //         [1270, 5],
+            //         [1500, 6],
+            //         [1700, 7],
+            //         [1900, 8],
+            //       ]
+            //     });
+            // });
         </script>
 
         <script src="//archive.org/includes/analytics.js" type="text/javascript"></script>

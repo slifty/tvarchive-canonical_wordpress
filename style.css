@@ -580,9 +580,26 @@ a#footer-sidebar-link{
 #download-subheader {
   background-color: #8ab858;
 }
-#download-data-button {
-  height: 50px;
-  width: 100%;
+
+.data-download-group-container{
+	padding: 1em;
+	background: #efefef;
+	text-align: center;
+}
+
+.data-download-group-container h2, .data-download-group-container p{
+	text-align: left;
+}
+
+.data-download{
+	display: inline-block;
+	text-align: center;
+	margin: 1em .5em .5em;
+}
+
+.btn.data-download__button {
+	display:block;
+  width: auto;
   background-color: #4a90e2;
   color: #fff;
   font-size: 14px;
@@ -592,6 +609,76 @@ a#footer-sidebar-link{
   border-radius: 3px;
   box-shadow: none;
 }
+
+.btn.data-download_button:hover{
+	color: #fff;
+}
+
+.data-download__size{
+	font-size: .75em;
+}
+
+.metadata-table-collapse-toggle{
+	padding: 1.5em 2em;
+	width: 100%;
+	border: none;
+	font-size: 14px;
+	display: block;
+	background: #CFD7DD;
+	position:relative;
+	text-align: left;
+	color: #4a90e2;
+	margin-top: 20px;
+}
+
+.metadata-table-collapse-toggle:after{
+	display: block;
+	content: attr(data-description);
+	color: #343434;
+}
+
+.metadata-table-collapse-toggle:before{
+	content: "+";
+	position: absolute;
+	font-size: 3.5em;
+	color: white;
+	right: 20px;
+	top: 34px;
+	line-height: 0;
+}
+
+.metadata-table-collapse-toggle[aria-expanded="true"]:before{
+	content: "–";
+}
+
+.metadata-table-container table{
+	width: 100%;
+	margin-top: 20px;
+}
+
+.metadata-table-container table thead{
+	background: #6CADC9;
+}
+
+.metadata-table-container table thead th{
+	color: white;
+	font-size: 14px;
+	text-align:left;
+	padding: 10px 20px;
+	font-weight: normal;
+}
+
+.metadata-table-container table tbody tr{
+	border-bottom: 1px solid #ccc;
+}
+
+.metadata-table-container table tbody td{
+	font-size: 14px;
+	color: #343434;
+	padding: 10px 20px;
+}
+
+
 
 /* Visualization */
 #visualization-header {

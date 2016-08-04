@@ -10,39 +10,39 @@
             $post_metadata = get_fields();
 
             $ad_embed_url = $post_metadata['embed_url'];
-            $ad_notes = array_key_exists('ad_notes', $post_metadata)?$post_metadata['ad_notes']:'';
-            $transcript = array_key_exists('transcript', $post_metadata)?$post_metadata['transcript']:'';
-            $archive_id = array_key_exists('archive_id', $post_metadata)?$post_metadata['archive_id']:'';
-            $ad_sponsors = (array_key_exists('ad_sponsors', $post_metadata) && $post_metadata['ad_sponsors'])?$post_metadata['ad_sponsors']:array();
-            $ad_candidates = (array_key_exists('ad_candidates', $post_metadata) && $post_metadata['ad_candidates'])?$post_metadata['ad_candidates']:array();
-            $ad_subjects = (array_key_exists('ad_subjects', $post_metadata) && $post_metadata['ad_subjects'])?$post_metadata['ad_subjects']:array();
-            $ad_type = array_key_exists('ad_type', $post_metadata)?$post_metadata['ad_type']:'';
-            $ad_message = array_key_exists('ad_message', $post_metadata)?$post_metadata['ad_message']:'';
-            $ad_air_count = array_key_exists('air_count', $post_metadata)?$post_metadata['air_count']:0;
-            $ad_market_count = array_key_exists('market_count', $post_metadata)?$post_metadata['market_count']:0;
-            $ad_network_count = array_key_exists('network_count', $post_metadata)?$post_metadata['network_count']:0;
-            $ad_first_seen = (array_key_exists('first_seen', $post_metadata)&&$post_metadata['first_seen'])?$post_metadata['first_seen']:'--';
-            $ad_last_seen = (array_key_exists('last_seen', $post_metadata)&&$post_metadata['last_seen'])?$post_metadata['last_seen']:'--';
+            $political_ad = new PoliticalAdArchiveAd($post_id);
+            $ad_notes = $political_ad->notes;
+            $transcript = $political_ad->transcript;
+            $archive_id = $political_ad->archive_id;
+            $ad_sponsor_names = $political_ad->sponsor_names;
+            $ad_sponsor_types = $political_ad->sponsor_types;
+            $ad_candidate_names = $political_ad->candidate_names;
+            $ad_subjects = $political_ad->subjects;
+            $ad_type = $political_ad->type;
+            $ad_message = $political_ad->message;
+            $ad_air_count = $political_ad->air_count;
+            $ad_market_count = $political_ad->market_count;
+            $ad_network_count = $political_ad->network_count;
+            $ad_first_seen = $political_ad->first_seen;
+            $ad_last_seen = $political_ad->last_seen;
 
             // Create sponsor links
-            $ad_sponsor_names = extract_sponsor_names($ad_sponsors);
             foreach($ad_sponsor_names as $index => $sponsor_name) {
                 $ad_sponsor_names[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("sponsor:\"".$sponsor_name."\"")."'>".$sponsor_name."</a>";
             }
 
             // Create sponsor type links
-            $ad_sponsor_types = extract_sponsor_types($ad_sponsors);
             foreach($ad_sponsor_types as $index => $sponsor_type) {
-                $ad_sponsor_types[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("sponsor_type:\"".$sponsor_type."\"")."''>".get_sponsor_type_value($sponsor_type)."</a>";
+                $ad_sponsor_types[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("sponsor_type:\"".$sponsor_type."\"")."''>".$sponsor_type."</a>";
             }
             // Create candidate links
-            foreach($ad_candidates as $index => $ad_candidate) {
-                $ad_candidates[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("candidate:\"".$ad_candidate['ad_candidate']."\"")."''>".$ad_candidate['ad_candidate']."</a>";
+            foreach($ad_candidate_names as $index => $ad_candidate) {
+                $ad_candidates[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("candidate:\"".$ad_candidate."\"")."''>".$ad_candidate."</a>";
             }
 
             // Create subject links
             foreach($ad_subjects as $index => $ad_subject) {
-                $ad_subjects[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("subject:\"".$ad_subject['ad_subject']."\"")."''>".$ad_subject['ad_subject']."</a>";
+                $ad_subjects[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("subject:\"".$ad_subject."\"")."''>".$ad_subject."</a>";
             }
             ?>
 
@@ -205,7 +205,7 @@
                                   ["", function() { return true; }]
                                 ]);
                             $.ajax({
-                                'url': '<?php bloginfo('url'); ?>/instance_export?output=json&q=<?php echo(urlencode("archive_id:\"".$archive_id."\"")); ?>',
+                                'url': '<?php bloginfo('url'); ?>/api/v1/ad_instances?archive_id=<?php echo(urlencode($archive_id)); ?>',
                                 'method': 'GET',
                             })
                             .done(function(ad_instances) {

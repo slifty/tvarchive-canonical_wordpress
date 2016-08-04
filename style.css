@@ -94,14 +94,18 @@ div.button {
   font-weight: normal;
   text-transform: uppercase;
   margin: 0px;
+  font-weight: 500;
 }
 .page-header-row {
   padding: 37px 100px;
 }
 .page-header-row h1 {
+	display:inline-block;
   color: #ffffff;
+  border-bottom: 2px solid white;
   padding-bottom: 10px;
   margin: 0px;
+  font-weight: 500;
 }
 .page-header-row p {
   margin: 0px;
@@ -109,7 +113,7 @@ div.button {
   padding-top: 10px;
   text-transform: uppercase;
   font-size: 14px;
-  border-top: 2px solid white;
+
 }
 .page-subheader-row {
   padding: 23px 100px;
@@ -369,17 +373,36 @@ a#footer-sidebar-link{
 
 /* Front Page */
 
-#home-header-section {
+#home-header-section{
 	padding: 50px 100px 20px;
 }
-#home-header-title {
+
+#market-map-header-section{
+	text-align: center;
+}
+
+#home-header-title, #market-map-header-title, #market-map-title {
 	font-size: 2.25em;
 	font-weight: normal;
 }
-#home-header-title span.total-airing-count{
+
+#market-map-title{
+	display: inline-block;
+	text-align: center;
+	padding: 30px 0 0 0;
+	width: auto;
+	border-bottom: 2px solid black;
+	margin-bottom: 30px;
+}
+
+#market-map-title h1{
+	display:inline-block;
+}
+
+#home-header-title span.total-airing-count, #market-map-title span.total-airing-count{
 	color: #e85646;
 }
-#home-header-title span.total-market-count{
+#home-header-title span.total-market-count, #market-map-title span.total-market-count{
 	color: #0094AF;
 }
 #home-header-explanation {
@@ -391,7 +414,7 @@ a#footer-sidebar-link{
 .market-map-container{
 	max-width: 1200px;
 	margin: 0 auto;
-	border-top: 1px solid #eee;
+	/*border-top: 1px solid #eee;*/
 	text-align: center;
 }
 #homepage-market-map-pills{
@@ -692,6 +715,14 @@ a#footer-sidebar-link{
 	margin-bottom: 0px;
 	padding-bottom: 0px;
 }
+
+/* Market Map */
+
+#market-map-header{
+	background:#3a3e4b;
+}
+
+
 
 /* Explore */
 
@@ -1000,8 +1031,8 @@ h3.resource-name {
 }
 .post-title a {
     color: #245e83;
-    font-weight: normal;
-    font-size: 36px;
+    font-weight: 300;
+    font-size: 24px;
 }
 .post-title_home {
     margin: 15px;
@@ -1029,8 +1060,8 @@ h3.resource-name {
 		font-weight: normal;
 		color: #E85646;
 }
-.post-excerpt {
-    font-size: 1em;
+.post-excerpt p{
+    font-size: 14px;
     line-height: 1.25em;
     margin: 15px 0px;
     color: #343434;
@@ -1203,9 +1234,10 @@ input#submit {
     margin-right: 100px;
 }
 h3.blog-sidebar-title {
-    font-size: 24px;
+    font-size: 20px;
     color: #9b9b9b;
     text-transform: uppercase;
+    font-weight: 300;
 }
 #subscribe-text{
     padding: 10px;

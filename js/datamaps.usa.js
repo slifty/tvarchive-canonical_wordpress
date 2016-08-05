@@ -172,7 +172,7 @@
   function addStyleBlock() {
     if ( d3.select('.datamaps-style-block').empty() ) {
       d3.select('head').append('style').attr('class', 'datamaps-style-block')
-      .html('.datamap path.datamaps-graticule { fill: none; stroke: #777; stroke-width: 0.5px; stroke-opacity: .5; pointer-events: none; } .datamap .labels {pointer-events: none;} .datamap path:not(.datamaps-arc), .datamap circle, .datamap line {stroke: #FFFFFF; vector-effect: non-scaling-stroke; stroke-width: 1px;} .datamaps-bubble{cursor: pointer;} .datamaps-legend dt, .datamaps-legend dd { float: left; margin: 0 3px 0 0;} .datamaps-legend dd {width: 20px; margin-right: 6px; border-radius: 3px;} .datamaps-legend {padding-bottom: 20px; z-index: 1001; position: absolute; left: 4px; font-size: 12px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;} .datamaps-hoverover {display: none; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; } .hoverinfo {padding: 4px; border-radius: 1px; background-color: #FFF; box-shadow: 1px 1px 5px #CCC; font-size: 12px; border: 1px solid #CCC; } .hoverinfo hr {border:1px dotted #CCC; }');
+      .html('.datamap path.datamaps-graticule { fill: none; stroke: #777; stroke-width: 0.5px; stroke-opacity: .5; pointer-events: none; } .datamap .labels {pointer-events: none;} .datamap path:not(.datamaps-arc), .datamap circle, .datamap line {stroke: #FFFFFF; vector-effect: non-scaling-stroke; stroke-width: 1px;} .datamaps-bubble{cursor: pointer;} .datamaps-legend dt, .datamaps-legend dd { float: left; margin: 0 3px 0 0;} .datamaps-legend dd {width: 20px; margin-right: 6px; border-radius: 3px;} .datamaps-legend {padding-bottom: 20px; z-index: 1001; position: absolute; left: 4px; font-size: 12px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;} .datamaps-hoverover {display: none; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; } .hoverinfo {padding: 4px; border-radius: 1px; background-color: #FFF; box-shadow: 1px 1px 5px #CCC; font-size: 12px; border: 1px solid #CCC; } .hoverinfo hr {border:1px dotted #CCC; } .datamaps-bubble { fill: #0094AF;} .datamaps-bubble[data-state="active"]{ fill: rgb(232,86,70);}');
     }
   }
 
@@ -245,7 +245,6 @@
           var datum = self.options.data[d.id] || {};
           if ( options.highlightOnHover ) {
             var previousAttributes = {
-              'fill':  $this.style('fill'),
               'stroke': $this.style('stroke'),
               'stroke-width': $this.style('stroke-width'),
               'fill-opacity': $this.style('fill-opacity')
@@ -534,6 +533,11 @@
         .attr('data-radius', function(datum) {
           return datum.radius;
         })
+        // add market for use after render -DL
+        .attr('data-market', function(datum) {
+          return datum.market;
+        })
+        .attr('data-state', 'default')
         .attr('filter', function (datum) {
           var filterKey = filterData[ val(datum.filterKey, options.filterKey, datum) ];
 
@@ -553,10 +557,10 @@
         .style('fill-opacity', function ( datum ) {
           return val(datum.fillOpacity, options.fillOpacity, datum);
         })
-        .style('fill', function ( datum ) {
-          var fillColor = fillData[ val(datum.fillKey, options.fillKey, datum) ];
-          return fillColor || fillData.defaultFill;
-        })
+        // .style('fill', function ( datum ) {
+        //   var fillColor = fillData[ val(datum.fillKey, options.fillKey, datum) ];
+        //   return fillColor || fillData.defaultFill;
+        // })
         .on('mouseover', function ( datum ) {
           var $this = d3.select(this);
           var id = datum.city;
@@ -564,14 +568,14 @@
           if (options.highlightOnHover) {
             // Save all previous attributes for mouseout
             var previousAttributes = {
-              'fill':  $this.style('fill'),
+              //'fill':  $this.style('fill'),
               'stroke': $this.style('stroke'),
               'stroke-width': $this.style('stroke-width'),
               'fill-opacity': $this.style('fill-opacity')
             };
 
             $this
-              .style('fill', val(datum.highlightFillColor, options.highlightFillColor, datum))
+              //.style('fill', val(datum.highlightFillColor, options.highlightFillColor, datum))
               .style('stroke', val(datum.highlightBorderColor, options.highlightBorderColor, datum))
               .style('stroke-width', val(datum.highlightBorderWidth, options.highlightBorderWidth, datum))
               .style('stroke-opacity', val(datum.highlightBorderOpacity, options.highlightBorderOpacity, datum))

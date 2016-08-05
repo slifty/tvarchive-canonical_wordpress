@@ -731,6 +731,21 @@ a#footer-sidebar-link{
 	font-weight: 400;
 }
 
+.btn.market-map-show-all {
+	display:block;
+  width: auto;
+  background-color: #3a3e4b;
+  color: #fff;
+  font-size: 14px;
+  border: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  box-shadow: none;
+  width: 230px;
+  float:right;
+}
+
 #most-aired-ads{
 	padding: 30px 100px;
 }

@@ -247,8 +247,6 @@ var marketData = [];
          }
     ]
 
-
-
 $.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
     marketData = data;
 }).done(function(){
@@ -303,24 +301,66 @@ $.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
      fills: {
         defaultFill: '#d8d8d8',
         bubble: '#0094AF'
-     },
-     done: function(datamap){
+    },
+    done: function(datamap){
 
-       $(window).on('resize  orientationchange', function(){
+        $(window).on('resize  orientationchange', function(){
            datamap.resize();
-       });
+        });
 
-       datamap.bubbles(bubblesData, {
-         popupTemplate: function(geo, data) {
-           return '<div class="hoverinfo"><b>'+data.num+'</b> ads found in <b>'+data.city+'</b>, '+data.state+' market'+
-                      '<br/><i><small>click for just this market</small</i>'+
-                      '</div>';
-         }
-       });
-              $(datamap.svg[0][0]).on('click', '.bubbles', function(evt) {
-         var market_code = JSON.parse($(evt.target).attr('data-info')).market;
-         location.hash = '#?market=' + market_code;
-       });
-   }})
+        datamap.bubbles(bubblesData, {
+            popupTemplate: function(geo, data) {
+                return '<div class="hoverinfo"><b>'+data.num+'</b> ads found in <b>'+data.city+', '+data.state+'</b> market'+'<br/><i><small>click for just this market</small</i>'+'</div>';
+            }
+        });
+
+        $(datamap.svg[0][0]).on('click', '.bubbles', function(evt) {
+            var market_code = $(evt.target).attr('data-market');
+            window.location.hash = '#' + market_code;
+            selectMarket(market_code);
+        });
+    }});
+
+    var adData = [];
+    var url = '<?php bloginfo('url'); ?>';
+    var location = '';
+
+    function selectMarket(market_code){
+
+        $('.bubbles .datamaps-bubble').each(function(){
+            $(this).attr('data-state', 'default');
+        });
+        $('.bubbles .datamaps-bubble[data-market="'+market_code+'"]').attr('data-state', 'active');
+
+        for (var j=0;j<bubblesData.length;j++){
+            if (bubblesData[j].market == market_code){
+                location = bubblesData[j].city+', '+bubblesData[j].state;
+            }
+        };
+
+        $.get('<?php bloginfo('url'); ?>/api/v1/ads?market_filter='+market_code, function(data){
+            adData = data;
+        }).done(function(){
+
+            if (market_code.length>0){
+                $('span.market-location').html(location);
+            } else {
+                $('span.market-location').html('All Markets');
+            }
+
+
+            $('#most-aired-ads').empty();
+            console.log(adData);
+            for (var i=0;i<adData.length;i++){
+                $('#most-aired-ads').append('<div class="col-xs-12 col-md-6 col-lg-3"><div class="most-aired-ad-container"><div class="video-container"><iframe src="'+adData[i].embed_url+'" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen=""></iframe></div><div class="details-container '+(adData[i].wp_identifier == 1396 ? 'expanded' : '')+'"><h3><span class="air-count">'+commas(adData[i].air_count)+'</span> Broadcasts</h3><p>Sponsor Type: <span class="sponsor-type">'+adData[i].sponsor_types+'<span></p><p>Candidates: <span class="candidates">'+adData[i].candidates+'</span></p><div class="reference-container">'+(adData[i].wp_identifier == 1396 ? '<p class="reference-citation">From Politifact:</p><p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.</p></div><div class="read-more-cta"><a href="'+url+'/ad/'+adData[i].archive_id+'/">Read More About this Ad</a></div>' : '')+'</div></div></div></div>');
+            }
+        });
+    };
+
+    selectMarket(window.location.hash.substr(1));
+
+    $('.market-map-show-all').click(function(){
+        selectMarket('');
+    });
 });
 </script>

@@ -49,7 +49,7 @@
                         adCountMax: 0,
                         affiliations: [
                             {
-                                name: 'Democrat',
+                                name: 'Democratic',
                                 candidates: []
                             },{
                                 name: 'Republican',
@@ -65,7 +65,7 @@
                         adCountMax: 0,
                         affiliations: [
                             {
-                                name: 'Democrat',
+                                name: 'Democratic',
                                 candidates: []
                             },{
                                 name: 'Republican',
@@ -81,7 +81,7 @@
                         adCountMax: 0,
                         affiliations: [
                             {
-                                name: 'Democrat',
+                                name: 'Democratic',
                                 candidates: []
                             },{
                                 name: 'Republican',

@@ -835,6 +835,10 @@ a#footer-sidebar-link{
   line-height: 14px;
 }
 
+.tab-pane#candidates, .tab-pane#sponsors, .tab-pane#sponsor-types{
+	padding-top: 50px;
+}
+
 #home-explore-tabs{
   background: #efefef;
 }
@@ -953,19 +957,50 @@ a#footer-sidebar-link{
   width: 74%;
   position:relative;
   line-height: 2.25em;
+}
 
+.candidate-affiliation-group{
+	margin-bottom: 50px;
+	padding-bottom: 30px;
+  border-bottom: 1px solid #eee;
+}
+
+.candidate-affiliation-group:last-of-type(){
+	border-bottom: none;
+}
+
+.candidate-affiliation-group h3{
+	text-align: left;
+	margin-bottom: 30px;
+	font-size: 20px;
+}
+
+[id$="Republican"] .explore-item:nth-child(odd) .explore-bar{
+	background-color: #c0392b;
+}
+[id$="Republican"] .explore-item:nth-child(even) .explore-bar{
+	background-color: #d0021b;
+}
+
+[id$="Democrat"] .explore-item:nth-child(odd) .explore-bar{
+	background-color: #4a90e2;
+}
+[id$="Democrat"] .explore-item:nth-child(even) .explore-bar{
+	background-color: #0a91ab;
+}
+
+[id$="Other"] .explore-item:nth-child(odd) .explore-bar{
+	background-color: #85b648;
+}
+[id$="Other"] .explore-item:nth-child(even) .explore-bar{
+	background-color: #16a085;
 }
 
 .explore-item .explore-bar{
-  background: rgba(232, 86, 69, .9);
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
-}
-
-.explore-item:nth-child(odd) .explore-bar{
-	background: #d0021b;
 }
 
 .explore-show-more{

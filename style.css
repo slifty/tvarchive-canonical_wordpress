@@ -982,10 +982,10 @@ a#footer-sidebar-link{
 	background-color: #d0021b;
 }
 
-[id$="Democrat"] .explore-item:nth-child(odd) .explore-bar{
+[id$="Democratic"] .explore-item:nth-child(odd) .explore-bar{
 	background-color: #4a90e2;
 }
-[id$="Democrat"] .explore-item:nth-child(even) .explore-bar{
+[id$="Democratic"] .explore-item:nth-child(even) .explore-bar{
 	background-color: #0a91ab;
 }
 

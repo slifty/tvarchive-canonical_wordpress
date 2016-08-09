@@ -950,6 +950,7 @@ a#footer-sidebar-link{
   padding-left: .5em;
   color: white;
   font-size: 1em;
+  z-index:100;
 }
 
 .explore-item .explore-bar-container{
@@ -957,6 +958,16 @@ a#footer-sidebar-link{
   width: 74%;
   position:relative;
   line-height: 2.25em;
+}
+
+.explore-item .explore-bar-container:before{
+	content: attr(data-count);
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding-left: .5em;
+  color: #666;
+  font-size: 1em;
 }
 
 .candidate-affiliation-group{
@@ -982,10 +993,10 @@ a#footer-sidebar-link{
 	background-color: #d0021b;
 }
 
-[id$="Democratic"] .explore-item:nth-child(odd) .explore-bar{
+#explore-sponsor_types-content .explore-item:nth-child(odd) .explore-bar, #explore-sponsors-content .explore-item:nth-child(odd) .explore-bar, [id$="Democratic"] .explore-item:nth-child(odd) .explore-bar{
 	background-color: #4a90e2;
 }
-[id$="Democratic"] .explore-item:nth-child(even) .explore-bar{
+#explore-sponsor_types-content .explore-item:nth-child(even) .explore-bar, #explore-sponsors-content .explore-item:nth-child(even) .explore-bar, [id$="Democratic"] .explore-item:nth-child(even) .explore-bar{
 	background-color: #0a91ab;
 }
 
@@ -1001,6 +1012,7 @@ a#footer-sidebar-link{
   top: 0;
   left: 0;
   height: 100%;
+  overflow: hidden;
 }
 
 .explore-show-more{

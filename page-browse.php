@@ -34,6 +34,7 @@
     $program_filter = array_key_exists('program_filter',$_GET)?$_GET['program_filter']:"";
 
     // Should a search be run?
+    $run_search_on_load = false;
     if($word_filter || $candidate_filter || $sponsor_filter
     || $subject_filter || $type_filter || $channel_filter
     || $program_filter)

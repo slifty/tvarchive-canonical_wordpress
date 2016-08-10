@@ -3,6 +3,44 @@
     Template Name: Browse
 */
 ?>
+
+<?php
+    // Populate the "autocomplete" values for advanced search
+    $candidates = array_map(function($x) { return $x->name; }, PoliticalAdArchiveCandidate::get_candidates());
+    $sponsors = array_map(function($x) { return $x->name; }, PoliticalAdArchiveSponsor::get_sponsors());
+    $sponsor_types = array_map(function($x) { return $x->type; }, PoliticalAdArchiveSponsor::get_sponsors());
+    $channels = array_map(function($x) { return $x->channel; }, PoliticalAdArchiveChannel::get_channels());
+    $subjects = array_map(function($x) { return $x->subject; }, PoliticalAdArchiveSubject::get_subjects());
+    $programs = array_map(function($x) { return $x->program; }, PoliticalAdArchiveProgram::get_programs());
+    $ad_types = array_map(function($x) { return $x->type; }, PoliticalAdArchiveAdType::get_ad_types());
+
+    // Sort in alphabetical order
+    sort($candidates);
+    sort($sponsors);
+    sort($sponsor_types);
+    sort($channels);
+    sort($subjects);
+    sort($programs);
+    sort($ad_types);
+
+    // Pull down any URL-based search values
+    $word_filter = array_key_exists('word_filter',$_GET)?$_GET['word_filter']:"";
+    $candidate_filter = array_key_exists('candidate_filter',$_GET)?$_GET['candidate_filter']:"";
+    $sponsor_filter = array_key_exists('sponsor_filter',$_GET)?$_GET['sponsor_filter']:"";
+    $sponsor_type_filter = array_key_exists('sponsor_type_filter',$_GET)?$_GET['sponsor_type_filter']:"";
+    $subject_filter = array_key_exists('subject_filter',$_GET)?$_GET['subject_filter']:"";
+    $type_filter = array_key_exists('type_filter',$_GET)?$_GET['type_filter']:"";
+    $channel_filter = array_key_exists('channel_filter',$_GET)?$_GET['channel_filter']:"";
+    $program_filter = array_key_exists('program_filter',$_GET)?$_GET['program_filter']:"";
+
+    // Should a search be run?
+    if($word_filter || $candidate_filter || $sponsor_filter
+    || $subject_filter || $type_filter || $channel_filter
+    || $program_filter)
+        $run_search_on_load = true;
+
+?>
+
 <?php get_header(); ?>
 <div id="browse-header" class="row">
     <div class="col-md-12 col-lg-12">
@@ -14,120 +52,42 @@
         </div>
         <div id="browse-header-search" class="row page-header-row">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <?php get_search_form(); ?>
+                <form id="search-form" action="<?php bloginfo('url'); ?>/browse">
+                    <input type="text" name="word_filter" id="search-text" value="<?php echo(addslashes($word_filter)); ?>" placeholder="search for a sponsor, candidate or keyword" />
+                </form>
             </div>
         </div>
-        <?php
-            $facet_candidates = get_metadata_names(get_candidates());
-            $facet_sponsors = get_metadata_names(get_sponsors());
-            $facet_sponsor_types = get_metadata_names(get_sponsor_types());
-            $facet_messages = get_metadata_names(get_messages());
-            $facet_channels = get_metadata_names(get_channels());
-            $facet_programs = get_metadata_names(get_programs());
-            $facet_ad_types = get_metadata_names(get_ad_types());
-
-            // Alphabetical order
-            sort($facet_candidates);
-            sort($facet_sponsors);
-            sort($facet_sponsor_types);
-            sort($facet_messages);
-            sort($facet_channels);
-            sort($facet_programs);
-            sort($facet_ad_types);
-
-            if(array_key_exists('q', $_GET)
-            && trim($_GET['q']) != '') {
-                $pagination_index = get_query_var('paged', 0);
-                $query = $_GET['q'];
-                $parsed_query = parse_political_ad_query($query);
-            } else {
-                $parsed_query = parse_political_ad_query("");
-            }
-
-            // Extract the values
-            $candidate_values = array();
-            $sponsor_values = array();
-            $sponsor_type_values = array();
-            $message_values = array();
-            $channel_values = array();
-            $program_values = array();
-            $ad_type_values = array();
-
-            // Get the general values to filter out of advanced search
-            $general_values = array();
-            foreach($parsed_query['general'] as $item) {
-                $general_values[] = $item['value'];
-            }
-
-            foreach($parsed_query['candidate'] as $item) {
-                $candidate_values[] = $item['value'];
-            }
-            $candidate_values = array_diff($candidate_values, $general_values);
-
-            foreach($parsed_query['sponsor'] as $item) {
-                $sponsor_values[] = $item['value'];
-            }
-            $sponsor_values = array_diff($sponsor_values, $general_values);
-
-            foreach($parsed_query['sponsor_type'] as $item) {
-                $sponsor_type_values[] = $item['value'];
-            }
-            $sponsor_type_values = array_diff($sponsor_type_values, $general_values);
-
-            foreach($parsed_query['message'] as $item) {
-                $message_values[] = $item['value'];
-            }
-            $message_values = array_diff($message_values, $general_values);
-
-            foreach($parsed_query['network'] as $item) {
-                $channel_values[] = $item['value'];
-            }
-            $channel_values = array_diff($channel_values, $general_values);
-
-            foreach($parsed_query['program'] as $item) {
-                $program_values[] = $item['value'];
-            }
-            $program_values = array_diff($program_values, $general_values);
-
-            foreach($parsed_query['type'] as $item) {
-                $ad_type_values[] = $item['value'];
-            }
-            $ad_type_values = array_diff($ad_type_values, $general_values);
-
-            // autocomplete assumes the last value ends in a comma so, add an empty item
-            $candidate_values[] = '';
-            $sponsor_values[] = '';
-            $sponsor_type_values[] = '';
-            $message_values[] = '';
-            $channel_values[] = '';
-            $program_values[] = '';
-            $ad_type_values[] = '';
-
-        ?>
         <div id="browse-header-advanced" class="row page-header-row" style="display:none;">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <form id="advanced-search-form" action="<?php bloginfo('url'); ?>/browse">
                     <div id="advanced-facets">
                         <fieldset>
+                            <legend>Find Ads with...</legend>
+                            <div class="advanced-search-facet row">
+                                <label for="word-facet" class="col-md-2 col-sm-12">Any of these words</label>
+                                <input type="text" class="col-md-10 col-sm-12" id="word-facet" name="word-facet" placeholder="search for a sponsor, candidate, political party, or keyword" value="<?php echo(addslashes($word_filter)); ?>" />
+                            </div>
+                        </fieldset>
+                        <fieldset>
                             <legend>Candidates and Sponsors</legend>
                             <div class="advanced-search-facet row">
                                 <label for="candidate-facet" class="col-md-2 col-sm-12">Candidate</label>
-                                <input type="text" class="col-md-10 col-sm-12" id="candidate-facet" name="candidate-facet" placeholder="search by candidate full, last or first name" value="<?php echo(implode(', ', $candidate_values)); ?>" />
+                                <input type="text" class="col-md-10 col-sm-12" id="candidate-facet" name="candidate-facet" placeholder="search by candidate full, last or first name" value="<?php echo(addslashes($candidate_filter)); ?>" />
                             </div>
                             <div class="advanced-search-facet row">
                                 <label for="sponsor-facet" class="col-md-2 col-sm-12">Sponsor</label>
-                                <input type="text" class="col-md-10 col-sm-12" id="sponsor-facet" name="sponsor-facet" placeholder="search by full or partial sponsor name" value="<?php echo(implode(', ', $sponsor_values)); ?>" />
+                                <input type="text" class="col-md-10 col-sm-12" id="sponsor-facet" name="sponsor-facet" placeholder="search by full or partial sponsor name" value="<?php echo(addslashes($sponsor_filter)); ?>" />
                             </div>
                             <div class="advanced-search-facet row">
                                 <label for="sponsor-type-facet" class="col-md-2 col-sm-12">Sponsor Type</label>
-                                <input type="text" class="col-md-10 col-sm-12" id="sponsor-type-facet" name="sponsor-type-facet" placeholder="search by sponsor type (candidate committee, super PAC, etc)" value="<?php echo(implode(', ', $sponsor_type_values)); ?>" />
+                                <input type="text" class="col-md-10 col-sm-12" id="sponsor-type-facet" name="sponsor-type-facet" placeholder="search by sponsor type (candidate committee, super PAC, etc)" value="<?php echo(addslashes($sponsor_type_filter)); ?>" />
                             </div>
                         </fieldset>
                         <fieldset>
                             <legend>Ad</legend>
                             <div class="advanced-search-facet row">
-                                <label for="message-facet" class="col-md-2 col-sm-12">Subject</label>
-                                <input type="text" class="col-md-10 col-sm-12" id="message-facet" name="message-facet" placeholder="search by ad subject (immigration, taxes, etc)" value="<?php echo(implode(', ', $message_values)); ?>" />
+                                <label for="subject-facet" class="col-md-2 col-sm-12">Subject</label>
+                                <input type="text" class="col-md-10 col-sm-12" id="subject-facet" name="subject-facet" placeholder="search by ad subject (immigration, taxes, etc)" value="<?php echo(addslashes($subject_filter)); ?>" />
                             </div>
                             <div class="advanced-search-facet row">
                                 <fieldset class="ad-type-facet">
@@ -150,16 +110,12 @@
                         <fieldset>
                             <legend>Airing History</legend>
                             <div class="advanced-search-facet row">
-                                <label for="market-facet" class="col-md-2 col-sm-12">Market</label>
-                                <input type="text" class="col-md-10 col-sm-12" id="market-facet" name="market-facet" value="<?php echo(implode(', ', $market_values)); ?>" />
-                            </div>
-                            <div class="advanced-search-facet row">
                                 <label for="channel-facet" class="col-md-2 col-sm-12">Channel</label>
-                                <input type="text" class="col-md-10 col-sm-12" id="channel-facet" name="channel-facet" value="<?php echo(implode(', ', $channel_values)); ?>" />
+                                <input type="text" class="col-md-10 col-sm-12" id="channel-facet" name="channel-facet" value="<?php echo(addslashes($channel_filter)); ?>" />
                             </div>
                             <div class="advanced-search-facet row">
                                 <label for="program-facet" class="col-md-2 col-sm-12">Program</label>
-                                <input type="text" class="col-md-10 col-sm-12" id="program-facet" name="program-facet" value="<?php echo(implode(', ', $program_values)); ?>" />
+                                <input type="text" class="col-md-10 col-sm-12" id="program-facet" name="program-facet" value="<?php echo(addslashes($program_filter)); ?>" />
                             </div>
                         </fieldset>
                     </div>
@@ -169,13 +125,13 @@
             </div>
         </div>
         <script type="text/javascript">
-            var facetCandidates = ["<?php echo(implode('","', $facet_candidates)); ?>"];
-            var facetSponsors = ["<?php echo(implode('","', $facet_sponsors)); ?>"];
-            var facetSponsorTypes = ["<?php echo(implode('","', $facet_sponsor_types)); ?>"];
-            var facetMessages = ["<?php echo(implode('","', $facet_messages)); ?>"];
-            var facetChannels = ["<?php echo(implode('","', $facet_channels)); ?>"];
-            var facetPrograms = ["<?php echo(implode('","', $facet_programs)); ?>"];
-            var facetAdTypes = ["<?php echo(implode('","', $facet_ad_types)); ?>"];
+            var candidate_values = ["<?php echo(implode('","', $candidates)); ?>"];
+            var sponsor_values = ["<?php echo(implode('","', $sponsors)); ?>"];
+            var sponsor_type_values = ["<?php echo(implode('","', $sponsor_types)); ?>"];
+            var channel_values = ["<?php echo(implode('","', $channels)); ?>"];
+            var subject_values = ["<?php echo(implode('","', $subjects)); ?>"];
+            var program_values = ["<?php echo(implode('","', $programs)); ?>"];
+            var ad_type_values = ["<?php echo(implode('","', $ad_types)); ?>"];
 
             function split( val ) {
               return val.split( /,\s*/ );
@@ -223,96 +179,124 @@
                 });
             }
 
-            function populateAdvancedQuery() {
-                var queryComponents = [];
+            var searchPage = 0;
+            var perPage = 1;
+            var activeSearch = false;
+            function runSearch(reset) {
+                if(activeSearch)
+                    return;
+                if(reset === true) {
+                    $("#search-results").empty();
+                    searchPage = 0;
+                }
+                activeSearch = true;
+                $("#no-results").hide();
 
-                var candidates = $("#candidate-facet").val().split(",");
-                var sponsors = $("#sponsor-facet").val().split(",");
-                var sponsorTypes = $("#sponsor-type-facet").val().split(",");
-                var messages = $("#message-facet").val().split(",");
-                var channels = $("#channel-facet").val().split(",");
-                var programs = $("#program-facet").val().split(",");
-                var ad_types = [];
-                    ad_types.push($("#ad-type-facet input:checked").val());
-
-                for (var index in candidates) {
-                    var value = candidates[index];
-                    if(value.trim() != "") {
-                        queryComponents.push('candidate:"' + value.trim() + '"');
-                    }
+                // Pull in the search parameters
+                var search_params = [];
+                if(isBasic) {
+                    search_params['word_filter'] = $("#search-text").val();
+                }
+                else {
+                    search_params['word_filter'] = $("#word-facet").val();
+                    search_params['candidate_filter'] = $("#candidate-facet").val();
+                    search_params['sponsor_filter'] = $("#sponsor-facet").val();
+                    search_params['sponsor_type_filter'] = $("#sponsor-type-facet").val();
+                    search_params['subject_filter'] = $("#subject-facet").val();
+                    search_params['channel_filter'] = $("#channel-facet").val();
+                    search_params['program_filter'] = $("#program-facet").val();
                 }
 
-                for (var index in sponsors) {
-                    var value = sponsors[index];
-                    if(value.trim() != "") {
-                        queryComponents.push('sponsor:"' + value.trim() + '"');
-                    }
+                // Run a search and populate results
+                var querystring_parts = [];
+                querystring_parts.push("page=" + searchPage)
+                querystring_parts.push("per_page=" + perPage)
+                for(param in search_params) {
+                    querystring_parts.push(param + "=" + search_params[param]);
                 }
 
-                for (var index in sponsorTypes) {
-                    var value = sponsorTypes[index];
-                    if(value.trim() != "") {
-                        queryComponents.push('sponsor_type:"' + value.trim() + '"');
+                $.ajax({
+                    url: "<?php bloginfo('url'); ?>/api/v1/ads?" + querystring_parts.join("&"),
+                    type: "get"
+                }).success(function(data) {
+                    $search_results = $("#search-results");
+                    for(x in data) {
+                        var ad = data[x];
+                        var result_html = '<div class="row page-content-row political-ad">';
+                            result_html+= '<div class="col-xs-12 col-sm-6 col-lg-3"><div class="embed"><iframe frameborder="0" allowfullscreen src="' + ad['embed_url'] + '&nolinks=1" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div></div>';
+                            result_html+= '<div class="col-xs-12 col-sm-6 col-lg-9"><div class="row"><div class="col-sm-12"><div class="title"><a href="<?php bloginfo('url'); ?>/ad/' + ad['archive_id'] + '">' + (ad['candidates'].length > 0?ad['candidates']:ad['sponsors']) + '</a></div></div></div>';
+                            result_html+= '<div class="row"><div class=" col-sm-12"><div class="sponsors"><span class="browse-label">Ingested: </span>' + ad['date_ingested'] + '</div></div></div>';
+                            result_html+= '<div class="row"><div class=" col-sm-12"><div class="sponsors"><span class="browse-label">Sponsors: </span>' + ad['sponsors'] + '</div></div></div>';
+                            result_html+= '<div class="row"><div class=" col-sm-12"><div class="sponsors"><span class="browse-label">Sponsor Types: </span>' + ad['sponsor_types'] + '</div></div></div>';
+                            if(ad['subjects'].length > 0) {
+                                result_html += '<div class="row"><div class=" col-sm-12"><div class="sponsors"><span class="browse-label">Subjects: </span>' + ad['subjects'] + '</div></div></div>';
+                            }
+                            result_html+= '<div class="row"><div class=" col-sm-12"><div class="sponsors"><span class="browse-label">Air Count: </span>' + ad['air_count'] + '</div></div></div>';
+                            result_html+= '</div></div>';
+
+                            console.log(result_html);
+                            $search_results.append($(result_html));
                     }
-                }
-
-                for (var index in messages) {
-                    var value = messages[index];
-                    if(value.trim() != "") {
-                        queryComponents.push('message:"' + value.trim() + '"');
+                    searchPage +=1;
+                    activeSearch = false;
+                    if(data.length == perPage) {
+                        $("#load-more")
+                            .text("Load More")
+                            .show();
                     }
-                }
-
-                for (var index in channels) {
-                    var value = channels[index];
-                    if(value.trim() != "") {
-                        queryComponents.push('channel:"' + value.trim() + '"');
+                    if(data.length == 0 && searchPage == 1) {
+                        $("#no-results")
+                            .text("No Results")
+                            .show();
                     }
-                }
+                });
 
-                for (var index in programs) {
-                    var value = programs[index];
-                    if(value.trim() != "") {
-                        queryComponents.push('program:"' + value.trim() + '"');
-                    }
-                }
+                // Update URL to reflect the search
 
-                for (var index in ad_types) {
-                    var value = ad_types[index];
-                    if(value.trim() != "") {
-                        queryComponents.push('type:"' + value.trim() + '"');
-                    }
-                }
-
-                var queryString = queryComponents.join(" OR ");
-                $("#advanced-search-value").val(queryString);
-
-                console.log(queryString);
             }
+
+            <?php
+                if($run_search_on_load) {
+                    ?>
+                    $(function() { runSearch() });
+                    <?php
+                }
+            ?>
 
             $('form').each(function() {
                 $(this).find('input').keypress(function(e) {
                     // Enter pressed?
                     if(e.which == 10 || e.which == 13) {
-                        populateAdvancedQuery();
-                        this.form.submit();
+                        runSearch(true);
+                        return false;
                     }
                 });
             });
 
             $(function() {
-                preparedAutoComplete($("#candidate-facet"), facetCandidates);
-                preparedAutoComplete($("#sponsor-facet"), facetSponsors);
-                preparedAutoComplete($("#sponsor-type-facet"), facetSponsorTypes);
-                preparedAutoComplete($("#message-facet"), facetMessages);
-                preparedAutoComplete($("#channel-facet"), facetChannels);
-                preparedAutoComplete($("#program-facet"), facetPrograms);
-                //preparedAutoComplete($("#ad-type-facet"), facetAdTypes);
+                preparedAutoComplete($("#candidate-facet"), candidate_values);
+                preparedAutoComplete($("#sponsor-facet"), sponsor_values);
+                preparedAutoComplete($("#sponsor-type-facet"), sponsor_type_values);
+                preparedAutoComplete($("#channel-facet"), channel_values);
+                preparedAutoComplete($("#subject-facet"), subject_values);
+                preparedAutoComplete($("#program-facet"), program_values);
 
-                // Parse results on submit
+                // AJAX search
                 $("#advanced-search-form").submit(function() {
-                    populateAdvancedQuery();
+                    runSearch(true);
+                    return false;
                 });
+
+                // AJAX search
+                $("#search-form").submit(function() {
+                    runSearch(true);
+                    return false;
+                });
+
+                $("#load-more").click(function() {
+                    $("#load-more").hide();
+                    runSearch();
+                })
             });
         </script>
 
@@ -323,10 +307,10 @@
         </div>
 
         <script type="text/javascript">
+            var isBasic = true;
             $(function() {
                 var searchToggle = $("#search-toggle");
                 searchToggle.text("Advanced Search");
-                isBasic = true;
                 searchToggle.click(function() {
                     if(isBasic) {
                         $("#browse-header-advanced").show();
@@ -344,184 +328,10 @@
         </script>
     </div>
 </div>
-
-
 <div id="browse-content" class="page-content">
-<?php
-    if(array_key_exists('q', $_GET)
-    && trim($_GET['q']) != '') {
-        $pagination_index = get_query_var('paged', 0);
-        $query = $_GET['q'];
-        $sort = array_key_exists('order', $_GET)?$_GET['order']:'count';
-        $args= array(
-            'posts_per_page' => 10,
-            'paged' => $pagination_index,
-        );
-
-        switch($sort) {
-            case 'date':
-                $args['orderby'] = 'post_date';
-                $args['order'] = 'DESC';
-                break;
-            case 'count':
-            default:
-                $args['orderby'] = 'meta_value_num';
-                $args['meta_key'] = 'air_count';
-                $args['order'] = 'DESC';
-        }
-
-        $wp_query = search_political_ads($query, $args);
-
-        ?>
-        <div class="row page-content-row">
-            <div class="col-sm-6 col-xs-12" id="search-results-total">
-                <?php echo($wp_query->found_posts);?> Result<?php echo($wp_query->found_posts==1?'':'s'); ?> Found
-            </div>
-            <div class="col-sm-6 hidden-xs" id="search-results-sort-block">
-                Order By:
-                <select id="search-results-sort">
-                    <option value="count" <?php echo(($sort == "count")?"selected":""); ?>>Air Count</option>
-                    <option value="date" <?php echo(($sort == "date")?"selected":""); ?>>Date Added</option>
-                </select>
-                <script type="text/javascript">
-                    $(function() {
-                        $("#search-results-sort").change(function() {
-                            var sort = $("#search-results-sort").val();
-                            $("#search-form-order").val(sort);
-                            $("#search-form").submit();
-                        });
-                    })
-                </script>
-            </div>
-        </div>
-        <div id="search-results">
-        <?php
-            while($wp_query->have_posts()) {
-                $wp_query->the_post();
-                $post_metadata = get_fields();
-                $date_created = get_the_date('n/j/y, g:i A');
-                $ad_notes = array_key_exists('ad_notes', $post_metadata)?$post_metadata['ad_notes']:'';
-                $archive_id = array_key_exists('archive_id', $post_metadata)?$post_metadata['archive_id']:'';
-                $ad_sponsors = (array_key_exists('ad_sponsors', $post_metadata) && $post_metadata['ad_sponsors'])?$post_metadata['ad_sponsors']:array();
-                $ad_candidates = (array_key_exists('ad_candidates', $post_metadata) && $post_metadata['ad_candidates'])?$post_metadata['ad_candidates']:array();
-                $ad_subjects = (array_key_exists('ad_subjects', $post_metadata) && $post_metadata['ad_subjects'])?$post_metadata['ad_subjects']:array();
-                $ad_type = array_key_exists('ad_type', $post_metadata)?$post_metadata['ad_type']:'';
-                $ad_message = array_key_exists('ad_message', $post_metadata)?$post_metadata['ad_message']:'';
-                $ad_air_count = array_key_exists('air_count', $post_metadata)?$post_metadata['air_count']:0;
-                $ad_market_count = array_key_exists('market_count', $post_metadata)?$post_metadata['market_count']:0;
-                $ad_network_count = array_key_exists('network_count', $post_metadata)?$post_metadata['network_count']:0;
-                $ad_first_seen = (array_key_exists('first_seen', $post_metadata)&&$post_metadata['first_seen'])?$post_metadata['first_seen']:'--';
-                $ad_last_seen = (array_key_exists('last_seen', $post_metadata)&&$post_metadata['last_seen'])?$post_metadata['last_seen']:'--';
-
-                // Create sponsor links
-                $ad_sponsor_names = extract_sponsor_names($ad_sponsors);
-                foreach($ad_sponsor_names as $index => $sponsor_name) {
-                    $ad_sponsor_names[$index] = $sponsor_name;
-                }
-
-                // Create sponsor type links
-                $ad_sponsor_types = extract_sponsor_types($ad_sponsors);
-                foreach($ad_sponsor_types as $index => $sponsor_type) {
-                    $ad_sponsor_types[$index] = get_sponsor_type_value($sponsor_type);
-                }
-                // Create candidate links
-                foreach($ad_candidates as $index => $ad_candidate) {
-                    $ad_candidates[$index] = $ad_candidate['ad_candidate'];
-                }
-
-                // Create subject links
-                foreach($ad_subjects as $index => $ad_subject) {
-                    $ad_subjects[$index] = $ad_subject['ad_subject'];
-                }
-
-                ?>
-                <div class="row page-content-row political-ad">
-                    <div>
-                        <div class="col-xs-12 col-sm-6 col-lg-3">
-                            <div class="embed">
-                                <iframe frameborder="0" allowfullscreen src="<?php echo($post_metadata['embed_url']);?>&nolinks=1" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-lg-9">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="title">
-                                        <a href="<?php the_permalink(); ?>">
-                                        <?php
-                                            if(sizeof($ad_candidates) > 0) {
-                                                echo(implode(", ", $ad_candidates));
-                                            } else {
-                                                echo(implode(", ", $ad_sponsor_names));
-                                            }
-                                        ?>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class=" col-sm-12">
-                                    <div class="sponsors">
-                                        <span class="browse-label">Ingested:</span>
-                                        <?php echo($date_created); ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class=" col-sm-12">
-                                    <div class="sponsors">
-                                        <span class="browse-label">Sponsor<?php if(sizeof($ad_sponsors) != 1) { echo("s"); }?>: </span>
-                                        <?php echo(implode(", ", $ad_sponsor_names)); ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class=" col-sm-12">
-                                    <div class="sponsors">
-                                        <span class="browse-label">Sponsor Type<?php if(sizeof($ad_sponsors) != 1) { echo("s"); }?>: </span>
-                                        <?php echo(implode(", ", $ad_sponsor_types)); ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php if(sizeof($ad_subjects) > 0) { ?>
-                            <div class="row">
-                                <div class=" col-sm-12">
-                                    <div class="sponsors">
-                                        <span class="browse-label">Subject<?php if(sizeof($ad_subjects) != 1) { echo("s"); }?>: </span>
-                                        <?php echo(implode(", ", $ad_subjects)); ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php } ?>
-                            <div class="row">
-                                <div class=" col-sm-12">
-                                    <div class="sponsors">
-                                        <span class="browse-label">Air Count: </span>
-                                        <?php echo($ad_air_count); ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php
-        }
-        ?>
-
-        <div class="row page-content-row">
-            <div class="col-xs-12 col-sm-6 col-lg-9 col-sm-offset-7 col-lg-offset-3">
-                <div id="next" class="post-navigation-button"><?php next_posts_link( 'Page '.(max($pagination_index,1) + 1)." &gt;" ); ?></div>
-                <div id="prev" class="post-navigation-button"><?php previous_posts_link( '&lt; Page '.($pagination_index - 1) ); ?></div>
-            </div>
-        </div>
-
-        <?php
-    } else {
-        ?>
-        <?php get_template_part('content', 'explore_candidates'); ?>
-        <?php get_template_part('content', 'explore_sponsors'); ?>
-        <?php get_template_part('content', 'explore_sponsor_types'); ?>
-        <?php
-    }
-?>
+    <div id="search-results">
+    </div>
+    <div id="load-more"></div>
+    <div id="no-results"></div>
 </div>
 <?php get_footer(); ?>

@@ -52,6 +52,11 @@ function archivepoliticalads_scripts() {
     wp_register_script( 'jquery', get_template_directory_uri() . '/js/jquery.min.js', array(), '2.1.4' );
     wp_enqueue_script('jquery');
 
+
+    // Load in jQuery ui
+    wp_enqueue_script( 'jquery.ui.js', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js',  '', true );
+    wp_enqueue_style( 'jquery.ui.css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css' );
+
     // Set up d3
     wp_deregister_script('d3');
     wp_register_script( 'd3', get_template_directory_uri() . '/js/d3.min.js', array(), '3.5.6' );

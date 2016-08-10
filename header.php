@@ -37,25 +37,6 @@
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
         <?php wp_head(); ?>
 
-        <script type="text/javascript">
-            // $(function() {
-            //     var explore_sliders = $(".explore-slider");
-            //     explore_sliders.owlCarousel({
-            //       itemsCustom : [
-            //         [0, 2],
-            //         [300, 2],
-            //         [550, 3],
-            //         [700, 4],
-            //         [800, 4],
-            //         [1270, 5],
-            //         [1500, 6],
-            //         [1700, 7],
-            //         [1900, 8],
-            //       ]
-            //     });
-            // });
-        </script>
-
         <script src="//archive.org/includes/analytics.js" type="text/javascript"></script>
         <script type="text/javascript">
         if (window.archive_analytics) {
@@ -94,7 +75,7 @@
                                         <li id="blog-nav"><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
                                         <li id="data-nav"><a href="<?php bloginfo('url'); ?>/data">data</a></li>
                                         <li id="resources-nav"><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
-                                        <li id="press-nav"><a href="<?php bloginfo('url'); ?>/press">press</a></li>
+                                        <li id="markets-nav"><a href="<?php bloginfo('url'); ?>/market-map">market map</a></li>
                                         <li id="browse-nav"><a href="<?php bloginfo('url'); ?>/browse">search</a></li>
                                     </ul>
                                  </div>

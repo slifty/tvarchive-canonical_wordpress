@@ -181,7 +181,7 @@
             }
 
             var searchPage = 0;
-            var perPage = 1;
+            var perPage = 20;
             var activeSearch = false;
             function runSearch(reset) {
                 if(activeSearch)

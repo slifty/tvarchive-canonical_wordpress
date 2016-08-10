@@ -49,7 +49,7 @@
                         adCountMax: 0,
                         affiliations: [
                             {
-                                name: 'Democrat',
+                                name: 'Democratic',
                                 candidates: []
                             },{
                                 name: 'Republican',
@@ -65,7 +65,7 @@
                         adCountMax: 0,
                         affiliations: [
                             {
-                                name: 'Democrat',
+                                name: 'Democratic',
                                 candidates: []
                             },{
                                 name: 'Republican',
@@ -81,7 +81,7 @@
                         adCountMax: 0,
                         affiliations: [
                             {
-                                name: 'Democrat',
+                                name: 'Democratic',
                                 candidates: []
                             },{
                                 name: 'Republican',
@@ -145,9 +145,9 @@
                         for(var l=0;l<candidatesByRace[j].affiliations[k].candidates.length;l++){
 
                             if (l<4){
-                                $('#'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+' .explore-list.main').append('<li class="explore-item item"><div class="explore-label"><p>'+candidatesByRace[j].affiliations[k].candidates[l].name+'</p><small><a href="<?php bloginfo('url'); ?>/browse/?q=">View Ads</a></small></div><div class="explore-bar-container"><div class="explore-bar" style="width:'+(((+candidatesByRace[j].affiliations[k].candidates[l].ad_count)/(+candidatesByRace[j].adCountMax))*100)+'%;"></div><div class="explore-count">'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads</div></div></li>');
+                                $('#'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+' .explore-list.main').append('<li class="explore-item item"><div class="explore-label"><p>'+candidatesByRace[j].affiliations[k].candidates[l].name+'</p><small><a href="<?php bloginfo('url'); ?>/browse/?q='+encodeURI(candidatesByRace[j].affiliations[k].candidates[l].name)+'">View Ads</a></small></div><div class="explore-bar-container" data-count="'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads"><div class="explore-bar" style="width:'+(((+candidatesByRace[j].affiliations[k].candidates[l].ad_count)/(+candidatesByRace[j].adCountMax))*100)+'%;"><div class="explore-count">'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads</div></div></div></li>');
                             } else {
-                                $('#'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+' .explore-list.extra').append('<li class="explore-item item"><div class="explore-label"><p>'+candidatesByRace[j].affiliations[k].candidates[l].name+'</p><small><a href="<?php bloginfo('url'); ?>/browse/?q=">View Ads</a></small></div><div class="explore-bar-container"><div class="explore-bar" style="width:'+(((+candidatesByRace[j].affiliations[k].candidates[l].ad_count)/(+candidatesByRace[j].adCountMax))*100)+'%;"></div><div class="explore-count">'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads</div></div></li>');
+                                $('#'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+' .explore-list.extra').append('<li class="explore-item item"><div class="explore-label"><p>'+candidatesByRace[j].affiliations[k].candidates[l].name+'</p><small><a href="<?php bloginfo('url'); ?>/browse/?q='+encodeURI(candidatesByRace[j].affiliations[k].candidates[l].name)+'">View Ads</a></small></div><div class="explore-bar-container" data-count="'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads"><div class="explore-bar" style="width:'+(((+candidatesByRace[j].affiliations[k].candidates[l].ad_count)/(+candidatesByRace[j].adCountMax))*100)+'%;"><div class="explore-count">'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads</div></div></div></li>');
                             }
 
                         }
@@ -158,17 +158,67 @@
 
 
             var sponsorsData=[];
-            var sponsorsByType=[];
+            var sponsorsByType=[
+                {
+                    name: 'SuperPAC',
+                    ad_count: 0
+                }
+            ];
 
             $.get('<?php bloginfo('url'); ?>/api/v1/ad_sponsors/', function(data){
                 sponsorsData = data;
             }).done(function(){
-                console.log(sponsorsData);
+
+                var sponsorAdCountMax = d3.max(sponsorsData, function(d){return +d.ad_count});
+                $('#explore-sponsors-content').append('<ol class="explore-list main"></ol><div class="collapse" id="seeMoreSponsors"><ol class="explore-list extra"></ol></div>'+(sponsorsData.length > 4 ? '<button class="btn explore-show-more" role="button" data-toggle="collapse" data-target="#seeMoreSponsors" aria-expanded="false" aria-controls="seeMoreSponsors">Show / Hide '+(sponsorsData.length-4)+' More Sponsors</button>':''));
+
+                for(var i=0;i<sponsorsData.length;i++){
+                    if (i<4){
+                        $('#explore-sponsors-content .explore-list.main').append('<li class="explore-item item"><div class="explore-label"><p>'+sponsorsData[i].name+'</p><small><a href="<?php bloginfo('url'); ?>/browse/?q='+encodeURI(sponsorsData[i].name)+'">View Ads</a></small></div><div class="explore-bar-container" data-count="'+sponsorsData[i].ad_count+' Ads"><div class="explore-bar" style="width:'+(((+sponsorsData[i].ad_count)/(+sponsorAdCountMax))*100)+'%;"><div class="explore-count">'+sponsorsData[i].ad_count+' Ads</div></div></div></li>');
+                    } else {
+                        $('#explore-sponsors-content .explore-list.extra').append('<li class="explore-item item"><div class="explore-label"><p>'+sponsorsData[i].name+'</p><small><a href="<?php bloginfo('url'); ?>/browse/?q='+encodeURI(sponsorsData[i].name)+'">View Ads</a></small></div><div class="explore-bar-container" data-count="'+sponsorsData[i].ad_count+' Ads"><div class="explore-bar" style="width:'+(((+sponsorsData[i].ad_count)/(+sponsorAdCountMax))*100)+'%;"><div class="explore-count">'+sponsorsData[i].ad_count+' Ads</div></div></div></li>');
+                    }
+                }
+
+                var flags=[], sponsorsByType=[];
+
+                for(var j=0;j<sponsorsData.length;j++){
+                    if( flags[sponsorsData[j].type]) continue;
+                    flags[sponsorsData[j].type] = true;
+                    sponsorsByType.push({name: sponsorsData[j].type,ad_count:0});
+                }
+
+                for(var k=0;k<sponsorsData.length;k++){
+                    for(var l=0;l<sponsorsByType.length;l++){
+                        if(sponsorsData[k].type == sponsorsByType[l].name){
+                            sponsorsByType[l].ad_count += +(sponsorsData[k].ad_count);
+                        }
+                    }
+
+                }
+
+                sponsorsByType.sort(function(a,b){
+                    return d3.descending(a.ad_count, b.ad_count);
+                });
+
+                console.log(sponsorsByType);
+                var sponsorTypeAdCountMax = d3.max(sponsorsByType, function(d){return +d.ad_count});
+
+                $('#explore-sponsor_types-content').append('<ol class="explore-list main"></ol><div class="collapse" id="seeMoreSponsorTypes"><ol class="explore-list extra"></ol></div>'+(sponsorsByType.length > 4 ? '<button class="btn explore-show-more" role="button" data-toggle="collapse" data-target="#seeMoreSponsorTypes" aria-expanded="false" aria-controls="seeMoreSponsorTypes">Show / Hide '+(sponsorsByType.length-4)+' More Sponsor Types</button>':''));
+
+                for(var i=0;i<sponsorsByType.length;i++){
+                    if (i<4){
+                        $('#explore-sponsor_types-content .explore-list.main').append('<li class="explore-item item"><div class="explore-label"><p>'+sponsorsByType[i].name+'</p><small><a href="<?php bloginfo('url'); ?>/browse/?q='+encodeURI(sponsorsByType[i].name)+'">View Ads</a></small></div><div class="explore-bar-container" data-count="'+sponsorsByType[i].ad_count+' Ads"><div class="explore-bar" style="width:'+(((+sponsorsByType[i].ad_count)/(+sponsorTypeAdCountMax))*100)+'%;"><div class="explore-count">'+sponsorsByType[i].ad_count+' Ads</div></div></div></li>');
+                    } else {
+                        $('#explore-sponsor_types-content .explore-list.extra').append('<li class="explore-item item"><div class="explore-label"><p>'+sponsorsByType[i].name+'</p><small><a href="<?php bloginfo('url'); ?>/browse/?q='+encodeURI(sponsorsByType[i].name)+'">View Ads</a></small></div><div class="explore-bar-container" data-count="'+sponsorsByType[i].ad_count+' Ads"><div class="explore-bar" style="width:'+(((+sponsorsByType[i].ad_count)/(+sponsorTypeAdCountMax))*100)+'%;"><div class="explore-count">'+sponsorsByType[i].ad_count+' Ads</div></div></div></li>');
+                    }
+                }
+
             });
 
-            for(var i=0;i<sponsorsData.length;i++){
 
-            }
+
+
 
 
         });
@@ -184,7 +234,7 @@
         <ul class="nav nav-tabs" id="explore-tabs" role="tablist">
           <li role="presentation" class="active"><a href="#candidates" aria-controls="candidates" role="tab" data-toggle="tab">By Candidate</a></li>
           <li role="presentation"><a href="#sponsors" aria-controls="sponsors" role="tab" data-toggle="tab">By Sponsor</a></li>
-          <li role="presentation"><a href="#sponsorTypes" aria-controls="sponsorTypes" role="tab" data-toggle="tab">By Sponsor Type</a></li>
+          <li role="presentation"><a href="#sponsor-types" aria-controls="sponsor-types" role="tab" data-toggle="tab">By Sponsor Type</a></li>
         </ul>
       </div>
     </div>
@@ -195,10 +245,10 @@
             <?php get_template_part('content', 'explore_candidates'); ?>
           </div>
           <div role="tabpanel" class="tab-pane" id="sponsors">
-
+            <?php get_template_part('content', 'explore_sponsors'); ?>
           </div>
-          <div role="tabpanel" class="tab-pane" id="sponsorTypes">
-
+          <div role="tabpanel" class="tab-pane" id="sponsor-types">
+            <?php get_template_part('content', 'explore_sponsor_types'); ?>
           </div>
         </div>
       </div>

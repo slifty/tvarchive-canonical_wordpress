@@ -35,10 +35,16 @@
 
     // Should a search be run?
     $run_search_on_load = false;
+    $start_with_advanced = false;
     if($word_filter || $candidate_filter || $sponsor_filter
     || $subject_filter || $type_filter || $channel_filter
     || $program_filter)
         $run_search_on_load = true;
+
+    if($candidate_filter || $sponsor_filter
+    || $subject_filter || $type_filter || $channel_filter
+    || $program_filter)
+        $start_with_advanced = true;
 
 ?>
 
@@ -256,14 +262,6 @@
 
             }
 
-            <?php
-                if($run_search_on_load) {
-                    ?>
-                    $(function() { runSearch() });
-                    <?php
-                }
-            ?>
-
             $('form').each(function() {
                 $(this).find('input').keypress(function(e) {
                     // Enter pressed?
@@ -325,6 +323,23 @@
                         isBasic = true;
                     }
                 });
+
+
+                <?php
+                    if($start_with_advanced) {
+                        ?>
+                        searchToggle.click();
+                        <?php
+                    }
+                ?>
+
+                <?php
+                    if($run_search_on_load) {
+                        ?>
+                        $(function() { runSearch() });
+                        <?php
+                    }
+                ?>
             });
         </script>
     </div>

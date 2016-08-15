@@ -253,4 +253,9 @@
         </div>
       </div>
     </div>
+    <div id="home-explore-facts-section" class="row">
+      <div class="col-xs-12 col-md-12">
+        <?php get_template_part('content', 'explore_factchecks'); ?>
+      </div>
+    </div>
     <?php get_footer(); ?>

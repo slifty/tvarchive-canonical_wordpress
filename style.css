@@ -508,6 +508,29 @@ a#footer-sidebar-link{
 	margin-bottom: 0;
 }
 
+#explore-factchecks-content {
+	padding-bottom: 40px;
+}
+#explore-factchecks-content .next {
+	font-size: 42px;
+}
+#explore-factchecks-content .prev {
+	font-size: 42px;
+}
+.factchecked-ad {
+	text-align: left;
+	padding: 10px;
+}
+.factchecked-ad .embed iframe {
+	width: 100%;
+}
+.factchecked-ad .sponsor-type {
+	font-size: 12px;
+}
+.factchecked-ad .candidates {
+	font-size: 12px;
+}
+
 /* Ad Embed */
 
 #ad-embed_home {

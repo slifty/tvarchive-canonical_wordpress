@@ -1,9 +1,5 @@
 <?php
 
-  /////////////////
-  // Add features image for Blog view
-  add_theme_support( 'post-thumbnails' );
-
   // set blog listing image size
   set_post_thumbnail_size( 776, 253, true);
   add_image_size( 'frontpage-thumb', 380, 230, true);
@@ -52,7 +48,6 @@ function archivepoliticalads_scripts() {
     wp_register_script( 'jquery', get_template_directory_uri() . '/js/jquery.min.js', array(), '2.1.4' );
     wp_enqueue_script('jquery');
 
-
     // Load in jQuery ui
     wp_enqueue_script( 'jquery.ui.js', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js',  '', true );
     wp_enqueue_style( 'jquery.ui.css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css' );
@@ -81,9 +76,10 @@ function archivepoliticalads_scripts() {
     wp_enqueue_style( 'bootstrap.css', get_template_directory_uri() . '/css/bootstrap.css' );
     wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'),  '', true );
 
-    // Load in our carousel for the front page
-    wp_enqueue_style( 'owl.carousel.css', get_template_directory_uri() . '/css/owl.carousel.css' );
-    wp_enqueue_script( 'owl.carousel', get_template_directory_uri() . '/js/owl.carousel.min.js', array('jquery','bootstrap' ),  '', true );
+    // Load in our carousel
+    wp_enqueue_style( 'slick.css', get_template_directory_uri() . '/css/slick.css' );
+    wp_enqueue_style( 'slick-theme.css', get_template_directory_uri() . '/css/slick-theme.css' );
+    wp_enqueue_script( 'slick.js', '//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js', array(),  '' );
 
     // Load the main styles
     wp_enqueue_style( 'style.css', get_stylesheet_uri().'?1' );

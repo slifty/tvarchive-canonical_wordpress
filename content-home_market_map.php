@@ -17,7 +17,7 @@
 <script type="text/javascript">
 
 var marketData = [];
-
+    var is_home = <?php echo(is_home()?"true":"false");?>;
     var bubblesData = [
         {
            radius: 39,
@@ -325,7 +325,12 @@ $.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
     var url = '<?php bloginfo('url'); ?>';
     var location = '';
 
-    function selectMarket(market_code){
+    function selectMarket(market_code) {
+
+        if(is_home) {
+            window.location.href = '<?php bloginfo('url'); ?>/market-map/#' + market_code;
+            return;
+        }
 
         $('.bubbles .datamaps-bubble').each(function(){
             $(this).attr('data-state', 'default');
@@ -357,7 +362,9 @@ $.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
         });
     };
 
-    selectMarket(window.location.hash.substr(1));
+    if(!is_home) {
+        selectMarket(window.location.hash.substr(1));
+    }
 
     $('.market-map-show-all').click(function(){
         selectMarket('');

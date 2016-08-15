@@ -257,12 +257,8 @@ $.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
     var adCountMax = d3.max(marketData, function(d){return +d.ad_count});
     var adCountMin = d3.min(marketData, function(d){return +d.ad_count});
 
-    console.log(adCountMin, adCountMax, adCountTotal);
-
     var scale = d3.scale.linear();
     scale.domain([adCountMin, adCountMax]).range([15,40]);
-
-    console.log(scale.domain());
 
     $('.total-airing-count').html(commas(adCountTotal)+' times');
     $('.total-market-count').html(commas(marketData.length)+' markets');
@@ -355,7 +351,6 @@ $.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
 
 
             $('#most-aired-ads').empty();
-            console.log(adData);
             for (var i=0;i<adData.length;i++){
                 $('#most-aired-ads').append('<div class="col-xs-12 col-md-6 col-lg-3"><div class="most-aired-ad-container"><div class="video-container"><iframe src="'+adData[i].embed_url+'" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen=""></iframe></div><div class="details-container '+(adData[i].wp_identifier == 1396 ? 'expanded' : '')+'"><h3><a href="'+url+'/ad/'+adData[i].archive_id+'/"><span class="air-count">'+commas(adData[i].air_count)+'</span> Broadcasts</a></h3><p>Sponsor Type: <span class="sponsor-type">'+adData[i].sponsor_types+'<span></p><p>Candidates: <span class="candidates">'+adData[i].candidates+'</span></p><div class="reference-container">'+(adData[i].wp_identifier == 1396 ? '<p class="reference-citation">From Politifact:</p><p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.</p></div><div class="read-more-cta"><a href="'+url+'/ad/'+adData[i].archive_id+'/">Read More About this Ad</a></div>' : '')+'</div></div></div></div>');
             }

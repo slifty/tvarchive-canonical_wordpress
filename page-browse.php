@@ -216,11 +216,19 @@
 
                 // Run a search and populate results
                 var querystring_parts = [];
+                for(param in search_params) {
+                    if(search_params[param] != "")
+                        querystring_parts.push(param + "=" + search_params[param]);
+                }
+
+                // Update the URL
+                var new_url = location.protocol + '//' + location.host + location.pathname;
+                var new_querystring = querystring_parts.join("&");
+                window.history.pushState(search_params, "", new_url + "?" + new_querystring);
+
+                // Add paging information
                 querystring_parts.push("page=" + searchPage)
                 querystring_parts.push("per_page=" + perPage)
-                for(param in search_params) {
-                    querystring_parts.push(param + "=" + search_params[param]);
-                }
 
                 $.ajax({
                     url: "<?php bloginfo('url'); ?>/api/v1/ads?" + querystring_parts.join("&"),

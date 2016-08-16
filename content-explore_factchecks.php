@@ -17,7 +17,6 @@
                     <div id="factchecked-ads">
                         <?php
                             foreach($ads as $ad) {
-                                $reference = array_pop($ad->references);
                                 ?>
                                 <div class="factchecked-ad">
                                     <div class="embed"><iframe frameborder="0" allowfullscreen src="<?php echo($ad->embed_url);?>&nolinks=1" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div>

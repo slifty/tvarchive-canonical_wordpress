@@ -31,6 +31,7 @@
                 <?php get_template_part('content', 'market_map_ads'); ?>
             </div>
         </div>
+        <div id="load-more">Load More...</div>
     </div>
 
 

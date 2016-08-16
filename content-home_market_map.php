@@ -320,6 +320,7 @@ $.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
     var adData = [];
     var url = '<?php bloginfo('url'); ?>';
     var location = '';
+    var current_page = 0;
 
     function selectMarket(market_code) {
 
@@ -351,11 +352,32 @@ $.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
 
 
             $('#most-aired-ads').empty();
-            for (var i=0;i<adData.length;i++){
-                $('#most-aired-ads').append('<div class="col-xs-12 col-md-6 col-lg-3"><div class="most-aired-ad-container"><div class="video-container"><iframe src="'+adData[i].embed_url+'" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen=""></iframe></div><div class="details-container '+(adData[i].wp_identifier == 1396 ? 'expanded' : '')+'"><h3><a href="'+url+'/ad/'+adData[i].archive_id+'/"><span class="air-count">'+commas(adData[i].air_count)+'</span> Broadcasts</a></h3><p>Sponsor Type: <span class="sponsor-type">'+adData[i].sponsor_types+'<span></p><p>Candidates: <span class="candidates">'+adData[i].candidates+'</span></p><div class="reference-container">'+(adData[i].wp_identifier == 1396 ? '<p class="reference-citation">From Politifact:</p><p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.</p></div><div class="read-more-cta"><a href="'+url+'/ad/'+adData[i].archive_id+'/">Read More About this Ad</a></div>' : '')+'</div></div></div></div>');
-            }
+            renderAds(adData, current_page);
+            current_page++;
         });
     };
+
+    function renderAds(adData, page) {
+        var perPage = 50;
+        for (i = page * perPage; i < Math.min(adData.length, (page + 1) * perPage); i++ ) {
+            var html = '<div class="col-xs-12 col-md-6 col-lg-3">';
+                html+= '<div class="most-aired-ad-container">';
+                html+= '<div class="video-container">';
+                html+= '<a href="'+url+'/ad/'+adData[i].archive_id+'/"><img src="https://archive.org/serve/'+adData[i].archive_id+'/format=Thumbnail" /></a>';
+                html+= '</div>';
+                html+= '<div class="details-container '+(adData[i].wp_identifier == 1396 ? 'expanded' : '')+'">';
+                html+= '<h3><a href="'+url+'/ad/'+adData[i].archive_id+'/"><span class="air-count">'+commas(adData[i].air_count)+'</span> Broadcasts</a></h3>';
+                html+= '<p>Sponsor Type: <span class="sponsor-type">'+adData[i].sponsor_types+'<span></p>';
+                html+= '<p>Candidates: <span class="candidates">'+adData[i].candidates+'</span></p>';
+                html+= '<div class="reference-container">';
+                html+= (adData[i].wp_identifier == 1396 ? '<p class="reference-citation">From Politifact:</p><p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.</p></div><div class="read-more-cta"><a href="'+url+'/ad/'+adData[i].archive_id+'/">Read More About this Ad</a></div>' : '');
+                html+= '</div></div></div></div>';
+            $('#most-aired-ads').append(html);
+        }
+        if(adData.length > (page + 1) * perPage) {
+            $("#load-more").show();
+        }
+    }
 
     if(!is_home) {
         selectMarket(window.location.hash.substr(1));
@@ -364,5 +386,13 @@ $.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
     $('.market-map-show-all').click(function(){
         selectMarket('');
     });
+
+    $('#load-more').hide();
+    $('#load-more').click(function () {
+        $('#load-more').hide();
+        renderAds(adData, current_page);
+        current_page++;
+    });
+
 });
 </script>

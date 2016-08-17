@@ -21,6 +21,7 @@
     var is_home = <?php echo(is_home()?"true":"false");?>;
     var market = '';
     var current_page = 0;
+    var commas = d3.format(',d');
     var bubblesData = [
         {
            city: 'Boston',
@@ -221,7 +222,6 @@
             marketData = data;
         }).done(function(){
             // Step 2: Calculate values
-            var commas = d3.format(',d');
             var adCountTotal = d3.sum(marketData, function(d){return d.ad_count}) | 0;
             var adCountMax = d3.max(marketData, function(d){return +d.ad_count}) | 0;
             var adCountMin = d3.min(marketData, function(d){return +d.ad_count}) | 0;

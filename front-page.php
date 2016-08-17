@@ -1,14 +1,19 @@
 <?php get_header(); ?>
-    <div id="home-header-section" class="row">
+    <div id="home-header-section" class="row guttered-row">
         <div id="home-header-content">
             <div id="home-header-introduction">
-                <div id="home-header-title" class="col-sm-12 col-md-4">
-                    <h1>Political ads broadcast <span class="total-airing-count">175,515 times</span> over <span class="total-market-count">23 markets</span></h1>
+                <div class="col-md-12 col-lg-4">
+                    <h1 id="home-header-title">Political ads broadcast <span class="total-airing-count">175,515 times</span> over <span class="total-market-count">23 markets</span></h1>
                 </div>
-                <div id="home-header-explanation" class="col-sm-12 col-md-8">
+                <div id="home-header-explanation" class="col-md-12 col-lg-8">
                     <?php the_field('home_description', 'option'); ?>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row guttered-row">
+        <div class="col-xs-12">
+            <hr />
         </div>
     </div>
 
@@ -29,14 +34,13 @@
     </div>
 
 
-    <div  id="home-feature-section" class="row">
-        <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+    <div id="home-feature-section" class="row guttered-row">
+        <div class="col-xs-12 col-sm-12 col-md-4">
             <?php get_template_part('content', 'home_blog_posts'); ?>
         </div>
-        <div id="ad-embed_home" class="hidden-xs hidden-sm hidden-md col-lg-8">
+        <div id="ad-embed_home" class="hidden-xs hidden-sm col-md-8">
             <?php get_template_part('content', 'home_canonical_ad'); ?>
         </div>
-
     </div>
     <script type="text/javascript">
 
@@ -139,7 +143,7 @@
                     for(var k=0;k<candidatesByRace[j].affiliations.length;k++){
 
                         if (candidatesByRace[j].affiliations[k].candidates.length > 0){
-                            $('#'+candidatesByRace[j].race).append('<div class="candidate-affiliation-group" id="'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'"><h3>'+candidatesByRace[j].race+' '+candidatesByRace[j].affiliations[k].name+' Candidates</h3><ol class="explore-list main"></ol><div class="collapse" id="seeMoreCandidates'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'"><ol class="explore-list extra"></ol></div>'+(candidatesByRace[j].affiliations[k].candidates.length > 4 ? '<button class="btn explore-show-more" role="button" data-toggle="collapse" data-target="#seeMoreCandidates'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'" aria-expanded="false" aria-controls="seeMoreCandidates">Show / Hide '+(candidatesByRace[j].affiliations[k].candidates.length-4)+' More Candidates</button>':'')+'</div></div>');
+                            $('#'+candidatesByRace[j].race).append('<div class="candidate-affiliation-group" id="'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'"><h3>'+candidatesByRace[j].affiliations[k].name+' '+candidatesByRace[j].race+' Candidates</h3><ol class="explore-list main"></ol><div class="collapse" id="seeMoreCandidates'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'"><ol class="explore-list extra"></ol></div>'+(candidatesByRace[j].affiliations[k].candidates.length > 4 ? '<button class="btn explore-show-more" role="button" data-toggle="collapse" data-target="#seeMoreCandidates'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'" aria-expanded="false" aria-controls="seeMoreCandidates">Show / Hide '+(candidatesByRace[j].affiliations[k].candidates.length-4)+' More Candidates</button>':'')+'</div></div>');
                         }
 
                         for(var l=0;l<candidatesByRace[j].affiliations[k].candidates.length;l++){
@@ -201,7 +205,6 @@
                     return d3.descending(a.ad_count, b.ad_count);
                 });
 
-                console.log(sponsorsByType);
                 var sponsorTypeAdCountMax = d3.max(sponsorsByType, function(d){return +d.ad_count});
 
                 $('#explore-sponsor_types-content').append('<ol class="explore-list main"></ol><div class="collapse" id="seeMoreSponsorTypes"><ol class="explore-list extra"></ol></div>'+(sponsorsByType.length > 4 ? '<button class="btn explore-show-more" role="button" data-toggle="collapse" data-target="#seeMoreSponsorTypes" aria-expanded="false" aria-controls="seeMoreSponsorTypes">Show / Hide '+(sponsorsByType.length-4)+' More Sponsor Types</button>':''));
@@ -213,32 +216,25 @@
                         $('#explore-sponsor_types-content .explore-list.extra').append('<li class="explore-item item"><div class="explore-label"><p>'+sponsorsByType[i].name+'</p><small><a href="<?php bloginfo('url'); ?>/browse/?q='+encodeURI(sponsorsByType[i].name)+'">View Ads</a></small></div><div class="explore-bar-container" data-count="'+sponsorsByType[i].ad_count+' Ads"><div class="explore-bar" style="width:'+(((+sponsorsByType[i].ad_count)/(+sponsorTypeAdCountMax))*100)+'%;"><div class="explore-count">'+sponsorsByType[i].ad_count+' Ads</div></div></div></li>');
                     }
                 }
-
             });
-
-
-
-
-
-
         });
 
     </script>
-    <div id="home-explore-header" class="row header-row">
+    <div id="home-explore-header" class="row guttered-row">
         <div class="col-xs-12 col-md-12">
-            <h1>Explore the Collection</h1>
+            <h2 class="section-header">Explore the Collection</h2>
         </div>
     </div>
     <div id="home-explore-tabs" class="row explore-tab-row">
       <div class="col-xs-12 col-md-12">
         <ul class="nav nav-tabs" id="explore-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#candidates" aria-controls="candidates" role="tab" data-toggle="tab">By Candidate</a></li>
-          <li role="presentation"><a href="#sponsors" aria-controls="sponsors" role="tab" data-toggle="tab">By Sponsor</a></li>
-          <li role="presentation"><a href="#sponsor-types" aria-controls="sponsor-types" role="tab" data-toggle="tab">By Sponsor Type</a></li>
+          <li role="presentation" class="active"><a href="#candidates" aria-controls="candidates" role="tab" data-toggle="tab"><span class="hidden-md hidden-sm hidden-xs">By </span>Candidate<span class="hidden-lg">s</span></a></li>
+          <li role="presentation"><a href="#sponsors" aria-controls="sponsors" role="tab" data-toggle="tab"><span class="hidden-md hidden-sm hidden-xs">By </span>Sponsor<span class="hidden-lg">s</span></a></li>
+          <li role="presentation"><a href="#sponsor-types" aria-controls="sponsor-types" role="tab" data-toggle="tab"><span class="hidden-md hidden-sm hidden-xs">By </span>Sponsor Type<span class="hidden-lg">s</span></a></li>
         </ul>
       </div>
     </div>
-    <div id="home-explore-section" class="row">
+    <div id="home-explore-section" class="row guttered-row">
       <div class="col-xs-12 col-md-12">
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="candidates">
@@ -253,7 +249,7 @@
         </div>
       </div>
     </div>
-    <div id="home-explore-facts-section" class="row">
+    <div id="home-explore-facts-section" class="row guttered-row">
       <div class="col-xs-12 col-md-12">
         <?php get_template_part('content', 'explore_factchecks'); ?>
       </div>

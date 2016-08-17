@@ -9,7 +9,7 @@
             $post = $featured_post;
             setup_postdata($featured_post);
             ?>
-            <div class="post_home col-xs-12 col-sm-12 col-md-4 col-lg-12">
+            <div class="post_home col-xs-12">
                 <div class="post_home_inner">
                     <h2 class="post-title_home"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                     <p class="post-date">
@@ -26,7 +26,7 @@
                         }
                         remove_filter('the_excerpt', 'wpautop');
                     ?>
-                    <p class="post-excerpt">
+                    <p class="post-excerpt <?php if(get_the_post_thumbnail()) { ?>hidden-md<?php } ?>">
                         <?php the_excerpt(); ?>
                     </p>
                 </div>

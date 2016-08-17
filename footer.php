@@ -1,9 +1,9 @@
                 </div>
             </div>
             <div id="footer">
-                <div id="footer-video-subheader" class="row header-row">
+                <div id="footer-video-subheader" class="row guttered-row">
                     <div class="col-sm-12">
-                        <h1>Learn More About the Political TV Ad Archive</h1>
+                        <h2 class="section-header">Learn More About the Political TV Ad Archive</h2>
                     </div>
                 </div>
                 <div id="footer-video" class="row">
@@ -11,7 +11,7 @@
                         <iframe src="https://archive.org/embed/PolitAdArchiveVideo" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
                     </div>
                 </div>
-                <div id="footer-content" class="row">
+                <div id="footer-content" class="row guttered-row">
                     <div class="footer-section col-xs-12 col-sm-12 col-md-4 ">
                         <div class="footer-title">Political TV Ad Archive</div>
                         <div class="footer-subtitle">by the Internet Archive</div>

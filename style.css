@@ -20,8 +20,21 @@ html {
   padding: 0px;
 }
 h1 {
-  margin: 0px;
+	margin: 0px;
   padding: 0px;
+  font-size: 36px;
+  font-weight: normal;
+}
+h2.section-header {
+  padding: 24px 0px;
+  margin: 0px;
+  font-size: 24px;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: #fff;
+}
+h3 {
+	margin: 0px;
 }
 body {
   color: #4a4a4a;
@@ -30,6 +43,10 @@ body {
 a {
   color: #4a90e2;
   text-decoration: none;
+}
+hr {
+	margin-top: 25px;
+	margin-bottom: 25px;
 }
 p, ul, ol{
 	font-size: 16px;
@@ -54,6 +71,27 @@ div.button {
   cursor: pointer;
 }
 
+input[type=text]::-webkit-input-placeholder { /* Safari, Chrome(, Opera?) */
+  color: #a19f9f;
+  font-weight: normal;
+  font-size: 16px;
+}
+input[type=text]:-moz-placeholder { /* Firefox 18- */
+  color: #a19f9f;
+  font-weight: normal;
+  font-size: 16px;
+}
+input[type=text]::-moz-placeholder { /* Firefox 19+ */
+  color: #a19f9f;
+  font-weight: normal;
+  font-size: 16px;
+}
+input[type=text]:-ms-input-placeholder { /* IE (10+?) */
+  color: #a19f9f;
+  font-weight: normal;
+  font-size: 16px;
+}
+
 #wrap {
 	min-height: 100%;
 }
@@ -69,6 +107,9 @@ div.button {
 	padding-right: 0 !important;
 }
 
+.guttered-row {
+	padding: 0px 115px;
+}
 .separator-left {
   border-left: 1px solid #3a3e4b;
 }
@@ -85,17 +126,6 @@ div.button {
 .checkbox {
   font-size: 16px;
 }
-.header-row {
-  padding: 24px 100px;
-}
-.header-row h1 {
-  color: #fff;
-  font-size: 24px;
-  font-weight: normal;
-  text-transform: uppercase;
-  margin: 0px;
-  font-weight: 500;
-}
 .page-header-row {
   padding: 37px 100px;
 }
@@ -105,7 +135,6 @@ div.button {
   border-bottom: 2px solid white;
   padding-bottom: 10px;
   margin: 0px;
-  font-weight: 500;
 }
 .page-header-row p {
   margin: 0px;
@@ -337,7 +366,8 @@ a#footer-sidebar-link{
 }
 
 #footer-content {
-	padding: 50px 0px;
+	padding-top: 50px;
+	padding-bottom: 50px;
   background-color: #3a3e4b;
 }
 
@@ -372,17 +402,15 @@ a#footer-sidebar-link{
 }
 
 /* Front Page */
-
-#home-header-section{
-	padding: 50px 100px 20px;
+#home-header-section {
+	padding-top: 50px;
 }
-
 #market-map-header-section{
 	text-align: center;
 }
 
 #home-header-title, #market-map-header-title, #market-map-title {
-	font-size: 2.25em;
+	font-size: 36px;
 	font-weight: normal;
 }
 
@@ -406,10 +434,8 @@ a#footer-sidebar-link{
 	color: #0094AF;
 }
 #home-header-explanation {
-	font-size: 1.25em;
-}
-#home-header-explanation p {
-  margin: 0;
+	font-size: 20px;
+	line-height: 26px;
 }
 .market-map-container{
 	max-width: 1200px;
@@ -418,15 +444,12 @@ a#footer-sidebar-link{
 	text-align: center;
 }
 #homepage-market-map-pills{
-	margin-top: 3em;
 	margin-bottom: 0;
 	display: inline-block;
 }
 #homepage-market-map{
 	text-align:left;
 }
-
-
 
 #home-header-search {
   background-color: rgba(232, 86, 69, 0.90);
@@ -436,7 +459,8 @@ a#footer-sidebar-link{
   margin-top: 15px;
 }
 #home-feature-section {
-  padding: 50px 100px;
+  padding-top: 50px;
+  padding-bottom: 50px;
   background-color: #d5e0eb;
 }
 #home-feature-row {
@@ -445,14 +469,6 @@ a#footer-sidebar-link{
 #home-explore-header {
   background-color: #0a91ab;
 }
-/*.ad-title_home {
-	border-top: 20px solid #0094AF;
-	margin: 0px;
-	padding: 15px;
-	font-size: 36px;
-	font-weight: bold;
-	color: #0094AF;
-}*/
 .cell {
   float: left;
   margin-top: 35px;
@@ -498,14 +514,16 @@ a#footer-sidebar-link{
 }
 .cell-multiline-value {
   color: #4a4a4a;
-  line-height: 1.25rem;
-  font-size: 1rem;
   text-overflow: ellipsis;
   word-wrap: break-word;
   overflow: hidden;
 }
 .cell-multiline-value p:last-child{
 	margin-bottom: 0;
+}
+#home-explore-tabs > div {
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 #explore-factchecks-content {
@@ -835,11 +853,6 @@ a#footer-sidebar-link{
 }
 
 /* Explore */
-
-#home-explore-section{
-	padding-bottom: 2em;
-}
-
 .explore-subtitle-row {
   padding: 0px 100px;
   margin-bottom: 40px;
@@ -1207,8 +1220,8 @@ h3.resource-name {
 	margin-left: 15px;
 }
 .post-date {
-    margin: 1em 0px;
-    font-size: .875em;
+    margin: 15px;
+    font-size: 14px;
     text-transform: uppercase;
     color: #9b9b9b;
 }
@@ -1217,14 +1230,11 @@ h3.resource-name {
 		font-weight: normal;
 		color: #E85646;
 }
-.post-excerpt p{
-    font-size: 14px;
-    line-height: 1.25em;
-    margin: 15px 0px;
-    color: #343434;
-}
-
-.post_home_inner .post-excerpt {
+.post-excerpt {
+  font-size: 16px;
+  line-height: 20px;
+  margin: 15px 0px;
+  color: #343434;
 	padding: 0px 15px;
 	padding-bottom: 15px;
 }

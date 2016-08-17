@@ -15,7 +15,7 @@
             <div id="market-map-title">
                 <h1>Political ads broadcast <br><span class="total-airing-count"></span> over <span class="total-market-count"></span></h1>
             </div>
-            <p>Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jicama green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. </p>
+            <p><?php the_field('home_description', 'option'); ?></p>
         </div>
     </div>
     <div class="row">

@@ -1,13 +1,13 @@
 <div class="row">
     <div class="market-map-container">
         <ul class="nav nav-pills" id="homepage-market-map-pills" role="tablist">
-            <li role="presentation" class="active">
+            <li id="market-all-pill" role="presentation" class="active">
                 <a href="#" aria-controls="All Ads" role="tab" data-toggle="pill">All Ads</a>
             </li>
-            <li role="presentation">
+            <li id="market-before-pill" role="presentation">
                 <a href="#" aria-controls="Ads before July 1" role="tab" data-toggle="pill">Ads before July 1</a>
             </li>
-            <li role="presentation">
+            <li id="market-after-pill" role="presentation">
                 <a href="#" aria-controls="Ads since July 1" role="tab" data-toggle="pill">Ads since July 1</a>
             </li>
         </ul>
@@ -16,30 +16,29 @@
 </div>
 <script type="text/javascript">
 
-var marketData = [];
+    var marketData = [];
+    var adData = [];
     var is_home = <?php echo(is_home()?"true":"false");?>;
+    var market = '';
+    var current_page = 0;
     var bubblesData = [
         {
-           radius: 39,
-           num: '24,161',
            city: 'Boston',
            state: 'MA',
            fillKey: 'bubble',
            latitude: 42.4,
            longitude:-71,
            market: 'BOS'
-         },
-                  {
-           radius: 38,
-           num: '18,481',
+        },
+        {
            city: 'Des Moines',
            state: 'IA',
            fillKey: 'bubble',
            latitude: 41.7,
            longitude:-93.6,
            market: 'DSM'
-         },
-                  {
+        },
+        {
            city: 'Cedar Rapids',
            state: 'IA',
            fillKey: 'bubble',
@@ -47,7 +46,7 @@ var marketData = [];
            longitude:-91.7,
            market: 'CID'
          },
-                  {
+         {
            city: 'Sioux City',
            state: 'IA',
            fillKey: 'bubble',
@@ -55,9 +54,7 @@ var marketData = [];
            longitude:-96.4,
            market: 'SUX'
          },
-                  {
-           radius: 36,
-           num: '12,352',
+         {
            city: 'Philadelphia',
            state: 'PA',
            fillKey: 'bubble',
@@ -65,9 +62,7 @@ var marketData = [];
            longitude:-75.1,
            market: 'PHL'
          },
-                  {
-           radius: 36,
-           num: '12,094',
+         {
            city: 'San Francisco',
            state: 'CA',
            fillKey: 'bubble',
@@ -75,9 +70,7 @@ var marketData = [];
            longitude:-122.7,
            market: 'SF'
          },
-                  {
-           radius: 36,
-           num: '11,520',
+         {
            city: 'Washington',
            state: 'DC',
            fillKey: 'bubble',
@@ -85,9 +78,7 @@ var marketData = [];
            longitude:-77.3,
            market: 'VA'
          },
-                  {
-           radius: 36,
-           num: '11,100',
+         {
            city: 'Columbia',
            state: 'SC',
            fillKey: 'bubble',
@@ -95,9 +86,7 @@ var marketData = [];
            longitude:-81,
            market: 'CAE'
          },
-                  {
-           radius: 35,
-           num: '8,838',
+         {
            city: 'Greenville',
            state: 'SC',
            fillKey: 'bubble',
@@ -105,9 +94,7 @@ var marketData = [];
            longitude:-82.4,
            market: 'GSP'
          },
-                  {
-           radius: 34,
-           num: '6,989',
+         {
            city: 'Las Vegas',
            state: 'NV',
            fillKey: 'bubble',
@@ -115,9 +102,7 @@ var marketData = [];
            longitude:-115.1,
            market: 'LAS'
          },
-                  {
-           radius: 34,
-           num: '6,068',
+         {
            city: 'Reno',
            state: 'NV',
            fillKey: 'bubble',
@@ -125,9 +110,7 @@ var marketData = [];
            longitude:-119.7,
            market: 'RNO'
          },
-                  {
-           radius: 34,
-           num: '6,011',
+         {
            city: 'Cleveland',
            state: 'OH',
            fillKey: 'bubble',
@@ -135,9 +118,7 @@ var marketData = [];
            longitude:-81.6,
            market: 'CLE'
          },
-                  {
-           radius: 33,
-           num: '5,064',
+         {
            city: 'Orlando',
            state: 'FL',
            fillKey: 'bubble',
@@ -145,9 +126,7 @@ var marketData = [];
            longitude:-81.4,
            market: 'MCO'
          },
-                  {
-           radius: 33,
-           num: '4,315',
+         {
            city: 'Tampa',
            state: 'FL',
            fillKey: 'bubble',
@@ -155,9 +134,7 @@ var marketData = [];
            longitude:-82.6,
            market: 'TPA'
          },
-                  {
-           radius: 33,
-           num: '4,221',
+         {
            city: 'Cincinnati',
            state: 'OH',
            fillKey: 'bubble',
@@ -165,9 +142,7 @@ var marketData = [];
            longitude:-84.5,
            market: 'CVG'
          },
-                  {
-           radius: 31,
-           num: '3,005',
+         {
            city: 'Denver',
            state: 'CO',
            fillKey: 'bubble',
@@ -175,9 +150,7 @@ var marketData = [];
            longitude:-104.9,
            market: 'DEN'
          },
-                  {
-           radius: 31,
-           num: '2,863',
+         {
            city: 'Raleigh',
            state: 'NC',
            fillKey: 'bubble',
@@ -185,9 +158,7 @@ var marketData = [];
            longitude:-78.6,
            market: 'RDU'
          },
-                  {
-           radius: 31,
-           num: '2,627',
+         {
            city: 'Charlotte',
            state: 'NC',
            fillKey: 'bubble',
@@ -195,9 +166,7 @@ var marketData = [];
            longitude:-80.8,
            market: 'CLT'
          },
-                  {
-           radius: 31,
-           num: '2,623',
+         {
            city: 'Miami',
            state: 'FL',
            fillKey: 'bubble',
@@ -205,9 +174,7 @@ var marketData = [];
            longitude:-80.2,
            market: 'MIA'
          },
-                  {
-           radius: 30,
-           num: '2,273',
+         {
            city: 'New York',
            state: 'NY',
            fillKey: 'bubble',
@@ -215,9 +182,7 @@ var marketData = [];
            longitude:-74,
            market: 'NYC'
          },
-                  {
-           radius: 29,
-           num: '1,535',
+         {
            city: 'Colorado Springs',
            state: 'CO',
            fillKey: 'bubble',
@@ -225,9 +190,7 @@ var marketData = [];
            longitude:-104.9,
            market: 'COS'
          },
-                  {
-           radius: 29,
-           num: '1,534',
+         {
            city: 'Norfolk',
            state: 'VA',
            fillKey: 'bubble',
@@ -235,9 +198,7 @@ var marketData = [];
            longitude:-76.2,
            market: 'ORF'
          },
-                  {
-           radius: 27,
-           num: '983',
+         {
            city: 'Roanoke',
            state: 'VA',
            fillKey: 'bubble',
@@ -245,85 +206,96 @@ var marketData = [];
            longitude:-80,
            market: 'ROA'
          }
-    ]
+    ];
 
-$.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
-    marketData = data;
-}).done(function(){
 
-    var commas = d3.format(',d');
+    function renderGraph(start_time, end_time) {
+        // Step 1: Load the data
+        var conditions = [];
+        if(start_time)
+            conditions.push("start_time=" + start_time);
+        if(end_time)
+            conditions.push("end_time=" + end_time);
+        var url = '<?php bloginfo('url'); ?>/api/v1/market_counts'+(conditions.length>0?'?'+conditions.join('&'):'');
+        $.get(url, function(data){
+            marketData = data;
+        }).done(function(){
+            // Step 2: Calculate values
+            var commas = d3.format(',d');
+            var adCountTotal = d3.sum(marketData, function(d){return d.ad_count}) | 0;
+            var adCountMax = d3.max(marketData, function(d){return +d.ad_count}) | 0;
+            var adCountMin = d3.min(marketData, function(d){return +d.ad_count}) | 0;
+            var scale = d3.scale.linear();
+            scale.domain([0, adCountMax]).range([5,40]);
 
-    var adCountTotal = d3.sum(marketData, function(d){return d.ad_count});
-    var adCountMax = d3.max(marketData, function(d){return +d.ad_count});
-    var adCountMin = d3.min(marketData, function(d){return +d.ad_count});
+            $('.total-airing-count').html(commas(adCountTotal)+' times');
+            $('.total-market-count').html(commas(marketData.length)+' markets');
 
-    var scale = d3.scale.linear();
-    scale.domain([adCountMin, adCountMax]).range([15,40]);
+            var bubblesIndex;
+            var marketDataIndex;
 
-    $('.total-airing-count').html(commas(adCountTotal)+' times');
-    $('.total-market-count').html(commas(marketData.length)+' markets');
-
-    var bubblesIndex;
-    var marketDataIndex;
-
-    for(var i=0;i<marketData.length;i++){
-        for(var j=0;j<bubblesData.length;j++){
-            if (marketData[i].market_code == bubblesData[j].market){
-                bubblesData[j].num = commas(marketData[i].ad_count);
-                bubblesData[j].radius = scale(marketData[i].ad_count);
+            // Clear out the bubble data
+            for(var j=0;j<bubblesData.length;j++) {
+                bubblesData[j].num = 0;
+                bubblesData[j].radius = scale(0);
             }
-        }
+
+            for(var i=0;i<marketData.length;i++){
+                for(var j=0;j<bubblesData.length;j++) {
+                    if (marketData[i].market_code == bubblesData[j].market){
+                        bubblesData[j].num = commas(marketData[i].ad_count);
+                        bubblesData[j].radius = scale(marketData[i].ad_count);
+                    }
+                }
+            }
+
+            var colors = d3.scale.category10();
+            $("#homepage-market-map").empty();
+            var map = new Datamap(
+            {
+                element: document.getElementById('homepage-market-map'),
+                scope:'usa',
+                responsive:true,
+                geographyConfig: {
+                    popupOnHover: false,
+                    highlightOnHover: false
+                },
+                bubblesConfig: {
+                    borderWidth: 1,
+                    highlightOnHover: true,
+                    highlightFillColor: '#e85646',
+                    highlightFillOpacity: 1,
+                    highlightBorderColor: '#ffffff',
+                    highlightBorderWidth: 1,
+                    highlightBorderOpacity: 1
+                },
+                fills: {
+                    defaultFill: '#d8d8d8',
+                    bubble: '#0094AF'
+                },
+                done: function(datamap){
+
+                    $(window).on('resize  orientationchange', function(){
+                       datamap.resize();
+                    });
+
+                    datamap.bubbles(bubblesData, {
+                        popupTemplate: function(geo, data) {
+                            return '<div class="hoverinfo"><b>'+data.num+'</b> ads found in <b>'+data.city+', '+data.state+'</b> market'+'<br/><i><small>click for just this market</small</i>'+'</div>';
+                        }
+                    });
+
+                    $(datamap.svg[0][0]).on('click', '.bubbles', function(evt) {
+                        var market_code = $(evt.target).attr('data-market');
+                        window.location.hash = '#' + market_code;
+                        selectMarket(market_code);
+                    });
+                }
+            });
+        });
     }
 
-
-   var colors = d3.scale.category10();
-   var map = new Datamap({
-     element: document.getElementById('homepage-market-map'),
-     scope:'usa',
-     responsive:true,
-     geographyConfig: {
-        popupOnHover: false,
-        highlightOnHover: false
-    },
-    bubblesConfig: {
-        borderWidth: 1,
-        highlightOnHover: true,
-        highlightFillColor: '#e85646',
-        highlightFillOpacity: 1,
-        highlightBorderColor: '#ffffff',
-        highlightBorderWidth: 1,
-        highlightBorderOpacity: 1
-    },
-     fills: {
-        defaultFill: '#d8d8d8',
-        bubble: '#0094AF'
-    },
-    done: function(datamap){
-
-        $(window).on('resize  orientationchange', function(){
-           datamap.resize();
-        });
-
-        datamap.bubbles(bubblesData, {
-            popupTemplate: function(geo, data) {
-                return '<div class="hoverinfo"><b>'+data.num+'</b> ads found in <b>'+data.city+', '+data.state+'</b> market'+'<br/><i><small>click for just this market</small</i>'+'</div>';
-            }
-        });
-
-        $(datamap.svg[0][0]).on('click', '.bubbles', function(evt) {
-            var market_code = $(evt.target).attr('data-market');
-            window.location.hash = '#' + market_code;
-            selectMarket(market_code);
-        });
-    }});
-
-    var adData = [];
-    var url = '<?php bloginfo('url'); ?>';
-    var location = '';
-    var current_page = 0;
-
     function selectMarket(market_code) {
-
         if(is_home) {
             window.location.href = '<?php bloginfo('url'); ?>/market-map/#' + market_code;
             return;
@@ -336,7 +308,7 @@ $.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
 
         for (var j=0;j<bubblesData.length;j++){
             if (bubblesData[j].market == market_code){
-                location = bubblesData[j].city+', '+bubblesData[j].state;
+                market = bubblesData[j].city+', '+bubblesData[j].state;
             }
         };
 
@@ -345,12 +317,11 @@ $.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
         }).done(function(){
 
             if (market_code.length>0){
-                $('span.market-location').html(location);
+                $('span.market-location').html(market);
             } else {
                 $('span.market-location').html('All Markets');
             }
-
-
+            current_page = 0;
             $('#most-aired-ads').empty();
             renderAds(adData, current_page);
             current_page++;
@@ -363,10 +334,10 @@ $.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
             var html = '<div class="col-xs-12 col-md-6 col-lg-3">';
                 html+= '<div class="most-aired-ad-container">';
                 html+= '<div class="video-container">';
-                html+= '<a href="'+url+'/ad/'+adData[i].archive_id+'/"><img src="https://archive.org/serve/'+adData[i].archive_id+'/format=Thumbnail" /></a>';
+                html+= '<a href="<?php bloginfo('url'); ?>/ad/'+adData[i].archive_id+'/"><img src="https://archive.org/serve/'+adData[i].archive_id+'/format=Thumbnail" /></a>';
                 html+= '</div>';
                 html+= '<div class="details-container '+(adData[i].wp_identifier == 1396 ? 'expanded' : '')+'">';
-                html+= '<h3><a href="'+url+'/ad/'+adData[i].archive_id+'/"><span class="air-count">'+commas(adData[i].air_count)+'</span> Broadcasts</a></h3>';
+                html+= '<h3><a href="<?php bloginfo('url'); ?>/ad/'+adData[i].archive_id+'/"><span class="air-count">'+commas(adData[i].air_count)+'</span> Broadcasts</a></h3>';
                 html+= '<p>Sponsor Type: <span class="sponsor-type">'+adData[i].sponsor_types+'<span></p>';
                 html+= '<p>Candidates: <span class="candidates">'+adData[i].candidates+'</span></p>';
                 html+= '<div class="reference-container">';
@@ -394,5 +365,8 @@ $.get('<?php bloginfo('url'); ?>/api/v1/market_counts/', function(data){
         current_page++;
     });
 
-});
+    $('#market-all-pill').click(function() { renderGraph(null,null); });
+    $('#market-after-pill').click(function() { renderGraph('7/1/2016 00:00:00', null); });
+    $('#market-before-pill').click(function() { renderGraph(null, '6/30/2016 23:23:59'); });
+    renderGraph(null, null);
 </script>

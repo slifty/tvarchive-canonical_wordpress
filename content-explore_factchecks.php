@@ -19,7 +19,7 @@
                             foreach($ads as $ad) {
                                 ?>
                                 <div class="factchecked-ad">
-                                    <div class="embed"><iframe frameborder="0" allowfullscreen src="<?php echo($ad->embed_url);?>&nolinks=1" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div>
+                                    <div class="embed"><a href="<?php echo(get_permalink($ad->wp_id)); ?>"><img src="//archive.org/serve/<?php echo($ad->archive_id); ?>/format=Thumbnail"/></div>
                                     <div class="sponsor"><a href="<?php echo(get_permalink($ad->wp_id)); ?>"><?php echo(implode(", ", $ad->sponsor_names)); ?></a></div>
                                     <div class="sponsor-type">Sponsor Type: <?php echo(implode(", ", $ad->sponsor_types)); ?></div>
                                     <div class="candidates">Candidates: <?php echo(implode(", ", $ad->candidate_names)); ?></div>

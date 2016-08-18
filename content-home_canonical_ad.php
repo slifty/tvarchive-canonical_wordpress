@@ -8,15 +8,15 @@
         $ad = new PoliticalAdArchiveAd($post_id);
         ?>
         <div class="row">
-            <div class="col-md-12 hidden-xs hidden-sm">
+            <div class="col-md-12">
                 <div class="row">
                     <div id="ad-embed" class="col-md-12">
                         <iframe id="ad-embed-iframe" frameborder="0" width="100%" height="auto" allowfullscreen src="<?php echo($ad->embed_url);?>&nolinks=1" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5 col-lg-3 p-l-0 p-r-0">
-                        <div id="ad-sponsor_home" class="ad-info_home">
+                    <div class="col-sm-12 col-md-5 col-lg-3 p-l-0 p-r-0">
+                        <div id="ad-sponsor_home" class="ad-info_home col-sm-6 col-md-12">
                             <div class="cell-label cell-label_home">Sponsor</div>
                             <div class="cell-value ad-sponsor_content">
                                 <?php foreach ($ad->sponsors as $sponsor) { ?>
@@ -26,7 +26,7 @@
                                 <?php }; ?>
                             </div>
                         </div>
-                        <div id="ad-candidate_home" class="ad-info_home">
+                        <div id="ad-candidate_home" class="ad-info_home col-sm-6 col-md-12">
                             <div class="cell-label cell-label_home">Candidate</div>
                             <div class="cell-value ad-candidate_content">
                                 <?php foreach ($ad->candidates as $candidate) { ?>
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-7 col-lg-9 p-l-0 p-r-0">
+                    <div class="col-sm-12 col-md-7 col-lg-9 p-l-0 p-r-0">
                         <div id="ad-note_home" class="ad-note_home">
                             <div class="cell-label cell-label_home">Note</div>
                             <div class="cell-multiline-value ad-note_content">

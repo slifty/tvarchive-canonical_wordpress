@@ -4,12 +4,13 @@
         if(!is_array($featured_posts))
             $featured_posts = array();
 
+        $is_first = true;
         foreach($featured_posts as $featured_post) {
             global $post;
             $post = $featured_post;
             setup_postdata($featured_post);
             ?>
-            <div class="post_home col-xs-12">
+            <div class="post_home col-xs-12 <?php if(!$is_first) {?>hidden-md hidden-lg<?php } ?>">
                 <div class="post_home_inner">
                     <h2 class="post-title_home"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                     <p class="post-date">
@@ -33,6 +34,7 @@
             </div>
 
             <?php
+            $is_first = false;
         }
         wp_reset_postdata();
     ?>

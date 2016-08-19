@@ -134,8 +134,6 @@
 
                 }
 
-                console.log(candidatesByRace);
-
                 for(var j=0;j<candidatesByRace.length;j++){
                     $('#candidate-race-pills').append('<li role="presentation" '+(j==0 ? 'class="active"' : '')+'><a href="#'+candidatesByRace[j].race+'" aria-controls="'+candidatesByRace[j].race+'" role="tab" data-toggle="pill">'+candidatesByRace[j].race+'</a></li>');
                     $('#explore-candidates-tab-content').append('<div role="tabpanel" class="tab-pane '+(j==0 ? 'active' : '')+'" id="'+candidatesByRace[j].race+'"></div>');

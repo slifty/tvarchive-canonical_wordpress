@@ -65,6 +65,10 @@
   	font-size: 11px;
   }
 
+	.btn#market-map-show-all {
+	  margin-top: 7px;
+	}
+
     /*Main Menu*/
 
     .navbar-collapse{
@@ -248,6 +252,22 @@
   .market-map-container > .nav {
   	font-size: 11px;
   }
+
+	.btn#market-map-show-all {
+		display: block;
+	  background-color: #3a3e4b;
+	  color: #fff;
+	  font-size: 12px;
+	  border: none;
+	  -webkit-border-radius: 3px;
+	  -moz-border-radius: 3px;
+	  border-radius: 3px;
+	  box-shadow: none;
+	  width: 100%;
+	  float:none;
+	  margin-top: 0px;
+	  margin-bottom: 15px;
+	}
 
 
 
@@ -550,6 +570,23 @@
   .market-map-container > .nav {
   	font-size: 11px;
   }
+
+	.btn#market-map-show-all {
+		display: block;
+	  background-color: #3a3e4b;
+	  color: #fff;
+	  font-size: 12px;
+	  border: none;
+	  -webkit-border-radius: 3px;
+	  -moz-border-radius: 3px;
+	  border-radius: 3px;
+	  box-shadow: none;
+	  width: 100%;
+	  float:none;
+	  margin-top: 0px;
+	  margin-bottom: 15px;
+	}
+
     /*header*/
     #header {
         height: 50px;

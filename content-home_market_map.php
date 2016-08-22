@@ -318,7 +318,7 @@
             }
         };
 
-        $.get('<?php bloginfo('url'); ?>/api/v1/ads?market_filter='+market_code, function(data){
+        $.get('<?php bloginfo('url'); ?>/api/v1/ads?sort=air_count&market_filter='+market_code, function(data){
             adData = data;
         }).done(function(){
 
@@ -337,7 +337,7 @@
     function renderAds(adData, page) {
         var perPage = 50;
         for (i = page * perPage; i < Math.min(adData.length, (page + 1) * perPage); i++ ) {
-            var html = '<div class="col-xs-12 col-md-6 col-lg-3">';
+            var html = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">';
                 html+= '<div class="most-aired-ad-container">';
                 html+= '<div class="video-container">';
                 html+= '<a href="<?php bloginfo('url'); ?>/ad/'+adData[i].archive_id+'/"><img src="https://archive.org/serve/'+adData[i].archive_id+'/format=Thumbnail" /></a>';

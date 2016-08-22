@@ -50,6 +50,7 @@
     </head>
 
     <body class="slug-<?php global $post; echo(is_home()?"home":$post->post_name);?>">
+        <a name="top"></a>
         <div class="container-fluid">
             <div id="wrap">
                 <div id="main">

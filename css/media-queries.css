@@ -78,7 +78,7 @@
     /* page level*/
 
     .page-header-row {
-        padding: 37px 15px;
+        padding-top: 37px;
     }
     .page-content {
         padding: 15px 30px;
@@ -348,7 +348,7 @@
         padding: 25px 15px;
     }
     .page-header-row {
-        padding: 15px 15px 60px;
+        padding-top: 15px;
     }
     .page-content {
         margin: 15px 30px 50px;
@@ -685,7 +685,7 @@
 
     /* All Pages */
     .page-header-row {
-        padding: 15px 0 40px;
+        padding-top: 15px;
     }
     .page-content {
         padding: 0;

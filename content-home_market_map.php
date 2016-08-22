@@ -301,6 +301,12 @@
             return;
         }
 
+        if(market_code == "") {
+            $("#market-map-show-all").hide();
+        } else {
+            $("#market-map-show-all").show();
+        }
+
         $('.bubbles .datamaps-bubble').each(function(){
             $(this).attr('data-state', 'default');
         });
@@ -350,23 +356,25 @@
         }
     }
 
-    if(!is_home) {
-        selectMarket(window.location.hash.substr(1));
-    }
+    $(function() {
+        if(!is_home) {
+            selectMarket(window.location.hash.substr(1));
+        }
 
-    $('.market-map-show-all').click(function(){
-        selectMarket('');
-    });
+        $('#market-map-show-all').click(function(){
+            selectMarket('');
+        });
 
-    $('#load-more').hide();
-    $('#load-more').click(function () {
         $('#load-more').hide();
-        renderAds(adData, current_page);
-        current_page++;
-    });
+        $('#load-more').click(function () {
+            $('#load-more').hide();
+            renderAds(adData, current_page);
+            current_page++;
+        });
 
-    $('#market-all-pill').click(function() { renderGraph(null,null); });
-    $('#market-after-pill').click(function() { renderGraph('7/1/2016 00:00:00', null); });
-    $('#market-before-pill').click(function() { renderGraph(null, '6/30/2016 23:23:59'); });
-    renderGraph(null, null);
+        $('#market-all-pill').click(function() { renderGraph(null,null); });
+        $('#market-after-pill').click(function() { renderGraph('7/1/2016 00:00:00', null); });
+        $('#market-before-pill').click(function() { renderGraph(null, '6/30/2016 23:23:59'); });
+        renderGraph(null, null);
+    });
 </script>

@@ -758,7 +758,6 @@ a#footer-sidebar-link{
 }
 
 /* Market Map */
-
 #market-map-header{
 	background:#3a3e4b;
 }
@@ -772,8 +771,8 @@ a#footer-sidebar-link{
 	font-weight: 400;
 }
 
-.btn.market-map-show-all {
-	display:block;
+.btn#market-map-show-all {
+	display: block;
   width: auto;
   background-color: #3a3e4b;
   color: #fff;
@@ -785,10 +784,11 @@ a#footer-sidebar-link{
   box-shadow: none;
   width: 230px;
   float:right;
+  margin-top: 10px;
 }
 
 #most-aired-ads{
-	padding: 30px 100px;
+	padding-top: 30px;
 }
 
 .most-aired-ad-container{
@@ -805,7 +805,7 @@ a#footer-sidebar-link{
 	position:relative;
 }
 
-.most-aired-ad-container .details-container.expanded .read-more-cta{
+.most-aired-ad-container .details-container.expanded .read-more-cta {
 	position:absolute;
 	bottom: 0;
 	left: 0;
@@ -839,8 +839,6 @@ a#footer-sidebar-link{
 
 .video-container{
 	width: 100%;
-	height: 0;
-	padding-bottom: 66%;
 	position: relative;
 }
 
@@ -850,6 +848,20 @@ a#footer-sidebar-link{
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+#most-aired-ads-load-more-section {
+}
+
+#load-more {
+	width: 100%;
+	padding: 14px;
+	text-align: center;
+	font-size: 20px;
+	color: #4a90e2;
+	border: 1px solid #4a90e2;
+	text-transform: uppercase;
+	height: 50px;
+	margin-bottom: 75px;
 }
 
 /* Explore */

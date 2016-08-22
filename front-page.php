@@ -128,7 +128,6 @@
 
                     if(+candidatesData[i].ad_count > +candidatesByRace[raceIndex].adCountMax){
                         candidatesByRace[raceIndex].adCountMax = +candidatesData[i].ad_count;
-                        console.log(candidatesByRace[raceIndex].adCountMax);
                     }
                     candidatesByRace[raceIndex].affiliations[affiliationIndex].candidates.push(candidatesData[i]);
 

@@ -3,7 +3,8 @@
             <div id="footer">
                 <div id="footer-video-subheader" class="row guttered-row">
                     <div class="col-sm-12">
-                        <h2 class="section-header">Learn More About the Political TV Ad Archive</h2>
+                        <h2 class="section-header hidden-xs hidden-sm">Learn More About the Political TV Ad Archive</h2>
+                        <h2 class="section-header hidden-md hidden-lg">About the Archive</h2>
                     </div>
                 </div>
                 <div id="footer-video" class="row">

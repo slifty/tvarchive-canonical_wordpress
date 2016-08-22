@@ -195,6 +195,61 @@
 /* Small devices (tablets) */
 /* sm */
 @media only screen and (min-width: 768px) and (max-width: 992px) {
+	/* General Styles*/
+	.guttered-row {
+		padding: 0px 15px;
+	}
+	h2.section-header {
+  	padding: 13px 0px;
+		font-size: 20px;
+	}
+
+	/* Front Page */
+	#home-header-title {
+		font-size: 28px;
+		padding-bottom: 15px;
+	}
+	#home-header-explanation {
+		font-size: 18px;
+		line-height: 24px;
+	}
+  .post_home .post-excerpt {
+  	font-size: 14px;
+  	line-height: 17px;
+  }
+  #home-explore-tabs .nav {
+  	font-size: 11px;
+  }
+  #home-explore-tabs .nav li a{
+	  padding: 5px;
+  }
+	.tab-pane#candidates, .tab-pane#sponsors, .tab-pane#sponsor-types{
+		padding-top: 20px;
+	}
+	.explore-subtitle-row {
+		margin-bottom: 0px;
+	}
+	.explore-subtitle-row h3 {
+    border-bottom: 2px solid #000;
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 28px;
+	}
+	#candidate-race-pills {
+		font-size: 11px;
+	}
+	#home-feature-section {
+		padding-top: 12px;
+		padding-bottom: 0px;
+	}
+
+  /* Market Map */
+  .market-map-container > .nav {
+  	font-size: 11px;
+  }
+
+
 
     /*menu*/
     #header{
@@ -256,22 +311,9 @@
     }
 
     /* Explore */
-
-    .explore-subtitle-row {
-        padding-left: 15px;
-     }
     .explore-list {
     	margin-bottom: 15px;
-    	padding: 0px 15px;
     }
-    /*.explore-list .explore-item {
-        width: 157px;
-        height: 141px;
-    }
-    .explore-label {
-        width: 65%;
-        font-size: 12px;
-    }*/
 
     /* Page level*/
 
@@ -297,13 +339,7 @@
     }
 
 
-
     /*Front Page*/
-    #home-header-introduction {
-        padding-right: 0;
-        padding: 0px 15px;
-        float: left;
-    }
     #search-text {
         width: 90%;
         margin: 0 30px;
@@ -460,7 +496,60 @@
 /* Extra small devices (phones, less than 768px) */
 /* xs */
 @media only screen and (min-width: 320px) and (max-width: 768px) {
+  /* General Styles*/
+	.guttered-row {
+		padding: 0px 15px;
+	}
+	h2.section-header {
+  	padding: 13px 0px;
+		font-size: 20px;
+	}
 
+	/* Front Page */
+	#home-header-title {
+		font-size: 28px;
+		padding-bottom: 15px;
+	}
+	#home-header-explanation {
+		font-size: 18px;
+		line-height: 24px;
+	}
+  .post_home .post-excerpt {
+  	font-size: 14px;
+  	line-height: 17px;
+  	margin-bottom: 0px;
+  }
+  #home-explore-tabs .nav {
+  	font-size: 11px;
+  }
+  #home-explore-tabs .nav li a{
+	  padding: 5px 0px;
+  }
+	.tab-pane#candidates, .tab-pane#sponsors, .tab-pane#sponsor-types{
+		padding-top: 20px;
+	}
+	.explore-subtitle-row {
+		margin-bottom: 0px;
+	}
+	.explore-subtitle-row h3 {
+    border-bottom: 2px solid #000;
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 28px;
+	}
+	#candidate-race-pills {
+		font-size: 11px;
+	}
+	#home-feature-section {
+		padding-top: 12px;
+		padding-bottom: 0px;
+	}
+
+  /* Market Map */
+  .market-map-container > .nav {
+  	font-size: 11px;
+  }
     /*header*/
     #header {
         height: 50px;
@@ -552,25 +641,10 @@
         line-height: 20px;
     }
 
-    /* Front Page */
-    #home-header{
-        background-attachment: fixed;
-        background-position: 36% 0;
-    }
-    #home-header-introduction {
-        padding: 0 15px;
-        /*        height: 100%;*/
-    }
-    .header-row {
-        padding: 12px 15px;
-    }
-    .header-row h1 {
-        font-size: 18px;
-    }
     /*Home Page Blog Post*/
     .post_home {
         min-height: 0;
-        padding: 0 0 15px;
+        padding: 0px;
         margin-bottom: 15px;
     }
     .post_home:nth-of-type(1) {
@@ -582,13 +656,7 @@
     .post_home:nth-of-type(3) {
         display: block;
     }
-    .post-img_home {
-    }
-    .post-title_home {
-        margin: 6px;
-    }
     .post-title_home a {
-        color: #e85646;
         font-size: 28px;
         font-weight: bold;
     }
@@ -673,7 +741,6 @@
     }
 
     /* Press */
-
 		.press-visualization img {
 			margin-top: 15px;
 		}
@@ -715,7 +782,6 @@
     }
     .explore-list {
     	margin-bottom: 15px;
-    	padding: 0px 15px;
     }
     .explore-list .explore-item {
         width: 100%;

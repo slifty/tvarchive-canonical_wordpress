@@ -884,7 +884,7 @@ a#footer-sidebar-link{
 }
 
 #explore-tabs.nav-tabs > li{
-  width: 30%;
+  width: 32%;
   margin-bottom:0;
   float: none;
   display:inline-block;
@@ -938,7 +938,7 @@ a#footer-sidebar-link{
 
 .explore-list {
   list-style: none;
-  padding: 0px auto;
+  padding: 0px;
   text-align:center;
   /* margin-bottom: 60px;
   height: 200px; */
@@ -952,13 +952,6 @@ a#footer-sidebar-link{
   text-align: left;
 	margin-bottom: 1em;
 }
-
-/*.explore-list .explore-item:before{
-  content: counter(leaderboardRank)".";
-  vertical-align: middle;
-  display:inline;
-  font-size: 24px;
-}*/
 
 .explore-list .explore-label, .explore-list .explore-bar-container{
   display:inline-block;
@@ -978,8 +971,6 @@ a#footer-sidebar-link{
 }
 
 .explore-list .explore-count{
- /* background: #000;*/
-/*  text-align: left;*/
   position: absolute;
   left: 0;
   top:0;

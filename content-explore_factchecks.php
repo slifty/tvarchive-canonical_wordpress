@@ -6,6 +6,13 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-md-12">
+        <div id="explore-factchecks-description" class="explore-description-row text-center">
+            <p>BLAH BLAH BLAH FACT CHECKS Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jicama green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. </p>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-xs-12">
         <div id="explore-factchecks-content" class="explore-content-row text-center">
 

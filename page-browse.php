@@ -182,7 +182,8 @@
         if(reset === true) {
             $("#search-results").empty();
             searchPage = 0;
-            location.hash = "#results";
+            aTag = $("#browse-content");
+            $('html,body').animate({scrollTop: aTag.offset().top - 50});
         }
         activeSearch = true;
         $("#no-results").hide();
@@ -294,18 +295,20 @@
         })
     });
 
-    function renderForm(type) {
+    function renderForm(type, skip_scroll) {
         var searchToggle = $("#search-toggle");
         if(type=="basic") {
             $("#basic-search").slideDown();
             $("#advanced-search").slideUp();
             searchToggle.html("Open Advanced Search &#x25BC;");
-            location.hash = "#top";
+            if(!skip_scroll);
+                $("html, body").animate({ scrollTop: 0 }, "slow");
         } else if(type=="advanced") {
             $("#advanced-search").slideDown();
             $("#basic-search").slideUp();
             searchToggle.html("Close Advanced Search &#x25B2;");
-            location.hash = "#top";
+            if(!skip_scroll);
+                $("html, body").animate({ scrollTop: 0 }, "slow");
         }
     }
 
@@ -325,17 +328,18 @@
         });
 
         if(<?php echo($start_with_advanced?"true":"false"); ?>) {
-            $(function() { renderForm("advanced"); });
+            $(function() { renderForm("advanced", true); });
+            isBasic = false;
         } else {
-            $(function() { renderForm("basic"); });
+            $(function() { renderForm("basic", true); });
+            isBasic = true;
         }
 
         if(<?php echo($run_search_on_load?"true":"false"); ?>) {
-            $(function() { runSearch() });
+            $(function() { runSearch(true) });
         }
     });
 </script>
-<a name="results"></a>
 <div id="browse-content" class="page-content">
     <div id="search-results">
     </div>

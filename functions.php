@@ -74,7 +74,7 @@ function archivepoliticalads_scripts() {
 
     // Load in bootstrap
     wp_enqueue_style( 'bootstrap.css', get_template_directory_uri() . '/css/bootstrap.css' );
-    wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'),  '', true );
+    wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js',  '', true );
 
     // Load in our carousel
     wp_enqueue_style( 'slick.css', get_template_directory_uri() . '/css/slick.css' );

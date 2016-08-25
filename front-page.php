@@ -134,16 +134,44 @@
                 }
 
                 for(var j=0;j<candidatesByRace.length;j++){
-                    $('#candidate-race-pills').append('<li role="presentation" '+(j==0 ? 'class="active"' : '')+'><a href="#'+candidatesByRace[j].race+'" aria-controls="'+candidatesByRace[j].race+'" role="tab" data-toggle="pill">'+candidatesByRace[j].race+'</a></li>');
+
+                    var html =  '<li role="presentation" '+(j==0 ? 'class="active"' : '')+'>';
+                        html += '<a href="#'+candidatesByRace[j].race+'" aria-controls="'+candidatesByRace[j].race+'" role="tab" data-toggle="pill">'+candidatesByRace[j].race+'</a>';
+                        html += '</li>';
+
+                    $('#candidate-race-pills').append(html);
+
                     $('#explore-candidates-tab-content').append('<div role="tabpanel" class="tab-pane '+(j==0 ? 'active' : '')+'" id="'+candidatesByRace[j].race+'"></div>');
 
                     for(var k=0;k<candidatesByRace[j].affiliations.length;k++){
 
                         if (candidatesByRace[j].affiliations[k].candidates.length > 0){
-                            $('#'+candidatesByRace[j].race).append('<div class="candidate-affiliation-group" id="'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'"><h3>'+candidatesByRace[j].affiliations[k].name+' '+candidatesByRace[j].race+' Candidates</h3><ol class="explore-list main"></ol><div class="collapse" id="seeMoreCandidates'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'"><ol class="explore-list extra"></ol></div>'+(candidatesByRace[j].affiliations[k].candidates.length > 4 ? '<button class="btn explore-show-more" role="button" data-toggle="collapse" data-target="#seeMoreCandidates'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'" aria-expanded="false" aria-controls="seeMoreCandidates">Show / Hide '+(candidatesByRace[j].affiliations[k].candidates.length-4)+' More Candidates</button>':'')+'</div></div>');
+
+                            var html =  '<div class="candidate-affiliation-group" id="'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'">';
+                                    html += '<h3>'+candidatesByRace[j].affiliations[k].name+' '+candidatesByRace[j].race+' Candidates</h3>';
+                                    html += '<ol class="explore-list main"></ol>';
+                                        html += '<div class="collapse" id="seeMoreCandidates'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'">';
+                                            html += '<ol class="explore-list extra"></ol>'
+                                        html += '</div>';
+                                    html += (candidatesByRace[j].affiliations[k].candidates.length > 4 ? '<button class="btn explore-show-more" role="button" data-toggle="collapse" data-target="#seeMoreCandidates'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'" aria-expanded="false" aria-controls="seeMoreCandidates">Show / Hide '+(candidatesByRace[j].affiliations[k].candidates.length-4)+' More Candidates</button>':'');
+                                html += '</div></div>';
+
+                            $('#'+candidatesByRace[j].race).append(html);
                         }
 
                         for(var l=0;l<candidatesByRace[j].affiliations[k].candidates.length;l++){
+
+                            var html =  '<li class="explore-item item">';
+                                    html += '<div class="explore-label">';
+                                        html += '<p>'+candidatesByRace[j].affiliations[k].candidates[l].name+'</p>';
+                                        html += '<small>';
+                                        html += '<a href="<?php bloginfo('url'); ?>/browse/?q='+encodeURI(candidatesByRace[j].affiliations[k].candidates[l].name)+'">View Ads</a>';
+                                        html += '</small>';
+                                    html += '</div>';
+                                    html += '<div class="explore-bar-container" data-count="'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads">';
+                                        html += '<div class="explore-bar" style="width:'+(((+candidatesByRace[j].affiliations[k].candidates[l].ad_count)/(+candidatesByRace[j].adCountMax))*100)+'%;">';
+                                            html += '<div class="explore-count">'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads</div>';
+                                html += '</div></div></li>';
 
                             if (l<4){
                                 $('#'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+' .explore-list.main').append('<li class="explore-item item"><div class="explore-label"><p>'+candidatesByRace[j].affiliations[k].candidates[l].name+'</p><small><a href="<?php bloginfo('url'); ?>/browse/?q='+encodeURI(candidatesByRace[j].affiliations[k].candidates[l].name)+'">View Ads</a></small></div><div class="explore-bar-container" data-count="'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads"><div class="explore-bar" style="width:'+(((+candidatesByRace[j].affiliations[k].candidates[l].ad_count)/(+candidatesByRace[j].adCountMax))*100)+'%;"><div class="explore-count">'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads</div></div></div></li>');

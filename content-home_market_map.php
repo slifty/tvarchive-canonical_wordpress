@@ -290,6 +290,10 @@
                         window.location.hash = '#' + market_code;
                         selectMarket(market_code);
                     });
+
+                    if(!is_home){
+                        $('.bubbles .datamaps-bubble[data-market="'+window.location.hash.substr(1)+'"]').attr('data-state', 'active');
+                    }
                 }
             });
         });
@@ -310,6 +314,7 @@
         $('.bubbles .datamaps-bubble').each(function(){
             $(this).attr('data-state', 'default');
         });
+
         $('.bubbles .datamaps-bubble[data-market="'+market_code+'"]').attr('data-state', 'active');
 
         for (var j=0;j<bubblesData.length;j++){

@@ -537,7 +537,6 @@
         .attr('data-market', function(datum) {
           return datum.market;
         })
-        .attr('data-state', 'default')
         .attr('filter', function (datum) {
           var filterKey = filterData[ val(datum.filterKey, options.filterKey, datum) ];
 

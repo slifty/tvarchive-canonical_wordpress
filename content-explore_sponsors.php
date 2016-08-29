@@ -1,14 +1,14 @@
 <div class="row">
     <div class="col-md-12">
         <div id="explore-sponsors-title" class="explore-subtitle-row text-center">
-            <h3>Political Ads by Sponsor</h3>
+            <h3>Ad Airings by Sponsor</h3>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
         <div id="explore-sponsors-description" class="explore-description-row text-center">
-            <p>BLAH BLAH BLAH SPONSORS Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jicama green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. </p>
+            <p>This is the official sponsor of the ad, which may be the campaign committee or an outside group, such as a super PAC, a nonprofit organization, or another entity.</p>
         </div>
     </div>
 </div>

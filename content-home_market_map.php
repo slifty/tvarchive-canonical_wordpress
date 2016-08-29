@@ -249,6 +249,8 @@
                 }
             }
 
+            // Remove any bubbles
+
             var colors = d3.scale.category10();
             $("#homepage-market-map").empty();
             var map = new Datamap(
@@ -279,7 +281,14 @@
                        datamap.resize();
                     });
 
-                    datamap.bubbles(bubblesData, {
+                    // Filter out bubbles with no airings
+                    var finalData = [];
+                    for(var x in bubblesData) {
+                        if(bubblesData[x].num != 0)
+                            finalData.push(bubblesData[x]);
+                    }
+
+                    datamap.bubbles(finalData, {
                         popupTemplate: function(geo, data) {
                             return '<div class="hoverinfo"><b>'+data.num+'</b> ads found in <b>'+data.city+', '+data.state+'</b> market'+'<br/><i><small>click for just this market</small</i>'+'</div>';
                         }

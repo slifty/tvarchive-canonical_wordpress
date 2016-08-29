@@ -1,14 +1,14 @@
 <div class="row">
     <div class="col-md-12">
         <div id="explore-candidates-title" class="explore-subtitle-row text-center">
-            <h3>Political Ads by Candidate</h3>
+            <h3>Ad Airings by Candidate</h3>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
         <div id="explore-candidates-description" class="explore-description-row text-center">
-            <p>BLAH BLAH BLAH CANDIDATES Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jicama green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. </p>
+            <p>Ads targeting a candidate—pro or con—for president or U.S. Senate</p>
         </div>
     </div>
 </div>

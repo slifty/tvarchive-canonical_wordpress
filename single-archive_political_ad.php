@@ -50,9 +50,9 @@
                 <iframe id="ad-embed-iframe" class="col-xs-12" frameborder="0" allowfullscreen src="<?php echo($ad_embed_url);?>&nolinks=1" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
             </div>
 
-            <div id="about-ad-header" class="header-row row">
+            <div id="about-ad-header" class="row guttered-row">
                 <div class="col-xs-12">
-                    <h1>About This Ad</h1>
+                    <h2 class="section-header">About This Ad</h2>
                 </div>
             </div>
 
@@ -170,9 +170,9 @@
 
             <?php if($ad_air_count > 0) { ?>
 
-            <div id="visualization-header" class="header-row hidden-xs hidden-sm row">
+            <div id="visualization-header" class="header-row hidden-xs hidden-sm row guttered-row">
                 <div class="col-xs-12">
-                    <h1>Where This Ad Aired</h1>
+                    <h2 class="section-header">Where This Ad Aired</h2>
                 </div>
             </div>
 
@@ -273,9 +273,9 @@
             <?php } ?>
 
             <?php if($ad_air_count > 0) { ?>
-            <div id="download-header" class="header-row row">
+            <div id="download-header" class="row guttered-row">
                 <div class="col-lg-12">
-                    <h1>Download</h1>
+                    <h2 class="section-header">Download</h2>
                 </div>
             </div>
 
@@ -302,12 +302,12 @@
                 if(is_array($references)
                 && sizeof($references) > 0) {
                     ?>
-                    <div id="reference-gallery-header" class="header-row row">
+                    <div id="reference-gallery-header" class="row guttered-row">
                         <div class="col-lg-12">
-                            <h1>REFERENCE GALLERY</h1>
+                            <h2 class="section-header">REFERENCE GALLERY</h2>
                         </div>
                     </div>
-                    <div id="reference-gallery-content" class="row">
+                    <div id="reference-gallery-content" class="row guttered-row">
                     <?php
                         // If there is only one item, that's a special case
                         foreach($references as $index => $reference) {

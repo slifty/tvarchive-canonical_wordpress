@@ -4,7 +4,7 @@
 */
 ?><?php get_header(); ?>
 
-<div id="press-header" class="row page-header-row">
+<div id="press-header" class="row page-header-row guttered-row">
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
         <h1 id="press-header-title" class="section-header">Press</h1>
         <p id="press-header-description">Explore news that is using our data</p>

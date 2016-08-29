@@ -4,7 +4,7 @@
 */
 ?>
 <?php get_header(); ?>
-    <div id="market-map-header" class="row page-header-row">
+    <div id="market-map-header" class="row page-header-row guttered-row">
         <div class="col-xs-12 col-sm-6 col-md-6">
             <h1 id="market-map-header-title" class="section-header">Market Map</h1>
             <p id="market-map-header-description">Browse Political TV Ads by Broadcast Market</p>

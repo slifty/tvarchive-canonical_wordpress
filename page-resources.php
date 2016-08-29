@@ -5,7 +5,7 @@
 ?>
 <?php get_header(); ?>
 
-<div id="resources-header" class="row page-header-row">
+<div id="resources-header" class="row page-header-row guttered-row">
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
         <h1 id="resources-header-title">Resources</h1>
         <p id="resources-header-description">Our partners and additional resources</p>

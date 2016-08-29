@@ -5,7 +5,7 @@
 ?>
 <?php get_header(); ?>
 
-<div id="download-header" class="row page-header-row">
+<div id="download-header" class="row page-header-row guttered-row">
     <div class="col-xs-12 col-sm-6 col-md-6">
         <h1 id="download-header-title" class="section-header">Data Download</h1>
         <p id="download-header-description">Put the Archive to Work</p>

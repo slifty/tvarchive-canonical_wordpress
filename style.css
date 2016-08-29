@@ -128,6 +128,7 @@ input[type=text]:-ms-input-placeholder { /* IE (10+?) */
 }
 .page-header-row {
   padding-top: 37px;
+  padding-bottom: 38px;
 }
 .page-header-row h1 {
 	display:inline-block;

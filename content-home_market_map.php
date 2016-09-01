@@ -209,8 +209,13 @@
          }
     ];
 
-
+    var current_start_time = null;
+    var current_end_time = null;
+    var current_market = null;
     function renderGraph(start_time, end_time) {
+        current_start_time = start_time;
+        current_end_time = end_time;
+
         // Step 1: Load the data
         var conditions = [];
         if(start_time)
@@ -309,6 +314,7 @@
     }
 
     function selectMarket(market_code) {
+        current_market = market_code;
         if(is_home) {
             window.location.href = '<?php bloginfo('url'); ?>/market-map/#' + market_code;
             return;
@@ -332,7 +338,12 @@
             }
         };
 
-        $.get('<?php bloginfo('url'); ?>/api/v1/ads?sort=air_count&market_filter='+market_code, function(data){
+        var url = '<?php bloginfo('url'); ?>/api/v1/ads?sort=air_count&market_filter='+market_code;
+        if(current_start_time)
+            url += "&start_time=" + current_start_time;
+        if(current_end_time)
+            url += "&end_time=" + current_end_time;
+        $.get(url, function(data){
             adData = data;
         }).done(function(){
 
@@ -386,9 +397,9 @@
             current_page++;
         });
 
-        $('#market-all-pill').click(function() { renderGraph(null,null); });
-        $('#market-after-pill').click(function() { renderGraph('7/1/2016 00:00:00', null); });
-        $('#market-before-pill').click(function() { renderGraph(null, '6/30/2016 23:23:59'); });
+        $('#market-all-pill').click(function() { renderGraph(null,null); selectMarket(current_market); });
+        $('#market-after-pill').click(function() { renderGraph('7/1/2016 00:00:00', null); selectMarket(current_market); });
+        $('#market-before-pill').click(function() { renderGraph(null, '6/30/2016 23:23:59'); selectMarket(current_market); });
         renderGraph(null, null);
     });
 </script>

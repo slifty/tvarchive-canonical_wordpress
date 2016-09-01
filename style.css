@@ -794,6 +794,8 @@ a#footer-sidebar-link{
 
 .most-aired-ad-container{
 	margin-bottom: 50px;
+	height: 200px;
+	overflow: auto;
 }
 
 .most-aired-ad-container .details-container{

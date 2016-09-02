@@ -34,7 +34,7 @@
                         <small class="data-download__size">CSV</small>
                     </div>
                     <div class="data-download">
-                        <a href="<?php bloginfo('url'); ?>/api/v1/ad_instances?start_time=5/1/2016%2000:00:00output=csv" class="btn primary data-download__button" target="_blank">May - <?php echo(date('F Y')); ?></a>
+                        <a href="<?php bloginfo('url'); ?>/api/v1/ad_instances?start_time=5/1/2016%2000:00:00&output=csv" class="btn primary data-download__button" target="_blank">May - <?php echo(date('F Y')); ?></a>
                         <small class="data-download__size">CSV</small>
                     </div>
                     <div class="data-download">

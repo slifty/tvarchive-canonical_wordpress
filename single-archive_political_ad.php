@@ -28,21 +28,21 @@
 
             // Create sponsor links
             foreach($ad_sponsor_names as $index => $sponsor_name) {
-                $ad_sponsor_names[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("sponsor:\"".$sponsor_name."\"")."'>".$sponsor_name."</a>";
+                $ad_sponsor_names[$index] = "<a href='".get_bloginfo('url')."/browse/?sponsor_filter=".urlencode($sponsor_name)."'>".$sponsor_name."</a>";
             }
 
             // Create sponsor type links
             foreach($ad_sponsor_types as $index => $sponsor_type) {
-                $ad_sponsor_types[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("sponsor_type:\"".$sponsor_type."\"")."''>".$sponsor_type."</a>";
+                $ad_sponsor_types[$index] = "<a href='".get_bloginfo('url')."/browse/?sponsor_type_filter=".urlencode($sponsor_type)."''>".$sponsor_type."</a>";
             }
             // Create candidate links
             foreach($ad_candidate_names as $index => $ad_candidate) {
-                $ad_candidate_names[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("candidate:\"".$ad_candidate."\"")."''>".$ad_candidate."</a>";
+                $ad_candidate_names[$index] = "<a href='".get_bloginfo('url')."/browse/?candidate_filter=".urlencode($ad_candidate)."''>".$ad_candidate."</a>";
             }
 
             // Create subject links
             foreach($ad_subjects as $index => $ad_subject) {
-                $ad_subjects[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("subject:\"".$ad_subject."\"")."''>".$ad_subject."</a>";
+                $ad_subjects[$index] = "<a href='".get_bloginfo('url')."/browse/?subject_filter=".urlencode($ad_subject)."''>".$ad_subject."</a>";
             }
             ?>
 

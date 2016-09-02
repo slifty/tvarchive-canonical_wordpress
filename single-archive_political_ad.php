@@ -37,7 +37,7 @@
             }
             // Create candidate links
             foreach($ad_candidate_names as $index => $ad_candidate) {
-                $ad_candidates[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("candidate:\"".$ad_candidate."\"")."''>".$ad_candidate."</a>";
+                $ad_candidate_names[$index] = "<a href='".get_bloginfo('url')."/browse/?q=".urlencode("candidate:\"".$ad_candidate."\"")."''>".$ad_candidate."</a>";
             }
 
             // Create subject links
@@ -85,10 +85,10 @@
             </div>
             <div class="row about-ad-row">
                 <div id="ad-candidate" class="cell last col-xs-12">
-                    <div class="cell-label">Candidate<?php echo(sizeof($ad_candidates)==1?'':'s'); ?>
+                    <div class="cell-label">Candidate<?php echo(sizeof($ad_candidate_names)==1?'':'s'); ?>
                     </div>
                     <div class="cell-value">
-                        <?php echo(implode(', ', $ad_candidates)); ?>
+                        <?php echo(implode(', ', $ad_candidate_names)); ?>
                     </div>
                 </div>
             </div>

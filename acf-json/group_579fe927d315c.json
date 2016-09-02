@@ -8,7 +8,7 @@
             "name": "dataset_about",
             "type": "wysiwyg",
             "instructions": "The description that appears under the heading \"About the Dataset\" on the Data Download page",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -26,7 +26,7 @@
             "name": "dataset_tv_recording_description",
             "type": "wysiwyg",
             "instructions": "",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -61,17 +61,17 @@
                     "key": "field_579feb89df90b",
                     "label": "Date Started",
                     "name": "date_started",
-                    "type": "date_time_picker",
+                    "type": "date_picker",
                     "instructions": "",
-                    "required": 1,
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "display_format": "m-d-Y",
-                    "return_format": "m-d-Y",
+                    "display_format": "d\/m\/Y",
+                    "return_format": "d\/m\/Y",
                     "first_day": 1
                 },
                 {
@@ -97,7 +97,7 @@
                     "name": "location",
                     "type": "text",
                     "instructions": "",
-                    "required": 1,
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -141,8 +141,8 @@
             "name": "dataset_audio_fingerprinting_description",
             "type": "wysiwyg",
             "instructions": "",
-            "required": 1,
-            "conditional_logic": "",
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -159,8 +159,8 @@
             "name": "dataset_airings_metadata_description",
             "type": "wysiwyg",
             "instructions": "",
-            "required": 1,
-            "conditional_logic": "",
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -177,8 +177,8 @@
             "name": "dataset_airings_metadata_entry",
             "type": "repeater",
             "instructions": "",
-            "required": 1,
-            "conditional_logic": "",
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -196,7 +196,7 @@
                     "name": "airings_metadata_name",
                     "type": "text",
                     "instructions": "",
-                    "required": 1,
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -217,7 +217,7 @@
                     "name": "airings_metadata_type",
                     "type": "select",
                     "instructions": "",
-                    "required": 1,
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -229,9 +229,7 @@
                         "Number": "Number",
                         "Date\/Time": "Date\/Time"
                     },
-                    "default_value": [
-
-                    ],
+                    "default_value": [],
                     "allow_null": 0,
                     "multiple": 0,
                     "ui": 0,
@@ -246,7 +244,7 @@
                     "name": "airings_metadata_description",
                     "type": "text",
                     "instructions": "",
-                    "required": 1,
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -269,8 +267,8 @@
             "name": "dataset_unique_metadata_description",
             "type": "wysiwyg",
             "instructions": "",
-            "required": 1,
-            "conditional_logic": "",
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -287,8 +285,8 @@
             "name": "dataset_unique_ads_metadata_table_entry",
             "type": "repeater",
             "instructions": "",
-            "required": 1,
-            "conditional_logic": "",
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -306,7 +304,7 @@
                     "name": "unique_ads_name",
                     "type": "text",
                     "instructions": "",
-                    "required": 1,
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -327,7 +325,7 @@
                     "name": "unique_ads_type",
                     "type": "select",
                     "instructions": "",
-                    "required": 1,
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -339,9 +337,7 @@
                         "Number": "Number",
                         "Date\/Time": "Date\/Time"
                     },
-                    "default_value": [
-
-                    ],
+                    "default_value": [],
                     "allow_null": 0,
                     "multiple": 0,
                     "ui": 0,
@@ -356,7 +352,7 @@
                     "name": "unique_ads_description",
                     "type": "text",
                     "instructions": "",
-                    "required": 1,
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -402,5 +398,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1470099440
+    "modified": 1472842883
 }

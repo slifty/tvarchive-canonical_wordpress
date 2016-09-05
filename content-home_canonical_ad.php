@@ -41,8 +41,6 @@
             $ad_subjects[$index] = "<a href='".get_bloginfo('url')."/browse/?subject_filter=".urlencode($ad_subject)."''>".$ad_subject."</a>";
         }
         ?>
-
-        ?>
         <div class="row">
             <div class="col-md-12">
                 <div class="row">

@@ -6,7 +6,6 @@
         setup_postdata($featured_ad);
         $post_id = get_the_ID();
         $ad = new PoliticalAdArchiveAd($post_id);
-        $ad_embed_url = $post_metadata['embed_url'];
         $political_ad = new PoliticalAdArchiveAd($post_id);
         $ad_notes = $political_ad->notes;
         $transcript = $political_ad->transcript;

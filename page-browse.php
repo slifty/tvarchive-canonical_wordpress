@@ -8,7 +8,7 @@
     // Populate the "autocomplete" values for advanced search
     $candidates = array_map(function($x) { return $x->name; }, PoliticalAdArchiveCandidate::get_candidates());
     $sponsors = array_map(function($x) { return $x->name; }, PoliticalAdArchiveSponsor::get_sponsors());
-    $sponsor_types = array_map(function($x) { return $x->type; }, PoliticalAdArchiveSponsor::get_sponsors());
+    $sponsor_types = array_map(function($x) { return $x->type; }, PoliticalAdArchiveSponsorType::get_sponsor_types());
     $channels = array_map(function($x) { return $x->channel; }, PoliticalAdArchiveChannel::get_channels());
     $subjects = array_map(function($x) { return $x->subject; }, PoliticalAdArchiveSubject::get_subjects());
     $programs = array_map(function($x) { return $x->program; }, PoliticalAdArchiveProgram::get_programs());

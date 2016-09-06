@@ -44,119 +44,134 @@
     </div>
     <script type="text/javascript">
 
-        $(document).ready(function(){
+        $(function(){
 
-            var candidatesData=[];
-            var candidatesByRace = [
-                    {
-                        race: 'Presidental',
-                        adCountMax: 0,
-                        affiliations: [
-                            {
-                                name: 'Democratic',
-                                candidates: []
-                            },{
-                                name: 'Republican',
-                                candidates: []
-                            },{
-                                name: 'Other',
-                                candidates: []
-                            }
-                        ]
-                    },
-                    {
-                        race: 'Senate',
-                        adCountMax: 0,
-                        affiliations: [
-                            {
-                                name: 'Democratic',
-                                candidates: []
-                            },{
-                                name: 'Republican',
-                                candidates: []
-                            },{
-                                name: 'Other',
-                                candidates: []
-                            }
-                        ]
-                    },
-                    {
-                        race: 'House',
-                        adCountMax: 0,
-                        affiliations: [
-                            {
-                                name: 'Democratic',
-                                candidates: []
-                            },{
-                                name: 'Republican',
-                                candidates: []
-                            },{
-                                name: 'Other',
-                                candidates: []
-                            }
-                        ]
+            var candidates_by_race = {
+                'presidential': {
+                    air_count_max: 1,
+                    candidates: []
+                },
+                'senate': {
+                    air_count_max: 1,
+                    states: {}
+                }
+            }
+
+            $.get('<?php bloginfo('url'); ?>/api/v1/ad_candidates/')
+            .done(function(data){
+                for(var x in data) {
+                    var candidate = data[x];
+
+                    // is this a presidential candidate?
+                    if(candidate.race == "PRES") {
+                        candidates_by_race.presidential.candidates.push(candidate);
+                        candidates_by_race.presidential.air_count_max = Math.max(candidate.air_count, candidates_by_race.presidential.air_count_max);
                     }
-                ];
+                    else {
+                        // The race code is of form XXS# or XX##
+                        // where
+                        // - XX is the state code
+                        // - ## is the house seat
+                        // - S# is a senate race
+                        var state = candidate.race.substring(0,2);
+                        var seat = candidate.race.substring(2,4);
 
-            $.get('<?php bloginfo('url'); ?>/api/v1/ad_candidates/', function(data){
-                candidatesData = data;
-            }).done(function(){
-
-                for(var i=0;i<candidatesData.length;i++){
-
-                    var affiliationIndex = 0;
-                    var raceIndex = 0;
-
-                    if (candidatesData[i].affiliation == 'D'){
-                        affiliationIndex = 0;
-                    } else if (candidatesData[i].affiliation == 'R') {
-                        affiliationIndex = 1;
-                    } else {
-                        affiliationIndex = 2;
+                        // We aren't tracking house races
+                        if(!/S\d/.test(seat))
+                            continue;
+                        if(!candidates_by_race.senate.states.hasOwnProperty(state)) {
+                            candidates_by_race.senate.states[state] = [];
+                        }
+                        candidates_by_race.senate.states[state].push(candidate);
+                        candidates_by_race.senate.air_count_max = Math.max(candidate.air_count, candidates_by_race.presidential.air_count_max);
                     }
-
-                    switch(candidatesData[i].race.indexOf('S')){
-                        case 3:
-                            raceIndex = 0;
-                            break;
-                        case 2:
-                            raceIndex = 1;
-                            break;
-                        default:
-                            raceIndex = 2;
-                    }
-
-                    if(+candidatesData[i].ad_count > +candidatesByRace[raceIndex].adCountMax){
-                        candidatesByRace[raceIndex].adCountMax = +candidatesData[i].ad_count;
-                    }
-                    candidatesByRace[raceIndex].affiliations[affiliationIndex].candidates.push(candidatesData[i]);
-
                 }
 
-                for(var j=0;j<candidatesByRace.length;j++){
-                    $('#candidate-race-pills').append('<li role="presentation" '+(j==0 ? 'class="active"' : '')+'><a href="#'+candidatesByRace[j].race+'" aria-controls="'+candidatesByRace[j].race+'" role="tab" data-toggle="pill">'+candidatesByRace[j].race+'</a></li>');
-                    $('#explore-candidates-tab-content').append('<div role="tabpanel" class="tab-pane '+(j==0 ? 'active' : '')+'" id="'+candidatesByRace[j].race+'"></div>');
+                // Render the presidential candidates section
+                if(candidates_by_race.presidential.candidates.length > 0) {
 
-                    for(var k=0;k<candidatesByRace[j].affiliations.length;k++){
+                    // Sort the presidential candidates by air count
+                    candidates_by_race.presidential.candidates.sort(function(a,b) { return parseInt(a.air_count)<parseInt(b.air_count)?1:-1 });
 
-                        if (candidatesByRace[j].affiliations[k].candidates.length > 0){
-                            $('#'+candidatesByRace[j].race).append('<div class="candidate-affiliation-group" id="'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'"><h3>'+candidatesByRace[j].affiliations[k].name+' '+candidatesByRace[j].race+' Candidates</h3><ol class="explore-list main"></ol><div class="collapse" id="seeMoreCandidates'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'"><ol class="explore-list extra"></ol></div>'+(candidatesByRace[j].affiliations[k].candidates.length > 4 ? '<button class="btn explore-show-more" role="button" data-toggle="collapse" data-target="#seeMoreCandidates'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+'" aria-expanded="false" aria-controls="seeMoreCandidates">Show / Hide '+(candidatesByRace[j].affiliations[k].candidates.length-4)+' More Candidates</button>':'')+'</div></div>');
-                        }
+                    // Render the section holder
+                    var html = '';
+                    html += '<div class="candidate-affiliation-group" id="presidential-data">';
+                    html += ' <h3>Presidential Candidates</h3>';
+                    html += ' <ol class="explore-list main"></ol>';
+                    html += ' <div class="collapse" id="seeMoreCandidatesPresidential">';
+                    html += '  <ol class="explore-list extra"></ol>';
+                    html += ' </div>';
+                    if(candidates_by_race.presidential.candidates.length > 4) {
+                        html += '<div>';
+                        html += ' <button class="btn explore-show-more" role="button" data-toggle="collapse" data-target="#seeMoreCandidatesPresidential" aria-expanded="false" aria-controls="seeMoreCandidates">Show / Hide '+(candidates_by_race.presidential.candidates.length-4)+' More Candidates</button>';
+                        html += '</div>';
+                    }
+                    html += '</div>';
+                    $('#presidential').append(html);
 
-                        for(var l=0;l<candidatesByRace[j].affiliations[k].candidates.length;l++){
+                    // Render the actual bars
+                    for(var x in candidates_by_race.presidential.candidates) {
+                        var candidate = candidates_by_race.presidential.candidates[x];
+                        var html = '';
+                        html += '<li class="explore-item item">';
+                        html += ' <div class="explore-label">';
+                        html += '  <p>'+candidate.name+' ('+candidate.affiliation+')</p>';
+                        html += '  <small><a href="<?php bloginfo('url'); ?>/browse/?candidate_filter='+encodeURI(candidate.name)+'">View Ads</a></small></div>';
+                        html += '  <div class="explore-bar-container" data-count="'+candidate.air_count+' Airings">';
+                        html += '   <div class="explore-bar affiliation-'+candidate.affiliation+'" style="width:'+(((+candidate.air_count)/(candidates_by_race.presidential.air_count_max))*100)+'%;">';
+                        html += '    <div class="explore-count">'+candidate.air_count+' Airings</div>';
+                        html += '   </div>';
+                        html += '  </div>';
+                        html += ' </div>';
+                        html += '</li>';
 
-                            if (l<4){
-                                $('#'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+' .explore-list.main').append('<li class="explore-item item"><div class="explore-label"><p>'+candidatesByRace[j].affiliations[k].candidates[l].name+'</p><small><a href="<?php bloginfo('url'); ?>/browse/?q='+encodeURI(candidatesByRace[j].affiliations[k].candidates[l].name)+'">View Ads</a></small></div><div class="explore-bar-container" data-count="'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads"><div class="explore-bar" style="width:'+(((+candidatesByRace[j].affiliations[k].candidates[l].ad_count)/(+candidatesByRace[j].adCountMax))*100)+'%;"><div class="explore-count">'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads</div></div></div></li>');
-                            } else {
-                                $('#'+candidatesByRace[j].race+candidatesByRace[j].affiliations[k].name+' .explore-list.extra').append('<li class="explore-item item"><div class="explore-label"><p>'+candidatesByRace[j].affiliations[k].candidates[l].name+'</p><small><a href="<?php bloginfo('url'); ?>/browse/?q='+encodeURI(candidatesByRace[j].affiliations[k].candidates[l].name)+'">View Ads</a></small></div><div class="explore-bar-container" data-count="'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads"><div class="explore-bar" style="width:'+(((+candidatesByRace[j].affiliations[k].candidates[l].ad_count)/(+candidatesByRace[j].adCountMax))*100)+'%;"><div class="explore-count">'+candidatesByRace[j].affiliations[k].candidates[l].ad_count+' Ads</div></div></div></li>');
-                            }
-
+                        if(x < 4) {
+                            $('#presidential-data .explore-list.main').append(html);
+                        } else {
+                            $('#presidential-data .explore-list.extra').append(html);
                         }
                     }
                 }
 
+                // Render the presidential candidates section
+                if(Object.keys(candidates_by_race.senate.states).length > 0) {
+
+                    // Sort the states in alphabetical order
+                    var state_keys = Object.keys(candidates_by_race.senate.states);
+                    state_keys.sort();
+
+                    for(var x in state_keys) {
+                        var state = state_keys[x];
+                        // Render each state as a section
+                        // Render the section holder
+                        var html = '';
+                        html += '<div class="candidate-affiliation-group" id="senate-data-'+state+'">';
+                        html += ' <h3>'+state+' Candidates</h3>';
+                        html += ' <ol class="explore-list main"></ol>';
+                        html += '</div>';
+                        $('#senate').append(html);
+
+                        // Render the actual bars
+                        for(var x in candidates_by_race.senate.states[state]) {
+                            var candidate = candidates_by_race.senate.states[state][x];
+                            console.log(candidate);
+                            var html = '';
+                            html += '<li class="explore-item item">';
+                            html += ' <div class="explore-label">';
+                            html += '  <p>'+candidate.name+' ('+candidate.affiliation+')</p>';
+                            html += '  <small><a href="<?php bloginfo('url'); ?>/browse/?candidate_filter='+encodeURI(candidate.name)+'">View Ads</a></small></div>';
+                            html += '  <div class="explore-bar-container" data-count="'+candidate.air_count+' Airings">';
+                            html += '   <div class="explore-bar affiliation-'+candidate.affiliation+'" style="width:'+(((+candidate.air_count)/(candidates_by_race.presidential.air_count_max))*100)+'%;">';
+                            html += '    <div class="explore-count">'+candidate.air_count+' Airings</div>';
+                            html += '   </div>';
+                            html += '  </div>';
+                            html += ' </div>';
+                            html += '</li>';
+                            $('#senate-data-'+state+' .explore-list.main').append(html);
+                        }
+                    }
+                }
             });
-
 
             var sponsorsData=[];
             var sponsorsByType=[

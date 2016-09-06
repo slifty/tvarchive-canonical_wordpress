@@ -1027,24 +1027,28 @@ a#footer-sidebar-link{
 	font-size: 20px;
 }
 
-[id$="Republican"] .explore-item:nth-child(odd) .explore-bar{
+.explore-item:nth-child(odd) .affiliation-R.explore-bar{
 	background-color: #c0392b;
 }
-[id$="Republican"] .explore-item:nth-child(even) .explore-bar{
+.explore-item:nth-child(even) .affiliation-R.explore-bar{
 	background-color: #d0021b;
 }
 
-#explore-sponsor_types-content .explore-item:nth-child(odd) .explore-bar, #explore-sponsors-content .explore-item:nth-child(odd) .explore-bar, [id$="Democratic"] .explore-item:nth-child(odd) .explore-bar{
+#explore-sponsor_types-content .explore-item:nth-child(odd) .explore-bar,
+#explore-sponsors-content .explore-item:nth-child(odd) .explore-bar,
+.explore-item:nth-child(odd) .affiliation-D.explore-bar{
 	background-color: #4a90e2;
 }
-#explore-sponsor_types-content .explore-item:nth-child(even) .explore-bar, #explore-sponsors-content .explore-item:nth-child(even) .explore-bar, [id$="Democratic"] .explore-item:nth-child(even) .explore-bar{
+#explore-sponsor_types-content .explore-item:nth-child(even) .explore-bar,
+#explore-sponsors-content .explore-item:nth-child(even) .explore-bar,
+.explore-item:nth-child(even) .affiliation-D.explore-bar{
 	background-color: #0a91ab;
 }
 
-[id$="Other"] .explore-item:nth-child(odd) .explore-bar{
+.explore-item:nth-child(odd) .explore-bar{
 	background-color: #85b648;
 }
-[id$="Other"] .explore-item:nth-child(even) .explore-bar{
+.explore-item:nth-child(even) .explore-bar{
 	background-color: #16a085;
 }
 

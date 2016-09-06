@@ -50,7 +50,7 @@ hr {
 }
 p, ul, ol{
 	font-size: 16px;
-	line-height: 1.25em;
+	line-height: 20px;
 }
 a:hover {
    text-decoration: underline;
@@ -594,7 +594,7 @@ a#footer-sidebar-link{
   padding-bottom: 30px;
 }
 #ad-note_home {
-	padding: 1em;
+	padding: 18px;
 	border-left: 1px solid #3a3e4b;
 	margin-left: -1px;
 }
@@ -605,10 +605,10 @@ a#footer-sidebar-link{
 .ad-info_home{
 	border-right: 1px solid #3a3e4b;
 	border-bottom: 1px solid #3a3e4b;
-	padding: 1em;
+	padding: 18px;
 }
 .ad-info_home .cell-value{
-	font-size: 1em;
+	font-size: 16px;
 }
 
 .ad-info_home:last-child{
@@ -647,7 +647,7 @@ a#footer-sidebar-link{
 }
 
 .data-download-group-container{
-	padding: 1em;
+	padding: 16px;
 	background: #efefef;
 	text-align: center;
 }
@@ -659,7 +659,7 @@ a#footer-sidebar-link{
 .data-download{
 	display: inline-block;
 	text-align: center;
-	margin: 1em .5em .5em;
+	margin: 16px 8px 8px;
 }
 
 .btn.data-download__button {
@@ -680,11 +680,11 @@ a#footer-sidebar-link{
 }
 
 .data-download__size{
-	font-size: .75em;
+	font-size: 12px;
 }
 
 .metadata-table-collapse-toggle{
-	padding: 1.5em 2em;
+	padding: 24px 32px;
 	width: 100%;
 	border: none;
 	font-size: 14px;
@@ -705,7 +705,7 @@ a#footer-sidebar-link{
 .metadata-table-collapse-toggle:before{
 	content: "+";
 	position: absolute;
-	font-size: 3.5em;
+	font-size: 56px;
 	color: white;
 	right: 20px;
 	top: 34px;
@@ -922,7 +922,7 @@ a#footer-sidebar-link{
 
 #candidate-race-pills{
 	display: inline-block;
-	margin-bottom: 3em;
+	margin-bottom: 50px;
 }
 
 #candidate-race-pills > li + li, #homepage-market-map-pills > li + li{
@@ -964,7 +964,7 @@ a#footer-sidebar-link{
 
 .explore-list .explore-item{
   text-align: left;
-	margin-bottom: 1em;
+	margin-bottom: 16px;
 }
 
 .explore-list .explore-label, .explore-list .explore-bar-container{
@@ -974,7 +974,7 @@ a#footer-sidebar-link{
 
 .explore-list .explore-label{
   vertical-align: middle;
-  padding-right:1em;
+  padding-right: 16px;
   width: 25%;
   max-width: 300px;
 }
@@ -988,17 +988,17 @@ a#footer-sidebar-link{
   position: absolute;
   left: 0;
   top:0;
-  padding-left: .5em;
+  padding-left: .8px;
   color: white;
-  font-size: 1em;
+  font-size: 16px;
   z-index:100;
 }
 
 .explore-item .explore-bar-container{
-  height: 2.25em;
+  height: 36px;
   width: 74%;
   position:relative;
-  line-height: 2.25em;
+  line-height: 36px;
 }
 
 .explore-item .explore-bar-container:before{
@@ -1006,9 +1006,9 @@ a#footer-sidebar-link{
 	position: absolute;
 	top: 0;
 	left: 0;
-	padding-left: .5em;
+	padding-left: 8px;
   color: #666;
-  font-size: 1em;
+  font-size: 16px;
 }
 
 .candidate-affiliation-group{
@@ -1067,7 +1067,7 @@ a#footer-sidebar-link{
     border-radius: 4px;
     border: none;
     box-shadow: none;
-    margin: 2rem auto;
+    margin: 8px auto;
 }
 
 .explore-show-more:hover, .explore-show-more:focus{
@@ -1177,7 +1177,7 @@ h3.resource-name {
   border-top: 20px solid #0094AF;
 	margin: 0px;
 	padding: 0;
-	font-size: 1em;
+	font-size: 16px;
 	background: white;
 	color: #0094AF;
 }
@@ -1439,21 +1439,21 @@ form#advanced-search-form{
 	font-size: 16px;
 }
 #advanced-search-form .advanced-search-facet{
-	margin-bottom: 1rem;
+	margin-bottom: 8px;
 }
 #advanced-search-form fieldset{
-	margin-bottom: 3em;
+	margin-bottom: 8px;
 }
 #advanced-search-form fieldset fieldset{
 	margin-bottom: 0;
 }
 #advanced-search-form fieldset legend{
-	font-size: 1.25em;
+	font-size: 18px;
 	border:none;
 }
 #advanced-search-form label, #advanced-search-form fieldset fieldset legend{
 	padding: 10px 16px;
-	font-size: 1em;
+	font-size: 16px;
 	font-weight: normal;
 	display:inline-block;
 }
@@ -1471,9 +1471,9 @@ form#advanced-search-form{
   border-radius: 4px;
   border: none;
   box-shadow: none;
-  margin: 2rem auto;
+  margin: 16px auto;
   width: auto;
-  padding: 6px 2em;
+  padding: 6px 16px;
   float: right;
 }
 
@@ -1485,7 +1485,7 @@ form#advanced-search-form{
 	margin-top: 20px;
 }
 #browse-header-advanced {
-    padding-top: 9rem;
+    padding-top: 50px;
     padding-bottom: 0px;
     background: white;
 }
@@ -1797,7 +1797,6 @@ a img.aligncenter {
 	color: #21759b;
 	display: block;
 	font-size: 14px;
-	font-size: 0.875rem;
 	font-weight: bold;
 	height: auto;
 	left: 5px;

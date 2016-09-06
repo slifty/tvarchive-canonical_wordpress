@@ -315,7 +315,7 @@
         padding: 24px;
         background: #f7f7f5;
         right: 0px;
-        width: 10em;
+        width: 160px;
         border-radius: 4px 0 4px 4px;
         z-index: 999;
     }
@@ -388,10 +388,10 @@
 		.ad-info_home{
 			border-right: 1px solid #3a3e4b;
 			border-bottom: none;
-			padding: 1em;
+			padding: 16px;
 		}
 		.ad-info_home .cell-value{
-			font-size: 1em;
+			font-size: 16px;
 		}
 
 		.ad-info_home:last-child{
@@ -668,7 +668,7 @@
         padding: 24px;
         background: #f7f7f5;
         right: 0px;
-        width: 10em;
+        width: 160px;
         border-radius: 4px 0 4px 4px;
         z-index: 999;
     }

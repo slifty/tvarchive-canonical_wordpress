@@ -289,9 +289,10 @@
             </div>
             <div class="row last download-row">
                 <div class="col-xs-12">
-                    <form method="get" action="<?php bloginfo('url'); ?>/instance_export" target="_blank">
-                        <input type="hidden" name="q" value="archive_id:<?php echo($archive_id); ?>" />
-                        <input type="submit" id="download-data-button" class="button" value="Download Data About This Ad" />
+                    <form method="get" action="<?php bloginfo('url'); ?>/api/v1/ad_instances" target="_blank">
+                        <input type="hidden" name="archive_id" value="<?php echo($archive_id); ?>" />
+                        <input type="hidden" name="output" value="csv" />
+                        <input type="submit" id="download-data-button" class="btn primary data-download__button" value="Download Data About This Ad" />
                     </form>
                 </div>
             </div>

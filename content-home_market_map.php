@@ -24,15 +24,15 @@
     var commas = d3.format(',d');
     var bubblesData = [
         {
-           city: 'Boston',
-           state: 'MA',
+           city: 'Boston, MA /Manchester',
+           state: 'NH',
            fillKey: 'bubble',
            latitude: 42.4,
            longitude:-71,
            market: 'BOS'
         },
         {
-           city: 'Des Moines',
+           city: 'Des Moines-Ames',
            state: 'IA',
            fillKey: 'bubble',
            latitude: 41.7,
@@ -40,7 +40,7 @@
            market: 'DSM'
         },
         {
-           city: 'Cedar Rapids',
+           city: 'Ceder Rapids-Waterloo-Iowa City-Dublin',
            state: 'IA',
            fillKey: 'bubble',
            latitude: 42,
@@ -64,7 +64,7 @@
            market: 'PHL'
          },
          {
-           city: 'San Francisco',
+           city: 'San Francisco-Oakland-San Jose',
            state: 'CA',
            fillKey: 'bubble',
            latitude: 37.8,
@@ -72,7 +72,7 @@
            market: 'SF'
          },
          {
-           city: 'Washington',
+           city: 'Washington, DC/Hagerstown',
            state: 'DC',
            fillKey: 'bubble',
            latitude: 38.6,
@@ -88,8 +88,8 @@
            market: 'CAE'
          },
          {
-           city: 'Greenville',
-           state: 'SC',
+           city: 'Greenville-Spartanburg, SC / Asheville-Anderson',
+           state: 'NC',
            fillKey: 'bubble',
            latitude: 34.8,
            longitude:-82.4,
@@ -120,7 +120,7 @@
            market: 'CLE'
          },
          {
-           city: 'Orlando',
+           city: 'Orlando-Daytona Beach-Melbourne',
            state: 'FL',
            fillKey: 'bubble',
            latitude: 28.5,
@@ -128,7 +128,7 @@
            market: 'MCO'
          },
          {
-           city: 'Tampa',
+           city: 'Tampa-St. Petersburg',
            state: 'FL',
            fillKey: 'bubble',
            latitude: 28,
@@ -152,7 +152,7 @@
            market: 'DEN'
          },
          {
-           city: 'Raleigh',
+           city: 'Raleigh-Durham-Fayetteville',
            state: 'NC',
            fillKey: 'bubble',
            latitude: 35.8,
@@ -168,7 +168,7 @@
            market: 'CLT'
          },
          {
-           city: 'Miami',
+           city: 'Miami-Fort Lauderdale',
            state: 'FL',
            fillKey: 'bubble',
            latitude: 25.8,
@@ -176,7 +176,7 @@
            market: 'MIA'
          },
          {
-           city: 'New York',
+           city: 'New York City',
            state: 'NY',
            fillKey: 'bubble',
            latitude: 40.8,
@@ -184,7 +184,7 @@
            market: 'NYC'
          },
          {
-           city: 'Colorado Springs',
+           city: 'Colorado Springs-Pueblo',
            state: 'CO',
            fillKey: 'bubble',
            latitude: 38.9,
@@ -192,7 +192,7 @@
            market: 'COS'
          },
          {
-           city: 'Norfolk',
+           city: 'Norfolk-Portsmouth-Newport News',
            state: 'VA',
            fillKey: 'bubble',
            latitude: 36.9,
@@ -200,7 +200,7 @@
            market: 'ORF'
          },
          {
-           city: 'Roanoke',
+           city: 'Roanoke-Lynchburg',
            state: 'VA',
            fillKey: 'bubble',
            latitude: 37.3,

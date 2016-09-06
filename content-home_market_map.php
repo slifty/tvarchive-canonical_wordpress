@@ -315,7 +315,10 @@
 
     function selectMarket(market_code) {
         current_market = market_code;
+
         if(is_home) {
+            if(market_code == null)
+                return;
             window.location.href = '<?php bloginfo('url'); ?>/market-map/#' + market_code;
             return;
         }

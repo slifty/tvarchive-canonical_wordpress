@@ -659,7 +659,10 @@ a#footer-sidebar-link{
 .data-download{
 	display: inline-block;
 	text-align: center;
-	margin: 16px 8px 8px;
+	margin-top: 16px;
+}
+.data-download .btn {
+	padding: 5px 0px;
 }
 
 .btn.data-download__button {

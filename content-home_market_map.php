@@ -200,12 +200,20 @@
            market: 'ORF'
          },
          {
-           city: 'Roanoke-Lynchburg',
-           state: 'VA',
+           city: 'Milwaukee',
+           state: 'WI',
            fillKey: 'bubble',
-           latitude: 37.3,
-           longitude:-80,
-           market: 'ROA'
+           latitude: 43.04,
+           longitude: -87.91,
+           market: 'MKE'
+         },
+         {
+           city: 'Phoenix-Prescott',
+           state: 'AZ',
+           fillKey: 'bubble',
+           latitude: 33.44,
+           longitude: -112.07,
+           market: 'PHX'
          }
     ];
 

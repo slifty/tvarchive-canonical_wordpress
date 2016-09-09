@@ -26,16 +26,24 @@
                     <h2>Download Details of Airings on TV</h2>
                     <p>These datasets provide details about airings of ads on TV, giving information about when and where they aired. Divided datasets by quarter are also available for download.</p>
                     <div class="data-download">
-                        <a href="<?php bloginfo('url'); ?>/api/v1/ad_instances?end_time=12/31/2015%2023:59:59&output=csv" class="btn primary data-download__button" target="_blank">Sept - Dec 2015</a>
+                        <a href="<?php bloginfo('url'); ?>/api/v1/ad_instances?end_time=12/31/2015%2023:59:59&output=csv" class="btn primary data-download__button" target="_blank">Oct - Dec 2015</a>
                         <small class="data-download__size">CSV</small>
                     </div>
                     <div class="data-download">
-                        <a href="<?php bloginfo('url'); ?>/api/v1/ad_instances?start_time=1/1/2016%2000:00:00&end_time=4/30/2016%2023:59:59&output=csv" class="btn primary data-download__button" target="_blank">Jan - April 2016</a>
+                        <a href="<?php bloginfo('url'); ?>/api/v1/ad_instances?start_time=1/1/2016%2000:00:00&end_time=3/31/2016%2023:59:59&output=csv" class="btn primary data-download__button" target="_blank">Jan - March 2016</a>
                         <small class="data-download__size">CSV</small>
                     </div>
                     <div class="data-download">
-                        <a href="<?php bloginfo('url'); ?>/api/v1/ad_instances?start_time=5/1/2016%2000:00:00&output=csv" class="btn primary data-download__button" target="_blank">May - <?php echo(date('F Y')); ?></a>
+                        <a href="<?php bloginfo('url'); ?>/api/v1/ad_instances?start_time=4/1/2016%2000:00:00&end_time=6/30/2016%2023:59:59&output=csv" class="btn primary data-download__button" target="_blank">April - June 2016</a>
                         <small class="data-download__size">CSV</small>
+                    </div>
+                    <div class="data-download">
+                        <a href="<?php bloginfo('url'); ?>/api/v1/ad_instances?start_time=7/1/2016%2000:00:00&end_time=9/30/2016%2023:59:59&output=csv" class="btn primary data-download__button" target="_blank">July - Sept 2016</a>
+                        <small class="data-download__size">CSV</small>
+                    <div class="data-download">
+                        <a href="<?php bloginfo('url'); ?>/api/v1/ad_instances?start_time=10/1/2016%2000:00:00&end_time=12/31/2016%2023:59:59&output=csv" class="btn primary data-download__button" target="_blank">Oct - Dec 2016</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
                     </div>
                     <div class="data-download">
                         <a href="<?php bloginfo('url'); ?>/api/v1/ad_instances?output=csv" class="btn primary data-download__button" target="_blank">Entire Dataset</a>

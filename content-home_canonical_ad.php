@@ -67,7 +67,7 @@
                             <div class="cell-label cell-label_home">Note</div>
                             <div class="cell-multiline-value ad-note_content">
                                 <?php echo substr($ad_notes, 0, 400).'&hellip;';?>
-                                <a href="<?php the_permalink(); ?>">READ MORE</a>
+                                <a href="ad/<?php echo($archive_id);?>">READ MORE</a>
                             </div>
                         </div>
                     </div>

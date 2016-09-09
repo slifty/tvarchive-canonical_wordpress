@@ -12,7 +12,8 @@
 @media screen and (min-width: 992px) and (max-width: 1200px) {
 	/* General Styles */
 	.guttered-row {
-		padding: 0px 30px;
+		padding-right: 30px;
+		padding-left: 30px;
 	}
 	hr {
 		margin-top: 15px;
@@ -201,7 +202,8 @@
 @media only screen and (min-width: 768px) and (max-width: 992px) {
 	/* General Styles*/
 	.guttered-row {
-		padding: 0px 15px;
+		padding-right: 15px;
+		padding-right: 15px;
 	}
 	h2.section-header {
   	padding: 13px 0px;
@@ -332,7 +334,8 @@
 
     /* Explore */
 		.guttered-row {
-			padding: 0px 30px;
+			padding-left: 30px;
+			padding-right: 30px;
 		}
 
     .explore-subtitle-row {
@@ -553,7 +556,8 @@
 @media only screen and (min-width: 320px) and (max-width: 768px) {
   /* General Styles*/
 	.guttered-row {
-		padding: 0px 15px;
+		padding-left: 15px;
+		padding-right: 15px;
 	}
 	h2.section-header {
   	padding: 13px 0px;

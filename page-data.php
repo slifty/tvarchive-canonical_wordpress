@@ -102,6 +102,7 @@
                 <h2>Metadata</h2>
                 <div><?php echo(get_field('dataset_airings_metadata_description')); ?></div>
                     <button class="collapse-toggle metadata-table-collapse-toggle" type="button" data-toggle="collapse" data-target="#airingsMetadataDetails" aria-expanded="false" aria-controls="channelRecordingDetails" data-description="Details of which channels are collected, when collection was started, and when it stopped (if appropriate).">Show Channel Recording Details</button>
+                </div>
                 <div class="metadata-table-container collapse" id="airingsMetadataDetails">
                     <table>
                         <thead>

@@ -53,7 +53,7 @@
             </div>
             <div class="col-xs-12 col-md-6">
                 <div class="data-download-group-container">
-                    <h2>Download a List of Unique Ads Aired</h2>
+                    <h2>Download a List of Unique Ads Archived</h2>
                     <p>This dataset provides information on every ad archived by the project, whether or not that ad has been captured as airing on television.</p>
                     <div class="data-download">
                         <a href="<?php bloginfo('url'); ?>/api/v1/ads?output=csv" class="btn primary data-download__button" target="_blank">Entire Dataset</a>
@@ -109,7 +109,7 @@
             <div class="col-xs-12 col-md-12">
                 <h2>Metadata</h2>
                 <div><?php echo(get_field('dataset_airings_metadata_description')); ?></div>
-                    <button class="collapse-toggle metadata-table-collapse-toggle" type="button" data-toggle="collapse" data-target="#airingsMetadataDetails" aria-expanded="false" aria-controls="channelRecordingDetails" data-description="Details of which channels are collected, when collection was started, and when it stopped (if appropriate).">Show Channel Recording Details</button>
+                    <button class="collapse-toggle metadata-table-collapse-toggle" type="button" data-toggle="collapse" data-target="#airingsMetadataDetails" aria-expanded="false" aria-controls="channelRecordingDetails" data-description="Descriptions of field names, data types, and what they mean.">Show Ad Airing Metadata Details</button>
                 </div>
                 <div class="metadata-table-container collapse" id="airingsMetadataDetails">
                     <table>
@@ -145,7 +145,7 @@
             <div class="col-xs-12 col-md-12">
                 <h2>Unique Ads Archived Metadata</h2>
                 <div><?php echo(get_field('dataset_unique_metadata_description')); ?></div>
-                    <button class="collapse-toggle metadata-table-collapse-toggle" type="button" data-toggle="collapse" data-target="#uniqueAdsMetadataDetails" aria-expanded="false" aria-controls="channelRecordingDetails" data-description="Details of which channels are collected, when collection was started, and when it stopped (if appropriate).">Show Channel Recording Details</button>
+                    <button class="collapse-toggle metadata-table-collapse-toggle" type="button" data-toggle="collapse" data-target="#uniqueAdsMetadataDetails" aria-expanded="false" aria-controls="channelRecordingDetails" data-description="Descriptions of field names, data types, and what they mean.">Show Unique Ad Metadata Detals</button>
                 <div class="metadata-table-container collapse" id="uniqueAdsMetadataDetails">
                     <table>
                         <thead>

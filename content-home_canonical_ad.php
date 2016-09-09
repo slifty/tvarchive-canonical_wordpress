@@ -5,7 +5,6 @@
         $post = $featured_ad;
         setup_postdata($featured_ad);
         $post_id = get_the_ID();
-        $ad = new PoliticalAdArchiveAd($post_id);
         $political_ad = new PoliticalAdArchiveAd($post_id);
         $ad_notes = $political_ad->notes;
         $transcript = $political_ad->transcript;
@@ -45,7 +44,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div id="ad-embed" class="col-md-12">
-                        <iframe id="ad-embed-iframe" frameborder="0" width="100%" height="auto" allowfullscreen src="<?php echo($ad->embed_url);?>&nolinks=1" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+                        <iframe id="ad-embed-iframe" frameborder="0" width="100%" height="auto" allowfullscreen src="<?php echo($political_ad->embed_url);?>&nolinks=1" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
                     </div>
                 </div>
                 <div class="row">
@@ -67,7 +66,7 @@
                         <div id="ad-note_home" class="ad-note_home">
                             <div class="cell-label cell-label_home">Note</div>
                             <div class="cell-multiline-value ad-note_content">
-                                <?php echo substr($ad->notes, 0, 400).'&hellip;';?>
+                                <?php echo substr($ad_notes, 0, 400).'&hellip;';?>
                                 <a href="<?php the_permalink(); ?>">READ MORE</a>
                             </div>
                         </div>

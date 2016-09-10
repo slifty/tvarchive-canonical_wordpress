@@ -775,6 +775,13 @@ a#footer-sidebar-link{
 	font-weight: 400;
 }
 
+#no-ads {
+	display: none;
+	text-align: center;
+	font-size: 16px;
+	margin: 40px 0px;
+}
+
 .btn#market-map-show-all {
 	display: block;
   width: auto;

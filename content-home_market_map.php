@@ -376,9 +376,12 @@
             var total_results = data.total_results;
 
             if(total_results == 0) {
+                $('#most-aired-ads').hide();
+                $('#load-more').hide();
                 $("#no-ads").show();
             } else {
                 $("#no-ads").hide();
+                $('#most-aired-ads').show();
                 for (i = 0; i < adData.length; i++ ) {
                 var html = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">';
                     html+= '<div class="most-aired-ad-container">';

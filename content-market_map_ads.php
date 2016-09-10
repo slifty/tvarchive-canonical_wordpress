@@ -11,3 +11,5 @@
 </div>
 <div id="most-aired-ads" class="row guttered-row">
 </div>
+<div id="loading-ads" class="row guttered-row"></div>
+<div id="no-ads" class="row guttered-row">We did not collect ads in <span class="market-location" id="no-ads-market"></span> <span class="market-date" id="no-ads-time"></span></div>

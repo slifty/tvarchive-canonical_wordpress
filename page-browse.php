@@ -224,6 +224,7 @@
             url: "<?php bloginfo('url'); ?>/api/v1/ads?" + querystring_parts.join("&"),
             type: "get"
         }).success(function(data) {
+            data = data.data;
             $search_results = $("#search-results");
             for(x in data) {
                 var ad = data[x];

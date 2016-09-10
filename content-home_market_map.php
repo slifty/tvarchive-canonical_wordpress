@@ -17,7 +17,6 @@
 <script type="text/javascript">
 
     var marketData = [];
-    var adData = [];
     var is_home = <?php echo(is_home()?"true":"false");?>;
     var market = '';
     var current_page = 0;
@@ -232,7 +231,7 @@
             conditions.push("end_time=" + end_time);
         var url = '<?php bloginfo('url'); ?>/api/v1/market_counts'+(conditions.length>0?'?'+conditions.join('&'):'');
         $.get(url, function(data){
-            marketData = data;
+            marketData = data.data;
         }).done(function(){
             // Step 2: Calculate values
             var adCountTotal = d3.sum(marketData, function(d){return d.ad_count}) | 0;
@@ -349,47 +348,57 @@
             }
         };
 
+        if(market_code.length>0){
+            $('span.market-location').html(market);
+        } else {
+            $('span.market-location').html('All Markets');
+        }
+
+        current_page = 0;
+        $('#most-aired-ads').empty();
+        renderAds(current_page, market_code);
+        current_page++;
+    };
+
+    function renderAds(page, market_code) {
+        var per_page = 50;
         var url = '<?php bloginfo('url'); ?>/api/v1/ads?sort=air_count&market_filter='+market_code;
+
         if(current_start_time)
             url += "&start_time=" + current_start_time;
         if(current_end_time)
             url += "&end_time=" + current_end_time;
+        url += "&page=" + page;
+        url += "&per_page=" + per_page;
+
         $.get(url, function(data){
-            adData = data;
-        }).done(function(){
+            var adData = data.data;
+            var total_results = data.total_results;
 
-            if (market_code.length>0){
-                $('span.market-location').html(market);
+            if(total_results == 0) {
+                $("#no-ads").show();
             } else {
-                $('span.market-location').html('All Markets');
+                $("#no-ads").hide();
+                for (i = 0; i < adData.length; i++ ) {
+                var html = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">';
+                    html+= '<div class="most-aired-ad-container">';
+                    html+= '<div class="video-container">';
+                    html+= '<a href="<?php bloginfo('url'); ?>/ad/'+adData[i].archive_id+'/"><img src="https://archive.org/serve/'+adData[i].archive_id+'/format=Thumbnail" /></a>';
+                    html+= '</div>';
+                    html+= '<div class="details-container '+(adData[i].wp_identifier == 1396 ? 'expanded' : '')+'">';
+                    html+= '<h3><a href="<?php bloginfo('url'); ?>/ad/'+adData[i].archive_id+'/"><span class="air-count">'+commas(adData[i].air_count)+'</span> Broadcasts</a></h3>';
+                    html+= '<p>Sponsor Type: <span class="sponsor-type">'+adData[i].sponsor_types+'<span></p>';
+                    html+= '<p>Candidates: <span class="candidates">'+adData[i].candidates+'</span></p>';
+                    html+= '<div class="reference-container">';
+                    html+= (adData[i].wp_identifier == 1396 ? '<p class="reference-citation">From Politifact:</p><p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.</p></div><div class="read-more-cta"><a href="'+url+'/ad/'+adData[i].archive_id+'/">Read More About this Ad</a></div>' : '');
+                    html+= '</div></div></div></div>';
+                    $('#most-aired-ads').append(html);
+                }
+                if((page + 1) * per_page < total_results) {
+                    $("#load-more").show();
+                }
             }
-            current_page = 0;
-            $('#most-aired-ads').empty();
-            renderAds(adData, current_page);
-            current_page++;
-        });
-    };
-
-    function renderAds(adData, page) {
-        var perPage = 50;
-        for (i = page * perPage; i < Math.min(adData.length, (page + 1) * perPage); i++ ) {
-            var html = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">';
-                html+= '<div class="most-aired-ad-container">';
-                html+= '<div class="video-container">';
-                html+= '<a href="<?php bloginfo('url'); ?>/ad/'+adData[i].archive_id+'/"><img src="https://archive.org/serve/'+adData[i].archive_id+'/format=Thumbnail" /></a>';
-                html+= '</div>';
-                html+= '<div class="details-container '+(adData[i].wp_identifier == 1396 ? 'expanded' : '')+'">';
-                html+= '<h3><a href="<?php bloginfo('url'); ?>/ad/'+adData[i].archive_id+'/"><span class="air-count">'+commas(adData[i].air_count)+'</span> Broadcasts</a></h3>';
-                html+= '<p>Sponsor Type: <span class="sponsor-type">'+adData[i].sponsor_types+'<span></p>';
-                html+= '<p>Candidates: <span class="candidates">'+adData[i].candidates+'</span></p>';
-                html+= '<div class="reference-container">';
-                html+= (adData[i].wp_identifier == 1396 ? '<p class="reference-citation">From Politifact:</p><p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.</p></div><div class="read-more-cta"><a href="'+url+'/ad/'+adData[i].archive_id+'/">Read More About this Ad</a></div>' : '');
-                html+= '</div></div></div></div>';
-            $('#most-aired-ads').append(html);
-        }
-        if(adData.length > (page + 1) * perPage) {
-            $("#load-more").show();
-        }
+        })
     }
 
     $(function() {

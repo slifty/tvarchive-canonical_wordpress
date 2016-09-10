@@ -208,7 +208,8 @@
                                 'url': '<?php bloginfo('url'); ?>/api/v1/ad_instances?archive_id=<?php echo(urlencode($archive_id)); ?>',
                                 'method': 'GET',
                             })
-                            .done(function(ad_instances) {
+                            .done(function(data) {
+                                var ad_instances = data.data;
 
                                 // Cluster instances by market + network
                                 var buckets = {};

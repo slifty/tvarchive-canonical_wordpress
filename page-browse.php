@@ -224,7 +224,9 @@
             url: "<?php bloginfo('url'); ?>/api/v1/ads?" + querystring_parts.join("&"),
             type: "get"
         }).success(function(data) {
+            var total_results = data.total_results;
             data = data.data;
+            $("#total-results").html(total_results + " result" + ((total_results == 1)?"":"s") + " total");
             $search_results = $("#search-results");
             for(x in data) {
                 var ad = data[x];
@@ -343,6 +345,9 @@
     });
 </script>
 <div id="browse-content" class="page-content">
+    <div class="guttered-row">
+        <div class="col-xs-12" id="total-results"></div>
+    </div>
     <div id="search-results">
     </div>
     <div id="load-more"></div>

@@ -204,6 +204,13 @@ input[type=text]:-ms-input-placeholder { /* IE (10+?) */
 	color: #245e83;
 }
 
+#total-results {
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 30px;
+}
+
 /* Header */
 
 #header {

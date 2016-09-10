@@ -413,7 +413,7 @@
         $('#load-more').hide();
         $('#load-more').click(function () {
             $('#load-more').hide();
-            renderAds(adData, current_page);
+            renderAds(current_page, current_market);
             current_page++;
         });
 

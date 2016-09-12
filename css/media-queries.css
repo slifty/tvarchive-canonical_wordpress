@@ -1,0 +1,949 @@
+
+/* Media Queries*/
+
+
+/* Large devices (large desktops) */
+/* lg */
+@media (min-width: 1200px) {
+}
+
+/* Medium devices (laptops, small desktops) */
+/* md */
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+	/* General Styles */
+	.guttered-row {
+		padding-right: 30px;
+		padding-left: 30px;
+	}
+	hr {
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+	h2.section-header {
+  	padding: 13px 0px;
+		font-size: 20px;
+	}
+
+	/* Front Page */
+	#home-header-title {
+		font-size: 28px;
+		padding-bottom: 15px;
+	}
+	#home-header-explanation {
+		font-size: 18px;
+		line-height: 24px;
+	}
+  .post_home .post-excerpt {
+  	font-size: 14px;
+  	line-height: 17px;
+  }
+  #home-explore-tabs .nav {
+  	font-size: 11px;
+  }
+  #home-explore-tabs .nav li a{
+	  padding: 5px;
+  }
+	.tab-pane#candidates, .tab-pane#sponsors, .tab-pane#sponsor-types{
+		padding-top: 20px;
+	}
+	.explore-subtitle-row {
+		margin-bottom: 0px;
+	}
+	.explore-subtitle-row h3 {
+    border-bottom: 2px solid #000;
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 28px;
+	}
+	#candidate-race-pills {
+		font-size: 11px;
+	}
+
+
+  /* Market Map */
+  .market-map-container > .nav {
+  	font-size: 11px;
+  }
+
+	.btn#market-map-show-all {
+	  margin-top: 7px;
+	}
+
+    /*Main Menu*/
+
+    .navbar-collapse{
+        padding-right: 0;
+        padding-left: 0;
+    }
+    /* page level*/
+
+    .page-header-row {
+        padding-top: 37px;
+    }
+    .page-content {
+        padding: 15px 30px;
+    }
+    .page-content-row {
+        padding: 0;
+        margin-top: 20px;
+    }
+
+
+    .page-subheader-row {
+        padding: 12px 15px;
+    }
+
+    .post {
+        margin: 0;
+    }
+
+    /* Front page */
+
+    .post_home{
+        margin: 0;
+    }
+    .post_home:nth-of-type(2) {
+        display: block;
+    }
+    .post_home:nth-of-type(3) {
+        display: block;
+    }
+    .post-title_home a{
+        font-size: 30px;
+    }
+
+    /* blog*/
+
+    .post {}
+
+    h3.blog-sidebar-title {
+        margin-top: 30px;
+    }
+    .post-img{
+       width: 100%;
+    }
+
+    /*blog single*/
+
+    .comment-meta.commentmetadata{
+        left: 75px;
+        position: relative;
+        bottom: 17px;
+    }
+    .comment-body p {
+        font-size: 14px;
+        margin-left: 75px;
+    }
+
+    /*sidebar*/
+
+    .sidebar-module.sidebar-module-inset {
+         margin-right: 0;
+    }
+
+    /* data*/
+
+    .download-row.last {
+        margin-bottom: 20px;
+    }
+
+    /*Resources*/
+
+    .resource-description {
+        margin: 15px;
+        font-size: 18px;
+    }
+    #resources-content {
+        padding: 0 30px;
+    }
+    #partner-logos {
+    margin: 0 0 30px 90px;
+    }
+
+    /*Browse*/
+
+    #search-results-total{
+        padding-left: 0;
+    }
+    .political-ad {
+        padding-left: 0;
+    }
+    .political-ad .embed {
+        height: 250px;
+    }
+    .cell-multiline-value{
+        margin-top: 10px;
+    }
+
+        /* footer*/
+
+    #footer {
+    }
+    #footer-content {
+      padding: 40px 20px;
+    }
+    #footer-social-links ul li {
+        margin-left: 14px;
+    }
+    #footer-social-links ul li img {
+        width: 44px;
+        height: 44px;
+    }
+
+    /* canonical */
+    .md-last {
+    	border-right: none;
+    }
+}
+
+/* Small devices (tablets) */
+/* sm */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+	/* General Styles*/
+	.guttered-row {
+		padding-right: 15px;
+		padding-right: 15px;
+	}
+	h2.section-header {
+  	padding: 13px 0px;
+		font-size: 20px;
+	}
+
+	/* Front Page */
+	#home-header-title {
+		font-size: 28px;
+		padding-bottom: 15px;
+	}
+	#home-header-explanation {
+		font-size: 18px;
+		line-height: 24px;
+	}
+  .post_home .post-excerpt {
+  	font-size: 14px;
+  	line-height: 17px;
+  }
+  #home-explore-tabs .nav {
+  	font-size: 11px;
+  }
+  #home-explore-tabs .nav li a{
+	  padding: 5px;
+  }
+	.tab-pane#candidates, .tab-pane#sponsors, .tab-pane#sponsor-types{
+		padding-top: 20px;
+	}
+	.explore-subtitle-row {
+		margin-bottom: 0px;
+	}
+	.explore-subtitle-row h3 {
+    border-bottom: 2px solid #000;
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 28px;
+	}
+	#candidate-race-pills {
+		font-size: 11px;
+	}
+	#home-feature-section {
+		padding-top: 12px;
+		padding-bottom: 0px;
+	}
+
+  /* Market Map */
+  .market-map-container > .nav {
+  	font-size: 11px;
+  }
+
+	.btn#market-map-show-all {
+		display: block;
+	  background-color: #3a3e4b;
+	  color: #fff;
+	  font-size: 12px;
+	  border: none;
+	  -webkit-border-radius: 3px;
+	  -moz-border-radius: 3px;
+	  border-radius: 3px;
+	  box-shadow: none;
+	  width: 100%;
+	  float:none;
+	  margin-top: 0px;
+	  margin-bottom: 15px;
+	}
+
+
+
+    /*menu*/
+    #header{
+        height: 50px;
+    }
+    .navbar {
+        height: 50px;
+    }
+    .navbar-brand{
+        line-height: normal;
+        margin-bottom: 0;
+        margin-left: 31px;
+        padding: 7px 0 0;
+    }
+    #branding{
+        margin-top: 0;
+        bottom: 0;
+    }
+    #logo{
+        height: 36px;
+        width: 49px;
+        margin: 0 15px 0 0;
+    }
+    #title {
+        font-size: 18px;
+        margin-top: 13px;
+    }
+    nav {
+        float: right;
+    }
+    #menu-icon {
+        display:inline-block;
+    }
+    .navigation {
+        font-size: 18px;
+        font-weight: bold;
+         margin-top: 48px;
+        height: auto;
+    }
+    nav ul, nav:active ul {
+        display: none;
+        position: absolute;
+        padding: 24px;
+        background: #f7f7f5;
+        right: 0px;
+        width: 160px;
+        border-radius: 4px 0 4px 4px;
+        z-index: 999;
+    }
+    nav li {
+        text-align: center;
+        width: 100%;
+        padding: 10px 0;
+        margin: 0;
+    }
+    nav:hover ul {
+
+        display: block;
+    }
+
+    /* Explore */
+		.guttered-row {
+			padding-left: 30px;
+			padding-right: 30px;
+		}
+
+    .explore-subtitle-row {
+        padding-left: 15px;
+     }
+    .explore-list {
+    	margin-bottom: 15px;
+    }
+
+    /* Page level*/
+
+    .header-row {
+        padding: 25px 15px;
+    }
+    .page-header-row {
+        padding-top: 15px;
+    }
+    .page-content {
+        margin: 15px 30px 50px;
+        padding: 0;
+    }
+    .page-content-row {
+    	padding: 30px 0px;
+    }
+    .page-content-row h2 {
+      margin: 0 0 15px;
+    }
+
+    .page-subheader-row {
+        padding: 12px 15px;
+    }
+
+
+    /*Front Page*/
+    #search-text {
+        width: 90%;
+        margin: 0 30px;
+    }
+
+    /*home feature section*/
+		#ad-note {
+		  padding-top: 30px;
+		}
+		#ad-note_home {
+			padding-top: 20px;
+			border-left: none;
+			border-top: 1px solid #3a3e4b;
+		}
+		.ad-note_content {
+			/*max-height: 130px;*/
+			overflow: auto;
+		}
+		.ad-info_home{
+			border-right: 1px solid #3a3e4b;
+			border-bottom: none;
+			padding: 16px;
+		}
+		.ad-info_home .cell-value{
+			font-size: 16px;
+		}
+
+		.ad-info_home:last-child{
+			border-right: none;
+		}
+		.ad-sponsor_link:after, .ad-candidate_link:after{
+			content: ',';
+		}
+		.ad-sponsor_link:last-child:after, .ad-sponsor_link:last-child:after{
+			content: '';
+		}
+
+    .post_home {
+        border-bottom: none;
+        padding: 6px;
+        margin-top: 30px;
+    }
+   .post_home:nth-of-type(1){
+   		margin-top: 0px;
+   }
+   .post_home:nth-of-type(2){
+      display: block;
+      border-color: #BBB2A0;
+   }
+   .post_home:nth-of-type(3){
+      display: block;
+      border-color: #0A91AB;
+   }
+    .post_home:nth-of-type(2) a{
+        color: #BBB2A0;
+    }
+    .post_home:nth-of-type(3) a{
+        color: #0A91AB;
+    }
+    .post-title_home a{
+        font-size: 30px;
+    }
+
+    /*Blog*/
+
+    .post {
+        margin: 15px 0 33px;
+    }
+    h2.post-title {
+        margin-top: 0;
+    }
+    .post-img{
+    	height: auto;
+      width: 100%;
+    }
+    .blog-sidebar {
+        margin-top: 15px;
+    }
+
+    /*Blog Single*/
+
+    ol.commentlist {
+        list-style: none;
+    }
+    .comment-author img {
+        margin-right: 15px;
+    }
+    .comment-meta.commentmetadata {
+        left: 75px;
+        position: relative;
+        bottom: 17px;
+    }
+    .comment-body p {
+        font-size: 14px;
+        margin-left: 75px;
+    }
+    ul.children {
+        margin-left: 40px;
+    }
+    ul.children li {}
+
+    /*sidebar*/
+
+    .sidebar-module.sidebar-module-inset {
+         margin-right: 0;
+    }
+    #subscribe-text{
+        width: 226px;
+    }
+    input#submit-newsletter{
+        width: 84px;
+    }
+
+    /* Data page*/
+
+    /* Resource*/
+
+    .resource {
+        min-width: 226px;
+    }
+    .resource-row{
+        padding:0;
+    }
+    #resources-content{
+      padding: 0 30px;
+    }
+    #partner-logos {
+    margin: 0 0 30px 10px;
+    }
+    #partner-logos .logo {
+        max-width: 190px;
+        margin: 15px;
+    }
+    #search-results-total{
+        padding: 0;
+    }
+    .political-ad{
+        padding: 0;
+    }
+    .cell-multiline-value{
+        overflow: hidden;
+    }
+
+    /*footer*/
+
+    #footer {
+    }
+
+    /*social media*/
+
+    #footer-social-links ul {
+        margin-top: 0px;
+        float: none;
+        padding: 15px 0px;
+        height: 60px;
+    }
+    #footer-social-links ul li {
+        margin-left: 0px;
+        margin-right: 10px;
+    }
+    #footer-social-links ul li img {
+        width: 44px;
+        height: 44px;
+    }
+
+    /* Canonical */
+
+		#reference-gallery-content {
+		    padding: 30px;
+		}
+
+    .about-ad-row {
+			padding: 0px 5px;
+    }
+
+    .sm-last {
+    	border-right: none;
+    }
+}
+
+
+/* Extra small devices (phones, less than 768px) */
+/* xs */
+@media only screen and (min-width: 320px) and (max-width: 768px) {
+  /* General Styles*/
+	.guttered-row {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	h2.section-header {
+  	padding: 13px 0px;
+		font-size: 20px;
+	}
+
+	/* Front Page */
+	#home-header-title {
+		font-size: 28px;
+		padding-bottom: 15px;
+	}
+	#home-header-explanation {
+		font-size: 18px;
+		line-height: 24px;
+	}
+  .post_home .post-excerpt {
+  	font-size: 14px;
+  	line-height: 17px;
+  	margin-bottom: 0px;
+  }
+  #home-explore-tabs .nav {
+  	font-size: 11px;
+  }
+  #home-explore-tabs .nav li a{
+	  padding: 5px 0px;
+  }
+	.tab-pane#candidates, .tab-pane#sponsors, .tab-pane#sponsor-types{
+		padding-top: 20px;
+	}
+	.explore-subtitle-row {
+		margin-bottom: 0px;
+	}
+	.explore-subtitle-row h3 {
+    border-bottom: 2px solid #000;
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 28px;
+	}
+	#candidate-race-pills {
+		font-size: 11px;
+	}
+	#home-feature-section {
+		padding-top: 12px;
+		padding-bottom: 0px;
+	}
+
+  /* Market Map */
+  .market-map-container > .nav {
+  	font-size: 11px;
+  }
+
+	.btn#market-map-show-all {
+		display: block;
+	  background-color: #3a3e4b;
+	  color: #fff;
+	  font-size: 12px;
+	  border: none;
+	  -webkit-border-radius: 3px;
+	  -moz-border-radius: 3px;
+	  border-radius: 3px;
+	  box-shadow: none;
+	  width: 100%;
+	  float:none;
+	  margin-top: 0px;
+	  margin-bottom: 15px;
+	}
+
+    /*header*/
+    #header {
+        height: 50px;
+    }
+    /*menu*/
+    .navbar {
+        height: 50px;
+    }
+    .navbar-brand{
+        line-height: normal;
+        height: 50px;
+        padding: 15px 0;
+    }
+    #branding{
+        margin-top: 0;
+    }
+    #title {
+        font-size: 18px;
+        margin: 0;
+        width: 200px;
+        margin: 15px 0;
+    }
+    nav {
+	    float: right;
+	    /*padding: 15px 15px 0 0;*/
+    }
+    .navbar-toggle{
+        margin-right: 0;
+        padding: 9px 0;
+    }
+    #menu-icon {
+
+        display:inline-block;
+    }
+    .navigation {
+    font-size: 18px;
+    font-weight: bold;
+     margin-top: 48px;
+    height: auto;
+    }
+    nav ul, nav:active ul {
+        display: none;
+        position: absolute;
+        padding: 24px;
+        background: #f7f7f5;
+        right: 0px;
+        width: 160px;
+        border-radius: 4px 0 4px 4px;
+        z-index: 999;
+    }
+    nav li {
+        text-align: center;
+        width: 100%;
+        padding: 10px 0;
+        margin: 0;
+    }
+    nav:hover ul {
+
+        display: block;
+    }
+
+    /* All Pages */
+    .page-header-row {
+        padding-top: 15px;
+    }
+    .page-content {
+        padding: 0;
+        margin-bottom: 50px;
+        ;
+    }
+    .page-content-row {
+        /*    margin: 0 15px;*/
+        padding: 0;
+    }
+    .page-content-row h2 {
+        margin: 30px 0 15px;
+        padding: 0;
+    }
+    .page-content-row:nth-of-type(1) h2{
+        margin-top: 15px;
+    }
+    .page-subheader-row {
+        padding: 12px 10px;
+    }
+
+    .page-content-row p,
+    blockquote p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    /*Home Page Blog Post*/
+    .post_home {
+        min-height: 0;
+        padding: 0px;
+        margin-bottom: 15px;
+    }
+    .post_home:nth-of-type(1) {
+        margin-top: 0;
+    }
+    .post_home:nth-of-type(2) {
+        display: block;
+    }
+    .post_home:nth-of-type(3) {
+        display: block;
+    }
+    .post-title_home a {
+        font-size: 28px;
+        font-weight: bold;
+    }
+    /* Blog Listing Page*/
+    .post {
+        margin: 0 0 15px;
+    }
+    .post:nth-of-type(1) {
+        margin-top: 15px;
+    }
+    .post-title {
+        font-size: 28px;
+        margin-top: 0;
+    }
+    .post-img {
+        height: auto;
+        width: 100%;
+    }
+    .post-more {
+        font-size: 14px;
+    }
+    #post-navigation {
+        margin: 0 0 50px;
+        text-align: right;
+    }
+    .post-navigation-button a {
+        font-size: 14px;
+    }
+    #next{
+       margin-right: 0;
+    }
+    /* Single Post*/
+    .post-content img {
+        vertical-align: middle;
+        width: 100%;
+    }
+    #single-post-navigation {
+        margin: 0 0 50px;
+        padding: 0 15px;
+    }
+    .comment-meta.commentmetadata{
+        left: 60px;
+        position: relative;
+        bottom: 17px;
+    }
+    .comments h2, #respond h3{
+        font-size: 20px;
+    }
+    ul.children {
+        margin-left: 30px;
+    }
+    form label {
+        font-size: 14px;
+        font-weight: normal;
+    }
+    input#submit{
+       width: 128px;
+        height: 36px;
+    }
+    /* Data*/
+    .cell-multiline-value {
+        font-size: 14px;
+        line-height: normal;
+    }
+    .download-row {
+        padding: 0 15px;
+    }
+    .download-btn {
+    	margin: 15px 0px;
+    }
+
+    .checkbox {
+        font-size: 14px;
+    }
+    .radio label,
+    .checkbox label {}
+    #download-data-button {
+    	font-size: 14px;
+    }
+    input[type="submit"] {
+        float: right;
+    }
+
+    /* Press */
+		.press-visualization img {
+			margin-top: 15px;
+		}
+
+    /* Resources*/
+    #partner-logos {
+        margin-bottom: 0;
+    }
+    #partner-logos .logo {
+        max-width: 120px;
+        margin: 5px;
+    }
+    .resource-row {
+        margin: 15px auto;
+        width: 95%;
+    }
+    .resource {
+        margin-bottom: 15px;
+    }
+    .page-content-row h3 {
+        padding: 15px;
+    }
+    #featured-resource .resource-description {
+        margin-right: 15px;
+    }
+    .resource-link a {
+        font-size: 14px;
+        width: 82px;
+    }
+    .resource-image {
+        margin-bottom: 15px;
+    }
+    /* Explore*/
+    #home-explore-section {}
+    .explore-subtitle-row {
+        margin-bottom: 10px;
+        margin-top: 15px;
+        padding: 0 15px;
+    }
+    .explore-list {
+    	margin-bottom: 15px;
+    }
+    .explore-list .explore-item {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .explore-list .explore-label {
+        width: 100%;
+        max-width: 100%;
+        font-size: 16px;
+        margin-bottom: 5px;
+        padding-right: 0;
+    }
+    .explore-list .explore-label p{
+    		display: inline-block;
+    		margin-right: 10px;
+    }
+    .explore-list .explore-label small{
+    		display: inline-block;
+    }
+    .explore-list .explore-bar-container{
+    	width: 100%;
+    }
+    /*Browse*/
+    #search-results-total {
+        padding: 15px;
+        margin-bottom: 0;
+        text-transform: uppercase;
+    }
+    #search-results {
+        margin: 0 15px;
+    }
+    .political-ad {
+        padding-left: 0;
+        margin-bottom: 30px;
+    }
+    .political-ad .title{
+        padding: 0;
+        margin: 15px 0 10px;
+        font-size: 16px;
+    }
+    .political-ad .sponsors,.political-ad .candidates {
+        padding: 0;
+        font-size: 12px;
+    }
+    /*footer*/
+    #footer {
+    }
+
+    #footer-content {
+      padding: 0px 15px;
+    }
+    #footer .footer-section {
+        margin-top: 30px;
+        height: 100%;
+    }
+    #footer-social-links ul {
+        float: none;
+        margin-top: 0;
+    }
+    #footer-social-links ul li img {
+        width: 44px;
+        height: 44px;
+    }
+    #footer .footer-link {
+        margin-bottom: 30px;
+    }
+    #footer-social-links {
+        margin-bottom: 34px;
+    }
+
+		#footer-video iframe {
+			width: 315px;
+			height: 180px;
+		}
+
+    /*Canonical*/
+		#reference-gallery-content {
+		    padding: 30px;
+		}
+
+    /* canonical */
+    .about-ad-row {
+			padding: 0px 5px;
+    }
+
+    .xs-last {
+    	border-right: none;
+    }
+}

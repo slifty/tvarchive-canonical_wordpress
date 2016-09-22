@@ -569,6 +569,15 @@ a#footer-sidebar-link{
   height: 440px;
 }
 
+#debate-embed {
+  background-color: #000;
+  margin-bottom: 40px;
+}
+.debate-header {
+	background-color: #8ab858;
+	color: white;
+}
+
 /* About this Ad */
 
 #about-ad-header {
@@ -661,6 +670,15 @@ a#footer-sidebar-link{
 
 .data-download-group-container h2, .data-download-group-container p{
 	text-align: left;
+}
+
+.debate-title {
+  padding: 0px;
+  margin: 0px;
+  font-size: 14px;
+  font-weight: normal;
+  padding-bottom: 10px;
+  text-transform: uppercase;
 }
 
 .data-download{

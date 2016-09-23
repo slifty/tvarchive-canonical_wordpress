@@ -1,12 +1,12 @@
 {
     "key": "group_57e3682c4cd06",
-    "title": "Project Fields",
+    "title": "Debate Project Fields",
     "fields": [
         {
             "key": "field_57e3682eff945",
             "label": "About",
             "name": "project_about",
-            "type": "textarea",
+            "type": "wysiwyg",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -16,12 +16,27 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": "",
-            "maxlength": "",
-            "rows": "",
-            "new_lines": "wpautop",
-            "readonly": 0,
-            "disabled": 0
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1
+        },
+        {
+            "key": "field_57e4aa4e2868b",
+            "label": "Data Description",
+            "name": "about_data",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1
         }
     ],
     "location": [
@@ -29,7 +44,7 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "page-projects.php"
+                "value": "page-debate-project.php"
             }
         ]
     ],
@@ -38,8 +53,21 @@
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "hide_on_screen": "",
+    "hide_on_screen": [
+        "the_content",
+        "excerpt",
+        "discussion",
+        "comments",
+        "revisions",
+        "slug",
+        "author",
+        "format",
+        "featured_image",
+        "categories",
+        "tags",
+        "send-trackbacks"
+    ],
     "active": 1,
     "description": "",
-    "modified": 1474521290
+    "modified": 1474603807
 }

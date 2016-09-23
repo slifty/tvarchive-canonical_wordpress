@@ -1,6 +1,6 @@
 <?php
 /*
-    Template Name: Projects
+    Template Name: Debate Project
 */
 ?>
 <?php get_header(); ?>
@@ -40,7 +40,7 @@
 
     <div class="row guttered-row" style="padding-top: 40px;padding-bottom: 20px;">
         <div class="col-xs-12">
-            <p>Download data on news coverage of debates.</p>
+            <div><?php echo(get_field('about_data')); ?></div>
         </div>
     </div>
 

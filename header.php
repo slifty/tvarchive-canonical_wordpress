@@ -74,6 +74,7 @@
                                     <ul>
                                         <li id="about-nav"><a href="<?php bloginfo('url'); ?>/about">about</a></li>
                                         <li id="blog-nav"><a href="<?php bloginfo('url'); ?>/blog">blog</a></li>
+                                        <li id="debate-nav"><a href="<?php bloginfo('url'); ?>/debate-project">debates</a></li>
                                         <li id="data-nav"><a href="<?php bloginfo('url'); ?>/data">data</a></li>
                                         <li id="resources-nav"><a href="<?php bloginfo('url'); ?>/resources">resources</a></li>
                                         <li id="press-nav"><a href="<?php bloginfo('url'); ?>/press">press</a></li>

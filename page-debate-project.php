@@ -44,11 +44,11 @@
                     </div>
                     <div class="data-download col-xs-12 col-sm-4">
                         <a href="<?php echo(get_stylesheet_directory_uri());?>/data/20160927_2_30_timeline.csv" class="btn primary data-download__button" target="_blank">Frequency Timeline</a>
-                        <small class="data-download__size">(Ready in 30m)</small>
+                        <small class="data-download__size">CSV</small>
                     </div>
                     <div class="data-download col-xs-12 col-sm-4">
                         <a href="<?php echo(get_stylesheet_directory_uri());?>/data/20160927_2_30_summarized.csv" class="btn primary data-download__button" target="_blank">Summarized Matches</a>
-                        <small class="data-download__size">(Ready in 30m)</small>
+                        <small class="data-download__size">CSV</small>
                     </div>
                 </div>
             </div>

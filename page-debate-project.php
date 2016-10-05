@@ -54,6 +54,28 @@
             </div>
         </div>
     </div>
+
+    <div class="row guttered-row">
+        <div class="col-xs-12">
+            <div class="data-download-group-container">
+                <h2 class="debate-title">VP Debate: October 4, 2016</h2>
+                <div class="row">
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/20161005_post_debate_raw.csv" class="btn primary data-download__button" target="_blank">Raw Matches</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/20161005_post_debate_timeline.csv" class="btn primary data-download__button" target="_blank">Frequency Timeline</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/20161005_post_debate_summarized.csv" class="btn primary data-download__button" target="_blank">Summarized Matches</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--    End Main Page Content-->
 
 </div>

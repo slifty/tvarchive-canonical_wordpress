@@ -54,7 +54,7 @@
             </div>
         </div>
     </div>
-
+<!--
     <div class="row guttered-row">
         <div class="col-xs-12">
             <div class="data-download-group-container">
@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!--    End Main Page Content-->
 
 </div>

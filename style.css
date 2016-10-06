@@ -1842,3 +1842,8 @@ a img.aligncenter {
 	width: auto;
 	z-index: 100000; /* Above WP toolbar. */
 }
+
+.debate-data-description {
+	font-size: 12px;
+	color: #999;
+}

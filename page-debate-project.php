@@ -115,7 +115,7 @@
             <div class="data-download-group-container">
                 <h2 class="debate-title">VP Debate (Local stations): October 4, 2016</h2>
                 <p class="debate-data-description"><strong>Morning:</strong> Clips aired in early morning local news programs, on ABC, CBS, NBC, and Fox affiliates–in select battleground state markets from 5:00 am to 7:00 am on October 5, 2016.</p>
-                <p class="debate-data-description"><strong>Raw:</strong> Clips aired over the 26 hours following the debate by local stations in select battleground state markets.</p>
+                <p class="debate-data-description"><strong>Full:</strong> Clips aired over the 26 hours following the debate by local stations in select battleground state markets.</p>
                 <div class="row">
                     <div class="data-download col-xs-12 col-sm-4">
                         <a href="<?php echo(get_stylesheet_directory_uri());?>/data/vp_local_morning_raw.csv" class="btn primary data-download__button" target="_blank">Morning (raw)</a>

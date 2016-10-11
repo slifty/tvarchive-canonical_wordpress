@@ -181,6 +181,61 @@
     </div>
     <!--    End Main Page Content-->
 
+
+
+    <div class="row debate-header guttered-row">
+        <div class="col-xs-12">
+            <h2 class="section-header">Special Datasets</h2>
+        </div>
+    </div>
+
+    <div class="row guttered-row">
+        <div class="col-xs-12">
+            <div class="data-download-group-container">
+                <h2 class="debate-title">Trump Tape Coverage: October 7-9, 2016</h2>
+                <p class="debate-data-description">Data related to coverage of the Trump Tapes from the breaking news to the beginning of the presidential debate (9:00 EST on Sunday).</p>
+                <div class="row">
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/trump_tape_to_debate_1476155228_raw.csv" class="btn primary data-download__button" target="_blank">Raw Matches</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/trump_tape_to_debate_1476155228_timeline.csv" class="btn primary data-download__button" target="_blank">Frequency Timeline</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/trump_tape_to_debate_1476155228_summarized.csv" class="btn primary data-download__button" target="_blank">Summarized Matches</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row guttered-row">
+        <div class="col-xs-12">
+            <div class="data-download-group-container">
+                <h2 class="debate-title">Trump Tape Apology Coverage: October 7-9, 2016</h2>
+                <p class="debate-data-description">Data related to coverage of Donald Trump's apology from the breaking news to the beginning of the presidential debate (9:00 EST on Sunday).</p>
+                <div class="row">
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/trump_tape_apology_to_debate_1476155266_raw.csv" class="btn primary data-download__button" target="_blank">Raw Matches</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/trump_tape_apology_to_debate_1476155266_timeline.csv" class="btn primary data-download__button" target="_blank">Frequency Timeline</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/trump_tape_apology_to_debate_1476155266_summarized.csv" class="btn primary data-download__button" target="_blank">Summarized Matches</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <?php get_footer(); ?>

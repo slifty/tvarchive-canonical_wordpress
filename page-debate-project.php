@@ -263,15 +263,15 @@
                 <p class="debate-data-description">Data on debate clips aired immediately after the third presidential debate</p>
                 <div class="row">
                     <div class="data-download col-xs-12 col-sm-4">
-                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_19_third_presidential_late_1476945454_raw.csv" class="btn primary data-download__button" target="_blank">Raw Matches</a>
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_19_third_presidential_late_1476948275_raw.csv" class="btn primary data-download__button" target="_blank">Raw Matches</a>
                         <small class="data-download__size">CSV</small>
                     </div>
                     <div class="data-download col-xs-12 col-sm-4">
-                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_19_third_presidential_late_1476945454_timeline.csv" class="btn primary data-download__button" target="_blank">Frequency Timeline</a>
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_19_third_presidential_late_1476948275_timeline.csv" class="btn primary data-download__button" target="_blank">Frequency Timeline</a>
                         <small class="data-download__size">CSV</small>
                     </div>
                     <div class="data-download col-xs-12 col-sm-4">
-                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_19_third_presidential_late_1476945454_summarized.csv" class="btn primary data-download__button" target="_blank">Summarized Matches</a>
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_19_third_presidential_late_1476948275_summarized.csv" class="btn primary data-download__button" target="_blank">Summarized Matches</a>
                         <small class="data-download__size">CSV</small>
                     </div>
                 </div>

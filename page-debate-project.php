@@ -252,8 +252,32 @@
             </div>
         </div>
     </div>
-    <!--    End Main Page Content-->
 
+    <div class="row guttered-row" style="padding-top: 40px;padding-bottom: 20px;">
+        <div class="col-xs-12"></div>
+    </div>
+    <div class="row guttered-row">
+        <div class="col-xs-12">
+            <div class="data-download-group-container">
+                <h2 class="debate-title">Third Presidential Debate (Post-debate commentary): October 19, 2016</h2>
+                <p class="debate-data-description">Data on debate clips aired immediately after the third presidential debate</p>
+                <div class="row">
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_19_third_presidential_late_1476945454_raw.csv" class="btn primary data-download__button" target="_blank">Raw Matches</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_19_third_presidential_late_1476945454_timeline.csv" class="btn primary data-download__button" target="_blank">Frequency Timeline</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_19_third_presidential_late_1476945454_summarized.csv" class="btn primary data-download__button" target="_blank">Summarized Matches</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="row guttered-row" style="padding-bottom: 20px;">

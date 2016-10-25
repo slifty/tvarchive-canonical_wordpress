@@ -279,6 +279,32 @@
         </div>
     </div>
 
+    <div class="row guttered-row" style="padding-bottom: 20px;">
+        <div class="col-xs-12"></div>
+    </div>
+    <div class="row guttered-row">
+        <div class="col-xs-12">
+            <div class="data-download-group-container">
+                <h2 class="debate-title">Third Presidential Debate (Cable stations): October 19, 2016</h2>
+                <p class="debate-data-description">Data on debate clips aired during the 26 hours following the debate, October 19 – 20, 2016.  Including CNN, MSNBC, Fox News and more</p>
+                <div class="row">
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_19_third_presidential_full_cable_1477354205_raw.csv" class="btn primary data-download__button" target="_blank">Raw Matches</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_19_third_presidential_full_cable_1477354205_timeline.csv" class="btn primary data-download__button" target="_blank">Frequency Timeline</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                    <div class="data-download col-xs-12 col-sm-4">
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_19_third_presidential_full_cable_1477354205_summarized.csv" class="btn primary data-download__button" target="_blank">Summarized Matches</a>
+                        <small class="data-download__size">CSV</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="row guttered-row" style="padding-bottom: 20px;">
         <div class="col-xs-12"></div>

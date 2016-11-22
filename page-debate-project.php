@@ -64,15 +64,15 @@
                 <p class="debate-data-description">Data on debate clips aired during the 26 hours following the debate, September 26 – 27, 2016.  Including CNN, MSNBC, Fox News and more.</p>
                 <div class="row">
                     <div class="data-download col-xs-12 col-sm-4">
-                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_09_26_first_presidential_full_cable_1476407859_raw.csv" class="btn primary data-download__button" target="_blank">Raw Matches</a>
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_09_26_first_presidential_full_cable_1479839310_raw.csv" class="btn primary data-download__button" target="_blank">Raw Matches</a>
                         <small class="data-download__size">CSV</small>
                     </div>
                     <div class="data-download col-xs-12 col-sm-4">
-                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_09_26_first_presidential_full_cable_1476407859_timeline.csv" class="btn primary data-download__button" target="_blank">Frequency Timeline</a>
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_09_26_first_presidential_full_cable_1479839310_timeline.csv" class="btn primary data-download__button" target="_blank">Frequency Timeline</a>
                         <small class="data-download__size">CSV</small>
                     </div>
                     <div class="data-download col-xs-12 col-sm-4">
-                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_09_26_first_presidential_full_cable_1476407859_summarized.csv" class="btn primary data-download__button" target="_blank">Summarized Matches</a>
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_09_26_first_presidential_full_cable_1479839310_summarized.csv" class="btn primary data-download__button" target="_blank">Summarized Matches</a>
                         <small class="data-download__size">CSV</small>
                     </div>
                 </div>
@@ -139,15 +139,15 @@
                 <p class="debate-data-description">Data on debate clips aired during the 26 hours following the debate, October 4 – 5, 2016.  Including CNN, MSNBC, Fox News and more.</p>
                 <div class="row">
                     <div class="data-download col-xs-12 col-sm-4">
-                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/vp_cable_full_raw.csv" class="btn primary data-download__button" target="_blank">Raw Matches</a>
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_04_vice_presidential_full_cable_1479844401_raw.csv" class="btn primary data-download__button" target="_blank">Raw Matches</a>
                         <small class="data-download__size">CSV</small>
                     </div>
                     <div class="data-download col-xs-12 col-sm-4">
-                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/vp_cable_full_timeline.csv" class="btn primary data-download__button" target="_blank">Frequency Timeline</a>
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_04_vice_presidential_full_cable_1479844401_timeline.csv" class="btn primary data-download__button" target="_blank">Frequency Timeline</a>
                         <small class="data-download__size">CSV</small>
                     </div>
                     <div class="data-download col-xs-12 col-sm-4">
-                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/vp_cable_full_summarized.csv" class="btn primary data-download__button" target="_blank">Summarized Matches</a>
+                        <a href="<?php echo(get_stylesheet_directory_uri());?>/data/2016_10_04_vice_presidential_full_cable_1479844401_summarized.csv" class="btn primary data-download__button" target="_blank">Summarized Matches</a>
                         <small class="data-download__size">CSV</small>
                     </div>
                 </div>

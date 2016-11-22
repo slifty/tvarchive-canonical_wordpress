@@ -141,4 +141,43 @@ function change_mce_options( $initArray ) {
 add_filter( 'tiny_mce_before_init', 'change_mce_options' );
 
 
+// function add_cutoffs() {
+//     $cutoffs = array(
+//         array("Perry for President", "9/14/2015"),
+//         array("Scott Walker, Inc.", "9/24/2015"),
+//         array("Jindal for President", "11/20/2015"),
+//         array("Lindsey Graham 2016", "12/24/2015"),
+//         array("Pataki for President", "1/2/2016"),
+//         array("O'Malley For President", "2/4/2016"),
+//         array("Huckabee For President", "2/5/2016"),
+//         array("Rand Paul for President", "2/6/2016"),
+//         array("Santorum For President 2016", "2/6/2016"),
+//         array("Chris Christie For President Inc",    "2/12/2016"),
+//         array("Carly for President", "2/13/2016"),
+//         array("Jeb 2016",    "2/23/2016"),
+//         array("Carson America",  "3/7/2016"),
+//         array("Marco Rubio for President",   "3/18/2016"),
+//         array("Cruz for President",  "5/6/2016"),
+//         array("Kasich for America",  "5/7/2016"),
+//         array("Bernie 2016", "7/28/2016")
+//     );
+
+//     foreach($cutoffs as $cutoff) {
+//         $sponsor = $cutoff[0];
+//         $date = $cutoff[1];
+//         $search = new PoliticalAdArchiveAdSearch();
+//         $search->sponsor_filters = $sponsor;
+//         $results = $search->get_chunk(0);
+//         foreach($results as $result) {
+//             $wp_id = $result['wp_identifier'];
+//             update_field('field_571946b368b98', $date, $wp_id);
+//             echo("Updating WP ID ".$wp_id." to end on ".$date);
+//             echo("<br />");
+//         }
+//     }
+// }
+
+// add_cutoffs();
+// die();
+
 ?>

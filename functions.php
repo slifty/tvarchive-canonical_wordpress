@@ -180,4 +180,12 @@ add_filter( 'tiny_mce_before_init', 'change_mce_options' );
 // add_cutoffs();
 // die();
 
+// Register ShareTheFacts oEmbed provider
+function sharethefacts_oembed_provider() {
+
+wp_oembed_add_provider( 'https://*.sharethefacts.co/*', 'http://www.sharethefacts.co/services/oembed', false );
+
+}
+add_action( 'init', 'sharethefacts_oembed_provider' );
+
 ?>

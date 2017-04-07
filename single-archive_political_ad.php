@@ -321,11 +321,17 @@
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <div class="reference first-reference">
-                                                    <a href="<?php echo($reference['reference_link']); ?>" target="_blank"><h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3></a>
-                                                    <div class="reference-date"><?php echo($reference['reference_date']); ?> </div>
-                                                    <div class="reference-image"><a href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_image']);?>' /></a></div>
-                                                    <div class="reference-description"><?php echo($reference['reference_excerpt']); ?> <a href="<?php echo($reference['reference_link']); ?>" target="_blank">READ MORE</a></div>
-                                                    <div class="reference-logo"><a href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' /></a></div>
+                                                    <?php
+
+                                                    if($reference['share_the_facts']) {
+                                                        echo(wp_oembed_get($reference['share_the_facts']));
+                                                    } else { ?>
+                                                        <a href="<?php echo($reference['reference_link']); ?>" target="_blank"><h3 class="reference-title"><?php echo($reference['reference_title']); ?></h3></a>
+                                                        <div class="reference-date"><?php echo($reference['reference_date']); ?> </div>
+                                                        <div class="reference-image"><a href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_image']);?>' /></a></div>
+                                                        <div class="reference-description"><?php echo($reference['reference_excerpt']); ?> <a href="<?php echo($reference['reference_link']); ?>" target="_blank">READ MORE</a></div>
+                                                        <div class="reference-logo"><a href="<?php echo($reference['reference_link']); ?>" target="_blank"><img src='<?php echo($reference['reference_logo']);?>' /></a></div>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>

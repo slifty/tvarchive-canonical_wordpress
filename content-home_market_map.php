@@ -393,7 +393,6 @@
                     html+= '<p>Sponsor Type: <span class="sponsor-type">'+adData[i].sponsor_types+'<span></p>';
                     html+= '<p>Candidates: <span class="candidates">'+adData[i].candidates+'</span></p>';
                     html+= '<div class="reference-container">';
-                    html+= (adData[i].wp_identifier == 1396 ? '<p class="reference-citation">From Politifact:</p><p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.</p></div><div class="read-more-cta"><a href="'+url+'/ad/'+adData[i].archive_id+'/">Read More About this Ad</a></div>' : '');
                     html+= '</div></div></div></div>';
                     $('#most-aired-ads').append(html);
                 }
